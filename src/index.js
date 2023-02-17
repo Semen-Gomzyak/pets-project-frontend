@@ -3,11 +3,16 @@ import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import { App } from 'components/App/App';
 import './index.css';
+import { ThemeProvider } from 'styled-components';
+import {theme} from "./services/theme"
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <BrowserRouter>
+ <BrowserRouter>
+    <ThemeProvider theme={theme}>
       <App />
+    </ThemeProvider>
     </BrowserRouter>
+
   </React.StrictMode>
 );
