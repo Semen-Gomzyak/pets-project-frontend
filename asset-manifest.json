@@ -1,14 +1,16 @@
 {
   "files": {
-    "main.css": "/pets-project-frontend/static/css/main.52139333.css",
-    "main.js": "/pets-project-frontend/static/js/main.af012fc1.js",
+    "main.css": "/pets-project-frontend/static/css/main.f7787ec0.css",
+    "main.js": "/pets-project-frontend/static/js/main.406f575e.js",
+    "static/js/764.e50c3eba.chunk.js": "/pets-project-frontend/static/js/764.e50c3eba.chunk.js",
     "static/media/Manrope-Regular.ttf": "/pets-project-frontend/static/media/Manrope-Regular.25323263b2aac026e777.ttf",
     "index.html": "/pets-project-frontend/index.html",
-    "main.52139333.css.map": "/pets-project-frontend/static/css/main.52139333.css.map",
-    "main.af012fc1.js.map": "/pets-project-frontend/static/js/main.af012fc1.js.map"
+    "main.f7787ec0.css.map": "/pets-project-frontend/static/css/main.f7787ec0.css.map",
+    "main.406f575e.js.map": "/pets-project-frontend/static/js/main.406f575e.js.map",
+    "764.e50c3eba.chunk.js.map": "/pets-project-frontend/static/js/764.e50c3eba.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.52139333.css",
-    "static/js/main.af012fc1.js"
+    "static/css/main.f7787ec0.css",
+    "static/js/main.406f575e.js"
   ]
 }
