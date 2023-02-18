@@ -9,7 +9,7 @@ import 'modern-normalize';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <BrowserRouter>
+    <BrowserRouter basename="/pets-project-frontend">
       <ThemeProvider theme={theme}>
         <App />
       </ThemeProvider>

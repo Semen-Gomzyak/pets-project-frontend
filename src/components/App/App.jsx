@@ -2,6 +2,8 @@ import { Routes, Route } from 'react-router-dom';
 import { SharedLayout } from '../SharedLayout/SaredLayout';
 import { Profile } from '../Profile/Profile';
 
+
+
 export const App = () => {
   return (
     <Routes>
