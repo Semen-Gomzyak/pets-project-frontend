@@ -1,16 +1,26 @@
-import { NavLink } from 'react-router-dom';
+import { Suspense } from 'react';
+import { Outlet } from 'react-router-dom';
+import { Loader } from '../Loader/Loader';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.min.css';
+
+import { Header } from '../Header/Header';
 
 export const SharedLayout = () => {
   return (
-    <div>
-      <nav style={{ margin: '20px 0px' }}>
-        <NavLink to="/" style={{ margin: 20 }}>
-          Home
-        </NavLink>
-        <NavLink to="/profile" style={{ margin: 20 }}>
-          Profile
-        </NavLink>
-      </nav>
-    </div>
+    <>
+      <Header />
+      <Suspense
+        fallback={
+          <div>
+            Loading...
+            <Loader />
+          </div>
+        }
+      >
+        <Outlet />
+      </Suspense>
+      <ToastContainer autoClose={2000} theme="colored" />
+    </>
   );
 };
