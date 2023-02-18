@@ -16,6 +16,10 @@ export const H2 = styled.h2`
 `;
 
 export const UserInfo = styled.div`
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+
   padding: 20px 14px;
   margin-bottom: 20px;
 
@@ -27,7 +31,6 @@ export const UserInfo = styled.div`
 export const AvatarContainer = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center;
 
   margin-bottom: 35px;
   filter: drop-shadow(0px 4px 14px rgba(0, 0, 0, 0.11));
@@ -95,47 +98,7 @@ export const UserDataContainer = styled.div`
   margin-bottom: 44px;
 `;
 
-export const Form = styled.form`
-  margin-bottom: 4px;
-`;
-
-export const Label = styled.label`
-  display: inline-flex;
-  width: 62px;
-
-  font-weight: 500;
-  font-size: 12px;
-  line-height: 16px;
-`;
-
-export const Input = styled.input`
-  width: 124px;
-  border: none;
-  padding: 4px 18px;
-  font-size: 12px;
-  line-height: 16px;
-  :focus {
-    outline: none;
-    background: #fdf7f2;
-    border: 1px solid rgba(245, 146, 86, 0.5);
-    border-radius: 40px;
-  }
-`;
-
-export const InputButton = styled.button`
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  margin-left: 10px;
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  background-color: #fdf7f2;
-`;
-
-export const PetDataList = styled.section`
-  width: 240px;
-`;
+// ------------------------ PETS ------------------------
 
 export const PetsHeader = styled.div`
   display: flex;
@@ -174,13 +137,6 @@ export const PetInfo = styled.li`
   border-radius: 20px;
 `;
 
-export const PetItem = styled.li`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 250px;
-`;
-
 export const PetImgContainer = styled.div`
   width: 240px;
   height: 240px;
@@ -194,6 +150,22 @@ export const PetImgContainer = styled.div`
   margin-bottom: 20px;
 `;
 
+export const PetData = styled.div`
+  position: relative;
+  width: 240px;
+`;
+
+export const Span = styled.span`
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 22px;
+`;
+
+export const P = styled.p`
+  font-size: 14px;
+  line-height: 22px;
+`;
+
 export const DeletePetButton = styled.button`
   position: absolute;
   top: 0;
@@ -203,15 +175,4 @@ export const DeletePetButton = styled.button`
   display: inline-flex;
   justify-content: center;
   align-items: center;
-`;
-
-export const Span = styled.span`
-  font-weight: 700;
-  font-size: 14px;
-  line-height: 22px;
-`;
-
-export const PetData = styled.p`
-  font-size: 14px;
-  line-height: 22px;
 `;

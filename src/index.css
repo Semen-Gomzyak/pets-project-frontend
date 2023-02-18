@@ -1,18 +1,25 @@
 /* @import-normalize;  bring in normalize.css styles */
 @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600&family=Poppins:wght@700&display=swap');
 
+@font-face {
+  font-family: 'Manrope';
+  src: local('Manrope'), url('./fonts/Manrope-Regular.ttf') format('truetype');
+}
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Manrope',
-    'Poppins' sans-serif;
+  background-color: #fdf7f2;
+
+  font-family: -apple-system, BlinkMacSystemFont, 'Manrope', 'Segoe UI',
+    'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans',
+    'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #fdf7f2;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    'Manrope' monospace;
+    monospace;
 }
 
 h1,
@@ -45,4 +52,8 @@ button {
   height: fit-content;
   width: fit-content;
   border: none;
+}
+
+input {
+  font-family: inherit;
 }

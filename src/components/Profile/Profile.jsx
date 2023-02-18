@@ -1,5 +1,7 @@
+import React, { useState } from 'react';
+
 import { SharedLayout } from '../SharedLayout/SaredLayout';
-import { HiCamera, HiPencil, HiTrash } from 'react-icons/hi2';
+import { HiCamera, HiTrash } from 'react-icons/hi2';
 import { HiOutlineLogout } from 'react-icons/hi';
 import { BsPlusCircleFill } from 'react-icons/bs';
 import {
@@ -12,10 +14,6 @@ import {
   AvatarButton,
   EditAvatarText,
   UserDataContainer,
-  Form,
-  Label,
-  Input,
-  InputButton,
   LogOutContainer,
   LogOutButton,
   LogOutText,
@@ -24,75 +22,149 @@ import {
   AddPetButton,
   AddPetText,
   PetInfo,
-  PetDataList,
-  PetItem,
+  PetData,
   PetImgContainer,
   DeletePetButton,
   Span,
-  PetData,
+  P,
 } from './Profile.styled';
+import { UpdateForm } from './UpdateForm';
+
+import axios from 'axios';
+import userInfo from './userData.json';
+import { useEffect } from 'react';
+const userId = '63ee26069ac5b92d9b405c03';
+const userToken =
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzZWUyNjA2OWFjNWI5MmQ5YjQwNWMwMyIsImlhdCI6MTY3NjczNDc1NiwiZXhwIjoxNjc2NzM4MzU2fQ.cY8mp-APBdPYFzbmylV6HkZKkTOpncm6zRFnodMod1M';
+
+const getUserInfo = async () => {
+  try {
+    return await axios.get(
+      `http://localhost:3000/api/users/userinfo/${userId}`,
+      {
+        headers: {
+          Authorization: `Bearer ${userToken}`,
+        },
+      }
+    );
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
+const convertDate = date => {
+  const dateOptions = { day: 'numeric', month: 'numeric', year: 'numeric' };
+  const dateString = new Date(date).toLocaleDateString('en-GB', dateOptions);
+  return dateString.replaceAll('/', '.');
+};
 
 export const Profile = () => {
+  const [userData, setUserData] = useState({});
+  const [userPets, setUserPets] = useState([]);
+
+  useEffect(() => {
+    getUserInfo().then(response => {
+      setUserData({
+        email: response.data.email,
+        name: response.data.name,
+        cityRegion: response.data.cityRegion,
+        mobilePhone: response.data.mobilePhone,
+        birthday: response.data.birthday,
+      });
+
+      setUserPets(response.data.userPets);
+    });
+  }, []);
+
+  const onInputChange = event => {
+    const key = event.target.name;
+    setUserData(prevState => ({ ...prevState, [key]: event.target.value }));
+  };
+
+  const updateUserData = async event => {
+    event.preventDefault();
+    const key = event.target.getAttribute('data-field-name');
+
+    try {
+      await axios.patch(
+        `http://localhost:3000/api/users/userupdate/${userId}`,
+        { [key]: userData[key] },
+        {
+          headers: {
+            Authorization: `Bearer ${userToken}`,
+          },
+        }
+      );
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
   return (
     <>
       <SharedLayout />
       <Section>
         {/* ------------------------ USER ------------------------ */}
 
-        <div>
+        <section>
           <H2>My information:</H2>
           <UserInfo>
+            {/* -------------------- AVATAR ---------------------- */}
+
             <AvatarContainer>
-              <div style={{ width: '230px' }}>
-                <Avatar>
-                  <img src="https://i.ibb.co/rZcNXyG/photo1.jpg" alt="avatar" />
-                </Avatar>
-                <EditAvatarContainer>
-                  <AvatarButton type="button">
-                    <HiCamera size={20} color={'#F59256'} />
-                  </AvatarButton>
-                  <EditAvatarText>Edit photo</EditAvatarText>
-                </EditAvatarContainer>
-              </div>
+              <Avatar>
+                <img src={userInfo.avatarURL} alt="avatar" />
+              </Avatar>
+              <EditAvatarContainer>
+                <AvatarButton type="button">
+                  <HiCamera size={20} color={'#F59256'} />
+                </AvatarButton>
+                <EditAvatarText>Edit photo</EditAvatarText>
+              </EditAvatarContainer>
             </AvatarContainer>
 
+            {/* ------------------- USER INFO --------------------- */}
+
             <UserDataContainer>
-              <Form>
-                <Label htmlFor="">Name:</Label>
-                <Input type="text" value={'Ivan'} />
-                <InputButton type="submit">
-                  <HiPencil size={10} color={'#F59256'} />
-                </InputButton>
-              </Form>
-              <Form>
-                <Label htmlFor="">Email:</Label>
-                <Input type="text" value={'example@email.com'} />
-                <InputButton type="submit">
-                  <HiPencil size={10} color={'#F59256'} />
-                </InputButton>
-              </Form>
-              <Form>
-                <Label htmlFor="">Birthday:</Label>
-                <Input type="text" value={'11.11.2000'} />
-                <InputButton type="submit">
-                  <HiPencil size={10} color={'#F59256'} />
-                </InputButton>
-              </Form>
-              <Form>
-                <Label htmlFor="">Phone:</Label>
-                <Input type="text" value={'+3800000000'} />
-                <InputButton type="submit">
-                  <HiPencil size={10} color={'#F59256'} />
-                </InputButton>
-              </Form>
-              <Form>
-                <Label htmlFor="">City:</Label>
-                <Input type="text" value={'Lviv'} />
-                <InputButton type="submit">
-                  <HiPencil size={10} color={'#F59256'} />
-                </InputButton>
-              </Form>
+              <UpdateForm
+                name="name"
+                label="Name: "
+                value={userData.name}
+                onInputChange={onInputChange}
+                onSubmit={updateUserData}
+              />
+              <UpdateForm
+                name="email"
+                label="Email: "
+                value={userData.email}
+                onInputChange={onInputChange}
+                onSubmit={updateUserData}
+              />
+              <UpdateForm
+                name="birthday"
+                label="Birthday: "
+                value={userData.birthday}
+                onInputChange={onInputChange}
+                onSubmit={updateUserData}
+              />
+              <UpdateForm
+                name="mobilePhone"
+                label="Phone: "
+                value={userData.mobilePhone}
+                onInputChange={onInputChange}
+                onSubmit={updateUserData}
+              />
+              <UpdateForm
+                name="cityRegion"
+                label="City: "
+                value={userData.cityRegion}
+                onInputChange={onInputChange}
+                onSubmit={updateUserData}
+              />
             </UserDataContainer>
+
+            {/* ------------------- LOG OUT --------------------- */}
+
             <LogOutContainer>
               <LogOutButton type="button">
                 <HiOutlineLogout size={25} color={'#F59256'} />
@@ -100,11 +172,11 @@ export const Profile = () => {
               <LogOutText>Log Out</LogOutText>
             </LogOutContainer>
           </UserInfo>
-        </div>
+        </section>
 
-        {/* ------------------------ PETS --------------------------- */}
+        {/* ------------------------ PETS ------------------------ */}
 
-        <div>
+        <section>
           <PetsHeader>
             <H2 style={{ marginBottom: '0px' }}>My pets:</H2>
             <AddPetContainer>
@@ -114,102 +186,40 @@ export const Profile = () => {
               </AddPetButton>
             </AddPetContainer>
           </PetsHeader>
+
+          {/* ---------------------PET AVATAR --------------------- */}
+
           <ul>
-            <PetInfo>
-              <ul>
-                <PetItem>
-                  <PetImgContainer>
-                    <img
-                      src="https://i.ibb.co/rZcNXyG/photo1.jpg"
-                      alt="avatar"
-                    />
-                  </PetImgContainer>
-                  <PetDataList style={{ position: 'relative' }}>
-                    <ul>
-                      <li style={{ display: 'flex' }}>
-                        <PetData>
-                          <Span>Name: </Span>data
-                        </PetData>
-                      </li>
-                      <li style={{ display: 'flex' }}>
-                        <PetData>
-                          <Span>Date of birth: </Span>data
-                        </PetData>
-                      </li>
-                      <li style={{ display: 'flex' }}>
-                        <PetData>
-                          <Span>Breed: </Span>data
-                        </PetData>
-                      </li>
-                      <li style={{ display: 'flex' }}>
-                        <PetData>
-                          <Span>Comments: </Span> Lorem ipsum dolor sit amet
-                          consectetur adipisicing elit. Possimus distinctio quo
-                          praesentium? Repellendus debitis laborum quis natus
-                          obcaecati, soluta impedit! Obcaecati voluptatibus eos
-                          accusamus exercitationem quaerat, sequi esse veniam
-                          beatae, nesciunt ad hic illo nostrum est pariatur ex
-                          et odit?
-                        </PetData>
-                      </li>
-                    </ul>
-                    <DeletePetButton type="button">
-                      <HiTrash size={20} color={'#111111a0'} />
-                    </DeletePetButton>
-                  </PetDataList>
-                </PetItem>
-              </ul>
-            </PetInfo>
-            <PetInfo>
-              <ul>
-                <PetItem>
-                  <PetImgContainer>
-                    <img
-                      src="https://i.ibb.co/rZcNXyG/photo1.jpg"
-                      alt="avatar"
-                    />
-                  </PetImgContainer>
-                  <div style={{ position: 'relative' }}>
-                    <ul>
-                      <li style={{ display: 'flex' }}>
-                        <PetData>
-                          <Span>Name: </Span>data
-                        </PetData>
-                      </li>
-                      <li style={{ display: 'flex' }}>
-                        <PetData>
-                          <Span>Date of birth: </Span>data
-                        </PetData>
-                      </li>
-                      <li style={{ display: 'flex' }}>
-                        <PetData>
-                          <Span>Breed: </Span>data
-                        </PetData>
-                      </li>
-                      <li style={{ display: 'flex' }}>
-                        <PetData>
-                          <Span>Comments: </Span> Lorem ipsum dolor, sit amet
-                          consectetur adipisicing elit. Rem, molestias iste!
-                          Dicta totam, quam molestias consequatur saepe possimus
-                          voluptate adipisci enim eius quae perspiciatis
-                          officiis animi ullam aperiam sapiente, commodi
-                          aspernatur tempore odit ipsam nostrum ad ipsum unde!
-                          Tempora iure alias dicta, culpa illo molestias
-                          officiis labore quod at! Nostrum praesentium
-                          voluptatum iste dicta, facilis eius in porro incidunt
-                          maxime.
-                        </PetData>
-                      </li>
-                    </ul>
-                    <DeletePetButton type="button">
-                      <HiTrash size={20} color={'#111111a0'} />
-                    </DeletePetButton>
-                  </div>
-                </PetItem>
-              </ul>
-            </PetInfo>
+            {userPets.map(pet => (
+              <PetInfo key={pet._id}>
+                <PetImgContainer>
+                  <img src={pet.avatarURL} alt="avatar" />
+                </PetImgContainer>
+
+                {/* -------------- PET INFO ----------------------- */}
+
+                <PetData>
+                  <P>
+                    <Span>Name: </Span> {pet.name}
+                  </P>
+                  <P>
+                    <Span>Date of birth: </Span> {convertDate(pet.date)}
+                  </P>
+                  <P>
+                    <Span>Breed: </Span> {pet.breed}
+                  </P>
+                  <P>
+                    <Span>Comments: </Span> {pet.comments}
+                  </P>
+
+                  <DeletePetButton type="button">
+                    <HiTrash size={20} color={'#111111a0'} />
+                  </DeletePetButton>
+                </PetData>
+              </PetInfo>
+            ))}
           </ul>
-        </div>
+        </section>
       </Section>
     </>
   );
