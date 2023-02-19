@@ -43,7 +43,8 @@
     "eject": "react-scripts eject",
     "lint:js": "eslint src/**/*.{js,jsx}",
     "prepare": "husky install",
-    "lint-staged": "lint-staged"
+    "lint-staged": "lint-staged",
+    "deploy": "netlify deploy -p"
   },
   "eslintConfig": {
     "extends": [
