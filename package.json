@@ -45,7 +45,7 @@
     "prepare": "husky install",
     "lint-staged": "lint-staged",
     "predeploy": "npm run build",
-    "deploy": "netlify deploy -p"
+    "deploy": "vercel --prod"
   },
   "eslintConfig": {
     "extends": [
