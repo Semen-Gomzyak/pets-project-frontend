@@ -8,11 +8,15 @@ import { theme } from './services/theme';
 import 'modern-normalize';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
-    <BrowserRouter basename="/pets-project-frontend">
-      <ThemeProvider theme={theme}>
-        <App />
-      </ThemeProvider>
-    </BrowserRouter>
-  </React.StrictMode>
+  <>
+    <React.StrictMode>
+      <BrowserRouter basename="/pets-project-frontend">
+        <ThemeProvider theme={theme}>
+          <App />
+          {/* <div id="modal-root"></div> */}
+        </ThemeProvider>
+      </BrowserRouter>
+    </React.StrictMode>
+    <div id="modal-root"></div>
+  </>
 );

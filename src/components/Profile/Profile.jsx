@@ -35,7 +35,7 @@ import userInfo from './userData.json';
 import { useEffect } from 'react';
 const userId = '63ee26069ac5b92d9b405c03';
 const userToken =
-  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzZWUyNjA2OWFjNWI5MmQ5YjQwNWMwMyIsImlhdCI6MTY3NjczNDc1NiwiZXhwIjoxNjc2NzM4MzU2fQ.cY8mp-APBdPYFzbmylV6HkZKkTOpncm6zRFnodMod1M';
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzZWUyNjA2OWFjNWI5MmQ5YjQwNWMwMyIsImlhdCI6MTY3Njc0NjkzOCwiZXhwIjoxNjc2NzUwNTM4fQ.z6pUNBMpM3VpKv2bRRvcKOhpKIpJj99veY6PbfspZ5Q';
 
 const getUserInfo = async () => {
   try {
@@ -83,11 +83,11 @@ export const Profile = () => {
 
   const updateUserData = async event => {
     event.preventDefault();
-    const key = event.target.getAttribute('data-field-name');
+    const key = event.target.getAttribute('data-name');
 
     try {
       await axios.patch(
-        `http://localhost:3000/api/users/userupdate/${userId}`,
+        `http://localhost:3000/api/users/userinfo/${userId}`,
         { [key]: userData[key] },
         {
           headers: {
@@ -96,7 +96,7 @@ export const Profile = () => {
         }
       );
     } catch (error) {
-      console.log(error.message);
+      console.log(error);
     }
   };
 

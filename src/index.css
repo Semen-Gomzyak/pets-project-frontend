@@ -52,6 +52,7 @@ button {
   height: fit-content;
   width: fit-content;
   border: none;
+  outline: none;
 }
 
 input {
