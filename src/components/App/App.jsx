@@ -5,7 +5,9 @@ import { SharedLayout } from '../SharedLayout/SaredLayout';
 import { Profile } from '../Profile/Profile';
 
 import { HomePage } from 'pages/HomePage/HomePage';
+import  {NoticesPage}  from 'pages/NoticesPage/NoticesPage';
 import { UserNav } from 'components/UserNav/UserNav';
+import { NoticeCategoryItem } from 'components/Notices/NoticeCategoryList/NoticeCategoryItem';
 import { PublicRoute } from 'services/PublicRoute';
 import { PrivateRoute } from 'services/PrivateRoute';
 
@@ -38,6 +40,10 @@ export const App = () => {
       </Route>
 
       <Route path="/profile" element={<Profile />} />
+
+      <Route path="notices" element={<NoticesPage />}>
+
+      </Route>
     </Routes>
   );
 };
