@@ -1,7 +1,7 @@
-import { Container } from "./ContainerPage.styled"
+import { Container } from './ContainerPage.styled';
 
-export default function ContainerPage({children}) {
-  return (
-    <Container>{children}</Container>
-  )
-}
+const ContainerPage = ({ children }) => {
+  return <Container>{children}</Container>;
+};
+
+export default ContainerPage;
