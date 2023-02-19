@@ -1,10 +1,12 @@
-// import logoIcon from '';
-import { LogoImg } from './Logo.styled';
+import { LogoLink } from './Logo.styled';
+import { BlackText, OrangeText } from './LogoColorWord';
 
 export const Logo = () => {
   return (
-    <>
-      <LogoImg src="/" alt="petly" />
-    </>
+    <LogoLink to="/">
+      <BlackText>pe</BlackText>
+      <OrangeText>t</OrangeText>
+      <BlackText>ly</BlackText>
+    </LogoLink>
   );
 };
