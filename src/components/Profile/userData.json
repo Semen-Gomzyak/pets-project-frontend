@@ -1,0 +1,26 @@
+{
+  "email": "user3@email.com",
+  "name": "User-3",
+  "cityRegion": "Lviv, Ukraine",
+  "mobilePhone": "+380000000000",
+  "birthday": "30.12.1999",
+  "avatarURL": "https://i.ibb.co/rZcNXyG/photo1.jpg",
+  "userPets": [
+    {
+      "avatarURL": "https://i.ibb.co/rZcNXyG/photo1.jpg",
+      "_id": "63ededef357fb145cb974cfc",
+      "name": "Name-1",
+      "breed": "Breed-1",
+      "date": "02.10.2021",
+      "comments": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus distinctio quo praesentium? Repellendus debitis laborum quis natus obcaecati, soluta impedit! Obcaecati voluptatibus eos accusamus exercitationem quaerat, sequi esse veniam beatae, nesciunt ad hic illo nostrum est pariatur ex et odit?"
+    },
+    {
+      "avatarURL": "https://i.ibb.co/rZcNXyG/photo1.jpg",
+      "_id": "63ee4598357fb145cb974d04",
+      "name": "Name-2",
+      "breed": "Breed-2",
+      "date": "22.05.2020",
+      "comments": "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Rem, molestias iste! Dicta totam, quam molestias consequatur saepe possimus voluptate adipisci enim eius quae perspiciatis officiis animi ullam aperiam sapiente, commodi aspernatur tempore odit ipsam nostrum ad ipsum unde! Tempora iure alias dicta, culpa illo molestias officiis labore quod at! Nostrum praesentium voluptatum iste dicta, facilis eius in porro incidunt maxime."
+    }
+  ]
+}
