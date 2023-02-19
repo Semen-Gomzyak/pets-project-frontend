@@ -2,6 +2,7 @@
   "name": "pets-project-frontend",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://semen-gomzyak.github.io/pets-project-frontend/",
   "dependencies": {
     "@hookform/resolvers": "^2.9.7",
     "@reduxjs/toolkit": "^1.8.5",
@@ -10,6 +11,7 @@
     "@testing-library/user-event": "^13.5.0",
     "axios": "^0.27.2",
     "eslint": "^8.22.0",
+    "formik": "^2.2.9",
     "i18next-browser-languagedetector": "^6.1.5",
     "i18next-http-backend": "^1.4.1",
     "lint-staged": "^13.0.3",
@@ -47,26 +49,30 @@
     ]
   },
   "browserslist": {
-    "production": [">0.2%", "not dead", "not op_mini all"],
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
     "development": [
       "last 1 chrome version",
       "last 1 firefox version",
       "last 1 safari version"
     ]
   },
-    "devDependencies": {
-      "eslint": "^8.14.0",
-      "husky": "^8.0.3",
-      "lint-staged": "^12.4.1",
-      "prettier": "^2.6.2"
+  "devDependencies": {
+    "eslint": "^8.14.0",
+    "husky": "^8.0.3",
+    "lint-staged": "^12.4.1",
+    "prettier": "^2.6.2"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run lint-staged"
     },
-    "husky": {
-      "hooks": {
-        "pre-commit": "npm run lint-staged"
-      },
-      "lint-staged": {
-        "*.js": "eslint --cache --fix",
-        "*.{js,css,jsx,json,md}": "prettier --write"
-      }
+    "lint-staged": {
+      "*.js": "eslint --cache --fix",
+      "*.{js,css,jsx,json,md}": "prettier --write"
     }
+  }
 }

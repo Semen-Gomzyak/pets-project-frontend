@@ -1,0 +1,104 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  margin: 0 auto;
+  padding: 40px;
+  border: 1px solid;
+  border-color: #f2f2f2;
+
+  width: 608px;
+  height: 449px;
+  left: 80px;
+  top: 276px;
+
+  background: #ffffff;
+  box-shadow: 7px 4px 14px rgba(0, 0, 0, 0.11);
+  border-radius: 40px;
+}
+
+.label {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 5px;
+  font-family: 'Manrope';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 1.4;
+
+  display: flex;
+  align-items: center;
+  letter-spacing: 0.04em;
+
+  color: rgba(17, 17, 17, 0.6);
+}
+
+.title {
+  font-family: 'Manrope';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 36px;
+  line-height: 49px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  letter-spacing: 0.04em;
+}
+
+.input {
+  width: 200px;
+  margin-bottom: 30px;
+  padding: 8px;
+  border: 1px solid;
+  border-radius: 4px;
+  background-color: #fdf7f2;
+}
+
+.button {
+  padding: 6px 20px;
+  background-color: #f59256;
+  border: 1px solid;
+  border-radius: 4px;
+  font-family: 'Manrope';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 27px;
+  display: flex;
+  align-items: center;
+  letter-spacing: 0.04em;
+  color: #ffffff;
+}
+
+button:hover {
+  background-color: #52eb52;
+  border-color: #000000;
+}
+
+button:focus {
+  background-color: #52eb52;
+  border-color: #000000;
+}
+
+.subtext {
+  font-family: 'Manrope';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 16px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  letter-spacing: 0.04em;
+
+  color: rgba(17, 17, 17, 0.6);
+}
+
+.error {
+  color: red;
+  font-style: italic;
+  margin-left: 10px;
+}
