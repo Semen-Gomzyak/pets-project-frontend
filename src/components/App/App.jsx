@@ -6,6 +6,8 @@ import { Profile } from '../Profile/Profile';
 import { NoticesPage } from 'pages/NoticesPage/NoticesPage';
 import { HomePage } from 'pages/HomePage/HomePage';
 import { UserNav } from 'components/UserNav/UserNav';
+import { LoginPage } from 'pages/LoginPage/LoginPage';
+import { RegisterPage } from 'pages/RegisterPage/RegisterPage';
 // import { NoticeCategoryItem } from 'components/Notices/NoticeCategoryList/NoticeCategoryItem';
 import { PublicRoute } from 'services/PublicRoute';
 import { PrivateRoute } from 'services/PrivateRoute';
@@ -36,6 +38,8 @@ export const App = () => {
             </PrivateRoute>
           }
         />
+        <Route path="login" element={<LoginPage />} />
+        <Route path="register" element={<RegisterPage />} />
       </Route>
 
       <Route path="/profile" element={<Profile />} />

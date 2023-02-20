@@ -2,10 +2,12 @@ import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { toast } from 'react-toastify';
 
-const { FRONT_URL } = process.env;
+// const { FRONT_URL } = process.env;
+const backendUrl = 'http://localhost:3000/api/';
 
 export const instance = axios.create({
-  baseURL: FRONT_URL,
+  // baseURL: FRONT_URL,
+  baseURL: backendUrl,
 });
 
 const token = {

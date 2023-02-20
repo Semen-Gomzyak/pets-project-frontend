@@ -34,9 +34,9 @@ import axios from 'axios';
 import userInfo from './userData.json';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getUser } from 'redux/auth/selectors';
+import { getUser } from 'redux/Auth/selectors';
 import { getUserInfo } from 'services/api';
-import { logOut } from 'redux/auth/operations';
+import { logout } from 'redux/Auth/operations';
 import { useNavigate } from 'react-router';
 
 const convertDate = date => {
@@ -72,8 +72,8 @@ export const Profile = () => {
     });
   }, [token]);
 
-  console.log(userData);
-  console.log(userPets);
+  // console.log(userData);
+  // console.log(userPets);
 
   const onInputChange = event => {
     const key = event.target.name;
@@ -100,9 +100,9 @@ export const Profile = () => {
     }
   };
 
-  const logout = event => {
+  const logoutUser = event => {
     event.preventDefault();
-    dispatch(logOut());
+    dispatch(logout());
     navigate('/', { replace: true });
   };
 
@@ -172,7 +172,7 @@ export const Profile = () => {
             {/* ------------------- LOG OUT --------------------- */}
 
             <LogOutContainer>
-              <LogOutButton type="button" onClick={logout}>
+              <LogOutButton type="button" onClick={logoutUser}>
                 <HiOutlineLogout size={25} color={'#F59256'} />
               </LogOutButton>
               <LogOutText>Log Out</LogOutText>
