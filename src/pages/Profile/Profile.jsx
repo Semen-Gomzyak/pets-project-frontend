@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { SharedLayout } from '../SharedLayout/SaredLayout';
+import { SharedLayout } from 'components/SharedLayout/SaredLayout';
 import { HiCamera, HiTrash } from 'react-icons/hi2';
 import { HiOutlineLogout } from 'react-icons/hi';
 import { BsPlusCircleFill } from 'react-icons/bs';
@@ -28,10 +28,10 @@ import {
   Span,
   P,
 } from './Profile.styled';
-import { UpdateForm } from './UpdateForm';
+import { UserUpdateForm } from 'components/UserUpdateForm/UserUdateForm';
 
 import axios from 'axios';
-import userInfo from './userData.json';
+
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUser } from 'redux/Auth/selectors';
@@ -64,6 +64,7 @@ export const Profile = () => {
         cityRegion: response.data.cityRegion,
         mobilePhone: response.data.mobilePhone,
         birthday: response.data.birthday,
+        avatarURL: response.data.avatarURL,
       });
 
       if (response.data.pets) {
@@ -75,25 +76,13 @@ export const Profile = () => {
   // console.log(userData);
   // console.log(userPets);
 
-  const onInputChange = event => {
-    const key = event.target.name;
-    setUserData(prevState => ({ ...prevState, [key]: event.target.value }));
-  };
-
-  const updateUserData = async event => {
-    event.preventDefault();
-    const key = event.target.getAttribute('data-name');
-
+  const updateUserData = async data => {
     try {
-      await axios.put(
-        `http://localhost:3000/api/users/update`,
-        { [key]: userData[key] },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      await axios.put(`http://localhost:3000/api/users/update`, data, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
     } catch (error) {
       console.log(error.message);
       console.log(error.response.data.message);
@@ -119,7 +108,7 @@ export const Profile = () => {
 
             <AvatarContainer>
               <Avatar>
-                <img src={userInfo.avatarURL} alt="avatar" />
+                <img src={userData.avatarURL} alt="avatar" />
               </Avatar>
               <EditAvatarContainer>
                 <AvatarButton type="button">
@@ -132,41 +121,9 @@ export const Profile = () => {
             {/* ------------------- USER INFO --------------------- */}
 
             <UserDataContainer>
-              <UpdateForm
-                name="name"
-                label="Name: "
-                value={userData.name}
-                onInputChange={onInputChange}
-                onSubmit={updateUserData}
-              />
-              <UpdateForm
-                name="email"
-                label="Email: "
-                value={userData.email}
-                onInputChange={onInputChange}
-                onSubmit={updateUserData}
-              />
-              <UpdateForm
-                name="birthday"
-                label="Birthday: "
-                value={userData.birthday}
-                onInputChange={onInputChange}
-                onSubmit={updateUserData}
-              />
-              <UpdateForm
-                name="mobilePhone"
-                label="Phone: "
-                value={userData.mobilePhone}
-                onInputChange={onInputChange}
-                onSubmit={updateUserData}
-              />
-              <UpdateForm
-                name="cityRegion"
-                label="City: "
-                value={userData.cityRegion}
-                onInputChange={onInputChange}
-                onSubmit={updateUserData}
-              />
+              {Object.keys(userData).length !== 0 && (
+                <UserUpdateForm data={userData} updateData={updateUserData} />
+              )}
             </UserDataContainer>
 
             {/* ------------------- LOG OUT --------------------- */}

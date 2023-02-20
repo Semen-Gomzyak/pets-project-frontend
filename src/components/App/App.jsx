@@ -1,8 +1,8 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 
-import { SharedLayout } from '../SharedLayout/SaredLayout';
-import { Profile } from '../Profile/Profile';
+import { SharedLayout } from 'components/SharedLayout/SaredLayout';
+import { Profile } from 'pages/Profile/Profile';
 import { NoticesPage } from 'pages/NoticesPage/NoticesPage';
 import { HomePage } from 'pages/HomePage/HomePage';
 import { UserNav } from 'components/UserNav/UserNav';

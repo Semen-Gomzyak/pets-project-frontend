@@ -58,6 +58,7 @@ export const LoginPage = () => {
         <input
           type="text"
           placeholder="email"
+          name="email"
           value={credentials.email}
           onChange={onInputChange}
           style={{ marginBottom: '10px' }}
@@ -65,6 +66,7 @@ export const LoginPage = () => {
         <input
           type="text"
           placeholder="password"
+          name="password"
           value={credentials.password}
           onChange={onInputChange}
           style={{ marginBottom: '10px' }}

@@ -11,6 +11,7 @@ import { ButtonNav } from 'components/ButtonNav/ButtonNav';
 export const Navigation = () => {
   const [isButtonNavOpen, setIsButtonNavOpen] = useState(false);
   const isAuth = useSelector(getIsLoggedIn);
+
   const isDesktop = useMedia('(min-width: 1280px)');
   const isMobile = useMedia('(max-width: 767px)');
 
@@ -33,7 +34,6 @@ export const Navigation = () => {
       {!isMobile && isAuth && <UserNav />}
       {!isMobile && !isAuth && <AuthNav />}
       {!isDesktop && <OpenBtn onClick={open} />}
-
       {isButtonNavOpen && !isDesktop && <ButtonNav close={close} />}
     </>
   );
