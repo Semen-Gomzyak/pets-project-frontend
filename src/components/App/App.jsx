@@ -3,7 +3,7 @@ import { Routes, Route } from 'react-router-dom';
 
 import { SharedLayout } from '../SharedLayout/SaredLayout';
 import { Profile } from '../Profile/Profile';
-
+import OurFriends from 'pages/OurFriends';
 // import { HomePage } from 'pages/HomePage/HomePage';
 import Register from 'pages/RegisterPage/RegisterPage';
 
@@ -43,10 +43,10 @@ export const App = () => {
             </PrivateRoute>
           }
         />
+        <Route path="/friends" element={<OurFriends />} />
       </Route>
 
       <Route path="/profile" element={<Profile />} />
-
       <Route path="notices" element={<NoticesPage />}></Route>
     </Routes>
   );
