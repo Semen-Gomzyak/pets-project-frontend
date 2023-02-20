@@ -2,6 +2,13 @@ import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { Modal } from 'components/Modal/Modal';
 import { LoginForm } from 'components/LoginForm/LoginForm';
+import { Suspense } from 'react';
+import { Outlet } from 'react-router-dom';
+import { Loader } from '../Loader/Loader';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.min.css';
+
+import { Header } from '../Header/Header';
 
 export const SharedLayout = () => {
   const [showModal, setShowModal] = useState(false);
@@ -10,7 +17,7 @@ export const SharedLayout = () => {
   };
   return (
     <>
-      <div style={{ display: 'flex', width: '320px', margin: 'auto' }}>
+      {/* <div style={{ display: 'flex', width: '320px', margin: 'auto' }}>
         <nav style={{ margin: '20px 0px' }}>
           <NavLink to="/" style={{ margin: 20 }}>
             Home
@@ -31,7 +38,19 @@ export const SharedLayout = () => {
         <Modal closeModal={toggleModal}>
           <LoginForm closeModal={toggleModal} />
         </Modal>
-      )}
+      )} */}
+      <Header />
+      <Suspense
+        fallback={
+          <div>
+            Loading...
+            <Loader />
+          </div>
+        }
+      >
+        <Outlet />
+      </Suspense>
+      <ToastContainer autoClose={2000} theme="colored" />
     </>
   );
 };

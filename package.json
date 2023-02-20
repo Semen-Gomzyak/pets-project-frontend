@@ -2,7 +2,7 @@
   "name": "pets-project-frontend",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://semen-gomzyak.github.io/pets-project-frontend/",
+  "homepage": "https://pets-project-frontend.vercel.app/",
   "dependencies": {
     "@hookform/resolvers": "^2.9.7",
     "@reduxjs/toolkit": "^1.8.5",
@@ -23,12 +23,14 @@
     "react-hook-form": "^7.34.2",
     "react-i18next": "^11.18.5",
     "react-icons": "^4.7.1",
+    "react-loader-spinner": "^5.3.4",
     "react-redux": "^8.0.2",
     "react-responsive": "^9.0.0-beta.10",
     "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.1",
     "react-spinners": "^0.13.4",
-    "react-toastify": "^9.0.8",
+    "react-toastify": "^9.1.1",
+    "react-use": "^17.4.0",
     "redux": "^4.2.0",
     "redux-logger": "^3.0.6",
     "redux-persist": "^6.0.0",
@@ -42,7 +44,8 @@
     "eject": "react-scripts eject",
     "lint:js": "eslint src/**/*.{js,jsx}",
     "prepare": "husky install",
-    "lint-staged": "lint-staged"
+    "lint-staged": "lint-staged",
+    "predeploy": "npm run build"
   },
   "eslintConfig": {
     "extends": [

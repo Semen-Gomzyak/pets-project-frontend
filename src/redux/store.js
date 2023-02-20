@@ -4,6 +4,10 @@ import storage from 'redux-persist/lib/storage';
 import {
   persistStore,
   persistReducer,
+// import storage from 'redux-persist/lib/storage'; // defaults to localStorage for web
+import { authReducer } from './Auth/authSlice';
+
+import {
   FLUSH,
   REHYDRATE,
   PAUSE,
@@ -32,6 +36,20 @@ export const store = configureStore({
     auth: persistReducer(persistConfig, authReducer),
   },
   // middleware,
+
+// Persisting token field from auth slice to localstorage
+// const authPersistConfig = {
+//   key: 'auth',
+//   storage,
+//   whitelist: ['token'],
+// };
+
+export const store = configureStore({
+  reducer: {
+    auth: authReducer /*, authReducer*/,
+    // notices: noticesReduser,
+    // filter: filterreduser,
+  },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
       serializableCheck: {
@@ -42,3 +60,4 @@ export const store = configureStore({
 });
 
 export const persistor = persistStore(store);
+// export const persistor = persistStore(store);

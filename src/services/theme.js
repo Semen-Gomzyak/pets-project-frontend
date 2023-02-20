@@ -45,6 +45,6 @@ export const theme = {
   },
   fonts: {
     manrope: 'Manrope, sans-serif',
-    logo: 'Poppins, sans-serif',
+    logo: 'Pmanropeoppins, sans-serif',
   },
 };
