@@ -21,6 +21,9 @@ const Home = lazy(() =>
   }))
 );
 
+const PetsPage = lazy(() => import('../../pages/PetsPage/PetsPage'));
+
+
 export const App = () => {
   return (
     <Routes>
@@ -46,8 +49,10 @@ export const App = () => {
       </Route>
 
       <Route path="/profile" element={<Profile />} />
+      <Route path="/pets" element={<PrivateRoute component={PetsPage} redirectTo={'/login'} />}/>
 
       <Route path="notices" element={<NoticesPage />}></Route>
+
     </Routes>
   );
 };
