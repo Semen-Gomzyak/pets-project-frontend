@@ -1,7 +1,9 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
-import { logIn } from 'redux/Auth/authOperations';
-import { selectError } from 'redux/Auth/selectors';
+
+import { login } from 'redux/Auth/authOperations';
+import { selectError } from 'redux/Auth/authSelectors';
+
 import {
   Form,
   Input,
@@ -24,7 +26,9 @@ export const LoginForm = () => {
   return (
     <>
       {error && <Error>{error}</Error>}
-      <Form onSubmit={handleSubmit(data => dispatch(logIn(data)))}>
+
+      <Form onSubmit={handleSubmit(data => dispatch(login(data)))}>
+
         <LoginTitle>Login</LoginTitle>
 
         <Input
