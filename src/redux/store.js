@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 // import storage from 'redux-persist/lib/storage'; // defaults to localStorage for web
-import { authReducer } from './auth/authSlice';
+import { authReducer } from './Auth/authSlice';
 
 import {
   FLUSH,
