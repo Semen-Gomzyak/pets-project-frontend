@@ -14,7 +14,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     {/* <PersistGate loading={null} persistor={persistor}> */}
 
-    <BrowserRouter basename="/pets-project-frontend">
+    <BrowserRouter basename="/">
       <ThemeProvider theme={theme}>
         <Provider store={store}>
           <App />
