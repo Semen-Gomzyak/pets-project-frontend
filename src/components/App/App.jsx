@@ -1,8 +1,12 @@
 import React, { lazy } from 'react';
 import { Routes, Route } from 'react-router-dom';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { refreshUser } from 'redux/Auth/authOperations';
 
 import { SharedLayout } from '../SharedLayout/SaredLayout';
 import { Profile } from '../Profile/Profile';
+import { LoginForm } from 'components/LoginForm/LoginForm';
 
 // import { HomePage } from 'pages/HomePage/HomePage';
 import Register from 'pages/RegisterPage/RegisterPage';
@@ -22,6 +26,11 @@ const Home = lazy(() =>
 );
 
 export const App = () => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(refreshUser());
+  }, [dispatch]);
+
   return (
     <Routes>
       <Route path="/" element={<SharedLayout />}>
@@ -46,8 +55,10 @@ export const App = () => {
       </Route>
 
       <Route path="/profile" element={<Profile />} />
+      <Route path="/login" element={<LoginForm />} />
 
       <Route path="notices" element={<NoticesPage />}></Route>
+
     </Routes>
   );
 };
