@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useMedia } from 'react-use';
-import { selectIsAuth } from 'redux/auth/authSelectors';
+import { selectIsAuth } from 'redux/Auth/authSelectors';
 import { Nav } from 'components/Nav/Nav';
 import { AuthNav } from 'components/AuthNav/AuthNav';
 import { UserNav } from 'components/UserNav/UserNav';
