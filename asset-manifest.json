@@ -1,14 +1,29 @@
 {
   "files": {
     "main.css": "/static/css/main.20ba97ce.css",
-    "main.js": "/static/js/main.c2ea2820.js",
+    "main.js": "/static/js/main.55585763.js",
+    "static/js/812.c311593b.chunk.js": "/static/js/812.c311593b.chunk.js",
+    "static/media/BgTab@2x.png": "/static/media/BgTab@2x.707eac5ebe7449f50046.png",
+    "static/media/portraitTab@2x.webp": "/static/media/portraitTab@2x.765672722c9b1220bae8.webp",
+    "static/media/BgDesk.png": "/static/media/BgDesk.f6de14d71a3dea4a1aaf.png",
+    "static/media/portraitDesk@2x.webp": "/static/media/portraitDesk@2x.e43c1d663408fda41247.webp",
+    "static/media/BgDesk@2x.png": "/static/media/BgDesk@2x.10a8fb179bac7c400034.png",
     "static/media/Manrope-Regular.ttf": "/static/media/Manrope-Regular.25323263b2aac026e777.ttf",
+    "static/media/BgMob.png": "/static/media/BgMob.75ff8231b285e90be951.png",
+    "static/media/BgTab.png": "/static/media/BgTab.be115ad9c52f456baef9.png",
+    "static/media/portraitTab.webp": "/static/media/portraitTab.3787ecc24dcecd152591.webp",
+    "static/media/portraitMob@2x.webp": "/static/media/portraitMob@2x.953793acb2f2c2b9a4f3.webp",
+    "static/media/portraitDesk.webp": "/static/media/portraitDesk.cab4eb8ccb2ae869c2c8.webp",
+    "static/media/BgMob@2x.png": "/static/media/BgMob@2x.9f8b2c68488dcf963081.png",
+    "static/media/Heart@2x.png": "/static/media/Heart@2x.da533e4c582e040f6a6b.png",
+    "static/media/portraitMob.webp": "/static/media/portraitMob.6d9f5142557d9f20c4f3.webp",
     "index.html": "/index.html",
     "main.20ba97ce.css.map": "/static/css/main.20ba97ce.css.map",
-    "main.c2ea2820.js.map": "/static/js/main.c2ea2820.js.map"
+    "main.55585763.js.map": "/static/js/main.55585763.js.map",
+    "812.c311593b.chunk.js.map": "/static/js/812.c311593b.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.20ba97ce.css",
-    "static/js/main.c2ea2820.js"
+    "static/js/main.55585763.js"
   ]
 }
