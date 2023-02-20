@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useMedia } from 'react-use';
 
-import { selectIsAuth } from 'redux/auth/authSelectors';
+import { selectIsAuth } from 'redux/Auth/authSelectors';
 import { UserNav } from 'components/UserNav/UserNav';
 import { AuthNav } from 'components/AuthNav/AuthNav';
 import { Logo } from 'components/Logo/Logo';
