@@ -1,22 +1,25 @@
-import React from 'react';
+import React, { lazy } from 'react';
 import { Routes, Route } from 'react-router-dom';
 
 import { SharedLayout } from '../SharedLayout/SaredLayout';
 import { Profile } from '../Profile/Profile';
+
 import { HomePage } from 'pages/HomePage/HomePage';
 import Register from 'pages/RegisterPage/RegisterPage';
 
-
+import { NoticesPage } from 'pages/NoticesPage/NoticesPage';
 
 import { UserNav } from 'components/UserNav/UserNav';
+// import { NoticeCategoryItem } from 'components/Notices/NoticeCategoryList/NoticeCategoryItem';
 import { PublicRoute } from 'services/PublicRoute';
 import { PrivateRoute } from 'services/PrivateRoute';
 
-// const Home = lazy(() => import('../../pages/HomePage/HomePage')).then(
-//   module => ({ ...module, default: module.Home })
-// );
-
-// const Home = lazy(() => import('../../pages/HomePage/HomePage'));
+const Home = lazy(() =>
+  import('../../pages/HomePage/HomePage').then(module => ({
+    ...module,
+    default: module.HomePage,
+  }))
+);
 
 
 export const App = () => {
@@ -31,7 +34,7 @@ export const App = () => {
           index
           element={
             <PublicRoute>
-              <HomePage />
+              <Home />
             </PublicRoute>
           }
         />
@@ -47,6 +50,10 @@ export const App = () => {
       </Route>
 
       <Route path="/profile" element={<Profile />} />
+
+      <Route path="notices" element={<NoticesPage />}>
+
+      </Route>
     </Routes>
   );
 };
