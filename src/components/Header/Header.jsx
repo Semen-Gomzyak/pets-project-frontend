@@ -1,7 +1,17 @@
+import { Logo } from 'components/Logo/Logo';
+import { Navigation } from 'components/Navigation/Navigation';
+import { Container } from 'services/Container';
+import { HeaderDiv } from './Header.styled';
+
 export const Header = () => {
   return (
     <>
-      <div>Header component test</div>
+      <Container>
+        <HeaderDiv>
+          <Logo />
+          <Navigation />
+        </HeaderDiv>
+      </Container>
     </>
   );
 };
