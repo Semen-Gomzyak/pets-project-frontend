@@ -117,7 +117,7 @@ export const Link = styled.a`
   margin-left: 5px;
 `;
 
-export const Error = styled.error`
+export const Error = styled.p`
   color: red;
   font-style: italic;
   margin-bottom: 15px;
