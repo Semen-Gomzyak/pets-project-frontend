@@ -2,7 +2,7 @@ import React, { lazy } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { refreshUser } from 'redux/auth-operations';
+import { refreshUser } from 'redux/Auth/authOperations';
 
 import { SharedLayout } from '../SharedLayout/SaredLayout';
 import { Profile } from '../Profile/Profile';

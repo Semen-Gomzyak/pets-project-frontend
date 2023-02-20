@@ -12,7 +12,7 @@ import {
   PURGE,
   REGISTER,
 } from 'redux-persist';
-import { authReducer } from './authSlice';
+import { authReducer } from './Auth/authSlice';
 
 // Persisting token field from auth slice to localstorage
 const authPersistConfig = {
