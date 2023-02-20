@@ -8,7 +8,7 @@ import { AuthNav } from 'components/AuthNav/AuthNav';
 import { Logo } from 'components/Logo/Logo';
 import { Nav } from 'components/Nav/Nav';
 import { CloseBtn } from 'components/ButtonNav/CloseBtn';
-import { ButtonNavMenu, LogoMenu, UserMenu } from './BurgerNav.styled';
+import { ButtonNavMenu, LogoMenu, UserMenu } from './ButtonNav.styled';
 import { Container } from 'services/Container';
 
 export const ButtonNav = ({ close }) => {
