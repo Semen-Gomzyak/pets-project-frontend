@@ -15,14 +15,16 @@ import 'modern-normalize';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
-        <BrowserRouter basename="/pets-project-frontend">
-          <ThemeProvider theme={theme}>
-            <App />
-          </ThemeProvider>
-        </BrowserRouter>
-      </PersistGate>
-    </Provider>
+
+    {/* <PersistGate loading={null} persistor={persistor}> */}
+
+    <BrowserRouter basename="/">
+      <ThemeProvider theme={theme}>
+        <Provider store={store}>
+          <App />
+        </Provider>
+      </ThemeProvider>
+    </BrowserRouter>
+    {/* </PersistGate> */}
   </React.StrictMode>
 );
