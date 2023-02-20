@@ -16,18 +16,12 @@ export const Backdrop = styled.div`
 export const ModalContainer = styled.div`
   /* max-width: calc(100vw - 48px); */
   /* max-height: calc(100vh - 24px); */
-  max-width: 90vw;
-  height: 90vh;
+  /* max-width: 90vw; */
+  /* max-height: 90vh; */
+  width: 320px;
+  height: 100vh;
+  margin-top: 130px;
   display: flex;
-  align-items: center;
-`;
-
-export const ModalHeightContainer = styled.div`
-  height: 90vh;
-  /* position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%); */
-  /* display: flex;
-  align-items: center; */
+  /* align-items: center; */
+  justify-content: center;
 `;

@@ -10,7 +10,7 @@ export const SharedLayout = () => {
   };
   return (
     <>
-      <div style={{ display: 'flex' }}>
+      <div style={{ display: 'flex', width: '320px', margin: 'auto' }}>
         <nav style={{ margin: '20px 0px' }}>
           <NavLink to="/" style={{ margin: 20 }}>
             Home
@@ -29,13 +29,9 @@ export const SharedLayout = () => {
       </div>
       {showModal && (
         <Modal closeModal={toggleModal}>
-          <LoginForm />
+          <LoginForm closeModal={toggleModal} />
         </Modal>
       )}
-      {/* <Modal closeModal={toggleModal} visible={showModal}>
-        <LoginForm />
-      </Modal> */}
-      {/* <div id="modal-root"></div> */}
     </>
   );
 };

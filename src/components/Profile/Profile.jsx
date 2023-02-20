@@ -33,24 +33,11 @@ import { UpdateForm } from './UpdateForm';
 import axios from 'axios';
 import userInfo from './userData.json';
 import { useEffect } from 'react';
-const userId = '63ee26069ac5b92d9b405c03';
-const userToken =
-  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzZWUyNjA2OWFjNWI5MmQ5YjQwNWMwMyIsImlhdCI6MTY3Njc0NjkzOCwiZXhwIjoxNjc2NzUwNTM4fQ.z6pUNBMpM3VpKv2bRRvcKOhpKIpJj99veY6PbfspZ5Q';
-
-const getUserInfo = async () => {
-  try {
-    return await axios.get(
-      `http://localhost:3000/api/users/userinfo/${userId}`,
-      {
-        headers: {
-          Authorization: `Bearer ${userToken}`,
-        },
-      }
-    );
-  } catch (error) {
-    console.log(error.message);
-  }
-};
+import { useDispatch, useSelector } from 'react-redux';
+import { getUser } from 'redux/auth/selectors';
+import { getUserInfo } from 'services/api';
+import { logOut } from 'redux/auth/operations';
+import { useNavigate } from 'react-router';
 
 const convertDate = date => {
   const dateOptions = { day: 'numeric', month: 'numeric', year: 'numeric' };
@@ -59,11 +46,18 @@ const convertDate = date => {
 };
 
 export const Profile = () => {
+  const user = useSelector(getUser);
+  const token = user.token;
+
+  const dispatch = useDispatch();
+
   const [userData, setUserData] = useState({});
   const [userPets, setUserPets] = useState([]);
 
+  const navigate = useNavigate();
+
   useEffect(() => {
-    getUserInfo().then(response => {
+    getUserInfo(token).then(response => {
       setUserData({
         email: response.data.email,
         name: response.data.name,
@@ -72,9 +66,14 @@ export const Profile = () => {
         birthday: response.data.birthday,
       });
 
-      setUserPets(response.data.userPets);
+      if (response.data.pets) {
+        setUserPets(response.data.pets);
+      }
     });
-  }, []);
+  }, [token]);
+
+  console.log(userData);
+  console.log(userPets);
 
   const onInputChange = event => {
     const key = event.target.name;
@@ -86,18 +85,25 @@ export const Profile = () => {
     const key = event.target.getAttribute('data-name');
 
     try {
-      await axios.patch(
-        `http://localhost:3000/api/users/userinfo/${userId}`,
+      await axios.put(
+        `http://localhost:3000/api/users/update`,
         { [key]: userData[key] },
         {
           headers: {
-            Authorization: `Bearer ${userToken}`,
+            Authorization: `Bearer ${token}`,
           },
         }
       );
     } catch (error) {
-      console.log(error);
+      console.log(error.message);
+      console.log(error.response.data.message);
     }
+  };
+
+  const logout = event => {
+    event.preventDefault();
+    dispatch(logOut());
+    navigate('/', { replace: true });
   };
 
   return (
@@ -166,7 +172,7 @@ export const Profile = () => {
             {/* ------------------- LOG OUT --------------------- */}
 
             <LogOutContainer>
-              <LogOutButton type="button">
+              <LogOutButton type="button" onClick={logout}>
                 <HiOutlineLogout size={25} color={'#F59256'} />
               </LogOutButton>
               <LogOutText>Log Out</LogOutText>

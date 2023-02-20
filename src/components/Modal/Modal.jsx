@@ -12,7 +12,6 @@ export const Modal = ({ closeModal, children }) => {
   });
 
   const modalRoot = document.querySelector('#modal-root');
-  console.log(modalRoot);
 
   const onEscapePress = evt => {
     if (evt.code === 'Escape') {
@@ -21,7 +20,6 @@ export const Modal = ({ closeModal, children }) => {
   };
 
   const onBackdropClick = event => {
-    console.log(event.target.id);
     if (event.target.id === 'backdrop') {
       closeModal();
     }

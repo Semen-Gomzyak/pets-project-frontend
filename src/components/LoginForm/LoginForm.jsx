@@ -1,25 +1,25 @@
 import { useState } from 'react';
-import axios from 'axios';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router';
+import { logIn } from 'redux/auth/operations';
+import PropTypes from 'prop-types';
 
-export const LoginForm = () => {
+export const LoginForm = ({ closeModal }) => {
   const initCredendials = {
     email: '',
     password: '',
   };
   const [credentials, setCredentials] = useState(initCredendials);
+  const dispatch = useDispatch();
 
-  const loginUser = async event => {
+  const navigate = useNavigate();
+
+  const onLoginClick = async event => {
     event.preventDefault();
-    try {
-      const loginResponse = await axios.post(
-        `http://localhost:3000/api/users/login`,
-        credentials
-      );
-      console.log(loginResponse.data);
-      setCredentials(initCredendials);
-    } catch (error) {
-      console.log(error.message);
-    }
+    dispatch(logIn(credentials));
+    setCredentials(initCredendials);
+    closeModal();
+    navigate('/profile', { replace: true });
   };
 
   const onEmailChange = event => {
@@ -35,17 +35,16 @@ export const LoginForm = () => {
   return (
     <div
       style={{
-        width: '300px',
+        width: '320px',
         height: '200px',
         backgroundColor: '#ffffff',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        // zIndex: 1300,
       }}
     >
       <form
-        onSubmit={loginUser}
+        onSubmit={onLoginClick}
         style={{
           display: 'flex',
           flexDirection: 'column',
@@ -70,4 +69,8 @@ export const LoginForm = () => {
       </form>
     </div>
   );
+};
+
+LoginForm.propTypes = {
+  closeModal: PropTypes.func,
 };
