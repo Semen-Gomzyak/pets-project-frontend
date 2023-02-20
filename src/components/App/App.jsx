@@ -3,11 +3,10 @@ import { Routes, Route } from 'react-router-dom';
 
 import { SharedLayout } from '../SharedLayout/SaredLayout';
 import { Profile } from '../Profile/Profile';
-
+import { NoticesPage } from 'pages/NoticesPage/NoticesPage';
 import { HomePage } from 'pages/HomePage/HomePage';
-import  {NoticesPage}  from 'pages/NoticesPage/NoticesPage';
 import { UserNav } from 'components/UserNav/UserNav';
-import { NoticeCategoryItem } from 'components/Notices/NoticeCategoryList/NoticeCategoryItem';
+// import { NoticeCategoryItem } from 'components/Notices/NoticeCategoryList/NoticeCategoryItem';
 import { PublicRoute } from 'services/PublicRoute';
 import { PrivateRoute } from 'services/PrivateRoute';
 

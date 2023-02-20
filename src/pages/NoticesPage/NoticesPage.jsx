@@ -1,8 +1,8 @@
 import  ContainerPage  from 'components/Container/ContainerPage';
 
-import { NoticesSearch } from 'components/Notices/NoticesSearch/NoticesSearch';
-import { NoticesCategoryNav } from 'components/Notices/NoticeCategoryList/NoticeCategoryItem';
-import { NoticesCategoryItem } from 'components/Notices/NoticeCategoryList/NoticeCategoryItem';
+// import { NoticesSearch } from 'components/Notices/NoticesSearch/NoticesSearch';
+// import { NoticesCategoryNav } from 'components/Notices/NoticeCategoryList/NoticeCategoryItem';
+// import { NoticesCategoryItem } from 'components/Notices/NoticeCategoryList/NoticeCategoryItem';
 
 export const NoticesPage = () => {
   return (
