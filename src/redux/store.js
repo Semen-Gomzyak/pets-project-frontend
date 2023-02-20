@@ -9,8 +9,9 @@ import {
   PERSIST,
   PURGE,
   REGISTER,
-} from 'redux-persist';
+} from 'redux-persist'; 
 
+//
 // Persisting token field from auth slice to localstorage
 // const authPersistConfig = {
 //   key: 'auth',
