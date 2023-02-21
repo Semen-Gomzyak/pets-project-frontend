@@ -8,10 +8,16 @@ export const BtnMenuOpen = styled.button`
   cursor: pointer;
   margin-left: auto;
   background: transparent;
+
   @media (min-width: 768px) {
     margin-left: 25px;
   }
+
   svg {
     fill: black;
+
+    :hover {
+      fill: ${p => p.theme.colors.accent};
+    }
   }
 `;

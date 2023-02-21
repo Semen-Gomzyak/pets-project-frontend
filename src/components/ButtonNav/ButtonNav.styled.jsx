@@ -2,12 +2,13 @@ import styled from 'styled-components';
 
 export const ButtonNavMenu = styled.div`
   position: fixed;
-  z-index: 10;
+  z-index: 2;
   width: 100vw;
   height: 100vh;
   top: 0;
   right: 0;
   padding: 16px 0;
+  background: #fdf7f2;
 `;
 
 export const LogoMenu = styled.div`
