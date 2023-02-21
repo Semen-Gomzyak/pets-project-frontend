@@ -15,7 +15,6 @@ import { NotFound } from 'pages/NotFound/NotFound';
 
 import { Routes, Route } from 'react-router-dom';
 
-
 import { NoticesPage } from 'pages/NoticesPage/NoticesPage';
 
 import { UserNav } from 'components/UserNav/UserNav';
@@ -40,7 +39,6 @@ const NewsPage = lazy(() =>
 );
 
 const PetsPage = lazy(() => import('../../pages/PetsPage/PetsPage'));
-
 
 export const App = () => {
   const dispatch = useDispatch();
@@ -69,33 +67,31 @@ export const App = () => {
             </PrivateRoute>
           }
         />
-        <Route path="/login" element={<LoginPage />} />
+        {/* <Route path="/login" element={<LoginPage />} /> */}
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/friends" element={<FriendsList />} />
       </Route>
 
-        <Route path="/profile" element={<Profile />} />
+      <Route path="/profile" element={<Profile />} />
 
-        <Route path="/notices" element={<NoticesPage />}></Route>
-        <Route path="/pets" element={<PrivateRoute component={PetsPage} redirectTo={'/login'} />}/>
-        <Route
-          path="news"
-          element={
-            <PublicRoute>
-              <NewsPage />
-            </PublicRoute>
-          }
-        ></Route>
-        <Route path="*" element={<NotFound />}></Route>
+      <Route path="/notices" element={<NoticesPage />}></Route>
+      <Route
+        path="/pets"
+        element={<PrivateRoute component={PetsPage} redirectTo={'/login'} />}
+      />
+      <Route
+        path="news"
+        element={
+          <PublicRoute>
+            <NewsPage />
+          </PublicRoute>
+        }
+      ></Route>
+      <Route path="*" element={<NotFound />}></Route>
 
-        <Route path="/friends" element={<OurFriends />} />
+      <Route path="/friends" element={<OurFriends />} />
 
-      
       <Route path="/login" element={<LoginForm />} />
-
-        <Route path="/login" element={<LoginForm />} />
-
-
     </Routes>
   );
 };
