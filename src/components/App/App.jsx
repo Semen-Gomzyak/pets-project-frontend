@@ -1,4 +1,5 @@
-import React, { lazy } from 'react';
+import React, { lazy, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { Routes, Route } from 'react-router-dom';
 
 import { SharedLayout } from 'components/SharedLayout/SaredLayout';
@@ -11,6 +12,7 @@ import { RegisterPage } from 'pages/RegisterPage/RegisterPage';
 // import { NoticeCategoryItem } from 'components/Notices/NoticeCategoryList/NoticeCategoryItem';
 import { PublicRoute } from 'services/PublicRoute';
 import { PrivateRoute } from 'services/PrivateRoute';
+import FriendsList from 'components/OurFriends/FriendsList';
 
 const Home = lazy(() =>
   import('../../pages/HomePage/HomePage').then(module => ({
@@ -22,13 +24,13 @@ const Home = lazy(() =>
 export const App = () => {
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(refreshUser());
+    // dispatch(refreshUser());
   }, [dispatch]);
 
   return (
     <Routes>
       <Route path="/" element={<SharedLayout />}>
-        <Route path="/register" element={<Register />} />
+        {/* <Route path="/register" element={<Register />} /> */}
 
         <Route
           index
@@ -48,7 +50,7 @@ export const App = () => {
         />
         <Route path="login" element={<LoginPage />} />
         <Route path="register" element={<RegisterPage />} />
-        <Route path="/friends" element={<OurFriends />} />
+        <Route path="/friends" element={<FriendsList />} />
       </Route>
 
       <Route path="/profile" element={<Profile />} />

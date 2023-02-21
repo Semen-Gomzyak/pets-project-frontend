@@ -48,9 +48,16 @@ export const RegisterPage = () => {
   const onRegisterClick = async event => {
     event.preventDefault();
 
+    const isAllCredentialsPresented = () => {
+      let result = true;
+      Object.values(credentials).map(value => (result = result && value));
+      return result;
+    };
+    if (!isAllCredentialsPresented()) return;
+
     const registerCredentials = { ...credentials };
     delete registerCredentials.confirmPassword;
-    console.log(registerCredentials);
+
     dispatch(register(registerCredentials));
 
     dispatch(
@@ -64,7 +71,7 @@ export const RegisterPage = () => {
     <div
       style={{
         width: '320px',
-        height: '200px',
+        height: '260px',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',

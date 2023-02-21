@@ -19,18 +19,9 @@ export const LoginPage = () => {
     setCredentials(prevState => ({ ...prevState, [key]: event.target.value }));
   };
 
-  //   const onEmailChange = event => {
-  //     setCredentials(prevState => ({ ...prevState, email: event.target.value }));
-  //   };
-  //   const onPasswordChange = event => {
-  //     setCredentials(prevState => ({
-  //       ...prevState,
-  //       password: event.target.value,
-  //     }));
-  //   };
-
   const onLoginClick = async event => {
     event.preventDefault();
+    if (!(credentials.email && credentials.password)) return;
     dispatch(login(credentials));
     setCredentials(initCredendials);
     navigate('/profile', { replace: true });
