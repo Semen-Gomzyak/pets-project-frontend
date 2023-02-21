@@ -4,7 +4,8 @@ import { getNews } from '../../services/getNews';
 import { Loader } from '../../components/Loader/Loader';
 import { NewsList } from '../../components/NewsList/NewsList';
 import ContainerPage from '../../components/Container/ContainerPage';
-// import { SearchInput } from '../../components/SearchInput/SearchInput';
+import { SectionTitle } from '../../components/SectionTitle/SectionTitle';
+import { SearchInput } from '../../components/SearchInput/SearchInput';
 
 export const NewsPage = () => {
   const [news, setNews] = useState([]);
@@ -27,7 +28,7 @@ export const NewsPage = () => {
     fetch();
   }, []);
 
-  /* const searchNews = async query => {
+  const searchNews = async query => {
     const searchQuery = query.toLowerCase();
     const resultNews = await getNews({});
     const foundNews = resultNews.filter(
@@ -37,7 +38,7 @@ export const NewsPage = () => {
     );
     sortNewsByDate(foundNews);
   };
-*/
+
   const sortNewsByDate = array => {
     const addDateForSort = array.map(news => {
       return { ...news, dateForSort: Date.parse(new Date(news.date)) };
@@ -54,12 +55,12 @@ export const NewsPage = () => {
   return (
     <>
       <ContainerPage>
-        {/* <SectionTitle text="News" /> */}
+        <SectionTitle text="News" />
         {isLoading ? (
           <Loader />
         ) : (
           <>
-            {/* <SearchInput searchFunction={searchNews} /> */}
+            <SearchInput functionSearch={searchNews} />
             <NewsList news={news} />
           </>
         )}
