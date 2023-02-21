@@ -20,12 +20,12 @@ export const ListItem = styled.li`
     content: '';
     position: absolute;
     left: 0;
-    bottom: 0;
+    top: 0;
     width: 200px;
     height: 4px;
     border-radius: 40px;
     margin-bottom: 4px;
-    background-color: linear-gradient(90deg, #ff634e 0%, #ffdf48 105.44%);
+    background: linear-gradient(90deg, #ff634e 0%, #ffdf48 105.44%);
   }
   @media (min-width: 768px) {
     width: 335px;
