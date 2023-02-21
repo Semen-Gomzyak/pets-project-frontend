@@ -62,7 +62,9 @@ export const App = () => {
       <Route path="/profile" element={<Profile />} />
 
 
-      <Route path="notices" element={<NoticesPage />}></Route>
+      <Route path="/notices" element={<NoticesPage />}></Route>
+
+      
       <Route path="/login" element={<LoginForm />} />
 
     </Routes>
