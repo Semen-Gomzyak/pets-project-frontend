@@ -6,7 +6,7 @@ import { Profile } from '../Profile/Profile';
 
 // import { HomePage } from 'pages/HomePage/HomePage';
 import Register from 'pages/RegisterPage/RegisterPage';
-import { NewsPage } from 'pages/NewsPage/NewsPage';
+import { NotFound } from 'pages/NotFound/NotFound';
 import { NoticesPage } from 'pages/NoticesPage/NoticesPage';
 
 import { UserNav } from 'components/UserNav/UserNav';
@@ -18,6 +18,12 @@ const Home = lazy(() =>
   import('../../pages/HomePage/HomePage').then(module => ({
     ...module,
     default: module.HomePage,
+  }))
+);
+const NewsPage = lazy(() =>
+  import('../../pages/NewsPage/NewsPage').then(module => ({
+    ...module,
+    default: module.NewsPage,
   }))
 );
 
@@ -55,6 +61,7 @@ export const App = () => {
             </PublicRoute>
           }
         ></Route>
+        <Route path="*" element={<NotFound />}></Route>
       </Route>
     </Routes>
   );
