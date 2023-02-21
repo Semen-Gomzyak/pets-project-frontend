@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { SharedLayout } from '../SharedLayout/SaredLayout';
+import { SharedLayout } from 'components/SharedLayout/SaredLayout';
 import { HiCamera, HiTrash } from 'react-icons/hi2';
 import { HiOutlineLogout } from 'react-icons/hi';
 import { BsPlusCircleFill } from 'react-icons/bs';
@@ -28,29 +28,16 @@ import {
   Span,
   P,
 } from './Profile.styled';
-import { UpdateForm } from './UpdateForm';
+import { UserUpdateForm } from 'components/UserUpdateForm/UserUdateForm';
 
 import axios from 'axios';
-import userInfo from './userData.json';
-import { useEffect } from 'react';
-const userId = '63ee26069ac5b92d9b405c03';
-const userToken =
-  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzZWUyNjA2OWFjNWI5MmQ5YjQwNWMwMyIsImlhdCI6MTY3NjczNDc1NiwiZXhwIjoxNjc2NzM4MzU2fQ.cY8mp-APBdPYFzbmylV6HkZKkTOpncm6zRFnodMod1M';
 
-const getUserInfo = async () => {
-  try {
-    return await axios.get(
-      `http://localhost:3000/api/users/userinfo/${userId}`,
-      {
-        headers: {
-          Authorization: `Bearer ${userToken}`,
-        },
-      }
-    );
-  } catch (error) {
-    console.log(error.message);
-  }
-};
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { getUser } from 'redux/Auth/selectors';
+import { getUserInfo } from 'services/api';
+import { logout } from 'redux/Auth/operations';
+import { useNavigate } from 'react-router';
 
 const convertDate = date => {
   const dateOptions = { day: 'numeric', month: 'numeric', year: 'numeric' };
@@ -59,45 +46,53 @@ const convertDate = date => {
 };
 
 export const Profile = () => {
+  const user = useSelector(getUser);
+  const token = user.token;
+
+  const dispatch = useDispatch();
+
   const [userData, setUserData] = useState({});
   const [userPets, setUserPets] = useState([]);
 
+  const navigate = useNavigate();
+
   useEffect(() => {
-    getUserInfo().then(response => {
+    getUserInfo(token).then(response => {
       setUserData({
         email: response.data.email,
         name: response.data.name,
         cityRegion: response.data.cityRegion,
         mobilePhone: response.data.mobilePhone,
         birthday: response.data.birthday,
+        avatarURL: response.data.avatarURL,
       });
 
-      setUserPets(response.data.userPets);
+      if (response.data.pets) {
+        setUserPets(response.data.pets);
+      }
     });
-  }, []);
+  }, [token]);
 
-  const onInputChange = event => {
-    const key = event.target.name;
-    setUserData(prevState => ({ ...prevState, [key]: event.target.value }));
-  };
+  // console.log(userData);
+  // console.log(userPets);
 
-  const updateUserData = async event => {
-    event.preventDefault();
-    const key = event.target.getAttribute('data-field-name');
-
+  const updateUserData = async data => {
     try {
-      await axios.patch(
-        `http://localhost:3000/api/users/userupdate/${userId}`,
-        { [key]: userData[key] },
-        {
-          headers: {
-            Authorization: `Bearer ${userToken}`,
-          },
-        }
-      );
+      await axios.put(`http://localhost:3000/api/users/update`, data, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
     } catch (error) {
       console.log(error.message);
+      console.log(error.response.data.message);
     }
+  };
+
+  const logoutUser = event => {
+    event.preventDefault();
+    dispatch(logout());
+    navigate('/', { replace: true });
   };
 
   return (
@@ -113,7 +108,7 @@ export const Profile = () => {
 
             <AvatarContainer>
               <Avatar>
-                <img src={userInfo.avatarURL} alt="avatar" />
+                <img src={userData.avatarURL} alt="avatar" />
               </Avatar>
               <EditAvatarContainer>
                 <AvatarButton type="button">
@@ -126,47 +121,15 @@ export const Profile = () => {
             {/* ------------------- USER INFO --------------------- */}
 
             <UserDataContainer>
-              <UpdateForm
-                name="name"
-                label="Name: "
-                value={userData.name}
-                onInputChange={onInputChange}
-                onSubmit={updateUserData}
-              />
-              <UpdateForm
-                name="email"
-                label="Email: "
-                value={userData.email}
-                onInputChange={onInputChange}
-                onSubmit={updateUserData}
-              />
-              <UpdateForm
-                name="birthday"
-                label="Birthday: "
-                value={userData.birthday}
-                onInputChange={onInputChange}
-                onSubmit={updateUserData}
-              />
-              <UpdateForm
-                name="mobilePhone"
-                label="Phone: "
-                value={userData.mobilePhone}
-                onInputChange={onInputChange}
-                onSubmit={updateUserData}
-              />
-              <UpdateForm
-                name="cityRegion"
-                label="City: "
-                value={userData.cityRegion}
-                onInputChange={onInputChange}
-                onSubmit={updateUserData}
-              />
+              {Object.keys(userData).length !== 0 && (
+                <UserUpdateForm data={userData} updateData={updateUserData} />
+              )}
             </UserDataContainer>
 
             {/* ------------------- LOG OUT --------------------- */}
 
             <LogOutContainer>
-              <LogOutButton type="button">
+              <LogOutButton type="button" onClick={logoutUser}>
                 <HiOutlineLogout size={25} color={'#F59256'} />
               </LogOutButton>
               <LogOutText>Log Out</LogOutText>
