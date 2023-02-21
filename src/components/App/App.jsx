@@ -90,7 +90,11 @@ export const App = () => {
 
         <Route path="/friends" element={<OurFriends />} />
 
+      
+      <Route path="/login" element={<LoginForm />} />
+
         <Route path="/login" element={<LoginForm />} />
+
 
     </Routes>
   );
