@@ -39,6 +39,9 @@ const NewsPage = lazy(() =>
   }))
 );
 
+const PetsPage = lazy(() => import('../../pages/PetsPage/PetsPage'));
+
+
 export const App = () => {
   const dispatch = useDispatch();
   useEffect(() => {
@@ -66,14 +69,15 @@ export const App = () => {
             </PrivateRoute>
           }
         />
-        <Route path="login" element={<LoginPage />} />
-        <Route path="register" element={<RegisterPage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={<RegisterPage />} />
         <Route path="/friends" element={<FriendsList />} />
       </Route>
 
         <Route path="/profile" element={<Profile />} />
 
-        <Route path="notices" element={<NoticesPage />}></Route>
+        <Route path="/notices" element={<NoticesPage />}></Route>
+        <Route path="/pets" element={<PrivateRoute component={PetsPage} redirectTo={'/login'} />}/>
         <Route
           path="news"
           element={
