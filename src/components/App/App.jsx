@@ -1,9 +1,21 @@
 import React, { lazy, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
+
+import { refreshUser } from 'redux/Auth/authOperations';
+
+import { SharedLayout } from '../SharedLayout/SaredLayout';
+import { Profile } from '../Profile/Profile';
+
+import OurFriends from 'pages/OurFriends';
+
+import { LoginForm } from 'components/LoginForm/LoginForm';
+
+import Register from 'pages/RegisterPage/RegisterPage';
+import { NotFound } from 'pages/NotFound/NotFound';
+
 import { Routes, Route } from 'react-router-dom';
 
-import { SharedLayout } from 'components/SharedLayout/SaredLayout';
-import { Profile } from 'pages/Profile/Profile';
+
 import { NoticesPage } from 'pages/NoticesPage/NoticesPage';
 
 import { UserNav } from 'components/UserNav/UserNav';
@@ -18,6 +30,12 @@ const Home = lazy(() =>
   import('../../pages/HomePage/HomePage').then(module => ({
     ...module,
     default: module.HomePage,
+  }))
+);
+const NewsPage = lazy(() =>
+  import('../../pages/NewsPage/NewsPage').then(module => ({
+    ...module,
+    default: module.NewsPage,
   }))
 );
 
@@ -53,9 +71,24 @@ export const App = () => {
         <Route path="/friends" element={<FriendsList />} />
       </Route>
 
-      <Route path="/profile" element={<Profile />} />
+        <Route path="/profile" element={<Profile />} />
 
-      <Route path="notices" element={<NoticesPage />}></Route>
+        <Route path="notices" element={<NoticesPage />}></Route>
+        <Route
+          path="news"
+          element={
+            <PublicRoute>
+              <NewsPage />
+            </PublicRoute>
+          }
+        ></Route>
+        <Route path="*" element={<NotFound />}></Route>
+
+        <Route path="/friends" element={<OurFriends />} />
+
+        <Route path="/login" element={<LoginForm />} />
+      </Route>
+
     </Routes>
   );
 };
