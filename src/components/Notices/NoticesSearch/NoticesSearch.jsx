@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { SearchInput } from '../../SearchInput/SearchInput';
 
 import {
   ButtonContainer,
@@ -28,19 +29,7 @@ console.log(searchValue);
 
   return (
     <Label>
-      <Input
-        placeholder="Search"
-        onChange={e => setSearchValue(e.target.value)}
-
-        onKeyDown={onPressEnter}
-      />
-      <ButtonContainer>
-        <SearchButton
-          type="button"
-          onClick={onSearch}
-        >
-        </SearchButton>
-      </ButtonContainer>
-    </Label>
+      <SearchInput/>
+     </Label> 
   );
 };
