@@ -7,6 +7,8 @@ export const LabelSearch = styled.label`
     position: absolute;
     right: 10px;
     top: 50%;
+    width: 18px;
+    height: 18px;
     transform: translateY(-50%);
   }
   @media (min-width: 768px) {
@@ -29,6 +31,9 @@ export const InputSearch = styled.input`
   color: ${p => p.theme.colors.text.secondary};
   outline: none;
   transition: box-shadow 300ms linear;
+  :hover {
+    border: 1px solid ${p => p.theme.colors.accent};
+  }
 `;
 
 export const RemoveBtn = styled.button`
@@ -36,4 +41,7 @@ export const RemoveBtn = styled.button`
   right: 10px;
   top: 50%;
   transform: translateY(-50%);
+  svg {
+    right: 0px;
+  }
 `;

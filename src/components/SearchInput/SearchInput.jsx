@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { InputSearch, LabelSearch, RemoveBtn } from './SearchInput.styled';
+import { CiSearch, CiCircleRemove } from 'react-icons/ci';
 
 export const SearchInput = ({ functionSearch }) => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -22,9 +23,12 @@ export const SearchInput = ({ functionSearch }) => {
         value={searchQuery}
         onChange={searchHandler}
       />
+      {!searchQuery && <CiSearch />}
 
       {searchQuery && (
-        <RemoveBtn type="button" onClick={removeQuery}></RemoveBtn>
+        <RemoveBtn type="button" onClick={removeQuery}>
+          <CiCircleRemove />
+        </RemoveBtn>
       )}
     </LabelSearch>
   );
