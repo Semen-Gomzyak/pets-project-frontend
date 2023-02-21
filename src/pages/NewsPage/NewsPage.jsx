@@ -13,7 +13,6 @@ export const NewsPage = () => {
   useEffect(() => {
     async function fetch() {
       try {
-        console.log('зайшли в fetch');
         const result = await getNews({});
 
         if (result.length === 0) {

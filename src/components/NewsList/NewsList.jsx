@@ -15,10 +15,15 @@ export const NewsList = ({ news }) => {
         {news.map(({ _id, title, description, date, url }) => (
           <ListItem key={_id}>
             <div>
-              <Title>{title}</Title>
-              <Description>{description}</Description>
+              <Title>
+                {title?.length < 50 ? title : title?.slice(0, 50) + '...'}
+              </Title>
+              <Description>{description?.slice(0, 350) + '...'}</Description>
               <Info>
-                <Date>{date}</Date>
+                <Date>
+                  {date?.split('-').reverse().join('/').split('T00:00:00.000Z')}
+                </Date>
+
                 <Link
                   href={url}
                   target="_blank"
