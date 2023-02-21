@@ -7,11 +7,11 @@ import {
 } from './NoticeCategoryNav.styled';
 
 export const filterButtons = [
-  { title: 'lost/found', to: 'lost-found' },
+  { title: 'lost/found', to: 'lost_found' },
   { title: 'in good hands', to: 'for-free' },
   { title: 'sell', to: 'sell' },
   { title: 'favorite ads', to: 'favorite' },
-  { title: 'my ads', to: 'my-ads' },
+  { title: 'my ads', to: 'own' },
 ];
 
 export const NoticesCategoryNav = () =>
