@@ -13,13 +13,15 @@ export const NoticesSearch = () => {
   const dispatch = useDispatch();
 
   const onSearch = () => {
+// console.log(searchValue);
 console.log(searchValue);
   };
 
   
     const onPressEnter = e => {
       if (e.key === 'Enter') {
-        onSearch();
+        onSearch()
+
       }
       return;
     }; 
