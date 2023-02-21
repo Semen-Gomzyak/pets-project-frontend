@@ -1,9 +1,15 @@
 import React, { lazy } from 'react';
 import { Routes, Route } from 'react-router-dom';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { refreshUser } from 'redux/Auth/authOperations';
 
 import { SharedLayout } from '../SharedLayout/SaredLayout';
 import { Profile } from '../Profile/Profile';
 
+import OurFriends from 'pages/OurFriends';
+
+import { LoginForm } from 'components/LoginForm/LoginForm';
 // import { HomePage } from 'pages/HomePage/HomePage';
 import Register from 'pages/RegisterPage/RegisterPage';
 import { NotFound } from 'pages/NotFound/NotFound';
@@ -28,6 +34,11 @@ const NewsPage = lazy(() =>
 );
 
 export const App = () => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(refreshUser());
+  }, [dispatch]);
+
   return (
     <Routes>
       <Route path="/" element={<SharedLayout />}>
@@ -50,6 +61,7 @@ export const App = () => {
           }
         />
 
+
         <Route path="/profile" element={<Profile />} />
 
         <Route path="notices" element={<NoticesPage />}></Route>
@@ -62,7 +74,14 @@ export const App = () => {
           }
         ></Route>
         <Route path="*" element={<NotFound />}></Route>
+      
+        <Route path="/friends" element={<OurFriends />} />
       </Route>
+
+      
+      <Route path="/login" element={<LoginForm />} />
+
+
     </Routes>
   );
 };
