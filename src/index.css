@@ -52,8 +52,10 @@ button {
   height: fit-content;
   width: fit-content;
   border: none;
+  outline: none;
 }
 
 input {
   font-family: inherit;
+  outline: none;
 }

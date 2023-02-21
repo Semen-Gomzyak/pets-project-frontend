@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
-import { login } from 'redux/Auth/authOperations';
+import { login } from 'redux/Auth/operations';
 import PropTypes from 'prop-types';
 
-export const LoginForm = ({ closeModal }) => {
+export const LoginPage = () => {
   const initCredendials = {
     email: '',
     password: '',
@@ -14,22 +14,17 @@ export const LoginForm = ({ closeModal }) => {
 
   const navigate = useNavigate();
 
-  const onLoginClick = async event => {
-    event.preventDefault();
-    dispatch(login(credentials));
-    setCredentials(initCredendials);
-    closeModal();
-    navigate('/profile', { replace: true });
+  const onInputChange = event => {
+    const key = event.target.name;
+    setCredentials(prevState => ({ ...prevState, [key]: event.target.value }));
   };
 
-  const onEmailChange = event => {
-    setCredentials(prevState => ({ ...prevState, email: event.target.value }));
-  };
-  const onPasswordChange = event => {
-    setCredentials(prevState => ({
-      ...prevState,
-      password: event.target.value,
-    }));
+  const onLoginClick = async event => {
+    event.preventDefault();
+    if (!(credentials.email && credentials.password)) return;
+    dispatch(login(credentials));
+    setCredentials(initCredendials);
+    navigate('/profile', { replace: true });
   };
 
   return (
@@ -37,10 +32,10 @@ export const LoginForm = ({ closeModal }) => {
       style={{
         width: '320px',
         height: '200px',
-        backgroundColor: '#ffffff',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
+        margin: 'auto',
       }}
     >
       <form
@@ -54,23 +49,25 @@ export const LoginForm = ({ closeModal }) => {
         <input
           type="text"
           placeholder="email"
+          name="email"
           value={credentials.email}
-          onChange={onEmailChange}
+          onChange={onInputChange}
           style={{ marginBottom: '10px' }}
         />
         <input
           type="text"
           placeholder="password"
+          name="password"
           value={credentials.password}
-          onChange={onPasswordChange}
+          onChange={onInputChange}
           style={{ marginBottom: '10px' }}
         />
-        <button type="submit">login</button>
+        <button type="submit">Login</button>
       </form>
     </div>
   );
 };
 
-LoginForm.propTypes = {
+LoginPage.propTypes = {
   closeModal: PropTypes.func,
 };
