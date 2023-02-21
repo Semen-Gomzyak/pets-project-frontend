@@ -4,6 +4,7 @@ export const theme = {
     white: '#FFFFFF',
     accent: '#F59256',
     blue: '#3091EB',
+    hoverAccent: '#FF6101',
     text: {
       primary: '#111111',
       secondary: '#111321',

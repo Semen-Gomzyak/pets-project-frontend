@@ -26,7 +26,7 @@ export const LinkTitle = styled.a`
   font-weight: ${p => p.theme.fontWeights.bold};
   font-size: ${p => p.theme.fontSizes.xs};
   line-height: 1.33;
-  text-decoration: underline;
+  text-decoration: underline 1px;
   color: ${p => p.theme.colors.accent};
 
   transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1);
