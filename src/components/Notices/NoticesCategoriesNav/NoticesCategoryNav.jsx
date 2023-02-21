@@ -14,10 +14,8 @@ export const filterButtons = [
   { title: 'my ads', to: 'my-ads' },
 ];
 
-
 export const NoticesCategoryNav = () =>
   {
-
 
     return (
       <div
