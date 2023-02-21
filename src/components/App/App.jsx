@@ -4,9 +4,9 @@ import { Routes, Route } from 'react-router-dom';
 import { SharedLayout } from '../SharedLayout/SaredLayout';
 import { Profile } from '../Profile/Profile';
 
-import { HomePage } from 'pages/HomePage/HomePage';
+// import { HomePage } from 'pages/HomePage/HomePage';
 import Register from 'pages/RegisterPage/RegisterPage';
-
+import { NewsPage } from 'pages/NewsPage/NewsPage';
 import { NoticesPage } from 'pages/NoticesPage/NoticesPage';
 
 import { UserNav } from 'components/UserNav/UserNav';
@@ -21,14 +21,11 @@ const Home = lazy(() =>
   }))
 );
 
-
 export const App = () => {
   return (
     <Routes>
       <Route path="/" element={<SharedLayout />}>
-
-        
-        <Route path='/register' element={<Register />} />
+        <Route path="/register" element={<Register />} />
 
         <Route
           index
@@ -47,12 +44,17 @@ export const App = () => {
           }
         />
 
-      </Route>
+        <Route path="/profile" element={<Profile />} />
 
-      <Route path="/profile" element={<Profile />} />
-
-      <Route path="notices" element={<NoticesPage />}>
-
+        <Route path="notices" element={<NoticesPage />}></Route>
+        <Route
+          path="news"
+          element={
+            <PublicRoute>
+              <NewsPage />
+            </PublicRoute>
+          }
+        ></Route>
       </Route>
     </Routes>
   );
