@@ -1,58 +1,76 @@
-import { useDispatch, useSelector } from 'react-redux';
-import { useForm } from 'react-hook-form';
-
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router';
 import { login } from 'redux/Auth/authOperations';
-import { selectError } from 'redux/Auth/authSelectors';
+import PropTypes from 'prop-types';
 
-import {
-  Form,
-  Input,
-  Button,
-  LoginTitle,
-  Error,
-  Text,
-  Link,
-} from './LoginForm.styled';
-
-export const LoginForm = () => {
+export const LoginForm = ({ closeModal }) => {
+  const initCredendials = {
+    email: '',
+    password: '',
+  };
+  const [credentials, setCredentials] = useState(initCredendials);
   const dispatch = useDispatch();
-  const {
-    register: registerForm,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
-  const error = useSelector(selectError);
+
+  const navigate = useNavigate();
+
+  const onLoginClick = async event => {
+    event.preventDefault();
+    dispatch(login(credentials));
+    setCredentials(initCredendials);
+    closeModal();
+    navigate('/profile', { replace: true });
+  };
+
+  const onEmailChange = event => {
+    setCredentials(prevState => ({ ...prevState, email: event.target.value }));
+  };
+  const onPasswordChange = event => {
+    setCredentials(prevState => ({
+      ...prevState,
+      password: event.target.value,
+    }));
+  };
 
   return (
-    <>
-      {error && <Error>{error}</Error>}
-
-      <Form onSubmit={handleSubmit(data => dispatch(login(data)))}>
-
-        <LoginTitle>Login</LoginTitle>
-
-        <Input
-          placeholder="Email"
-          type="email"
-          {...registerForm('email', { required: 'Please, enter your Email' })}
+    <div
+      style={{
+        width: '320px',
+        height: '200px',
+        backgroundColor: '#ffffff',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+      }}
+    >
+      <form
+        onSubmit={onLoginClick}
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+        }}
+      >
+        <input
+          type="text"
+          placeholder="email"
+          value={credentials.email}
+          onChange={onEmailChange}
+          style={{ marginBottom: '10px' }}
         />
-        {errors.email?.message && <Error>{errors.email.message}</Error>}
-        <Input
-          placeholder="Password"
-          type="password"
-          {...registerForm('password', {
-            required: 'Please, enter your Password',
-            minLength: { value: 6, message: 'Min Length 6' },
-          })}
+        <input
+          type="text"
+          placeholder="password"
+          value={credentials.password}
+          onChange={onPasswordChange}
+          style={{ marginBottom: '10px' }}
         />
-        {errors.password?.message && <Error>{errors.password.message}</Error>}
-
-        <Button type="submit">Login</Button>
-        <Text>
-          Don't have an account?
-          <Link href="">Register</Link>
-        </Text>
-      </Form>
-    </>
+        <button type="submit">login</button>
+      </form>
+    </div>
   );
+};
+
+LoginForm.propTypes = {
+  closeModal: PropTypes.func,
 };
