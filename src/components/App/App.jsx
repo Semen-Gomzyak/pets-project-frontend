@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import { refreshUser } from 'redux/Auth/authOperations';
 
 import { SharedLayout } from '../SharedLayout/SaredLayout';
-import { Profile } from '../Profile/Profile';
+import { Profile } from 'pages/Profile/Profile';
 
 import OurFriends from 'pages/OurFriends';
 
@@ -91,7 +91,6 @@ export const App = () => {
         <Route path="/friends" element={<OurFriends />} />
 
         <Route path="/login" element={<LoginForm />} />
-      </Route>
 
     </Routes>
   );
