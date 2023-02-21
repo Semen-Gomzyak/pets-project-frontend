@@ -1,14 +1,12 @@
-
 import { useState } from 'react';
 // import './ContactFormStyles.scss';
 import shortid from 'shortid';
 import Notiflix from 'notiflix';
 
-
 import { addPets } from '../../redux/pets/petsOperations';
 import { getPets } from '../../redux/pets/petsReduser';
 
-import defaultIMG from "./default-avatar.png";
+import defaultIMG from './default-avatar.png';
 import { useDispatch, useSelector } from 'react-redux';
 
 const startState = {
@@ -22,13 +20,13 @@ const startState = {
   owner: '',
 };
 
-export default function PetForm ({onSubmit}) {
-
-  const [{name, date, breed, favorite, avatarURL, seks, owner, comments }, setState] = useState(startState);
+export default function PetForm({ onSubmit }) {
+  const [
+    { name, date, breed, favorite, avatarURL, seks, owner, comments },
+    setState,
+  ] = useState(startState);
   const pets = useSelector(getPets);
   const dispatch = useDispatch();
-
-
 
   const nameInputId = shortid.generate();
   const dateInputId = shortid.generate();
@@ -36,36 +34,37 @@ export default function PetForm ({onSubmit}) {
   const avatarURLInputId = shortid.generate();
   const commentsInputId = shortid.generate();
 
-
-
   const handleChangeName = e => {
     setState(prevState => {
-      return { ...prevState, name: e.target.value }});
-    }
-
-
-  const handleChangeDate= e => {
-    setState(prevState => {
-      return { ...prevState, date: e.target.value }});
+      return { ...prevState, name: e.target.value };
+    });
   };
 
-  const handleChangeBreed= e => {
+  const handleChangeDate = e => {
     setState(prevState => {
-      return { ...prevState, breed: e.target.value }});
+      return { ...prevState, date: e.target.value };
+    });
   };
 
-  const handleChangeAvatarURL= e => {
+  const handleChangeBreed = e => {
     setState(prevState => {
-      return { ...prevState, avatarURL: e.target.value }});
+      return { ...prevState, breed: e.target.value };
+    });
   };
 
-  const handleChangeComments= e => {
+  const handleChangeAvatarURL = e => {
     setState(prevState => {
-      return { ...prevState, comments: e.target.value }});
+      return { ...prevState, avatarURL: e.target.value };
+    });
   };
 
+  const handleChangeComments = e => {
+    setState(prevState => {
+      return { ...prevState, comments: e.target.value };
+    });
+  };
 
-  const addPat = (name, date, breed, comments, avatarURL ) => {
+  const addPat = (name, date, breed, comments, avatarURL) => {
     const newPet = {
       id: shortid.generate(),
       name,
@@ -87,121 +86,148 @@ export default function PetForm ({onSubmit}) {
     return true;
   };
 
-
-
-
   const handleSubmit = e => {
     e.preventDefault();
 
     addPat(name, date, breed, favorite, avatarURL, seks, owner, comments);
-    setState({ name: '', date: '', breed: '', favorite: '', avatarURL: defaultIMG, comments: ''});
+    setState({
+      name: '',
+      date: '',
+      breed: '',
+      favorite: '',
+      avatarURL: defaultIMG,
+      comments: '',
+    });
   };
 
+  return (
+    <div class="backdrop is-hidden" data-modal>
+      <div class="modal">
+        <a data-modal-close href=" " class="link-close">
+          <svg class="icon-close" with="18" height="18">
+            <use href="./sprite.svg#icon-close"></use>
+          </svg>
+        </a>
+        <form class="speaker-form" onSubmit={handleSubmit}>
+          <p class="group-title">Add pet</p>
+          <div class="form-field">
+            {/* <!-- На всякий случай в label нельзя вкладывать div, div можно заменить на span!!  --> */}
+            <label htmlFor={nameInputId}>Name:</label>
+            <div class="input-svg">
+              <input
+                type="text"
+                name="name"
+                value={name}
+                onChange={handleChangeName}
+                id={nameInputId}
+                autofocus
+                minlength="2"
+                placeholder="Type name pet"
+                pattern="[a-zA-zа-яА-я]+s[a-zA-Zа-яА-я]+$"
+                title="Name may contain only letters, apostrophe, dash and spaces."
+                required
+              />
+            </div>
+          </div>
 
-    return (
-      <form className="FormEditor" onSubmit={handleSubmit}>
-        <label htmlFor={nameInputId}>
-          Name:
-          <input
-            className="FormEditorName"
-            type="text"
-            name="name"
-            value={name}
-            onChange={handleChangeName}
-            id={nameInputId}
-            placeholder="Name Surname"
-            pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-            title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
-            required
-          />
-        </label>
+          <div class="form-field">
+            <label htmlFor={dateInputId}>Date of birth</label>
+            <div class="input-svg">
+              {/* <!-- Позиционировать иконки можно только относительно парных тегов!! Инпут одинарный тег --> */}
+              <input
+                type="text"
+                name="date"
+                value={date}
+                id={dateInputId}
+                onChange={handleChangeDate}
+                placeholder="Type date of birth"
+                pattern="[0-9]{3}-[0-9]{3}-[0-9]{2}-[0-9]{2}"
+                title="Date must be digits"
+                required
+              />
+            </div>
+          </div>
 
+          <div class="form-field">
+            <label htmlFor={breedInputId}>Breed</label>
+            <div class="input-svg">
+              <input
+                type="text"
+                name="breed"
+                value={breed}
+                id={breedInputId}
+                onChange={handleChangeBreed}
+                placeholder="Type breed"
+                pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
+                title="Breed may contain only letters, apostrophe, dash and spaces."
+                required
+              />
+            </div>
+          </div>
 
-        <label htmlFor={dateInputId}>
-          Date of birth:
-          <input
-            className="FormEditorNumber"
-            type="text"
-            name="date"
-            value={date}
-            onChange={handleChangeDate}
-            id={dateInputId}
-            placeholder="123-45-67"
-            pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-  .\s]?\d{1,4}[-.\s]?\d{1,9}"
-            title="Date must be digits "
-            required
-          />
-        </label>
+          <button type="submit" class="send-btn">
+            Cancel
+          </button>
+          <button type="submit" class="send-btn">
+            Next
+          </button>
 
-        <label htmlFor={breedInputId}>
-        Breed:
-          <input
-            className="FormEditorNumber"
-            type="text"
-            name="breed"
-            value={breed}
-            onChange={handleChangeBreed}
-            id={breedInputId}
-            placeholder="123-45-67"
-            pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-            title="Breed may contain only letters, apostrophe, dash and spaces."
-            required
-          />
-        </label>
+{/* ======================================= */}
 
+          <div class="form-field">
+            <label htmlFor={avatarURLInputId}>
+              Add photo and some comments
+            </label>
+            <div class="input-svg">
+              <input
+                type="image"
+                alt="image"
+                name="image"
+                value={avatarURL}
+                id={breedInputId}
+                onChange={handleChangeAvatarURL}
+                title="avatarURL may contain only image in jpg or png fotmat"
+                required
+              />
+            </div>
+          </div>
 
-        <label htmlFor={breedInputId}>
-        Add photo and some comments:
-          <input
-            className="FormEditorNumber"
-            type="image"
-            alt='image'
-            name="avatarURL"
-            value={avatarURL}
-            onChange={handleChangeAvatarURL}
-            id={avatarURLInputId}
-            placeholder="123-45-67"
-            title="avatarURL may contain only image in jpg or png fotmat, apostrophe"
-            required
-          />
-        </label>
+          <div class="form-field">
+            <label htmlFor={commentsInputId}>Comments</label>
+            <textarea
+              name="comments"
+              id={commentsInputId}
+              value={comments}
+              onChange={handleChangeComments}
+              rows="6"
+              placeholder="Type comments"
+              pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
+              title="Comments may contain only text "
+              required
+            ></textarea>
+          </div>
+          <div>
+            <button type="submit" class="send-btn">
+              Back
+            </button>
+            <button type="submit" class="send-btn">
+              Done
+            </button>
+          </div>
+        </form>
+      </div>
+      <script src="./js/modal.js"></script>
+    </div>
 
-        <label htmlFor={breedInputId}>
-        Comments
-          <input
-            className="FormEditorNumber"
-            type="text"
-            alt='comments'
-            name="comments"
-            value={comments}
-            onChange={handleChangeComments}
-            id={commentsInputId}
-            placeholder="Comments"
-            pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-            title="Comments may contain only text "
-            required
-          />
-        </label>
-
-        <button type="submit" className="FormEditor__button">
-          Add pat
-        </button>
-      </form>
-    );
+    // =====================================
+  );
 }
 
-
-
-
-
 // ===== Старая версия на классах =====
-
-
 
 // import React, { Component } from 'react';
 // import './ContactFormStyles.scss';
 // import shortid from 'shortid';
-
 
 // class ContactForm extends Component {
 //   state = {
