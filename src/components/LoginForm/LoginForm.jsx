@@ -1,9 +1,11 @@
-import { useDispatch, useSelector } from 'react-redux';
-import { useForm } from 'react-hook-form';
+import { useDispatch } from 'react-redux';
+import { Formik } from 'formik';
+import { useNavigate } from 'react-router';
+import { LoginSchema } from 'validations/LoginFormValidation';
 
-import { selectError } from 'redux/Auth/selectors';
 import {
-  Form,
+  InfoForm,
+  InputsList,
   Input,
   Button,
   LoginTitle,
@@ -11,55 +13,48 @@ import {
   Text,
   Link,
 } from './LoginForm.styled';
-import { login } from 'redux/Auth/authOperations';
+import { login } from 'redux/Auth/operations';
 
 export const LoginForm = () => {
   const dispatch = useDispatch();
-
-  const {
-    register: registerForm,
-    formState: { errors },
-  } = useForm();
-
-  const handleSubmit = e => {
-    e.preventDefault();
-    const form = e.currentTarget;
-    dispatch(
-      login({
-        email: form.elements.email.value,
-        password: form.elements.password.value,
-      })
-    );
-    form.reset();
+  const navigate = useNavigate();
+  const initialValues = {
+    email: '',
+    password: '',
   };
-  const error = useSelector(selectError);
+
+  const handleSubmit = async (values, { resetForm }) => {
+    const { payload } = await dispatch(login(values));
+
+    payload === 200
+      ? navigate('/profile', { replace: true })
+      : console.log('Something went wrong, please try again');
+    resetForm();
+  };
 
   return (
     <>
-      {error && <Error>{error}</Error>}
-      <Form onSubmit={handleSubmit}>
-        <LoginTitle>Login</LoginTitle>
-        <Input
-          placeholder="Email"
-          type="email"
-          {...registerForm('email', { required: 'Please, enter your Email' })}
-        />
-        {errors.email?.message && <Error>{errors.email.message}</Error>}
-        <Input
-          placeholder="Password"
-          type="password"
-          {...registerForm('password', {
-            required: 'Please, enter your Password',
-            minLength: { value: 6, message: 'Min Length 6' },
-          })}
-        />
-        {errors.password?.message && <Error>{errors.password.message}</Error>}
-        <Button type="submit">Login</Button>
-        <Text>
-          Don't have an account?
-          <Link href="">Register</Link>
-        </Text>
-      </Form>
+      <Formik
+        initialValues={initialValues}
+        onSubmit={handleSubmit}
+        validationSchema={LoginSchema}
+      >
+        <InfoForm autoComplete="off">
+          <LoginTitle>Login</LoginTitle>
+          <InputsList>
+            <Input placeholder="Email" type="email" name="email" />
+            <Error name="email" component="div" />
+
+            <Input placeholder="Password" type="password" name="password" />
+            <Error name="password" component="div" />
+          </InputsList>
+          <Button type="submit">Login</Button>
+          <Text>
+            Don't have an account?
+            <Link href="/register">Register</Link>
+          </Text>
+        </InfoForm>
+      </Formik>
     </>
   );
 };

@@ -67,7 +67,7 @@ export const App = () => {
             </PrivateRoute>
           }
         />
-        {/* <Route path="/login" element={<LoginPage />} /> */}
+        <Route path="/login" element={<LoginForm />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/friends" element={<FriendsList />} />
       </Route>
@@ -90,8 +90,6 @@ export const App = () => {
       <Route path="*" element={<NotFound />}></Route>
 
       <Route path="/friends" element={<OurFriends />} />
-
-      <Route path="/login" element={<LoginForm />} />
     </Routes>
   );
 };
