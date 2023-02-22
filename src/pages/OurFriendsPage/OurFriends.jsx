@@ -6,7 +6,7 @@ import { OurFriendsPage } from './OurFriends.styled';
 
 export default function OurFriends() {
   return (
-    <OurFriendsPage>
+    <OurFriendsPage style={{ paddingBottom: '15px' }}>
       <PageTitle title="Our friends" />
       <FriendsList />
     </OurFriendsPage>

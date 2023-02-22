@@ -1,7 +1,7 @@
 import { Container } from './ContainerPage.styled';
 
-const ContainerPage = ({ children }) => {
-  return <Container>{children}</Container>;
+const ContainerPage = ({ children, ...allProps }) => {
+  return <Container {...allProps}>{children} </Container>;
 };
 
 export default ContainerPage;
