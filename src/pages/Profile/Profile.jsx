@@ -30,12 +30,10 @@ import {
 } from './Profile.styled';
 import { UserUpdateForm } from 'components/UserUpdateForm/UserUdateForm';
 
-import axios from 'axios';
-
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectToken } from 'redux/Auth/selectors';
-import { getUserData, updateUserData } from 'services/api';
+import { getUserData, updateUserData } from 'services/api/user';
 import { logout } from 'redux/Auth/operations';
 import { useNavigate } from 'react-router';
 
@@ -70,9 +68,6 @@ export const Profile = () => {
       }
     });
   }, [token]);
-
-  // console.log(userData);
-  // console.log(userPets);
 
   const updateUser = (data, token) => {
     updateUserData(data, token);
@@ -112,7 +107,11 @@ export const Profile = () => {
 
             <UserDataContainer>
               {Object.keys(userData).length !== 0 && (
-                <UserUpdateForm data={userData} updateData={updateUser} />
+                <UserUpdateForm
+                  data={userData}
+                  updateData={updateUser}
+                  token={token}
+                />
               )}
             </UserDataContainer>
 
