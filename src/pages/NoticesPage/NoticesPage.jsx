@@ -25,7 +25,7 @@ export const NoticesPage = () => {
   const isLoading = useSelector(selectIsLoading);
   const error = useSelector(selectError);
 
-  console.log('notices-->', notices);
+  // console.log('notices-->', notices);
 
   useEffect(() => {
     dispatch(fetchAllNotices({ category: 'sell' }));

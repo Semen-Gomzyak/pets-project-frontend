@@ -1,7 +1,7 @@
 import { ListItem } from './NoticeCategoryItem.styled';
 
 export const NoticeCategoryItem = ({ data, route }) => {
-  console.log('notices in Item', data);
+  // console.log('notices in Item', data);
   const { _id, title, category, name, birthdate, breed, location, imgURL } =
     data;
 

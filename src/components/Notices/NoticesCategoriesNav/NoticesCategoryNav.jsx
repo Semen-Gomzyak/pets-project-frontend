@@ -17,26 +17,26 @@ export const filterButtons = [
 
 export const NoticesCategoryNav = () => {
   const tokenIsAuth = useSelector(selectToken);
+  console.log('tokenIsAuth ', tokenIsAuth);
 
   return (
     <div>
       <ButtonList>
-        {tokenIsAuth &&
-          filterButtons
-            .filter(itemBtn => (itemBtn.isAuth = true))
-            .map(({ title, to }) => (
+        {!tokenIsAuth
+          ? filterButtons
+              .filter(itemBtn => itemBtn.isAuth === true)
+              .map(filteredItem => (
+                <ButtonElement key={filteredItem.title}>
+                  <FilterButton to={filteredItem.to}>
+                    {filteredItem.title}
+                  </FilterButton>
+                </ButtonElement>
+              ))
+          : filterButtons.map(({ title, to }) => (
               <ButtonElement key={title}>
                 <FilterButton to={to}>{title}</FilterButton>
               </ButtonElement>
             ))}
-
-        {filterButtons
-          .filter(itemBtn => (itemBtn.isAuth = false))
-          .map(({ title, to }) => (
-            <ButtonElement key={title}>
-              <FilterButton to={to}>{title}</FilterButton>
-            </ButtonElement>
-          ))}
       </ButtonList>
     </div>
   );
