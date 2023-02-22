@@ -61,8 +61,8 @@ export const Profile = () => {
       setUserData({
         email: response.data.email,
         name: response.data.name,
-        cityRegion: response.data.cityRegion,
-        mobilePhone: response.data.mobilePhone,
+        city: response.data.cityRegion,
+        phone: response.data.mobilePhone,
         birthday: response.data.birthday,
         avatarURL: response.data.avatarURL,
       });
@@ -83,6 +83,7 @@ export const Profile = () => {
           Authorization: `Bearer ${token}`,
         },
       });
+      setUserData(prevState => ({ ...prevState, ...data }));
     } catch (error) {
       console.log(error.message);
       console.log(error.response.data.message);
@@ -126,7 +127,7 @@ export const Profile = () => {
               )}
             </UserDataContainer>
 
-            {/* ------------------- LOG OUT --------------------- */}
+            {/* ------------------ LOG OUT BTN --------------------- */}
 
             <LogOutContainer>
               <LogOutButton type="button" onClick={logoutUser}>
@@ -174,6 +175,8 @@ export const Profile = () => {
                   <P>
                     <Span>Comments: </Span> {pet.comments}
                   </P>
+
+                  {/* -------------DELETE PET BTN */}
 
                   <DeletePetButton type="button">
                     <HiTrash size={20} color={'#111111a0'} />
