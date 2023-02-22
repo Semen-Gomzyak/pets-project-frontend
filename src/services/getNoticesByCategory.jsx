@@ -1,10 +1,9 @@
+// const BASE_URL = 'https://pets-project-backend.onrender.com';
+const BASE_URL = process.env.REACT_APP_BASE_URL;
 
-const BASE_URL = 'https://pets-project-backend.onrender.com';
+export const getNoticesByCategory = async sell => {
+  const noticesList = await fetch(`${BASE_URL}api/notices/category/${sell}`);
 
-
-export const getNoticesByCategory = async ({ sell }) => {
-  const noticesList = await fetch(
-    `${BASE_URL}/api/notices/category/lost_found`
-  );
+  console.log('noticesList', noticesList);
   return noticesList.json();
 };
