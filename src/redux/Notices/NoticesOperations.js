@@ -42,17 +42,17 @@ export const addContact = createAsyncThunk(
     }
   }
 );
+*/
 // DELETE @ /contacts/:id
-export const removeContact = createAsyncThunk(
-  'contacts/removeContact',
-  async (contactId, { rejectWithValue }) => {
+export const removeNotice = createAsyncThunk(
+  'notices/removeNotice',
+  async (noticeId, thunkAPI) => {
     try {
-      const response = await axios.delete(`/contacts/${contactId}`);
-      return response.data;
+      const response = await axios.delete(`/notices/${noticeId}`);
+      return response.data.noticeId;
     } catch (error) {
       toast.error('something went wrong, please, try again');
-      return rejectWithValue(error.message);
+      return thunkAPI.rejectWithValue(error.message);
     }
   }
 );
-*/

@@ -1,5 +1,5 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { fetchAllNotices } from './NoticesOperations';
+import { createSlice, isAnyOf } from '@reduxjs/toolkit';
+import { fetchAllNotices, removeNotice } from './NoticesOperations';
 
 const initialState = {
   notices: [],
@@ -8,7 +8,7 @@ const initialState = {
   error: null,
 };
 
-const extraActions = [fetchAllNotices /*, addNotice, removeNotice*/];
+const extraActions = [fetchAllNotices, /* addNotice,*/ removeNotice];
 const getActions = type => extraActions.map(action => action[type]);
 
 // Case reducers
@@ -18,12 +18,11 @@ const fetchNoticesSuccessReducer = (state, { payload }) => {
 /*
 const addContactSuccessReducer = (state, { payload }) => {
   state.notices.push(payload);
+};*/
+const removeNoticeSuccessReducer = (state, { payload }) => {
+  const index = state.notices.findIndex(notice => notice.id === payload.id);
+  state.notices.splice(index, 1);
 };
-const removeContactSuccessReducer = (state, { payload }) => {
-  const index = state.items.findIndex(contact => contact.id === payload.id);
-  state.items.splice(index, 1);
-};
-*/
 
 const pendingReducer = state => {
   state.isLoading = true;
@@ -45,7 +44,7 @@ const noticesSlice = createSlice({
     builder
       .addCase(fetchAllNotices.fulfilled, fetchNoticesSuccessReducer)
       //   .addCase(addContact.fulfilled, addContactSuccessReducer)
-      //   .addCase(removeContact.fulfilled, removeContactSuccessReducer)
+      .addCase(removeNotice.fulfilled, removeNoticeSuccessReducer)
       .addMatcher(isAnyOf(...getActions('pending')), pendingReducer)
       .addMatcher(isAnyOf(...getActions('rejected')), rejectedReducer)
       .addMatcher(isAnyOf(...getActions('fulfilled')), fulfilledreducer),

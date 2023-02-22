@@ -1,47 +1,40 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
+import { useEffect } from 'react';
 
-import { getNoticesByCategory } from '../../services/getNoticesByCategory';
+import { fetchAllNotices } from '../../redux/Notices/NoticesOperations';
+import {
+  selectNotices,
+  selectError,
+  selectIsLoading,
+} from '../../redux/Notices/NoticesSelector';
+
 import { NoticesSearch } from 'components/Notices/NoticesSearch/NoticesSearch';
 import { NoticesCategoryNav } from 'components/Notices/NoticesCategoriesNav/NoticesCategoryNav';
 import { SectionTitle } from 'components/SectionTitle/SectionTitle';
 import ContainerPage from 'components/Container/ContainerPage';
-import { useEffect, useState } from 'react';
+
 import { NoticesCategoriesList } from 'components/Notices/NoticeCategoryList/NoticesCategoriesList';
+import { Loader } from 'components/Loader/Loader';
 
 export const NoticesPage = () => {
-  const [notices, setNotices] = useState([]);
-  // const [isLoading, setIsLoading] = useState(true);
   const { route } = useParams();
 
   const dispatch = useDispatch();
+  const notices = useSelector(selectNotices);
   const isLoading = useSelector(selectIsLoading);
   const error = useSelector(selectError);
 
   useEffect(() => {
-    async function fetch() {
-      try {
-        const result = await getNoticesByCategory('sell');
-
-        console.log('notices get ', result);
-        setNotices(result);
-        if (result.length === 0) {
-          throw new Error();
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    }
-    fetch();
+    dispatch(fetchAllNotices({ category: route }));
   }, [dispatch, route]);
-
-  console.log('notices-->', notices);
 
   return (
     <ContainerPage>
       <SectionTitle text={'Find your favorite pet'} />
       <NoticesSearch />
       <NoticesCategoryNav></NoticesCategoryNav>
+      {isLoading && !error && <Loader />}
       {notices?.length > 0 ? (
         <NoticesCategoriesList data={notices} route={route} />
       ) : (
