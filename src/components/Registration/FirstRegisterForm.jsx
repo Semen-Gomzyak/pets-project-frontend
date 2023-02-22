@@ -1,5 +1,6 @@
-import { ErrorMessage, Field, Form, Formik } from "formik";
+import { Formik } from "formik";
 import { RegisterFormSchema } from "validations/RegisterFormValidation";
+import { Button, Error, InfoForm, Input, InputsList, Link, RegisterTitle, Text } from "./RegisterForm.styled";
 
 export const FirstRegisterForm = ({data, onSubmit, onClick}) => {
     const initialValues = {
@@ -20,36 +21,46 @@ export const FirstRegisterForm = ({data, onSubmit, onClick}) => {
         onSubmit={handleSubmit}
       >
         {props => (
-          <Form autoComplete="off" onSubmit={props.handleSubmit}>
-            <Field
-              type="email"
-              name="email"
-              placeholder="Email"
-              value={props.values.email}
-              onChange={props.handleChange}
-            />
-            <Field
-              type="password"
-              name="password"
-              placeholder="Password"
-              value={props.values.password}
-              onChange={props.handleChange}
-            />
-            <Field
-              type="password"
-              name="confirmPassword"
-              placeholder="Confirm Password"
-              value={props.values.confirmPassword}
-              onChange={props.handleChange}
-            />
-            <button
+          <InfoForm autoComplete="off" onSubmit={props.handleSubmit}>
+            <RegisterTitle>Registration</RegisterTitle>
+            <InputsList>
+              <Input
+                type="email"
+                name="email"
+                placeholder="Email"
+                value={props.values.email}
+                onChange={props.handleChange}
+              />
+              <Error name="email" component="div" />
+              <Input
+                type="password"
+                name="password"
+                placeholder="Password"
+                value={props.values.password}
+                onChange={props.handleChange}
+              />
+              <Error name="password" component="div" />
+              <Input
+                type="password"
+                name="confirmPassword"
+                placeholder="Confirm Password"
+                value={props.values.confirmPassword}
+                onChange={props.handleChange}
+              />
+              <Error name="confirmPassword" component="div" />
+            </InputsList>
+
+            <Button
               type="submit"
               disabled={!onClick ? false : true}
-              // onClick={onClick}
             >
               Next
-            </button>
-          </Form>
+            </Button>
+            <Text>
+              Already have an account?
+              <Link href="/login">Login</Link>
+            </Text>
+          </InfoForm>
         )}
       </Formik>
     );
