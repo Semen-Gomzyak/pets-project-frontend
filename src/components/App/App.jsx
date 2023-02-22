@@ -10,7 +10,6 @@ import OurFriends from 'pages/OurFriends';
 
 import { LoginForm } from 'components/LoginForm/LoginForm';
 
-import Register from 'pages/RegisterPage/RegisterPage';
 import { NotFound } from 'pages/NotFound/NotFound';
 
 import { Routes, Route } from 'react-router-dom';
@@ -18,7 +17,7 @@ import { Routes, Route } from 'react-router-dom';
 import { NoticesPage } from 'pages/NoticesPage/NoticesPage';
 
 import { UserNav } from 'components/UserNav/UserNav';
-import { RegisterPage } from 'pages/RegisterPage/RegisterPage';
+import { RegisterForm } from 'components/Registration/RegisterForm';
 // import { NoticeCategoryItem } from 'components/Notices/NoticeCategoryList/NoticeCategoryItem';
 import { PublicRoute } from 'services/PublicRoute';
 import { PrivateRoute } from 'services/PrivateRoute';
@@ -67,7 +66,7 @@ export const App = () => {
           }
         />
         <Route path="/login" element={<LoginForm />} />
-        <Route path="/register" element={<RegisterPage />} />
+        <Route path="/register" element={<RegisterForm />} />
         <Route path="/friends" element={<FriendsList />} />
 
         <Route path="/profile" element={<Profile />} />
