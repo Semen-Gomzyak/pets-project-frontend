@@ -25,10 +25,9 @@ export const LoginForm = () => {
   };
 
   const handleSubmit = async (values, { resetForm }) => {
-    const { email, password } = values;
-     await dispatch(login(email, password));
+    const response = await dispatch(login(values));
 
-    islogin
+    response.payload.status === 200
       ? navigate('/profile', { replace: true })
       : console.log('Something went wrong, please try again');
     resetForm();
