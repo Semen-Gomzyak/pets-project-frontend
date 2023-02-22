@@ -4,12 +4,11 @@ import { register, login, logout, refreshUser } from './operations';
 const authSlise = createSlice({
   name: 'auth',
   initialState: {
-    user: {
-      _id: null,
-      token: null,
-    },
-    isLoggedIn: false,
-    isRefreshing: false,
+     user: { name: null, email: null, password: null, city: null, phone: null },
+  _id: null,
+  token: null,
+  isLoggedIn: false,
+  isRefreshing: false,
   },
 
   extraReducers: builder => {

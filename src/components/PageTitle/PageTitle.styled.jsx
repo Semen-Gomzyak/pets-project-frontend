@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 export const TitlePage = styled.h2`
+  padding-top: 70px;
   margin-bottom: 28px;
   text-align: center;
   font-style: 24px;
