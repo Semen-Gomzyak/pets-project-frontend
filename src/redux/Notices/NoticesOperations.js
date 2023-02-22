@@ -9,14 +9,12 @@ const DEFAULT_LIMIT = 8;
 export const fetchAllNotices = createAsyncThunk(
   'notices/fetchAllNotices',
   //деструктуруємо перший параметр
-  async (
-    { category, qwery = '', page = 1, limit = DEFAULT_LIMIT },
-    thunkAPI
-  ) => {
+  async ({ category, page = 1, limit = DEFAULT_LIMIT }, thunkAPI) => {
     try {
       const response = await axios.get(
-        `/notices/category/${category}?page=${page}&limit=${limit}&qwery=${qwery}`
+        `/notices/category/${category}?page=${page}&limit=${limit}`
       );
+      console.log('notices.data', response.data);
       // При успешном запросе возвращаем промис с данными
       return response.data;
     } catch (error) {

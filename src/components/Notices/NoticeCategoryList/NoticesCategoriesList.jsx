@@ -1,14 +1,14 @@
-// import { NoticeCategoryItem } from './NoticeCategoryItem';
+import { NoticeCategoryItem } from './NoticeCategoryItem';
 import { ListNotices } from './NoticesCategoriesList.styled';
 
-export const NoticesCategoriesList = ({ data, route }) => {
-  console.log('notices', data);
+export const NoticesCategoriesList = ({ data, route = 'sell' }) => {
+  console.log('notices in List', data);
   return (
     <>
       <ListNotices>
-        {/* {data.map(item => (
+        {data.map(item => (
           <NoticeCategoryItem key={item._id} data={item} route={route} />
-        ))} */}
+        ))}
       </ListNotices>
     </>
   );
