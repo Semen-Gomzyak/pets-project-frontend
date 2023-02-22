@@ -6,8 +6,6 @@ import { refreshUser } from 'redux/Auth/operations';
 import { SharedLayout } from '../SharedLayout/SaredLayout';
 import { Profile } from 'pages/Profile/Profile';
 
-import OurFriends from 'pages/OurFriends';
-
 import { LoginForm } from 'components/LoginForm/LoginForm';
 
 // import Register from 'pages/RegisterPage/RegisterPage';
@@ -22,7 +20,8 @@ import { RegisterPage } from 'pages/RegisterPage/RegisterPage';
 // import { NoticeCategoryItem } from 'components/Notices/NoticeCategoryList/NoticeCategoryItem';
 import { PublicRoute } from 'services/PublicRoute';
 import { PrivateRoute } from 'services/PrivateRoute';
-import FriendsList from 'components/OurFriends/FriendsList';
+
+import OurFriends from 'pages/OurFriendsPage/OurFriends';
 
 const Home = lazy(() =>
   import('../../pages/HomePage/HomePage').then(module => ({
@@ -68,27 +67,26 @@ export const App = () => {
         />
         <Route path="/login" element={<LoginForm />} />
         <Route path="/register" element={<RegisterPage />} />
-        <Route path="/friends" element={<FriendsList />} />
-
-        <Route path="/profile" element={<Profile />} />
-
-        <Route path="/notices" element={<NoticesPage />}></Route>
-        <Route
-          path="/pets"
-          element={<PrivateRoute component={PetsPage} redirectTo={'/login'} />}
-        />
-        <Route
-          path="news"
-          element={
-            <PublicRoute>
-              <NewsPage />
-            </PublicRoute>
-          }
-        ></Route>
-        <Route path="*" element={<NotFound />}></Route>
-
         <Route path="/friends" element={<OurFriends />} />
       </Route>
+
+      <Route path="/profile" element={<Profile />} />
+
+      <Route path="/notices" element={<NoticesPage />}></Route>
+      <Route
+        path="/pets"
+        element={<PrivateRoute component={PetsPage} redirectTo={'/login'} />}
+      />
+      <Route
+        path="news"
+        element={
+          <PublicRoute>
+            <NewsPage />
+          </PublicRoute>
+        }
+      ></Route>
+      <Route path="*" element={<NotFound />}></Route>
+
     </Routes>
   );
 };
