@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { style } from 'styled-system';
 // import theme from 'services/theme'
 
 export const Backdrop = styled.div`
@@ -10,7 +9,6 @@ export const Backdrop = styled.div`
   height: 100vh;
   display: flex;
   justify-content: center;
-  align-items: center;
   background-color: rgba(0, 0, 0, 0.3);
   z-index: 1200;
 `;
