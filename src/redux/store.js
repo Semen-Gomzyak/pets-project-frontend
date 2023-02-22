@@ -26,15 +26,16 @@ const persistConfig = {
 export const store = configureStore({
   reducer: {
     auth: persistReducer(persistConfig, authReducer),
-  contact: petsReducer,
-  filter: filterReducer,
-  },middleware(getDefaultMiddleware) {
+    contact: petsReducer,
+    filter: filterReducer,
+  }, middleware(getDefaultMiddleware) {
 
-  return getDefaultMiddleware({
-    serializableCheck: {
-      ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
-    },
-  });
+    return getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+      },
+    });
+  }
 });
 
 

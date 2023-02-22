@@ -4,13 +4,13 @@ import { useDispatch } from 'react-redux';
 import { refreshUser } from 'redux/Auth/authOperations';
 
 import { SharedLayout } from '../SharedLayout/SaredLayout';
-import { Profile } from '../Profile/Profile';
+import { Profile } from 'pages/Profile/Profile';
 
 import OurFriends from 'pages/OurFriends';
 
 import { LoginForm } from 'components/LoginForm/LoginForm';
 
-import Register from 'pages/RegisterPage/RegisterPage';
+// import Register from 'pages/RegisterPage/RegisterPage';
 import { NotFound } from 'pages/NotFound/NotFound';
 
 import { Routes, Route } from 'react-router-dom';
@@ -19,7 +19,6 @@ import { Routes, Route } from 'react-router-dom';
 import { NoticesPage } from 'pages/NoticesPage/NoticesPage';
 
 import { UserNav } from 'components/UserNav/UserNav';
-import { LoginPage } from 'pages/LoginPage/LoginPage';
 import { RegisterPage } from 'pages/RegisterPage/RegisterPage';
 // import { NoticeCategoryItem } from 'components/Notices/NoticeCategoryList/NoticeCategoryItem';
 import { PublicRoute } from 'services/PublicRoute';
@@ -69,7 +68,7 @@ export const App = () => {
             </PrivateRoute>
           }
         />
-        <Route path="/login" element={<LoginPage />} />
+        <Route path="/login" element={<LoginForm />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/friends" element={<FriendsList />} />
       </Route>
@@ -89,9 +88,6 @@ export const App = () => {
         <Route path="*" element={<NotFound />}></Route>
 
         <Route path="/friends" element={<OurFriends />} />
-
-        <Route path="/login" element={<LoginForm />} />
-      </Route>
 
     </Routes>
   );
