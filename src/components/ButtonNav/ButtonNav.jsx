@@ -2,17 +2,17 @@ import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useMedia } from 'react-use';
 
-import { selectIsAuth } from 'redux/Auth/authSelectors';
+import { getIsLoggedIn } from 'redux/Auth/selectors';
 import { UserNav } from 'components/UserNav/UserNav';
 import { AuthNav } from 'components/AuthNav/AuthNav';
 import { Logo } from 'components/Logo/Logo';
 import { Nav } from 'components/Nav/Nav';
 import { CloseBtn } from 'components/ButtonNav/CloseBtn';
-import { ButtonNavMenu, LogoMenu, UserMenu } from './BurgerNav.styled';
+import { ButtonNavMenu, LogoMenu, UserMenu } from './ButtonNav.styled';
 import { Container } from 'services/Container';
 
 export const ButtonNav = ({ close }) => {
-  const isAuth = useSelector(selectIsAuth);
+  const isAuth = useSelector(getIsLoggedIn);
   const isMobile = useMedia('(max-width: 767px)');
   useEffect(() => {
     document.body.style.overflow = 'hidden';

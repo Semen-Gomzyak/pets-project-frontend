@@ -1,11 +1,11 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { useForm } from 'react-hook-form';
-
-import { login } from 'redux/Auth/authOperations';
-import { selectError } from 'redux/Auth/authSelectors';
-
+import { Formik } from 'formik';
+import { useNavigate } from 'react-router';
+import { LoginSchema } from 'validations/LoginFormValidation';
+import {getIsLoggedIn} from '../../redux/Auth/selectors'
 import {
-  Form,
+  InfoForm,
+  InputsList,
   Input,
   Button,
   LoginTitle,
@@ -13,46 +13,49 @@ import {
   Text,
   Link,
 } from './LoginForm.styled';
+import { login } from 'redux/Auth/operations';
 
 export const LoginForm = () => {
   const dispatch = useDispatch();
-  const {
-    register: registerForm,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
-  const error = useSelector(selectError);
+  const navigate = useNavigate();
+  const islogin = useSelector(getIsLoggedIn);
+  const initialValues = {
+    email: '',
+    password: '',
+  };
+
+  const handleSubmit = async (values, { resetForm }) => {
+    const response = await dispatch(login(values));
+    
+    response.payload.status === 200
+      ? navigate('/profile', { replace: true })
+      : console.log('Something went wrong, please try again');
+    resetForm();
+  };
 
   return (
     <>
-      {error && <Error>{error}</Error>}
+      <Formik
+        initialValues={initialValues}
+        onSubmit={handleSubmit}
+        validationSchema={LoginSchema}
+      >
+        <InfoForm autoComplete="off">
+          <LoginTitle>Login</LoginTitle>
+          <InputsList>
+            <Input placeholder="Email" type="email" name="email" />
+            <Error name="email" component="div" />
 
-      <Form onSubmit={handleSubmit(data => dispatch(login(data)))}>
-
-        <LoginTitle>Login</LoginTitle>
-
-        <Input
-          placeholder="Email"
-          type="email"
-          {...registerForm('email', { required: 'Please, enter your Email' })}
-        />
-        {errors.email?.message && <Error>{errors.email.message}</Error>}
-        <Input
-          placeholder="Password"
-          type="password"
-          {...registerForm('password', {
-            required: 'Please, enter your Password',
-            minLength: { value: 6, message: 'Min Length 6' },
-          })}
-        />
-        {errors.password?.message && <Error>{errors.password.message}</Error>}
-
-        <Button type="submit">Login</Button>
-        <Text>
-          Don't have an account?
-          <Link href="">Register</Link>
-        </Text>
-      </Form>
+            <Input placeholder="Password" type="password" name="password" />
+            <Error name="password" component="div" />
+          </InputsList>
+          <Button type="submit">Login</Button>
+          <Text>
+            Don't have an account?
+            <Link href="/register">Register</Link>
+          </Text>
+        </InfoForm>
+      </Formik>
     </>
   );
 };

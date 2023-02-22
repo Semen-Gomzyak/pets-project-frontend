@@ -1,7 +1,11 @@
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useMedia } from 'react-use';
-import { selectIsAuth } from 'redux/Auth/authSelectors';
+
+// -------------------------------------------------------
+import { getIsLoggedIn } from 'redux/Auth/selectors';
+// -------------------------------------------------------
+
 import { Nav } from 'components/Nav/Nav';
 import { AuthNav } from 'components/AuthNav/AuthNav';
 import { UserNav } from 'components/UserNav/UserNav';
@@ -10,7 +14,11 @@ import { ButtonNav } from 'components/ButtonNav/ButtonNav';
 
 export const Navigation = () => {
   const [isButtonNavOpen, setIsButtonNavOpen] = useState(false);
-  const isAuth = useSelector(selectIsAuth);
+
+  // ---------------------------------------------
+  const isAuth = useSelector(getIsLoggedIn);
+  // ---------------------------------------------
+
   const isDesktop = useMedia('(min-width: 1280px)');
   const isMobile = useMedia('(max-width: 767px)');
 
@@ -30,7 +38,7 @@ export const Navigation = () => {
   return (
     <>
       {isDesktop && <Nav />}
-      {!isMobile && isAuth && <UserNav />}
+      {isMobile && isAuth && <UserNav />}
       {!isMobile && !isAuth && <AuthNav />}
       {!isDesktop && <OpenBtn onClick={open} />}
 

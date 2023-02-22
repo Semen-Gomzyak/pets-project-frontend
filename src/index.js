@@ -16,10 +16,12 @@ import 'modern-normalize';
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     {/* <PersistGate loading={null} persistor={persistor}> */}
-    <BrowserRouter basename="/">
+
+    <BrowserRouter>
       <ThemeProvider theme={theme}>
         <Provider store={store}>
           <App />
+          <div id="modal-root"></div>
         </Provider>
       </ThemeProvider>
     </BrowserRouter>
