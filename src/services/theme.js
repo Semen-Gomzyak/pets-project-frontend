@@ -8,7 +8,7 @@ export const theme = {
     background: '#FDF7F2',
     blue: '#3091EB',
     gradient: 'linear-gradient(90deg, #FF634E 0%, #FFDF48 105.44%)',
-    
+
     text: {
       primary: '#111111',
       secondary: '#111321',
@@ -51,6 +51,7 @@ export const theme = {
     card: '7px 4px 14px rgba(49, 21, 4, 0.07)',
     modal: '7px 4px 14px rgba(0, 0, 0, 0.11)',
     time: '4px 4px 8px rgba(0, 0, 0, 0.25)',
+    button: '0px 4px 4px rgba(0, 0, 0, 0.25)',
   },
   fonts: {
     manrope: 'Manrope, sans-serif',
@@ -64,9 +65,4 @@ export const theme = {
   },
 
   transition: '0.2s all linear',
-
-}
-
-
-
-
+};
