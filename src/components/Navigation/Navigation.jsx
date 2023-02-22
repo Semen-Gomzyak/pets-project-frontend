@@ -39,6 +39,7 @@ export const Navigation = () => {
     <>
       {isDesktop && <Nav />}
       {isMobile && isAuth && <UserNav />}
+      {!isMobile && isAuth && <UserNav />}
       {!isMobile && !isAuth && <AuthNav />}
       {!isDesktop && <OpenBtn onClick={open} />}
 
