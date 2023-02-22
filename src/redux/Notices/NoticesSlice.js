@@ -48,8 +48,17 @@ const noticesSlice = createSlice({
       .addMatcher(isAnyOf(...getActions('pending')), pendingReducer)
       .addMatcher(isAnyOf(...getActions('rejected')), rejectedReducer)
       .addMatcher(isAnyOf(...getActions('fulfilled')), fulfilledreducer),
+  reducers: {
+    clearNotices(state, { payload }) {
+      state.notices = payload;
+    },
+    changeFavotitesNotices(state, { payload }) {
+      state.notices = state.notices.filter(notice => notice._id !== payload);
+    },
+  },
 });
 
 // Редюсер слайса
 const noticesReducer = noticesSlice.reducer;
 export default noticesReducer;
+export const { clearNotices, changeFavotitesNotices } = noticesSlice.actions;

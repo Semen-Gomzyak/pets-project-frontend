@@ -8,6 +8,7 @@ import {
   selectError,
   selectNoticesIsLoading,
 } from '../../redux/Notices/NoticesSelector';
+import { clearNotices } from '../../redux/Notices/NoticesSlice';
 
 import { NoticesSearch } from 'components/Notices/NoticesSearch/NoticesSearch';
 import { NoticesCategoryNav } from 'components/Notices/NoticesCategoriesNav/NoticesCategoryNav';
@@ -36,6 +37,7 @@ export const NoticesPage = () => {
     } else {
       dispatch(fetchAllNotices({ category: route }));
     }
+    return () => dispatch(clearNotices([]));
   }, [dispatch, route, searchQweryTitle]);
 
   const onSearch = searchQuery => {
