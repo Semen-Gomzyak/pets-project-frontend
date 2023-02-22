@@ -1,7 +1,7 @@
 import React, { lazy, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { refreshUser } from 'redux/Auth/authOperations';
+import { refreshUser } from 'redux/Auth/operations';
 
 import { SharedLayout } from '../SharedLayout/SaredLayout';
 import { Profile } from 'pages/Profile/Profile';
@@ -18,7 +18,6 @@ import { Routes, Route } from 'react-router-dom';
 import { NoticesPage } from 'pages/NoticesPage/NoticesPage';
 
 import { UserNav } from 'components/UserNav/UserNav';
-import { LoginPage } from 'pages/LoginPage/LoginPage';
 import { RegisterPage } from 'pages/RegisterPage/RegisterPage';
 // import { NoticeCategoryItem } from 'components/Notices/NoticeCategoryList/NoticeCategoryItem';
 import { PublicRoute } from 'services/PublicRoute';

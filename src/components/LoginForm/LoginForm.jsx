@@ -1,8 +1,8 @@
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Formik } from 'formik';
 import { useNavigate } from 'react-router';
 import { LoginSchema } from 'validations/LoginFormValidation';
-
+import {getIsLoggedIn} from '../../redux/Auth/selectors'
 import {
   InfoForm,
   InputsList,
@@ -18,15 +18,17 @@ import { login } from 'redux/Auth/operations';
 export const LoginForm = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const islogin = useSelector(getIsLoggedIn);
   const initialValues = {
     email: '',
     password: '',
   };
 
   const handleSubmit = async (values, { resetForm }) => {
-    const { payload } = await dispatch(login(values));
+    const { email, password } = values;
+     await dispatch(login(email, password));
 
-    payload === 200
+    islogin
       ? navigate('/profile', { replace: true })
       : console.log('Something went wrong, please try again');
     resetForm();
