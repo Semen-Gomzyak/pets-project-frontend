@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const Card = styled.article`
-  width: 280px;
+  max-width: 100%;
   padding: 14px 4px 12px;
   background-color: ${p => p.theme.colors.white};
   border-radius: 20px;
