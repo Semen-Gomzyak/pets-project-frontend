@@ -90,7 +90,6 @@ export const Link = styled.a`
   font-size: 16px;
   line-height: calc(22 / 16);
   color: ${p => p.theme.colors.accent};
-  :hover {
-    width: 100%;
-  }
+  :hover, :focus {
+    color: ${p => p.theme.colors.accentDark};
 `;

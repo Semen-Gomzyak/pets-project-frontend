@@ -1,10 +1,12 @@
-export const NoticeCategoryItem = ({ data }) => {
+import { ListItem } from './NoticeCategoryItem.styled';
+
+export const NoticeCategoryItem = ({ data, route }) => {
   console.log('notices in Item', data);
   const { _id, title, category, name, birthdate, breed, location, imgURL } =
     data;
 
   return (
-    <li>
+    <ListItem>
       <p>{category}</p>
       <img src={imgURL} alt={name} />
       <p>{title}</p>
@@ -20,9 +22,11 @@ export const NoticeCategoryItem = ({ data }) => {
         </li>
         <li key={`${_id}+age`}>
           <p>Age:</p>
-          <p>{birthdate}</p>
+          <p>
+            {birthdate?.split('-').reverse().join('/').split('T23:00:00.000Z')}
+          </p>
         </li>
       </ul>
-    </li>
+    </ListItem>
   );
 };
