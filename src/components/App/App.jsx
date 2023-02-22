@@ -10,7 +10,7 @@ import OurFriends from 'pages/OurFriends';
 
 import { LoginForm } from 'components/LoginForm/LoginForm';
 
-import Register from 'pages/RegisterPage/RegisterPage';
+// import Register from 'pages/RegisterPage/RegisterPage';
 import { NotFound } from 'pages/NotFound/NotFound';
 
 import { Routes, Route } from 'react-router-dom';
