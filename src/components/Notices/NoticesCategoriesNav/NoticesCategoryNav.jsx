@@ -1,5 +1,6 @@
 import { useSelector } from 'react-redux';
 import { selectToken } from '../../../redux/Auth/selectors';
+import { useParams } from 'react-router-dom';
 
 import {
   ButtonElement,
@@ -17,7 +18,8 @@ export const filterButtons = [
 
 export const NoticesCategoryNav = () => {
   const tokenIsAuth = useSelector(selectToken);
-  console.log('tokenIsAuth ', tokenIsAuth);
+  const { categoryName } = useParams();
+  // console.log('tokenIsAuth ', tokenIsAuth);
 
   return (
     <div>
@@ -27,7 +29,18 @@ export const NoticesCategoryNav = () => {
               .filter(itemBtn => itemBtn.isAuth === true)
               .map(filteredItem => (
                 <ButtonElement key={filteredItem.title}>
-                  <FilterButton to={filteredItem.to}>
+                  <FilterButton
+                    to={filteredItem.to}
+                    className={
+                      categoryName === 'sell' ||
+                      categoryName === 'lost-found' ||
+                      categoryName === 'for-free' ||
+                      categoryName === 'favorite' ||
+                      categoryName === 'own'
+                        ? 'active'
+                        : ''
+                    }
+                  >
                     {filteredItem.title}
                   </FilterButton>
                 </ButtonElement>

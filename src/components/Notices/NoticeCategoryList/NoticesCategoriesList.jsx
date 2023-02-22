@@ -3,8 +3,9 @@
 import { NoticeCategoryItem } from './NoticeCategoryItem';
 import { ListNotices } from './NoticesCategoriesList.styled';
 
-export const NoticesCategoriesList = ({ data, route = 'sell' }) => {
-  // console.log('notices in List', data);
+export const NoticesCategoriesList = ({ data, route }) => {
+  console.log('notices in List', data);
+  console.log('route in List', route);
   // const notices = useSelector(selectNotices);
   // console.log('notices in List', notices);
 
