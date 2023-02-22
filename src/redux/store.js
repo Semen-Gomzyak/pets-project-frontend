@@ -1,8 +1,14 @@
+
 import { configureStore } from '@reduxjs/toolkit';
-// import storage from 'redux-persist/lib/storage'; // defaults to localStorage for web
-import { authReducer } from './Auth/authSlice';
+import storage from 'redux-persist/lib/storage';
+import { authReducer } from './Auth/slice';
+import { petsReducer } from './pets/petsReduser';
+import { filterReducer } from './filterSlice';
+// import persistReducer from 'redux-persist/es/persistReducer';
 
 import {
+  persistStore,
+  persistReducer,
   FLUSH,
   REHYDRATE,
   PAUSE,
@@ -11,26 +17,29 @@ import {
   REGISTER,
 } from 'redux-persist';
 
-// Persisting token field from auth slice to localstorage
-// const authPersistConfig = {
-//   key: 'auth',
-//   storage,
-//   whitelist: ['token'],
-// };
+const persistConfig = {
+  key: 'auth',
+  storage,
+  whitelist: ['token'],
+};
 
 export const store = configureStore({
   reducer: {
-    auth: authReducer /*, authReducer*/,
-    // notices: noticesReduser,
-    // filter: filterreduser,
-  },
-  middleware: getDefaultMiddleware =>
-    getDefaultMiddleware({
+    auth: persistReducer(persistConfig, authReducer),
+    contact: petsReducer,
+    filter: filterReducer,
+  }, middleware(getDefaultMiddleware) {
+
+    return getDefaultMiddleware({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-    }),
-  devTools: process.env.NODE_ENV === 'development',
-});
+    });
+  }
+})
+
+
+export const persistor = persistStore(store);
 
 // export const persistor = persistStore(store);
+
