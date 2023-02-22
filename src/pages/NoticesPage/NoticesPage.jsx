@@ -35,7 +35,7 @@ export const NoticesPage = () => {
     <ContainerPage>
       <SectionTitle text={'Find your favorite pet'} />
       <NoticesSearch />
-      <NoticesCategoryNav></NoticesCategoryNav>
+      <NoticesCategoryNav />
       {isLoading && !error && <Loader />}
       {notices?.length > 0 ? (
         <NoticesCategoriesList data={notices} route={route} />
