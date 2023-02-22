@@ -56,6 +56,7 @@ export const UserUpdateForm = ({ data, updateData }) => {
           <Input
             type="text"
             name={inputName}
+            id={inputName}
             value={userInfo[inputName]}
             onChange={onInputChange}
           />
