@@ -1,76 +1,61 @@
-import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { Formik } from 'formik';
 import { useNavigate } from 'react-router';
-import { login } from 'redux/Auth/authOperations';
-import PropTypes from 'prop-types';
+import { LoginSchema } from 'validations/LoginFormValidation';
+import {getIsLoggedIn} from '../../redux/Auth/selectors'
+import {
+  InfoForm,
+  InputsList,
+  Input,
+  Button,
+  LoginTitle,
+  Error,
+  Text,
+  Link,
+} from './LoginForm.styled';
+import { login } from 'redux/Auth/operations';
 
-export const LoginForm = ({ closeModal }) => {
-  const initCredendials = {
+export const LoginForm = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const islogin = useSelector(getIsLoggedIn);
+  const initialValues = {
     email: '',
     password: '',
   };
-  const [credentials, setCredentials] = useState(initCredendials);
-  const dispatch = useDispatch();
 
-  const navigate = useNavigate();
-
-  const onLoginClick = async event => {
-    event.preventDefault();
-    dispatch(login(credentials));
-    setCredentials(initCredendials);
-    closeModal();
-    navigate('/profile', { replace: true });
-  };
-
-  const onEmailChange = event => {
-    setCredentials(prevState => ({ ...prevState, email: event.target.value }));
-  };
-  const onPasswordChange = event => {
-    setCredentials(prevState => ({
-      ...prevState,
-      password: event.target.value,
-    }));
+  const handleSubmit = async (values, { resetForm }) => {
+    const response = await dispatch(login(values));
+    
+    response.payload.status === 200
+      ? navigate('/profile', { replace: true })
+      : console.log('Something went wrong, please try again');
+    resetForm();
   };
 
   return (
-    <div
-      style={{
-        width: '320px',
-        height: '200px',
-        backgroundColor: '#ffffff',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-      }}
-    >
-      <form
-        onSubmit={onLoginClick}
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-        }}
+    <>
+      <Formik
+        initialValues={initialValues}
+        onSubmit={handleSubmit}
+        validationSchema={LoginSchema}
       >
-        <input
-          type="text"
-          placeholder="email"
-          value={credentials.email}
-          onChange={onEmailChange}
-          style={{ marginBottom: '10px' }}
-        />
-        <input
-          type="text"
-          placeholder="password"
-          value={credentials.password}
-          onChange={onPasswordChange}
-          style={{ marginBottom: '10px' }}
-        />
-        <button type="submit">login</button>
-      </form>
-    </div>
-  );
-};
+        <InfoForm autoComplete="off">
+          <LoginTitle>Login</LoginTitle>
+          <InputsList>
+            <Input placeholder="Email" type="email" name="email" />
+            <Error name="email" component="div" />
 
-LoginForm.propTypes = {
-  closeModal: PropTypes.func,
+            <Input placeholder="Password" type="password" name="password" />
+            <Error name="password" component="div" />
+          </InputsList>
+          <Button type="submit">Login</Button>
+          <Text>
+            Don't have an account?
+            <Link href="/register">Register</Link>
+          </Text>
+        </InfoForm>
+      </Formik>
+    </>
+  );
 };

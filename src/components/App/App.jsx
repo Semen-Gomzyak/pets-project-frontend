@@ -1,7 +1,7 @@
 import React, { lazy, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { refreshUser } from 'redux/Auth/authOperations';
+import { refreshUser } from 'redux/Auth/operations';
 
 import { SharedLayout } from '../SharedLayout/SaredLayout';
 import { Profile } from 'pages/Profile/Profile';
@@ -14,7 +14,6 @@ import { LoginForm } from 'components/LoginForm/LoginForm';
 import { NotFound } from 'pages/NotFound/NotFound';
 
 import { Routes, Route } from 'react-router-dom';
-
 
 import { NoticesPage } from 'pages/NoticesPage/NoticesPage';
 
@@ -39,7 +38,6 @@ const NewsPage = lazy(() =>
 );
 
 const PetsPage = lazy(() => import('../../pages/PetsPage/PetsPage'));
-
 
 export const App = () => {
   const dispatch = useDispatch();
@@ -71,12 +69,14 @@ export const App = () => {
         <Route path="/login" element={<LoginForm />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/friends" element={<FriendsList />} />
-      </Route>
 
         <Route path="/profile" element={<Profile />} />
 
         <Route path="/notices" element={<NoticesPage />}></Route>
-        <Route path="/pets" element={<PrivateRoute component={PetsPage} redirectTo={'/login'} />}/>
+        <Route
+          path="/pets"
+          element={<PrivateRoute component={PetsPage} redirectTo={'/login'} />}
+        />
         <Route
           path="news"
           element={
@@ -88,7 +88,7 @@ export const App = () => {
         <Route path="*" element={<NotFound />}></Route>
 
         <Route path="/friends" element={<OurFriends />} />
-
+      </Route>
     </Routes>
   );
 };
