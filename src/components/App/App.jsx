@@ -47,8 +47,6 @@ export const App = () => {
   return (
     <Routes>
       <Route path="/" element={<SharedLayout />}>
-        <Route path="/register" element={<RegisterPage />} />
-
         <Route
           index
           element={
@@ -68,25 +66,24 @@ export const App = () => {
         <Route path="/login" element={<LoginForm />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/friends" element={<OurFriends />} />
+
+        <Route path="/profile" element={<Profile />} />
+
+        <Route path="/notices" element={<NoticesPage />}></Route>
+        <Route
+          path="/pets"
+          element={<PrivateRoute component={PetsPage} redirectTo={'/login'} />}
+        />
+        <Route
+          path="news"
+          element={
+            <PublicRoute>
+              <NewsPage />
+            </PublicRoute>
+          }
+        ></Route>
+        <Route path="*" element={<NotFound />}></Route>
       </Route>
-
-      <Route path="/profile" element={<Profile />} />
-
-      <Route path="/notices" element={<NoticesPage />}></Route>
-      <Route
-        path="/pets"
-        element={<PrivateRoute component={PetsPage} redirectTo={'/login'} />}
-      />
-      <Route
-        path="news"
-        element={
-          <PublicRoute>
-            <NewsPage />
-          </PublicRoute>
-        }
-      ></Route>
-      <Route path="*" element={<NotFound />}></Route>
-
     </Routes>
   );
 };
