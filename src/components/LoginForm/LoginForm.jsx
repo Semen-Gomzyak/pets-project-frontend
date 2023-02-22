@@ -2,7 +2,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Formik } from 'formik';
 import { useNavigate } from 'react-router';
 import { LoginSchema } from 'validations/LoginFormValidation';
-import {getIsLoggedIn} from '../../redux/Auth/selectors'
+import { getIsLoggedIn } from '../../redux/Auth/selectors';
+import { useLocation } from 'react-router-dom';
+
 import {
   InfoForm,
   InputsList,
@@ -24,9 +26,11 @@ export const LoginForm = () => {
     password: '',
   };
 
+  const location = useLocation();
+
   const handleSubmit = async (values, { resetForm }) => {
     const response = await dispatch(login(values));
-    
+
     response.payload.status === 200
       ? navigate('/profile', { replace: true })
       : console.log('Something went wrong, please try again');
@@ -52,7 +56,9 @@ export const LoginForm = () => {
           <Button type="submit">Login</Button>
           <Text>
             Don't have an account?
-            <Link href="/register">Register</Link>
+            <Link to={'/register'} state={{ from: location }}>
+              Register
+            </Link>
           </Text>
         </InfoForm>
       </Formik>

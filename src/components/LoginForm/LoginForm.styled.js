@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { Form, Field, ErrorMessage } from 'formik';
+import { NavLink } from 'react-router-dom';
 
 export const InfoForm = styled(Form)`
   display: flex;
@@ -108,7 +109,7 @@ export const Text = styled.p`
   margin-top: 40px;
 `;
 
-export const Link = styled.a`
+export const Link = styled(NavLink)`
   font-family: 'Manrope';
   font-style: normal;
   font-weight: 400;
@@ -119,6 +120,7 @@ export const Link = styled.a`
   text-align: center;
   letter-spacing: 0.04em;
   text-decoration-line: underline;
+  cursor: pointer;
 
   color: #3091eb;
   margin-left: 5px;
