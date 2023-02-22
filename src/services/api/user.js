@@ -17,7 +17,7 @@ export const getUserData = async token => {
 
 export const updateUserData = async (data, token) => {
   try {
-    await axios.put(`http://localhost:3000/api/users/update`, data, {
+    await axios.put(`/users/update`, data, {
       headers: {
         Authorization: `Bearer ${token}`,
       },

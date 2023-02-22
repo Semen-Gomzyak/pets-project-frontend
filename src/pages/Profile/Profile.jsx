@@ -36,6 +36,7 @@ import { selectToken } from 'redux/Auth/selectors';
 import { getUserData, updateUserData } from 'services/api/user';
 import { logout } from 'redux/Auth/operations';
 import { useNavigate } from 'react-router';
+import { Modal } from 'components/Modal/Modal';
 
 const convertDate = date => {
   const dateOptions = { day: 'numeric', month: 'numeric', year: 'numeric' };
@@ -49,6 +50,7 @@ export const Profile = () => {
 
   const [userData, setUserData] = useState({});
   const [userPets, setUserPets] = useState([]);
+  const [showModal, setShowModal] = useState(false);
 
   const navigate = useNavigate();
 
@@ -68,6 +70,10 @@ export const Profile = () => {
       }
     });
   }, [token]);
+
+  const toggleModal = () => {
+    setShowModal(prevState => !prevState);
+  };
 
   const updateUser = (data, token) => {
     updateUserData(data, token);
@@ -133,7 +139,7 @@ export const Profile = () => {
             <H2 style={{ marginBottom: '0px' }}>My pets:</H2>
             <AddPetContainer>
               <AddPetText>Add Pet</AddPetText>
-              <AddPetButton type="button">
+              <AddPetButton type="button" onClick={toggleModal}>
                 <BsPlusCircleFill size={40} color={'#F59256'} />
               </AddPetButton>
             </AddPetContainer>
@@ -175,6 +181,11 @@ export const Profile = () => {
           </ul>
         </section>
       </Section>
+      {showModal && (
+        <Modal closeModal={toggleModal}>
+          <div>MODAL</div>
+        </Modal>
+      )}
     </>
   );
 };

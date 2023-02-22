@@ -1,4 +1,6 @@
 import styled from 'styled-components';
+import { style } from 'styled-system';
+// import theme from 'services/theme'
 
 export const Backdrop = styled.div`
   position: fixed;
@@ -18,10 +20,25 @@ export const ModalContainer = styled.div`
   /* max-height: calc(100vh - 24px); */
   /* max-width: 90vw; */
   /* max-height: 90vh; */
-  width: 320px;
-  height: 100vh;
-  margin-top: 130px;
+  width: 280px;
+  height: fit-content;
+  margin-top: 160px;
+  padding: 20px;
+  border-radius: 20px;
+  background-color: #ffffff;
   display: flex;
-  /* align-items: center; */
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
+`;
+
+export const CloseBtn = styled.button`
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background-color: #fdf7f2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: auto;
 `;

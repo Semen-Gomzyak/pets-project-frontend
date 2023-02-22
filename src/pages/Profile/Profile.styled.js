@@ -122,6 +122,10 @@ export const AddPetButton = styled.button`
   justify-content: center;
   align-items: center;
   background: none;
+
+  :hover {
+    cursor: pointer;
+  }
 `;
 
 export const AddPetText = styled.span`

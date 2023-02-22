@@ -1,7 +1,8 @@
 import { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { createPortal } from 'react-dom';
-import { Backdrop, ModalContainer } from './Modal.styled';
+import { Backdrop, ModalContainer, CloseBtn } from './Modal.styled';
+import { MdClose } from 'react-icons/md';
 
 export const Modal = ({ closeModal, children }) => {
   useEffect(() => {
@@ -13,8 +14,8 @@ export const Modal = ({ closeModal, children }) => {
 
   const modalRoot = document.querySelector('#modal-root');
 
-  const onEscapePress = evt => {
-    if (evt.code === 'Escape') {
+  const onEscapePress = event => {
+    if (event.code === 'Escape') {
       closeModal();
     }
   };
@@ -27,7 +28,14 @@ export const Modal = ({ closeModal, children }) => {
 
   return createPortal(
     <Backdrop onClick={onBackdropClick} id="backdrop">
-      <ModalContainer>{children}</ModalContainer>
+      <ModalContainer>
+        <>
+          <CloseBtn type="button" onClick={closeModal}>
+            <MdClose size={25} color="#111111" />
+          </CloseBtn>
+          {children}
+        </>
+      </ModalContainer>
     </Backdrop>,
     modalRoot
   );
