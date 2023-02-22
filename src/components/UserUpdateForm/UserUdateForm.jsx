@@ -1,4 +1,6 @@
 import { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import { selectToken } from 'redux/Auth/selectors';
 
 import { HiPencil } from 'react-icons/hi2';
 import { BsCheckLg } from 'react-icons/bs';
@@ -15,6 +17,7 @@ import {
 import PropTypes from 'prop-types';
 
 export const UserUpdateForm = ({ data, updateData }) => {
+  const token = useSelector(selectToken);
   const inputNames = ['name', 'email', 'birthday', 'phone', 'city'];
 
   const [userInfo, setUserInfo] = useState(data);
@@ -43,7 +46,7 @@ export const UserUpdateForm = ({ data, updateData }) => {
     // console.log(key);
 
     if (userInfo[key] === data[key]) return;
-    updateData({ [key]: userInfo[key] });
+    updateData({ [key]: userInfo[key] }, token);
   };
 
   return (

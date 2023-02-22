@@ -34,8 +34,8 @@ import axios from 'axios';
 
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getUser } from 'redux/Auth/selectors';
-import { getUserInfo } from 'services/api';
+import { selectToken } from 'redux/Auth/selectors';
+import { getUserData, updateUserData } from 'services/api';
 import { logout } from 'redux/Auth/operations';
 import { useNavigate } from 'react-router';
 
@@ -46,9 +46,7 @@ const convertDate = date => {
 };
 
 export const Profile = () => {
-  const user = useSelector(getUser);
-  const token = user.token;
-
+  const token = useSelector(selectToken);
   const dispatch = useDispatch();
 
   const [userData, setUserData] = useState({});
@@ -57,7 +55,7 @@ export const Profile = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    getUserInfo(token).then(response => {
+    getUserData(token).then(response => {
       setUserData({
         email: response.data.email,
         name: response.data.name,
@@ -76,18 +74,9 @@ export const Profile = () => {
   // console.log(userData);
   // console.log(userPets);
 
-  const updateUserData = async data => {
-    try {
-      await axios.put(`http://localhost:3000/api/users/update`, data, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      setUserData(prevState => ({ ...prevState, ...data }));
-    } catch (error) {
-      console.log(error.message);
-      console.log(error.response.data.message);
-    }
+  const updateUser = (data, token) => {
+    updateUserData(data, token);
+    setUserData(prevState => ({ ...prevState, ...data }));
   };
 
   const logoutUser = event => {
@@ -123,7 +112,7 @@ export const Profile = () => {
 
             <UserDataContainer>
               {Object.keys(userData).length !== 0 && (
-                <UserUpdateForm data={userData} updateData={updateUserData} />
+                <UserUpdateForm data={userData} updateData={updateUser} />
               )}
             </UserDataContainer>
 
@@ -151,7 +140,7 @@ export const Profile = () => {
             </AddPetContainer>
           </PetsHeader>
 
-          {/* ---------------------PET AVATAR --------------------- */}
+          {/* -------------------- PET AVATAR --------------------- */}
 
           <ul>
             {userPets.map(pet => (

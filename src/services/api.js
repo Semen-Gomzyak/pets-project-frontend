@@ -1,8 +1,10 @@
 import axios from 'axios';
 
-export const getUserInfo = async token => {
+axios.defaults.baseURL = 'https://pets-project-backend.onrender.com/api';
+
+export const getUserData = async token => {
   try {
-    return await axios.get(`http://localhost:3000/api/users/current`, {
+    return await axios.get(`/users/current`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -13,20 +15,13 @@ export const getUserInfo = async token => {
   }
 };
 
-export const updateUserData = async (event, _id, token, userData) => {
-  event.preventDefault();
-  const key = event.target.getAttribute('data-name');
-
+export const updateUserData = async (data, token) => {
   try {
-    await axios.patch(
-      `http://localhost:3000/api/users/update`,
-      { [key]: userData[key] },
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
+    await axios.put(`http://localhost:3000/api/users/update`, data, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
   } catch (error) {
     console.log(error.message);
     console.log(error.response.data.message);
