@@ -21,9 +21,8 @@ import { CiHeart } from 'react-icons/ci';
 export const NoticeModal = ({ notice }) => {
   const isAuth = useSelector(getIsLoggedIn);
   const isLoading = useSelector(selectOneNotice);
-  // const notice = useSelector(selectOneNotice);
 
-  console.log('OneNotice', notice);
+  console.log('notice', notice);
   // const dispatch = useDispatch();
   // const isFavorite = useSelector();
   // const [isFavorited, setFavorited] = useState(isFavorite);
@@ -40,6 +39,9 @@ export const NoticeModal = ({ notice }) => {
     // dispatch(userActions.addFavorite(notice.id));
     toast.success(' Notice add to favorite');
     // return setFavorited(true);
+  };
+  const parseDate = time => {
+    return new Date(Date.parse(time)).toLocaleDateString();
   };
 
   return (
@@ -63,7 +65,11 @@ export const NoticeModal = ({ notice }) => {
                 </MyLi>
                 <MyLi>
                   <p>Birthday:</p>
-                  <span>{notice.birthday}</span>
+                  <span>
+                    {notice.birthdate
+                      ? parseDate(notice.birthdate).split('.').join('/')
+                      : ''}
+                  </span>
                 </MyLi>
                 <MyLi>
                   <p>Breed:</p>
@@ -89,7 +95,7 @@ export const NoticeModal = ({ notice }) => {
                 {notice.category === 'sell' && (
                   <MyLi>
                     <p>Sell:</p>
-                    <span>{notice.price}</span>
+                    <span>{notice.price}$</span>
                   </MyLi>
                 )}
               </ul>

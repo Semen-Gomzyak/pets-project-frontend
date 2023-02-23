@@ -106,12 +106,7 @@ export const NoticeCategoryItem = ({ data, route }) => {
           <LiInfo key={`${_id}+age`}>
             <Lable>Age:</Lable>
             <Text>
-              {birthdate ? parseDate(birthdate) : ''}
-              {/* {birthdate
-                ?.split('-')
-                .reverse()
-                .join('/')
-                .split('T23:00:00.000Z')} */}
+              {birthdate ? parseDate(birthdate).split('.').join('/') : ''}
             </Text>
           </LiInfo>
           {price ? (
