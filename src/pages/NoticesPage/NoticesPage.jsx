@@ -54,7 +54,14 @@ export const NoticesPage = () => {
   }, [dispatch, route, searchQweryTitle]);
 
   const onOpenModal = () => {
-    setShowModal(true);
+    if (!isAuth) {
+      setShowModal(false);
+      toast.error(
+        `You must be authorized to use this functionality - to add notice!.`
+      );
+    } else {
+      setShowModal(true);
+    }
   };
 
   // const searchQuery = query.toLowerCase();
@@ -93,6 +100,11 @@ export const NoticesPage = () => {
       <MenuWrap>
         <NoticesCategoryNav />
         <AddPetBtn onClick={onOpenModal} text={'Add pet'} />
+        {showModal && (
+          <Modal closeModal={toggleModal}>
+            <NoticeModal />
+          </Modal>
+        )}
       </MenuWrap>
       {isLoading && !error && <Loader />}
       {notices?.length > 0 ? (
@@ -108,16 +120,6 @@ export const NoticesPage = () => {
           Notices not found
         </p>
       )}
-      {showModal && isAuth && (
-        <Modal closeModal={toggleModal}>
-          <NoticeModal />
-        </Modal>
-      )}
-      {showModal &&
-        !isAuth &&
-        toast.error(
-          `You must be authorized to use this functionality - to add notice!.`
-        )}
     </ContainerPage>
   );
 };
