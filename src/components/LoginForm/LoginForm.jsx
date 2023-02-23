@@ -1,7 +1,7 @@
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch /*, useSelector*/ } from 'react-redux';
 import { Formik } from 'formik';
 import { LoginSchema } from 'validations/LoginFormValidation';
-import { getIsLoggedIn } from '../../redux/Auth/selectors';
+// import { getIsLoggedIn } from '../../redux/Auth/selectors';
 import { useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router';
 
@@ -21,7 +21,7 @@ import { login } from 'redux/Auth/operations';
 export const LoginForm = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const islogin = useSelector(getIsLoggedIn);
+  // const islogin = useSelector(getIsLoggedIn);
   const initialValues = {
     email: '',
     password: '',
@@ -30,13 +30,14 @@ export const LoginForm = () => {
   const location = useLocation();
 
   const handleSubmit = async (values, { resetForm }) => {
-    
-    const response = await dispatch(login({ email: values.email, password: values.password }));
-    
+    const response = await dispatch(
+      login({ email: values.email, password: values.password })
+    );
+
     response.payload.status === 200
       ? navigate('/profile', { replace: true })
       : console.log('Something went wrong, please try again');
-    
+
     resetForm();
   };
 
