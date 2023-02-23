@@ -10,7 +10,7 @@ import {
 
 export const filterButtons = [
   { title: 'lost/found', to: 'lost_found', isAuth: false },
-  { title: 'in good hands', to: 'for-free', isAuth: false },
+  { title: 'in good hands', to: 'for_free', isAuth: false },
   { title: 'sell', to: 'sell', isAuth: false },
   { title: 'favorite ads', to: 'favorite', isAuth: true },
   { title: 'my ads', to: 'own', isAuth: true },
@@ -30,7 +30,7 @@ export const NoticesCategoryNav = () => {
               .map(filteredItem => (
                 <ButtonElement key={filteredItem.title}>
                   <FilterButton
-                    to={filteredItem.to}
+                    to={`/notices/` + filteredItem.to}
                     className={
                       route === 'sell' ||
                       route === 'lost_found' ||
@@ -47,7 +47,7 @@ export const NoticesCategoryNav = () => {
               ))
           : filterButtons.map(({ title, to }) => (
               <ButtonElement key={title}>
-                <FilterButton to={to}>{title}</FilterButton>
+                <FilterButton to={`/notices/` + to}>{title}</FilterButton>
               </ButtonElement>
             ))}
       </ButtonList>

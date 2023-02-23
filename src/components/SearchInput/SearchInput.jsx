@@ -7,7 +7,7 @@ export const SearchInput = ({ functionSearch }) => {
 
   const searchHandler = e => {
     setSearchQuery(e.target.value);
-    functionSearch(e.target.value);
+    // functionSearch(e.target.value);
   };
 
   const removeQuery = () => {
