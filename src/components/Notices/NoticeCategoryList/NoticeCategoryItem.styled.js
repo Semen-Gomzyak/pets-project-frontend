@@ -87,6 +87,7 @@ export const ThumbBtn = styled.div`
 
 export const Wrap = styled.div`
   display: flex;
+  padding: 20px;
   flex-direction: column;
   height: 100%;
 `;

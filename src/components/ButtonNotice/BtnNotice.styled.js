@@ -4,7 +4,7 @@ import { Button } from 'components/Button/Button';
 export const Btn = styled(Button)`
   margin-left: 20px;
   margin-right: 20px;
-
+  justify-content: center;
   width: 100%;
   background-color: ${p => p.theme.colors.white};
   box-shadow: none;
