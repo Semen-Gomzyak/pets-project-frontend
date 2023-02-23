@@ -127,7 +127,10 @@ export const NoticeCategoryItem = ({ data, route }) => {
         <ThumbBtn>
           <NoticeBtn onClick={onOpenModal} text={'Learn More'} />
           {showModal && (
-            <Modal closeModal={toggleModal} children={<NoticeModal />}></Modal>
+            <Modal
+              closeModal={toggleModal}
+              children={<NoticeModal notice={data} />}
+            ></Modal>
           )}
           {isAuth && <NoticeBtn text={'Delete'} />}
         </ThumbBtn>

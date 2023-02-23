@@ -18,10 +18,12 @@ import {
 } from './NoticeModal.styled';
 import { CiHeart } from 'react-icons/ci';
 
-export const NoticeModal = () => {
+export const NoticeModal = ({ notice }) => {
   const isAuth = useSelector(getIsLoggedIn);
   const isLoading = useSelector(selectOneNotice);
-  const notice = useSelector(selectOneNotice);
+  // const notice = useSelector(selectOneNotice);
+
+  console.log('OneNotice', notice);
   // const dispatch = useDispatch();
   // const isFavorite = useSelector();
   // const [isFavorited, setFavorited] = useState(isFavorite);
