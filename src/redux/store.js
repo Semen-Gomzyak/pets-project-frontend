@@ -17,6 +17,7 @@ import {
   REGISTER,
 } from 'redux-persist';
 
+
 const persistConfig = {
   key: 'auth',
   storage,
