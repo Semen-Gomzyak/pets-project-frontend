@@ -1,28 +1,103 @@
-export const NoticeCategoryItem = ({ data }) => {
-  console.log('notices in Item', data);
+// import { useState } from 'react';
+import { useSelector } from 'react-redux';
+import { getIsLoggedIn } from '../../../redux/Auth/selectors';
+
+import { FavoriteBtn } from 'components/ButtonFavorite/BtnFavorite';
+import 'react-toastify/dist/ReactToastify.css';
+import { toast } from 'react-toastify';
+
+import {
+  ListItem,
+  ImgWrap,
+  Category,
+  Title,
+  Img,
+  ListInfo,
+  LiInfo,
+  Lable,
+  Text,
+  Wrap,
+  ThumbBtn,
+} from './NoticeCategoryItem.styled';
+import { Button } from 'components/Button/Button';
+
+export const NoticeCategoryItem = ({ data, route }) => {
+  // console.log('notices in Item', data);
   const { _id, title, category, name, birthdate, breed, location, imgURL } =
     data;
 
-  return (
-    <li>
-      <p>{category}</p>
-      <img src={imgURL} alt={name} />
-      <p>{title}</p>
+  const isAuth = useSelector(getIsLoggedIn);
 
-      <ul>
-        <li key={`${_id}+breed`}>
-          <p>Breed:</p>
-          <p>{breed}</p>
-        </li>
-        <li key={`${_id}+place`}>
-          <p>Place:</p>
-          <p>{location}</p>
-        </li>
-        <li key={`${_id}+age`}>
-          <p>Age:</p>
-          <p>{birthdate}</p>
-        </li>
-      </ul>
-    </li>
+  // const favorites = useSelector(selectFavoriteNotices);
+  //
+  const onChangeFavorite = () => {
+    if (isAuth) {
+      alert('favorit change');
+    } else {
+      toast.error(`You must be authorized to use this functionality!.`);
+
+      return;
+    }
+  };
+
+  const getTitleCategory = category => {
+    let result = 'sell';
+    switch (category) {
+      case 'lost_found':
+        result = 'lost/found';
+        break;
+      case 'for_free':
+        result = 'in good hands';
+        break;
+      case 'favorite':
+        result = 'favorite ads';
+        break;
+      case 'own':
+        result = 'my ads';
+        break;
+      default:
+        break;
+    }
+    return result;
+  };
+
+  return (
+    <ListItem>
+      <ImgWrap>
+        <Category>{getTitleCategory(category)}</Category>
+        <Img src={imgURL} alt={name} />
+
+        <FavoriteBtn favorite={true} onClick={onChangeFavorite} />
+      </ImgWrap>
+      <Wrap>
+        <Title>{title}</Title>
+        <ListInfo>
+          <LiInfo key={`${_id}+breed`}>
+            <Lable>Breed:</Lable>
+            <Text>{breed}</Text>
+          </LiInfo>
+          <LiInfo key={`${_id}+place`}>
+            <Lable>Place:</Lable>
+            <Text>{location}</Text>
+          </LiInfo>
+          <LiInfo key={`${_id}+age`}>
+            <Lable>Age:</Lable>
+            <Text>
+              {birthdate
+                ?.split('-')
+                .reverse()
+                .join('/')
+                .split('T23:00:00.000Z')}
+            </Text>
+          </LiInfo>
+        </ListInfo>
+
+        <ThumbBtn>
+          <Button onClick={console.log('openModal')} text={'Learn More'} />
+
+          <Button onClick={console.log('delete')} text={'Delete'} />
+        </ThumbBtn>
+      </Wrap>
+    </ListItem>
   );
 };

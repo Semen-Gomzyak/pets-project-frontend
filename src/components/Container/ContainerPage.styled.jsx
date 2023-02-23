@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const Container = styled.div`
   position: relative;
@@ -7,8 +7,7 @@ export const Container = styled.div`
   padding: 0 20px;
 
   @media (min-width: 320px) {
-    width: 320px;
-    
+    width: 100%;
   }
 
   @media (min-width: 768px) {

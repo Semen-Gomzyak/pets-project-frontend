@@ -1,8 +1,10 @@
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch /*, useSelector*/ } from 'react-redux';
 import { Formik } from 'formik';
-import { useNavigate } from 'react-router';
 import { LoginSchema } from 'validations/LoginFormValidation';
-import {getIsLoggedIn} from '../../redux/Auth/selectors'
+// import { getIsLoggedIn } from '../../redux/Auth/selectors';
+import { useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router';
+
 import {
   InfoForm,
   InputsList,
@@ -12,24 +14,30 @@ import {
   Error,
   Text,
   Link,
+  ButtonContainer,
 } from './LoginForm.styled';
 import { login } from 'redux/Auth/operations';
 
 export const LoginForm = () => {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
-  const islogin = useSelector(getIsLoggedIn);
+  const dispatch = useDispatch();
+  // const islogin = useSelector(getIsLoggedIn);
   const initialValues = {
     email: '',
     password: '',
   };
 
+  const location = useLocation();
+
   const handleSubmit = async (values, { resetForm }) => {
-    const response = await dispatch(login(values));
-    
+    const response = await dispatch(
+      login({ email: values.email, password: values.password })
+    );
+
     response.payload.status === 200
       ? navigate('/profile', { replace: true })
       : console.log('Something went wrong, please try again');
+
     resetForm();
   };
 
@@ -43,16 +51,19 @@ export const LoginForm = () => {
         <InfoForm autoComplete="off">
           <LoginTitle>Login</LoginTitle>
           <InputsList>
-            <Input placeholder="Email" type="email" name="email" />
             <Error name="email" component="div" />
-
-            <Input placeholder="Password" type="password" name="password" />
+            <Input placeholder="Email" type="email" name="email" />
             <Error name="password" component="div" />
+            <Input placeholder="Password" type="password" name="password" />
           </InputsList>
-          <Button type="submit">Login</Button>
+          <ButtonContainer>
+            <Button type="submit">Login</Button>
+          </ButtonContainer>
           <Text>
             Don't have an account?
-            <Link href="/register">Register</Link>
+            <Link to={'/register'} state={{ from: location }}>
+              Register
+            </Link>
           </Text>
         </InfoForm>
       </Formik>
