@@ -70,7 +70,7 @@ export const NoticeCategoryItem = ({ data, route }) => {
   const onOpenModal = () => {
     // setShowModal(true);
     // console.log('showModal', showModal);
-    if (showModal === true) {
+    if (showModal) {
       <Modal closeModal={toggleModal}>
         <NoticeModal />
       </Modal>;
@@ -112,7 +112,7 @@ export const NoticeCategoryItem = ({ data, route }) => {
         </ListInfo>
 
         <ThumbBtn>
-          <NoticeBtn onClick={onOpenModal} text={'Learn More'} />
+          <NoticeBtn onClick={onOpenModal} text={'Learn More'} data={data} />
 
           <NoticeBtn text={'Delete'} />
         </ThumbBtn>

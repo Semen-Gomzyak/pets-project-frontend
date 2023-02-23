@@ -8,6 +8,7 @@ import {
   selectError,
   selectNoticesIsLoading,
 } from '../../redux/Notices/NoticesSelector';
+import { getIsLoggedIn } from '../../redux/Auth/selectors';
 import { clearNotices } from '../../redux/Notices/NoticesSlice';
 
 import { NoticesSearch } from 'components/Notices/NoticesSearch/NoticesSearch';
@@ -17,16 +18,25 @@ import ContainerPage from 'components/Container/ContainerPage';
 
 import { NoticesCategoriesList } from 'components/Notices/NoticeCategoryList/NoticesCategoriesList';
 import { Loader } from 'components/Loader/Loader';
+import { Modal } from 'components/Modal/Modal';
+import { NoticeModal } from 'components/Notices/NoticeModal/NoticeModal';
+import 'react-toastify/dist/ReactToastify.css';
+import { toast } from 'react-toastify';
 
 export const NoticesPage = () => {
   const { route } = useParams();
 
+  const [showModal, setShowModal] = useState(false);
+  const toggleModal = () => {
+    setShowModal(prevState => !prevState);
+  };
   const [searchQweryTitle, setSearchQweryTitle] = useState('');
 
   const dispatch = useDispatch();
   const notices = useSelector(selectNotices);
   const isLoading = useSelector(selectNoticesIsLoading);
   const error = useSelector(selectError);
+  const isAuth = useSelector(getIsLoggedIn);
 
   // console.log('notices-->', notices);
   // console.log('route in Page', route);
@@ -39,6 +49,16 @@ export const NoticesPage = () => {
     }
     return () => dispatch(clearNotices([]));
   }, [dispatch, route, searchQweryTitle]);
+
+  const onOpenModal = () => {
+    if (showModal) {
+      <Modal closeModal={toggleModal}>
+        <NoticeModal />
+      </Modal>;
+    } else {
+      toast.error(`You must be authorized to use this functionality!.`);
+    }
+  };
 
   // const searchQuery = query.toLowerCase();
   const onSearch = searchQuery => {
@@ -88,6 +108,12 @@ export const NoticesPage = () => {
           Notices not found
         </p>
       )}
+      {showModal && isAuth && <NoticeModal onOpen={onOpenModal} />}
+      {showModal &&
+        !isAuth &&
+        toast.error(
+          `You must be authorized to use this functionality - to add notice!.`
+        )}
     </ContainerPage>
   );
 };
