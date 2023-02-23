@@ -69,7 +69,6 @@ export const NoticeCategoryItem = ({ data, route }) => {
 
   const onOpenModal = () => {
     setShowModal(true);
-    console.log('showModal-->', showModal);
   };
 
   return (
@@ -104,11 +103,9 @@ export const NoticeCategoryItem = ({ data, route }) => {
         </ListInfo>
 
         <ThumbBtn>
-          <NoticeBtn onClick={onOpenModal} text={'Learn More'} data={data} />
+          <NoticeBtn onClick={onOpenModal} text={'Learn More'} />
           {showModal && (
-            <Modal closeModal={toggleModal}>
-              <NoticeModal />
-            </Modal>
+            <Modal closeModal={toggleModal} children={<NoticeModal />}></Modal>
           )}
           {isAuth && <NoticeBtn text={'Delete'} />}
         </ThumbBtn>

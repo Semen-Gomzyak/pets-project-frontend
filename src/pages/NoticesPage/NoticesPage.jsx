@@ -20,8 +20,11 @@ import { NoticesCategoriesList } from 'components/Notices/NoticeCategoryList/Not
 import { Loader } from 'components/Loader/Loader';
 import { Modal } from 'components/Modal/Modal';
 import { NoticeModal } from 'components/Notices/NoticeModal/NoticeModal';
+import { MenuWrap } from './NoticesPage.styled';
 import 'react-toastify/dist/ReactToastify.css';
 import { toast } from 'react-toastify';
+
+import { AddPetBtn } from 'components/ButtonAddPet/AddPetBtn';
 
 export const NoticesPage = () => {
   const { route } = useParams();
@@ -49,6 +52,10 @@ export const NoticesPage = () => {
     }
     return () => dispatch(clearNotices([]));
   }, [dispatch, route, searchQweryTitle]);
+
+  const onOpenModal = () => {
+    setShowModal(true);
+  };
 
   // const searchQuery = query.toLowerCase();
   const onSearch = searchQuery => {
@@ -83,7 +90,10 @@ export const NoticesPage = () => {
     <ContainerPage>
       <SectionTitle text={'Find your favorite pet'} />
       <NoticesSearch onSearch={onSearch} />
-      <NoticesCategoryNav />
+      <MenuWrap>
+        <NoticesCategoryNav />
+        <AddPetBtn onClick={onOpenModal} text={'Add pet'} />
+      </MenuWrap>
       {isLoading && !error && <Loader />}
       {notices?.length > 0 ? (
         <NoticesCategoriesList data={notices} route={route} />

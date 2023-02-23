@@ -18,7 +18,7 @@ import {
 } from './NoticeModal.styled';
 import { CiHeart } from 'react-icons/ci';
 
-export const NoticeModal = ({ data }) => {
+export const NoticeModal = () => {
   const isAuth = useSelector(getIsLoggedIn);
   const isLoading = useSelector(selectOneNotice);
   const notice = useSelector(selectOneNotice);
