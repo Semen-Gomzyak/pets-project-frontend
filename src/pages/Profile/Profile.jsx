@@ -36,6 +36,7 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUser } from 'redux/Auth/selectors';
 import { getUserInfo } from 'services/api';
+import PetForm  from '../../components/PetForm/PetForm'
 import { logout } from 'redux/Auth/operations';
 import { useNavigate } from 'react-router';
 
@@ -144,7 +145,7 @@ export const Profile = () => {
             <H2 style={{ marginBottom: '0px' }}>My pets:</H2>
             <AddPetContainer>
               <AddPetText>Add Pet</AddPetText>
-              <AddPetButton type="button">
+              <AddPetButton type="button"  onClick={PetForm}>
                 <BsPlusCircleFill size={40} color={'#F59256'} />
               </AddPetButton>
             </AddPetContainer>
