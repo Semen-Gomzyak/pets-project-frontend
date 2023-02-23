@@ -12,7 +12,7 @@ export const Nav = () => {
         </li>
         <li>
           <NaviLink
-            to="/notices"
+            to="/notices/sell"
             className={
               categoryName === 'lost-found' ||
               categoryName === 'for-free' ||

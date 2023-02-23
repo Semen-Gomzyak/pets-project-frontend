@@ -14,7 +14,7 @@ export const fetchAllNotices = createAsyncThunk(
       const response = await axios.get(
         `/notices/category/${category}?page=${page}&limit=${limit}`
       );
-      console.log('notices.data', response.data);
+      // console.log('notices.data', response.data);
       // При успешном запросе возвращаем промис с данными
       return response.data;
     } catch (error) {

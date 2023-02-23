@@ -91,5 +91,5 @@ export const Link = styled.a`
   line-height: calc(22 / 16);
   color: ${p => p.theme.colors.accent};
   :hover, :focus {
-    color: ${p => p.theme.colors.accentDark};
+    color: ${p => p.theme.colors.buttonAccent};
 `;
