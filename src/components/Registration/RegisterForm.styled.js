@@ -13,7 +13,7 @@ export const InfoForm = styled(Form)`
   border-color: #f2f2f2;
 
   width: 608px;
-  height: 517px;
+  min-height: 517px;
   left: 80px;
   top: 276px;
 
@@ -25,7 +25,7 @@ export const InfoForm = styled(Form)`
 export const InputsList = styled.ul`
   list-style: none;
   padding: 0;
-  margin-bottom: 15px;
+  margin-bottom: 40px;
 `;
 
 export const Input = styled(Field)`
@@ -49,6 +49,10 @@ export const Input = styled(Field)`
 
   color: rgba(17, 17, 17, 0.6);
   padding-left: 32px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
 `;
 export const RegisterTitle = styled.h2`
   font-family: 'Manrope';
@@ -90,7 +94,11 @@ export const Button = styled.button`
   top: 585px;
 
   border-radius: 40px;
-  margin-top: 26px;
+  margin-bottom: 18px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
 `;
 
 export const Text = styled.p`
@@ -127,4 +135,9 @@ export const Link = styled.a`
 export const Error = styled(ErrorMessage)`
   color: red;
   font-style: italic;
+  text-align: center;
+`;
+
+export const ButtonContainer = styled.div`
+display: block;
 `;
