@@ -4,7 +4,7 @@ export const SecondRegisterFormSchema = Yup.object().shape({
   name: Yup.string()
     .required('Name is required')
     .matches(/^[a-zA-Zа-яА-Я\s]*$/, 'Please enter a valid name'),
-  city: Yup.string()
+  cityRegion: Yup.string()
     .required('City is required')
     .matches(
       /^[a-zA-Zа-яА-Я\s]*,\s*[a-zA-Zа-яА-Я\s]*$/,

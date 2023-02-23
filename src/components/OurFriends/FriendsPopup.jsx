@@ -6,7 +6,7 @@ export default function FriendsPopup({ children, trigger, workDays }) {
       trigger={trigger}
       position="bottom left"
       on={['hover', 'focus']}
-      disabled={workDays ? false : true}
+      disabled={!workDays.length}
       closeOnDocumentClick
       mouseLeaveDelay={300}
       mouseEnterDelay={50}

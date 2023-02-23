@@ -51,6 +51,7 @@ export const theme = {
     card: '7px 4px 14px rgba(49, 21, 4, 0.07)',
     modal: '7px 4px 14px rgba(0, 0, 0, 0.11)',
     time: '4px 4px 8px rgba(0, 0, 0, 0.25)',
+    button: '0px 4px 4px rgba(0, 0, 0, 0.25)',
   },
   fonts: {
     manrope: 'Manrope, sans-serif',
