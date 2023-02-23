@@ -10,7 +10,7 @@ import {
 
 export const filterButtons = [
   { title: 'lost/found', to: 'lost_found', isAuth: false },
-  { title: 'in good hands', to: 'for_free', isAuth: false },
+  { title: 'in good hands', to: 'in_good_hands', isAuth: false },
   { title: 'sell', to: 'sell', isAuth: false },
   { title: 'favorite ads', to: 'favorite', isAuth: true },
   { title: 'my ads', to: 'own', isAuth: true },
@@ -34,7 +34,7 @@ export const NoticesCategoryNav = () => {
                     className={
                       route === 'sell' ||
                       route === 'lost_found' ||
-                      route === 'for_free' ||
+                      route === 'in_good_hands' ||
                       route === 'favorite' ||
                       route === 'own'
                         ? 'active'
