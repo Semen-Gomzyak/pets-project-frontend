@@ -1,85 +1,77 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import { HiPencil } from 'react-icons/hi2';
-// import { theme } from 'services/theme';
-import { Form, Label, Input, Button } from './UserUpdateForm.styled';
+import { BsCheckLg } from 'react-icons/bs';
+import { theme } from 'services/theme';
+import {
+  Form,
+  ItemContainer,
+  Label,
+  Input,
+  Button,
+  BtnIcon,
+  BtnContainer,
+} from './UserUpdateForm.styled';
 import PropTypes from 'prop-types';
 
-export const UserUpdateForm = ({ data, updateData }) => {
+export const UserUpdateForm = ({ data, updateData, token }) => {
+  const inputNames = ['name', 'email', 'birthday', 'phone', 'city'];
+
   const [userInfo, setUserInfo] = useState(data);
+  const [penColor, setPenColor] = useState(theme.colors.accent);
+
+  useEffect(() => {
+    setUserInfo(prevState => ({
+      ...prevState,
+      city: prevState.city.split(',')[0],
+    }));
+  }, []);
+
+  const onFormFocus = () => setPenColor(theme.colors.text.gray);
+  const onFormBlur = () => setPenColor(theme.colors.accent);
 
   const onInputChange = event => {
     const key = event.target.name;
     setUserInfo(prevState => ({ ...prevState, [key]: event.target.value }));
   };
 
-  const onButtonClick = event => {
-    const key = event.currentTarget.name;
-    updateData({ [key]: userInfo[key] });
+  const onFormSubmit = event => {
+    event.preventDefault();
+    const key = document.activeElement.name;
+    document.querySelector(`#${key}`).focus();
+
+    // console.log(key);
+
+    if (userInfo[key] === data[key]) return;
+    updateData({ [key]: userInfo[key] }, token);
   };
 
   return (
-    <Form>
-      <div style={{ marginBottom: '4px' }}>
-        <Label htmlFor="">Name: </Label>
-        <Input
-          type="text"
-          name="name"
-          value={userInfo.name}
-          onChange={onInputChange}
-        />
-        <Button type="button" name="name" onClick={onButtonClick}>
-          <HiPencil size={10} color="#F59256" />
-        </Button>
-      </div>
-      <div style={{ marginBottom: '4px' }}>
-        <Label htmlFor="">Email: </Label>
-        <Input
-          type="text"
-          name="email"
-          value={userInfo.email}
-          onChange={onInputChange}
-        />
-        <Button type="button" name="email" onClick={onButtonClick}>
-          <HiPencil size={10} color="#F59256" />
-        </Button>
-      </div>
-      <div style={{ marginBottom: '4px' }}>
-        <Label htmlFor="">Birthday: </Label>
-        <Input
-          type="text"
-          name="birthday"
-          value={userInfo.birthday}
-          onChange={onInputChange}
-        />
-        <Button type="button" name="birthday" onClick={onButtonClick}>
-          <HiPencil size={10} color="#F59256" />
-        </Button>
-      </div>
-      <div style={{ marginBottom: '4px' }}>
-        <Label htmlFor="">Phone: </Label>
-        <Input
-          type="text"
-          name="phone"
-          value={userInfo.mobilePhone}
-          onChange={onInputChange}
-        />
-        <Button type="button" name="phone" onClick={onButtonClick}>
-          <HiPencil size={10} color="#F59256" />
-        </Button>
-      </div>
-      <div style={{ marginBottom: '4px' }}>
-        <Label htmlFor="">City: </Label>
-        <Input
-          type="text"
-          name="city"
-          value={userInfo.cityRegion}
-          onChange={onInputChange}
-        />
-        <Button type="button" name="city" onClick={onButtonClick}>
-          <HiPencil size={10} color="#F59256" />
-        </Button>
-      </div>
+    <Form onFocus={onFormFocus} onBlur={onFormBlur} onSubmit={onFormSubmit}>
+      {inputNames.map(inputName => (
+        <ItemContainer key={inputName}>
+          <Label htmlFor="">
+            {inputName.charAt(0).toUpperCase() + inputName.slice(1) + ': '}
+          </Label>
+          <Input
+            type="text"
+            name={inputName}
+            id={inputName}
+            value={userInfo[inputName]}
+            onChange={onInputChange}
+          />
+          <BtnContainer>
+            <Button type="submit" name={inputName}></Button>
+            <BtnIcon>
+              {document.activeElement.name === inputName ? (
+                <BsCheckLg size={10} color={theme.colors.accent} />
+              ) : (
+                <HiPencil size={10} color={penColor} />
+              )}
+            </BtnIcon>
+          </BtnContainer>
+        </ItemContainer>
+      ))}
     </Form>
   );
 };

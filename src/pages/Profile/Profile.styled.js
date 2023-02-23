@@ -105,6 +105,7 @@ export const PetsHeader = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  width: 280px;
   margin-bottom: 18px;
 `;
 
@@ -121,6 +122,10 @@ export const AddPetButton = styled.button`
   justify-content: center;
   align-items: center;
   background: none;
+
+  :hover {
+    cursor: pointer;
+  }
 `;
 
 export const AddPetText = styled.span`
