@@ -13,7 +13,7 @@ import {
   Text,
   ButtonContainer,
 } from './RegisterForm.styled';
-import { useLocation, useNavigate } from 'react-router';
+import {  useNavigate } from 'react-router';
 
 export const SecondRegisterForm = ({ data, onClick }) => {
   const navigate = useNavigate();

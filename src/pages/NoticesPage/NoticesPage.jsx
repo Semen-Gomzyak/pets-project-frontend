@@ -2,7 +2,10 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 
-import { fetchAllNotices } from '../../redux/Notices/NoticesOperations';
+import {
+  fetchAllNotices,
+  fetchNoticesByCategoryAndTitle,
+} from '../../redux/Notices/NoticesOperations';
 import {
   selectNotices,
   selectError,
@@ -34,19 +37,23 @@ export const NoticesPage = () => {
     setShowModal(prevState => !prevState);
   };
   const [searchQweryTitle, setSearchQweryTitle] = useState('');
-
   const dispatch = useDispatch();
   const notices = useSelector(selectNotices);
   const isLoading = useSelector(selectNoticesIsLoading);
   const error = useSelector(selectError);
   const isAuth = useSelector(getIsLoggedIn);
-
+  
   // console.log('notices-->', notices);
   // console.log('route in Page', route);
 
   useEffect(() => {
-    if (searchQweryTitle !== '') {
-      dispatch(fetchAllNotices({ category: route, qwery: searchQweryTitle }));
+    if (searchQweryTitle.length >= 2) {
+      dispatch(
+        fetchNoticesByCategoryAndTitle({
+          category: route,
+          title: searchQweryTitle,
+        })
+      );
     } else {
       dispatch(fetchAllNotices({ category: route }));
     }
@@ -58,19 +65,20 @@ export const NoticesPage = () => {
   };
 
   // const searchQuery = query.toLowerCase();
-  const onSearch = searchQuery => {
-    setSearchQweryTitle(searchQuery);
+  const handleSearch = (event) => {
+    setSearchQweryTitle(event.target.value);
   };
-  /*
-  const searchNotice = async query => {
-    const searchQuery = query.toLowerCase();
-    setSearchQweryTitle(searchQuery);
-    const foundNotices = notices.filter(items =>
-      items.title.toLowerCase().includes(searchQuery)
-    );
-    sortNoticesByDate(foundNotices); //2020-02-22T22:00:00.000Z
-  };
-
+  
+  // const searchNotice = async query => {
+  //   console.log(query);
+  //   const searchQuery = query.toLowerCase();
+  //   setSearchQweryTitle(searchQuery);
+  //   const foundNotices = notices.filter(items =>
+  //     items.title.toLowerCase().includes(searchQuery)
+  //   );
+  //   // sortNoticesByDate(foundNotices); //2020-02-22T22:00:00.000Z
+  // };
+/*
   const sortNoticesByDate = array => {
     const addDateForSort = array.map(notices => {
       return { ...notices, dateForSort: Date.parse(new Date(notices.date)) };
@@ -81,6 +89,8 @@ export const NoticesPage = () => {
     );
 
     return sortedNoticesByDate;
+
+    
     // setNews(sortedNoticesByDate);
     // setIsLoading(false);
   };
@@ -89,7 +99,12 @@ export const NoticesPage = () => {
   return (
     <ContainerPage>
       <SectionTitle text={'Find your favorite pet'} />
-      <NoticesSearch onSearch={onSearch} />
+      <NoticesSearch
+        type="text"
+        placeholder="Search"
+        value={searchQweryTitle}
+        onChange={handleSearch}
+      />
       <MenuWrap>
         <NoticesCategoryNav />
         <AddPetBtn onClick={onOpenModal} text={'Add pet'} />
@@ -110,7 +125,9 @@ export const NoticesPage = () => {
       )}
       {showModal && isAuth && (
         <Modal closeModal={toggleModal}>
-          <NoticeModal />
+          <div>
+            <NoticeModal />
+          </div>
         </Modal>
       )}
       {showModal &&
@@ -121,3 +138,4 @@ export const NoticesPage = () => {
     </ContainerPage>
   );
 };
+
