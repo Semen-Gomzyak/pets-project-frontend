@@ -4,7 +4,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 axios.defaults.baseURL = 'https://pets-project-backend.onrender.com/api';
 
 export const fetchPets = createAsyncThunk(
-  'contacts/fetchAll',
+  'pets/fetchAll',
   async (_, thunkAPI) => {
     try {
       const response = await axios.get('/pets');
@@ -17,10 +17,10 @@ export const fetchPets = createAsyncThunk(
 
 
 export const addPets = createAsyncThunk(
-  'contacts/addPet',
+  'pets/addPet',
   async (newPet, thunkAPI) => {
     try {
-      const response = await axios.post('/contacts', newPet);
+      const response = await axios.post('/pets', newPet);
       return response.data;
     } catch (e) {
       return thunkAPI.rejectWithValue(e);
@@ -58,35 +58,3 @@ export const updatePet = createAsyncThunk(
 
 
 
-
-
-
-
-// import * as contactsActions from './contactsActions';
-
-// export const fetchContacts = () => async dispatch => {
-// dispatch(contactsActions.fetchContactsRequest());
-
-// try{
-// const contacts = await contactsAPI.fetchContacts();
-// dispatch(contactsActions.fetchContactsSuccess(contacts));
-// } catch (error) {
-// dispatch(contactsActions.fetchContactsError(error));
-// }
-// };
-
-// =====================================
-
-// export const fetchContacts = createAsyncThunk(
-//   'contacts/fetchContacts',
-//   async (_, { rejectWithValue }) => {
-//     try {
-//       const contacts = await contactsAPI.fetchContacts();
-//       return contacts;
-//     } catch (error) {
-//       return rejectWithValue(error.message);
-//     }
-//   }
-// );
-
-// =====================================

@@ -1,41 +1,68 @@
-import ContainerPage from 'components/Container/ContainerPage';
+import { useSelector, useDispatch } from 'react-redux';
+import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 
-import { getNoticesByCategory } from '../../services/getNoticesByCategory';
+import { fetchAllNotices } from '../../redux/Notices/NoticesOperations';
+import {
+  selectNotices,
+  selectError,
+  selectNoticesIsLoading,
+} from '../../redux/Notices/NoticesSelector';
+import { clearNotices } from '../../redux/Notices/NoticesSlice';
+
 import { NoticesSearch } from 'components/Notices/NoticesSearch/NoticesSearch';
 import { NoticesCategoryNav } from 'components/Notices/NoticesCategoriesNav/NoticesCategoryNav';
-import { NoticesCategoryItem } from 'components/Notices/NoticeCategoryList/NoticeCategoryItem';
+import { SectionTitle } from 'components/SectionTitle/SectionTitle';
+import ContainerPage from 'components/Container/ContainerPage';
+
+import { NoticesCategoriesList } from 'components/Notices/NoticeCategoryList/NoticesCategoriesList';
+import { Loader } from 'components/Loader/Loader';
 
 export const NoticesPage = () => {
-  const [notices, setNotices] = useState([]);
-  // const [isLoading, setIsLoading] = useState(true);
+  const { route } = useParams();
+
+  const [searchQweryTitle, setSearchQweryTitle] = useState('');
+
+  const dispatch = useDispatch();
+  const notices = useSelector(selectNotices);
+  const isLoading = useSelector(selectNoticesIsLoading);
+  const error = useSelector(selectError);
+
+  // console.log('notices-->', notices);
+  console.log('route in Page', route);
 
   useEffect(() => {
-    async function fetch() {
-      try {
-        const result = await getNoticesByCategory({});
-        setNotices(result);
-        if (result.length === 0) {
-          throw new Error();
-        }
-        // sortNewsByDate(result);
-      } catch (error) {
-        console.log(error);
-      }
+    if (searchQweryTitle !== '') {
+      dispatch(fetchAllNotices({ category: route, qwery: searchQweryTitle }));
+    } else {
+      dispatch(fetchAllNotices({ category: route }));
     }
-    fetch();
-  }, []);
+    return () => dispatch(clearNotices([]));
+  }, [dispatch, route, searchQweryTitle]);
 
-  console.log(notices);
-
+  const onSearch = searchQuery => {
+    setSearchQweryTitle(searchQuery);
+  };
 
   return (
     <ContainerPage>
-      <h1>Find your favorite pet</h1>
-      <NoticesSearch />
-      <NoticesCategoryNav>
-        <NoticesCategoryItem notices={notices} />
-      </NoticesCategoryNav>
+      <SectionTitle text={'Find your favorite pet'} />
+      <NoticesSearch onSearch={onSearch} />
+      <NoticesCategoryNav />
+      {isLoading && !error && <Loader />}
+      {notices?.length > 0 ? (
+        <NoticesCategoriesList data={notices} route={route} />
+      ) : (
+        <p
+          style={{
+            padding: '15px 25px',
+            fontSize: 20,
+            textAlign: 'center',
+          }}
+        >
+          Notices not found
+        </p>
+      )}
     </ContainerPage>
   );
 };

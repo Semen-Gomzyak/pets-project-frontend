@@ -24,7 +24,7 @@ export const ListItem = styled.li`
     width: 200px;
     height: 4px;
     border-radius: 40px;
-    margin-bottom: 4px;
+
     background: linear-gradient(90deg, #ff634e 0%, #ffdf48 105.44%);
   }
   @media (min-width: 768px) {
@@ -44,6 +44,7 @@ export const ListItem = styled.li`
 `;
 
 export const Title = styled.h3`
+  margin-top: 4px;
   font-weight: 700;
   font-size: 24px;
   line-height: calc(33 / 24);
@@ -89,7 +90,6 @@ export const Link = styled.a`
   font-size: 16px;
   line-height: calc(22 / 16);
   color: ${p => p.theme.colors.accent};
-  :hover {
-    width: 100%;
-  }
+  :hover, :focus {
+    color: ${p => p.theme.colors.buttonAccent};
 `;

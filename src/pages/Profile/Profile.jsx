@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { SharedLayout } from 'components/SharedLayout/SaredLayout';
+// import { SharedLayout } from 'components/SharedLayout/SaredLayout';
 import { HiCamera, HiTrash } from 'react-icons/hi2';
 import { HiOutlineLogout } from 'react-icons/hi';
 import { BsPlusCircleFill } from 'react-icons/bs';
@@ -30,14 +30,19 @@ import {
 } from './Profile.styled';
 import { UserUpdateForm } from 'components/UserUpdateForm/UserUdateForm';
 
-import axios from 'axios';
-
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+
 import { getUser } from 'redux/Auth/selectors';
 import { getUserInfo } from 'services/api';
+import PetForm  from '../../components/PetForm/PetForm'
+
+import { selectToken } from 'redux/Auth/selectors';
+import { getUserData, updateUserData } from 'services/api/user';
+
 import { logout } from 'redux/Auth/operations';
 import { useNavigate } from 'react-router';
+import { Modal } from 'components/Modal/Modal';
 
 const convertDate = date => {
   const dateOptions = { day: 'numeric', month: 'numeric', year: 'numeric' };
@@ -46,23 +51,22 @@ const convertDate = date => {
 };
 
 export const Profile = () => {
-  const user = useSelector(getUser);
-  const token = user.token;
-
+  const token = useSelector(selectToken);
   const dispatch = useDispatch();
 
   const [userData, setUserData] = useState({});
   const [userPets, setUserPets] = useState([]);
+  const [showModal, setShowModal] = useState(false);
 
   const navigate = useNavigate();
 
   useEffect(() => {
-    getUserInfo(token).then(response => {
+    getUserData(token).then(response => {
       setUserData({
         email: response.data.email,
         name: response.data.name,
-        cityRegion: response.data.cityRegion,
-        mobilePhone: response.data.mobilePhone,
+        city: response.data.cityRegion,
+        phone: response.data.mobilePhone,
         birthday: response.data.birthday,
         avatarURL: response.data.avatarURL,
       });
@@ -73,20 +77,13 @@ export const Profile = () => {
     });
   }, [token]);
 
-  // console.log(userData);
-  // console.log(userPets);
+  const toggleModal = () => {
+    setShowModal(prevState => !prevState);
+  };
 
-  const updateUserData = async data => {
-    try {
-      await axios.put(`http://localhost:3000/api/users/update`, data, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-    } catch (error) {
-      console.log(error.message);
-      console.log(error.response.data.message);
-    }
+  const updateUser = (data, token) => {
+    updateUserData(data, token);
+    setUserData(prevState => ({ ...prevState, ...data }));
   };
 
   const logoutUser = event => {
@@ -97,7 +94,6 @@ export const Profile = () => {
 
   return (
     <>
-      <SharedLayout />
       <Section>
         {/* ------------------------ USER ------------------------ */}
 
@@ -122,11 +118,15 @@ export const Profile = () => {
 
             <UserDataContainer>
               {Object.keys(userData).length !== 0 && (
-                <UserUpdateForm data={userData} updateData={updateUserData} />
+                <UserUpdateForm
+                  data={userData}
+                  updateData={updateUser}
+                  token={token}
+                />
               )}
             </UserDataContainer>
 
-            {/* ------------------- LOG OUT --------------------- */}
+            {/* ------------------ LOG OUT BTN --------------------- */}
 
             <LogOutContainer>
               <LogOutButton type="button" onClick={logoutUser}>
@@ -144,13 +144,17 @@ export const Profile = () => {
             <H2 style={{ marginBottom: '0px' }}>My pets:</H2>
             <AddPetContainer>
               <AddPetText>Add Pet</AddPetText>
-              <AddPetButton type="button">
+
+              <AddPetButton type="button"  onClick={PetForm}>
+
+              <AddPetButton type="button" onClick={toggleModal}>
+
                 <BsPlusCircleFill size={40} color={'#F59256'} />
               </AddPetButton>
             </AddPetContainer>
           </PetsHeader>
 
-          {/* ---------------------PET AVATAR --------------------- */}
+          {/* -------------------- PET AVATAR --------------------- */}
 
           <ul>
             {userPets.map(pet => (
@@ -175,6 +179,8 @@ export const Profile = () => {
                     <Span>Comments: </Span> {pet.comments}
                   </P>
 
+                  {/* -------------DELETE PET BTN */}
+
                   <DeletePetButton type="button">
                     <HiTrash size={20} color={'#111111a0'} />
                   </DeletePetButton>
@@ -184,6 +190,11 @@ export const Profile = () => {
           </ul>
         </section>
       </Section>
+      {showModal && (
+        <Modal closeModal={toggleModal}>
+          <div>MODAL</div>
+        </Modal>
+      )}
     </>
   );
 };
