@@ -51,7 +51,9 @@ export const Title = styled.h2`
 `;
 
 export const ListInfo = styled.ul`
-  isplay: flex;
+  display: flex;
+  padding-top: 20px;
+  padding-bottom: 20px;
   flex-direction: column;
   align-items: flex-start;
   gap: 8px;

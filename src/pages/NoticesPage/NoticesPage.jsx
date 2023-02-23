@@ -50,16 +50,6 @@ export const NoticesPage = () => {
     return () => dispatch(clearNotices([]));
   }, [dispatch, route, searchQweryTitle]);
 
-  const onOpenModal = () => {
-    if (showModal) {
-      <Modal closeModal={toggleModal}>
-        <NoticeModal />
-      </Modal>;
-    } else {
-      toast.error(`You must be authorized to use this functionality!.`);
-    }
-  };
-
   // const searchQuery = query.toLowerCase();
   const onSearch = searchQuery => {
     setSearchQweryTitle(searchQuery);
@@ -108,7 +98,11 @@ export const NoticesPage = () => {
           Notices not found
         </p>
       )}
-      {showModal && isAuth && <NoticeModal onOpen={onOpenModal} />}
+      {showModal && isAuth && (
+        <Modal closeModal={toggleModal}>
+          <NoticeModal />
+        </Modal>
+      )}
       {showModal &&
         !isAuth &&
         toast.error(

@@ -68,16 +68,8 @@ export const NoticeCategoryItem = ({ data, route }) => {
   };
 
   const onOpenModal = () => {
-    // setShowModal(true);
-    // console.log('showModal', showModal);
-    if (showModal) {
-      <Modal closeModal={toggleModal}>
-        <NoticeModal />
-      </Modal>;
-    } else {
-      toast.error(`You must be authorized to use this functionality!.`);
-      // setShowModal(false);
-    }
+    setShowModal(true);
+    console.log('showModal-->', showModal);
   };
 
   return (
@@ -113,8 +105,12 @@ export const NoticeCategoryItem = ({ data, route }) => {
 
         <ThumbBtn>
           <NoticeBtn onClick={onOpenModal} text={'Learn More'} data={data} />
-
-          <NoticeBtn text={'Delete'} />
+          {showModal && (
+            <Modal closeModal={toggleModal}>
+              <NoticeModal />
+            </Modal>
+          )}
+          {isAuth && <NoticeBtn text={'Delete'} />}
         </ThumbBtn>
       </Wrap>
     </ListItem>
