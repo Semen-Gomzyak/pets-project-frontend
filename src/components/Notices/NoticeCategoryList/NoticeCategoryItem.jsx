@@ -3,6 +3,8 @@ import { useSelector } from 'react-redux';
 import { getIsLoggedIn } from '../../../redux/Auth/selectors';
 
 import { FavoriteBtn } from 'components/ButtonFavorite/BtnFavorite';
+import 'react-toastify/dist/ReactToastify.css';
+import { toast } from 'react-toastify';
 
 import {
   ListItem,
@@ -31,6 +33,10 @@ export const NoticeCategoryItem = ({ data, route }) => {
   const onChangeFavorite = () => {
     if (isAuth) {
       alert('favorit change');
+    } else {
+      toast.error(`You must be authorized to use this functionality!.`);
+
+      return;
     }
   };
 
@@ -87,9 +93,9 @@ export const NoticeCategoryItem = ({ data, route }) => {
         </ListInfo>
 
         <ThumbBtn>
-          <Button onClick={console.log('openModal')} />
+          <Button onClick={console.log('openModal')} text={'Learn More'} />
 
-          <Button onClick={console.log('delete')} />
+          <Button onClick={console.log('delete')} text={'Delete'} />
         </ThumbBtn>
       </Wrap>
     </ListItem>
