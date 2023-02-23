@@ -26,7 +26,7 @@ const persistConfig = {
 export const store = configureStore({
   reducer: {
     auth: persistReducer(persistConfig, authReducer),
-    contacts: petsReducer,
+    pets: petsReducer,
     notices: noticesReducer,
     filter: filterReducer,
   },

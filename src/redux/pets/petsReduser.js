@@ -5,12 +5,7 @@ import {
   deletePets,
 } from './petsOperations';
 
-const initialPets = [
-  { id: 'id-1', name: 'Rosie Simpson', date: '20.09.2020', breed: 'hasky', favorite: 'true', avatarURL: '', seks: '', owner: '',},
-  { id: 'id-2', name: 'Kary Harison', date: '21.09.2020', breed: 'labrador', favorite: 'true', avatarURL: '', seks: '', owner: '',},
-  { id: 'id-2', name: 'Mary Roland ', date: '22.09.2022', breed: 'doberman', favorite: 'true', avatarURL: '', seks: '', owner: '',},
-  { id: 'id-2', name: 'Toby Leon', date: '21.07.2021', breed: 'chihahuahua', favorite: 'false', avatarURL: '', seks: '', owner: '',},
-];
+const initialPets = [];
 
 
 
@@ -70,6 +65,8 @@ export const selectIsLoading = state => state.isLoading;
 export const selectError = state => state.error;
 
 export const petsReducer = petsSlice.reducer;
+
+export const getFilterValue = state => state.filter.filt;
 
 
 // const contactsSlice = createSlice({
