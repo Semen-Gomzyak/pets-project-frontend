@@ -18,7 +18,7 @@ export const filterButtons = [
 
 export const NoticesCategoryNav = () => {
   const tokenIsAuth = useSelector(selectToken);
-  const { categoryName } = useParams();
+  const { route } = useParams();
   // console.log('tokenIsAuth ', tokenIsAuth);
 
   return (
@@ -32,11 +32,11 @@ export const NoticesCategoryNav = () => {
                   <FilterButton
                     to={filteredItem.to}
                     className={
-                      categoryName === 'sell' ||
-                      categoryName === 'lost-found' ||
-                      categoryName === 'for-free' ||
-                      categoryName === 'favorite' ||
-                      categoryName === 'own'
+                      route === 'sell' ||
+                      route === 'lost_found' ||
+                      route === 'for_free' ||
+                      route === 'favorite' ||
+                      route === 'own'
                         ? 'active'
                         : ''
                     }

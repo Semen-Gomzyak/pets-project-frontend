@@ -18,6 +18,7 @@ export const ListItem = styled.li`
 `;
 export const ImgWrap = styled.div`
   position: relative;
+  background: ${p => p.theme.colors.accent};
 `;
 
 export const Category = styled.p`
@@ -80,6 +81,8 @@ export const ThumbBtn = styled.div`
   flex-grow: 1;
   gap: 12px;
   padding-bottom: 12px;
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(2px);
 `;
 
 export const Wrap = styled.div`

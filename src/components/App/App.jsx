@@ -68,7 +68,6 @@ export const App = () => {
         <Route path="/register" element={<RegisterForm />} />
         <Route path="/friends" element={<OurFriends />} />
 
-
         <Route path="/profile" element={<Profile />} />
 
         <Route path="/notices/:route" element={<NoticesPage />}></Route>

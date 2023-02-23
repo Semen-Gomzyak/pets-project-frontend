@@ -25,14 +25,13 @@ export const fetchAllNotices = createAsyncThunk(
   }
 );
 
-//TODO!!!!!!! переробити після тесту отримання всих оголошень
-/*
-// POST @ /contacts
-export const addContact = createAsyncThunk(
-  'contacts/addContact',
-  async (contact, { rejectWithValue }) => {
+// GET  @ /notices/notice/:noticeId отримання одного оголошення
+export const fetchOneNotice = createAsyncThunk(
+  'notices/fetchOneNotice',
+
+  async ({ noticeId }, { rejectWithValue }) => {
     try {
-      const response = await axios.post('/contacts', contact);
+      const response = await axios(`/notices/notice/${noticeId}`);
       return response.data;
     } catch (error) {
       toast.error('something went wrong in  addContact, please, try again');
@@ -40,8 +39,22 @@ export const addContact = createAsyncThunk(
     }
   }
 );
-*/
-// DELETE @ /contacts/:id
+
+// POST @ /notices/addNotice відповідно до категорії
+export const addNotice = createAsyncThunk(
+  'notices/addNotice',
+  async (newNotice, { rejectWithValue }) => {
+    try {
+      const response = await axios.post('/notices', newNotice);
+      return response.data;
+    } catch (error) {
+      toast.error('something went wrong in  addContact, please, try again');
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+// DELETE @ /notices/:id
 export const removeNotice = createAsyncThunk(
   'notices/removeNotice',
   async (noticeId, thunkAPI) => {

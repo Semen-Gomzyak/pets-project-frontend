@@ -3,6 +3,8 @@ import { useSelector } from 'react-redux';
 import { getIsLoggedIn } from '../../../redux/Auth/selectors';
 
 import { FavoriteBtn } from 'components/ButtonFavorite/BtnFavorite';
+import 'react-toastify/dist/ReactToastify.css';
+import { toast } from 'react-toastify';
 
 import {
   ListItem,
@@ -31,13 +33,38 @@ export const NoticeCategoryItem = ({ data, route }) => {
   const onChangeFavorite = () => {
     if (isAuth) {
       alert('favorit change');
+    } else {
+      toast.error(`You must be authorized to use this functionality!.`);
+
+      return;
     }
+  };
+
+  const getTitleCategory = category => {
+    let result = 'sell';
+    switch (category) {
+      case 'lost_found':
+        result = 'lost/found';
+        break;
+      case 'for_free':
+        result = 'in good hands';
+        break;
+      case 'favorite':
+        result = 'favorite ads';
+        break;
+      case 'own':
+        result = 'my ads';
+        break;
+      default:
+        break;
+    }
+    return result;
   };
 
   return (
     <ListItem>
       <ImgWrap>
-        <Category>{category}</Category>
+        <Category>{getTitleCategory(category)}</Category>
         <Img src={imgURL} alt={name} />
 
         <FavoriteBtn favorite={true} onClick={onChangeFavorite} />
@@ -66,9 +93,9 @@ export const NoticeCategoryItem = ({ data, route }) => {
         </ListInfo>
 
         <ThumbBtn>
-          <Button onClick={console.log('openModal')} />
+          <Button onClick={console.log('openModal')} text={'Learn More'} />
 
-          <Button onClick={console.log('delete')} />
+          <Button onClick={console.log('delete')} text={'Delete'} />
         </ThumbBtn>
       </Wrap>
     </ListItem>
