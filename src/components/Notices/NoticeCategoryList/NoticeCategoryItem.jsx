@@ -25,8 +25,17 @@ import { NoticeBtn } from 'components/ButtonNotice/BtnNotice';
 
 export const NoticeCategoryItem = ({ data, route }) => {
   // console.log('notices in Item', data);
-  const { _id, title, category, name, birthdate, breed, location, imgURL } =
-    data;
+  const {
+    _id,
+    title,
+    category,
+    name,
+    birthdate,
+    breed,
+    location,
+    imgURL,
+    price,
+  } = data;
 
   const isAuth = useSelector(getIsLoggedIn);
   const [showModal, setShowModal] = useState(false);
@@ -71,6 +80,10 @@ export const NoticeCategoryItem = ({ data, route }) => {
     setShowModal(true);
   };
 
+  const parseDate = time => {
+    return new Date(Date.parse(time)).toLocaleDateString();
+  };
+
   return (
     <ListItem>
       <ImgWrap>
@@ -93,13 +106,22 @@ export const NoticeCategoryItem = ({ data, route }) => {
           <LiInfo key={`${_id}+age`}>
             <Lable>Age:</Lable>
             <Text>
-              {birthdate
+              {birthdate ? parseDate(birthdate) : ''}
+              {/* {birthdate
                 ?.split('-')
                 .reverse()
                 .join('/')
-                .split('T23:00:00.000Z')}
+                .split('T23:00:00.000Z')} */}
             </Text>
           </LiInfo>
+          {price ? (
+            <LiInfo key={`${_id}+price`}>
+              <Lable>Price:</Lable>
+              <Text>{price}$</Text>
+            </LiInfo>
+          ) : (
+            ''
+          )}
         </ListInfo>
 
         <ThumbBtn>

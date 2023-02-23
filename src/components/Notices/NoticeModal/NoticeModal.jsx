@@ -42,7 +42,7 @@ export const NoticeModal = () => {
 
   return (
     <div>
-      {!isLoading && (
+      {isLoading && (
         <>
           <ImageContainer>
             <PictureData>
