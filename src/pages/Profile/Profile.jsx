@@ -34,7 +34,7 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { getUser } from 'redux/Auth/selectors';
-import { getUserInfo } from 'services/api';
+import { getUserInfo } from 'services/api/user';
 import PetForm  from '../../components/PetForm/PetForm'
 
 import { selectToken } from 'redux/Auth/selectors';
@@ -147,7 +147,7 @@ export const Profile = () => {
 
               <AddPetButton type="button"  onClick={PetForm}>
 
-              <AddPetButton type="button" onClick={toggleModal}>
+              {/* <AddPetButton type="button" onClick={toggleModal}> */}
 
                 <BsPlusCircleFill size={40} color={'#F59256'} />
               </AddPetButton>
