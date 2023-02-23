@@ -1,7 +1,8 @@
-// import { useState } from 'react';
+import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { getIsLoggedIn } from '../../../redux/Auth/selectors';
-
+import { Modal } from 'components/Modal/Modal';
+import { NoticeModal } from 'components/Notices/NoticeModal/NoticeModal';
 import { FavoriteBtn } from 'components/ButtonFavorite/BtnFavorite';
 import 'react-toastify/dist/ReactToastify.css';
 import { toast } from 'react-toastify';
@@ -19,7 +20,8 @@ import {
   Wrap,
   ThumbBtn,
 } from './NoticeCategoryItem.styled';
-import { Button } from 'components/Button/Button';
+
+import { NoticeBtn } from 'components/ButtonNotice/BtnNotice';
 
 export const NoticeCategoryItem = ({ data, route }) => {
   // console.log('notices in Item', data);
@@ -27,6 +29,10 @@ export const NoticeCategoryItem = ({ data, route }) => {
     data;
 
   const isAuth = useSelector(getIsLoggedIn);
+  const [showModal, setShowModal] = useState(false);
+  const toggleModal = () => {
+    setShowModal(prevState => !prevState);
+  };
 
   // const favorites = useSelector(selectFavoriteNotices);
   //
@@ -61,6 +67,19 @@ export const NoticeCategoryItem = ({ data, route }) => {
     return result;
   };
 
+  const onOpenModal = () => {
+    // setShowModal(true);
+    // console.log('showModal', showModal);
+    if (showModal === true) {
+      <Modal closeModal={toggleModal}>
+        <NoticeModal />
+      </Modal>;
+    } else {
+      toast.error(`You must be authorized to use this functionality!.`);
+      // setShowModal(false);
+    }
+  };
+
   return (
     <ListItem>
       <ImgWrap>
@@ -93,9 +112,9 @@ export const NoticeCategoryItem = ({ data, route }) => {
         </ListInfo>
 
         <ThumbBtn>
-          <Button onClick={console.log('openModal')} text={'Learn More'} />
+          <NoticeBtn onClick={onOpenModal} text={'Learn More'} />
 
-          <Button onClick={console.log('delete')} text={'Delete'} />
+          <NoticeBtn text={'Delete'} />
         </ThumbBtn>
       </Wrap>
     </ListItem>

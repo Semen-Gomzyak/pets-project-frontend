@@ -3,7 +3,7 @@ import { NaviList, NaviLink } from './Nav.styled';
 
 export const Nav = () => {
   const { categoryName } = useParams();
-
+  console.log(' Nav route', categoryName);
   return (
     <nav>
       <NaviList>

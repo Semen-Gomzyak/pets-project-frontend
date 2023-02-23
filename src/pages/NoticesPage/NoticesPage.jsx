@@ -29,7 +29,7 @@ export const NoticesPage = () => {
   const error = useSelector(selectError);
 
   // console.log('notices-->', notices);
-  console.log('route in Page', route);
+  // console.log('route in Page', route);
 
   useEffect(() => {
     if (searchQweryTitle !== '') {

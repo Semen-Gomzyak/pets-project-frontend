@@ -9,7 +9,7 @@ const DEFAULT_LIMIT = 8;
 export const fetchAllNotices = createAsyncThunk(
   'notices/fetchAllNotices',
   //деструктуруємо перший параметр
-  async ({ category, page = 1, limit = DEFAULT_LIMIT }, thunkAPI) => {
+  async ({ category = 'sell', page = 1, limit = DEFAULT_LIMIT }, thunkAPI) => {
     try {
       const response = await axios.get(
         `/notices/category/${category}?page=${page}&limit=${limit}`
