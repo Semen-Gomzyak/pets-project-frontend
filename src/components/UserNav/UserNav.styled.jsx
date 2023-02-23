@@ -8,6 +8,7 @@ export const UserNavDiv = styled.div`
   margin-right: auto;
 
   @media (min-width: 768px) {
+    display: flex;
     margin-left: auto;
     margin-right: 0;
   }

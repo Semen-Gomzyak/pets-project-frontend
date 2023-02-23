@@ -15,6 +15,7 @@ import {
 } from './RegisterForm.styled';
 import {  useNavigate } from 'react-router';
 
+
 export const SecondRegisterForm = ({ data, onClick }) => {
   const navigate = useNavigate();
   const initialValues = {
@@ -26,16 +27,16 @@ export const SecondRegisterForm = ({ data, onClick }) => {
   const dispatch = useDispatch();
 
   const handleSubmit = async (values, { resetForm }) => {
-     const response =  await dispatch(
-       register({
-         email: data.email,
-         password: data.password,
-         name: values.name,
-         cityRegion: values.cityRegion,
-         mobilePhone: values.mobilePhone,
-       })
+    const response = await dispatch(
+      register({
+        email: data.email,
+        password: data.password,
+        name: values.name,
+        cityRegion: values.cityRegion,
+        mobilePhone: values.mobilePhone,
+      })
     );
-    
+
     if (response.payload.status === 201) {
       const loginResponse = await dispatch(
         login({ email: data.email, password: data.password })
@@ -49,8 +50,8 @@ export const SecondRegisterForm = ({ data, onClick }) => {
     } else {
       console.log('Something went wrong with registration, please try again');
     }
-    
-      resetForm();
+
+    resetForm();
   };
 
   return (
@@ -103,4 +104,3 @@ export const SecondRegisterForm = ({ data, onClick }) => {
     </Formik>
   );
 };
-
