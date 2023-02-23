@@ -26,19 +26,19 @@ export const NoticesCategoryNav = () => {
       <ButtonList>
         {!tokenIsAuth
           ? filterButtons
-              .filter(itemBtn => itemBtn.isAuth === true)
+              .filter(itemBtn => itemBtn.isAuth === false)
               .map(filteredItem => (
                 <ButtonElement key={filteredItem.title}>
                   <FilterButton
                     to={`/notices/` + filteredItem.to}
-                    className={
+                    addClassName={
                       route === 'sell' ||
                       route === 'lost_found' ||
                       route === 'for_free' ||
                       route === 'favorite' ||
                       route === 'own'
                         ? 'active'
-                        : ''
+                        : ' '
                     }
                   >
                     {filteredItem.title}

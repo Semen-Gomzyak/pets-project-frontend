@@ -1,4 +1,4 @@
-// import { useState } from 'react';
+import { useState } from 'react';
 import { useSelector /*, useDispatch*/ } from 'react-redux';
 
 import { selectOneNotice } from 'redux/Notices/NoticesSelector';
@@ -22,9 +22,11 @@ export const NoticeModal = ({ notice }) => {
   const isAuth = useSelector(getIsLoggedIn);
   const isLoading = useSelector(selectOneNotice);
 
-  console.log('notice', notice);
+  // console.log('notice', notice);
   // const dispatch = useDispatch();
-  // const isFavorite = useSelector();
+  // const isFavorite = useSelector(notice.favorite);
+  const [isFavorite, setFavorite] = useState(notice.favorite);
+  console.log('favorite', isFavorite);
   // const [isFavorited, setFavorited] = useState(isFavorite);
 
   const hadleClickAddFavorite = () => {
@@ -32,13 +34,13 @@ export const NoticeModal = ({ notice }) => {
       return toast.error(`You must be authorized to use this functionality!.`);
     }
 
-    // if (isFavorited) {
-    //   return toast.warn('Notice already added to favorite');
-    // }
+    if (isFavorite) {
+      return toast.warn('Notice already added to favorite');
+    }
     // addFavoriteNotice(notice.id);
     // dispatch(userActions.addFavorite(notice.id));
     toast.success(' Notice add to favorite');
-    // return setFavorited(true);
+    return setFavorite(true);
   };
   const parseDate = time => {
     return new Date(Date.parse(time)).toLocaleDateString();
@@ -112,13 +114,21 @@ export const NoticeModal = ({ notice }) => {
                 <MyBtn active={'active'}>Contact</MyBtn>
               </a>
             }
-
-            <MyBtn onClick={hadleClickAddFavorite}>
-              Add to
-              <span>
-                <CiHeart />
-              </span>
-            </MyBtn>
+            {!isFavorite ? (
+              <MyBtn onClick={hadleClickAddFavorite}>
+                Add to
+                <span>
+                  <CiHeart />
+                </span>
+              </MyBtn>
+            ) : (
+              <MyBtn onClick={hadleClickAddFavorite}>
+                Remove from
+                <span>
+                  <CiHeart />
+                </span>
+              </MyBtn>
+            )}
           </BtnContainer>
         </>
       )}

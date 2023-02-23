@@ -19,7 +19,7 @@ import ContainerPage from 'components/Container/ContainerPage';
 import { NoticesCategoriesList } from 'components/Notices/NoticeCategoryList/NoticesCategoriesList';
 import { Loader } from 'components/Loader/Loader';
 import { Modal } from 'components/Modal/Modal';
-import { NoticeModal } from 'components/Notices/NoticeModal/NoticeModal';
+// import { NoticeModal } from 'components/Notices/NoticeModal/NoticeModal';
 import { MenuWrap } from './NoticesPage.styled';
 import 'react-toastify/dist/ReactToastify.css';
 import { toast } from 'react-toastify';
@@ -100,11 +100,7 @@ export const NoticesPage = () => {
       <MenuWrap>
         <NoticesCategoryNav />
         <AddPetBtn onClick={onOpenModal} text={'Add pet'} />
-        {showModal && (
-          <Modal closeModal={toggleModal}>
-            <NoticeModal />
-          </Modal>
-        )}
+        {showModal && <Modal closeModal={toggleModal}>AddNoticeModal</Modal>}
       </MenuWrap>
       {isLoading && !error && <Loader />}
       {notices?.length > 0 ? (
