@@ -55,9 +55,8 @@ export const NoticesPage = () => {
   const fetchFavorite = async currentUserId => {
     console.log('currentUserId', currentUserId);
     try {
-      const result =
-        // const result = await getFavoriteNoticesByUser({ userId: currentUserId });
-        console.log('RRRRR', result);
+      const result = await getFavoriteNoticesByUser(currentUserId);
+      console.log('RRRRR', result);
       if (result?.length === 0) {
         throw new Error();
       }
