@@ -63,7 +63,7 @@ const authSlise = createSlice({
         state.error = null;
       })
       .addCase(updateFavoriteNotice.fulfilled, (state, { payload }) => {
-        state.user.favoriteNotices = payload;
+        state.user.favoriteNotices = [...state.user.favoriteNotices, payload];
         state.isLoading = false;
       });
   },
