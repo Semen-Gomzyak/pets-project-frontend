@@ -14,7 +14,7 @@ export const InfoForm = styled(Form)`
   border-color: #f2f2f2;
 
   width: 608px;
-  height: 449px;
+  min-height: 449px;
   left: 80px;
   top: 276px;
 
@@ -26,7 +26,7 @@ export const InfoForm = styled(Form)`
 export const InputsList = styled.ul`
   list-style: none;
   padding: 0;
-  margin-bottom: 15px;
+  margin-bottom: 40px;
 `;
 
 export const Input = styled(Field)`
@@ -50,6 +50,10 @@ export const Input = styled(Field)`
 
   color: rgba(17, 17, 17, 0.6);
   padding-left: 32px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
 `;
 export const LoginTitle = styled.h2`
   font-family: 'Manrope';
@@ -91,7 +95,6 @@ export const Button = styled.button`
   top: 585px;
 
   border-radius: 40px;
-  margin-top: 26px;
 `;
 
 export const Text = styled.p`
@@ -129,5 +132,10 @@ export const Link = styled(NavLink)`
 export const Error = styled(ErrorMessage)`
   color: red;
   font-style: italic;
-  margin-bottom: 15px;
+  text-align: center;
 `;
+
+export const ButtonContainer = styled.div`
+  display: block;
+`;
+

@@ -28,6 +28,13 @@ import { Avatar } from 'components/Profile/Avatar/Avatar';
 import { UserUpdateForm } from 'components/Profile/UserUpdateForm/UserUdateForm';
 
 import { useDispatch, useSelector } from 'react-redux';
+
+// import { getUser } from 'redux/Auth/selectors';
+
+// import { getUserInfo } from 'services/api/user';
+
+import PetForm from '../../components/PetForm/PetForm';
+
 import { selectToken } from 'redux/Auth/selectors';
 import {
   deleteUserPet,
@@ -35,6 +42,7 @@ import {
   updateUserData,
   uploadAvatar,
 } from 'services/api/user';
+
 import { logout } from 'redux/Auth/operations';
 import { useNavigate } from 'react-router';
 
@@ -144,7 +152,11 @@ export const Profile = () => {
             </PetsPartTitle>
             <AddPetContainer>
               <AddPetText>Add Pet</AddPetText>
-              <AddPetButton type="button" onClick={toggleModal}>
+
+
+              <AddPetButton type="button" onClick={PetForm}>
+                {/* <AddPetButton type="button" onClick={toggleModal}> */}
+
                 <BsPlusCircleFill size={40} color={'#F59256'} />
               </AddPetButton>
             </AddPetContainer>

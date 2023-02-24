@@ -14,17 +14,15 @@ export const Backdrop = styled.div`
 `;
 
 export const ModalContainer = styled.div`
-  /* max-width: calc(100vw - 48px); */
-  /* max-height: calc(100vh - 24px); */
-  /* max-width: 90vw; */
-  /* max-height: 90vh; */
   width: 280px;
+
   @media screen and (min-width: 320px) {
     width: calc(100vw - 40px);
   }
   @media screen and (min-width: 480px) {
     width: 440px;
   }
+
 
   height: fit-content;
   margin-top: 160px;
@@ -35,6 +33,12 @@ export const ModalContainer = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  @media ${p => p.theme.device.tablet} {
+    width: 704px;
+  }
+  @media ${p => p.theme.device.desktop} {
+    width: 704px;
+  }
 `;
 
 export const CloseBtn = styled.button`
