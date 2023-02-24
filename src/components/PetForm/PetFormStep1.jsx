@@ -1,4 +1,3 @@
-
 import { ErrorMessage, Formik } from 'formik';
 import * as Yup from 'yup';
 
@@ -20,7 +19,7 @@ const validationSchema = Yup.object({
     .max(12, 'Name should be 12 characters or less')
     .matches(inputReGeX, `Please enter a valid value using English characters`)
     .required(`Please enter your pet's name`),
-  birthdate: Yup.date()
+  date: Yup.date()
     .typeError('Please choose the date')
     .required(`Please enter your pet's date of birth`),
   breed: Yup.string()
@@ -29,8 +28,6 @@ const validationSchema = Yup.object({
     .matches(inputReGeX, `Please enter a valid value using English characters`)
     .required(`Please enter your pet's breed`),
 });
-
-
 
 const PetFormStep1 = ({ data, next, onCancel }) => {
   const today = new Date().toISOString().split('T')[0];
@@ -61,17 +58,17 @@ const PetFormStep1 = ({ data, next, onCancel }) => {
             )}
           />
 
-          <LabelStyled htmlFor="birthdate">Date of birth</LabelStyled>
+          <LabelStyled htmlFor="date">Date of birth</LabelStyled>
           <InputDateStyled
-            id="birthdate"
-            name="birthdate"
+            id="date"
+            name="date"
             type="date"
             min="1950-01-01"
             max={today}
             placeholder="01.01.2023"
-            />
+          />
           <ErrorMessage
-            name="birthdate"
+            name="date"
             render={message => (
               <ErrorStyled style={{ color: 'red' }}>{message}</ErrorStyled>
             )}
@@ -103,20 +100,6 @@ const PetFormStep1 = ({ data, next, onCancel }) => {
 };
 
 export default PetFormStep1;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // import { useState } from 'react';
 // // import './ContactFormStyles.scss';

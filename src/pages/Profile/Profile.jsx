@@ -31,7 +31,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 // import { getUser } from 'redux/Auth/selectors';
 // import { getUserInfo } from 'services/api/user';
-// import PetForm from '../../components/PetForm/PetForm';
+import PetForm from '../../components/PetForm/PetForm';
 
 import { selectToken } from 'redux/Auth/selectors';
 import {
@@ -108,6 +108,10 @@ export const Profile = () => {
     setUserPets(newUserPets);
   };
 
+  const addPet = pet => {
+    setUserPets(prevState => prevState.push(pet));
+  };
+
   // const deletePet = (petId, newPetsList) => {
   //   deleteUserPet(petId, token);
   //   setUserPets(newPetsList);
@@ -170,8 +174,6 @@ export const Profile = () => {
                   <img src={pet.avatarURL} alt="avatar" width={240} />
                 </PetImgContainer>
 
-                {/* -------------- PET INFO ----------------------- */}
-
                 <PetData>
                   <P>
                     <Span>Name: </Span> {pet.name}
@@ -201,7 +203,8 @@ export const Profile = () => {
       </Section>
       {showModal && (
         <Modal closeModal={toggleModal}>
-          <PetForm />
+          <PetForm addPet={addPet} />
+          {/* <div>Test Content</div> */}
         </Modal>
       )}
     </>

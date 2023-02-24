@@ -7,12 +7,12 @@ import PetFormStep1 from './PetFormStep1';
 import PetFormStep2 from './PetFormStep2';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
-const PetForm = ({ onCancel }) => {
+const PetForm = ({ onCancel, addPet }) => {
   const dispatch = useDispatch();
 
   const [data, setData] = useState({
     name: '',
-    birthdate: '',
+    date: '',
     breed: '',
     comments: '',
     imageURL: null,
@@ -23,26 +23,35 @@ const PetForm = ({ onCancel }) => {
     const data = new FormData();
     data.append('name', formData.name);
     data.append(
-      'birthdate',
-      format(new Date(formData.birthdate), 'dd.MM.yyyy')
+      'date',
+      // formData.birthdate
+      format(new Date(formData.date), 'dd.MM.yyyy')
     );
     data.append('breed', formData.breed);
     data.append('comments', formData.comments);
     data.append('imageURL', formData.imageURL);
 
-    try {
-      dispatch(addPets(data));
-      Notify.success('You added new Pet successfully!');
-      onCancel();
-    } catch (error) {
-      console.log(error.message);
-    }
+    // try {
+    //   dispatch(addPets(data));
+    //   Notify.success('You added new Pet successfully!');
+    //   onCancel();
+    // } catch (error) {
+    //   console.log(error.message);
+    // }
   };
 
   const handleNextStep = (newData, final = false) => {
     setData(prev => ({ ...prev, ...newData }));
     if (final) {
       makeReq(newData);
+      try {
+        dispatch(addPets(data));
+        Notify.success('You added new Pet successfully!');
+        onCancel();
+        addPet(data);
+      } catch (error) {
+        console.log(error.message);
+      }
       return;
     }
     setCurrentStep(prev => prev + 1);
@@ -67,12 +76,6 @@ const PetForm = ({ onCancel }) => {
 };
 
 export default PetForm;
-
-
-
-
-
-
 
 // import { useState } from 'react';
 // import SignUpStep1 from './SignUpStep1';
