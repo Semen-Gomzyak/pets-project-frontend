@@ -45,26 +45,55 @@ export const RegisterSection = styled.section`
   }
 `;
 
+// export const InfoForm = styled(Form)`
+//   display: flex;
+//   flex-direction: column;
+//   align-items: center;
+//   justify-content: center;
+
+//   margin: 0 auto;
+//   padding: 40px;
+//   border: 1px solid;
+//   border-color: #f2f2f2;
+
+//   width: 608px;
+//   min-height: 517px;
+//   left: 80px;
+//   top: 276px;
+
+//   background: #ffffff;
+//   box-shadow: 7px 4px 14px rgba(0, 0, 0, 0.11);
+//   border-radius: 40px;
+// `;
+
 export const InfoForm = styled(Form)`
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 
-  margin: 0 auto;
-  padding: 40px;
-  border: 1px solid;
-  border-color: #f2f2f2;
+  @media screen and (min-width: 768px) {
+    margin: 0 auto;
+    padding: 40px;
+    border: 1px solid;
+    border-color: #f2f2f2;
 
-  width: 608px;
-  min-height: 517px;
-  left: 80px;
-  top: 276px;
+    max-width: 608px;
+    width: 100%;
 
-  background: #ffffff;
-  box-shadow: 7px 4px 14px rgba(0, 0, 0, 0.11);
-  border-radius: 40px;
+    background: #ffffff;
+    box-shadow: 7px 4px 14px rgba(0, 0, 0, 0.11);
+    border-radius: 40px;
+  }
+  @media (min-width: 1280px) {
+    padding-bottom: 60px;
+    padding-left: 80px;
+    padding-right: 80px;
+  }
 `;
+
+
+
 
 export const InputsList = styled.ul`
   list-style: none;
@@ -73,8 +102,9 @@ export const InputsList = styled.ul`
 `;
 
 export const Input = styled(Field)`
-  width: 448px;
-  height: 52px;
+  width: 280px;
+  height: 40px;
+
   margin-bottom: 16px;
   padding: 8px;
   border: 1px solid;
@@ -84,7 +114,7 @@ export const Input = styled(Field)`
   font-family: 'Manrope';
   font-style: normal;
   font-weight: 400;
-  font-size: 18px;
+  font-size: 14px;
   line-height: 1, 39;
   cursor: pointer;
   display: flex;
@@ -97,18 +127,38 @@ export const Input = styled(Field)`
   &:last-child {
     margin-bottom: 0;
   }
+  @media screen and (min-width: 768px) {
+    width: 448px;
+    height: 52px;
+    font-size: 18px;
+  }
+  @media (min-width: 1280px) {
+    width: 458px;
+    height: 52px;
+  }
 `;
 export const RegisterTitle = styled.h2`
   font-family: 'Manrope';
   font-style: normal;
-  font-weight: 500;
-  font-size: 36px;
-  line-height: 49px;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 1.38;
+
   display: flex;
   align-items: center;
   text-align: center;
   letter-spacing: 0.04em;
+  // width: 100px;
+  // height: 33px;
+
+  color: #111111;
   margin-bottom: 40px;
+
+  @media (min-width: 768px) {
+    font-weight: 500;
+    font-size: 36px;
+    line-height: 49px;
+  }
 `;
 
 export const Button = styled.button`
@@ -132,16 +182,26 @@ export const Button = styled.button`
   padding: 10px 28px;
   gap: 10px;
 
-  width: 458px;
+  width: 280px;
   height: 44px;
-  left: 155px;
-  top: 585px;
 
   border-radius: 40px;
-  margin-bottom: 18px;
-
-  &:last-child {
-    margin-bottom: 0;
+  transition: 100ms linear;
+  &:hover {
+    transform: scale(1.06);
+  }
+  &:active {
+    transform: scale(1);
+  }
+  @media screen and (min-width: 768px) {
+    width: 458px;
+    height: 44px;
+  }
+  @media (min-width: 1280px) {
+    width: 458px;
+    height: 48px;
+    left: 155px;
+    top: 585px;
   }
 `;
 

@@ -92,7 +92,7 @@ export const Input = styled(Field)`
   font-family: 'Manrope';
   font-style: normal;
   font-weight: 400;
-  font-size: 18px;
+  font-size: 14px;
   line-height: 1, 39;
   cursor: pointer;
   display: flex;
@@ -108,6 +108,7 @@ export const Input = styled(Field)`
   @media screen and (min-width: 768px) {
     width: 448px;
     height: 52px;
+    font-size: 18px;
   }
   @media (min-width: 1280px) {
     width: 458px;
