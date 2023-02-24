@@ -6,6 +6,11 @@ export const AvatarContainer = styled.div`
 
   margin-bottom: 35px;
   filter: drop-shadow(0px 4px 14px rgba(0, 0, 0, 0.11));
+
+  @media screen and (min-width: 768px) {
+    margin-bottom: 0;
+    margin-left: 52px;
+  }
 `;
 
 export const UserAvatar = styled.div`
@@ -13,8 +18,8 @@ export const UserAvatar = styled.div`
   align-items: center;
   justify-content: center;
 
-  width: 230px;
-  height: 230px;
+  width: 233px;
+  height: 233px;
   object-fit: contain;
   overflow: hidden;
   > img {

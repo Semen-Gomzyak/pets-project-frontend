@@ -33,7 +33,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 // import { getUserInfo } from 'services/api/user';
 
-import PetForm from '../../components/PetForm/PetForm';
+// import PetForm from '../../components/PetForm/PetForm';
 
 import { selectToken } from 'redux/Auth/selectors';
 import {
@@ -153,10 +153,8 @@ export const Profile = () => {
             <AddPetContainer>
               <AddPetText>Add Pet</AddPetText>
 
-
-              <AddPetButton type="button" onClick={PetForm}>
-                {/* <AddPetButton type="button" onClick={toggleModal}> */}
-
+              {/* <AddPetButton type="button" onClick={PetForm}> */}
+              <AddPetButton type="button" onClick={toggleModal}>
                 <BsPlusCircleFill size={40} color={'#F59256'} />
               </AddPetButton>
             </AddPetContainer>
@@ -166,7 +164,7 @@ export const Profile = () => {
             {userPets.map((pet, index) => (
               <PetInfo key={pet._id}>
                 <PetImgContainer>
-                  <img src={pet.avatarURL} alt="avatar" />
+                  <img src={pet.avatarURL} alt="avatar" width={240} />
                 </PetImgContainer>
 
                 {/* -------------- PET INFO ----------------------- */}

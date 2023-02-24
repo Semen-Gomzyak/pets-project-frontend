@@ -1,18 +1,24 @@
 import styled from 'styled-components';
 
 export const Form = styled.form`
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
   width: 280px;
+
   @media screen and (min-width: 320px) {
     width: calc(100vw - 40px);
   }
   @media screen and (min-width: 480px) {
     width: 440px;
   }
-  margin: auto;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  @media screen and (min-width: 768px) {
+    width: 412px;
+    padding-left: 32px;
+  }
 `;
 
 export const ItemContainer = styled.div`
@@ -37,20 +43,15 @@ export const Label = styled.label`
     width: 96px;
     font-size: 18px;
   }
+  @media screen and (min-width: 768px) {
+    width: 107px;
+  }
 `;
 
 export const Input = styled.input`
   width: 160px;
   font-size: 12px;
   /* line-height: 16px; */
-  @media screen and (min-width: 320px) {
-    width: calc(100vw / 2);
-    font-size: calc(100vw / 27);
-  }
-  @media screen and (min-width: 480px) {
-    width: 240px;
-    font-size: 18px;
-  }
 
   border: none;
   padding: 4px 18px;
@@ -59,6 +60,18 @@ export const Input = styled.input`
     background: #fdf7f2;
     outline: 1px solid rgba(245, 146, 86, 0.5);
     border-radius: 40px;
+  }
+
+  @media screen and (min-width: 320px) {
+    width: calc(100vw / 2);
+    font-size: calc(100vw / 27);
+  }
+  @media screen and (min-width: 480px) {
+    width: 240px;
+    font-size: 18px;
+  }
+  @media screen and (min-width: 768px) {
+    width: 216px;
   }
 `;
 
@@ -70,6 +83,9 @@ export const BtnContainer = styled.div`
   }
   @media screen and (min-width: 480px) {
     margin-left: 15px;
+  }
+  @media screen and (min-width: 768px) {
+    margin-left: 24px;
   }
 `;
 
