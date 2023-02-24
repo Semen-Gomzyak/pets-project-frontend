@@ -38,29 +38,36 @@ export const AvatarContainer = styled.div`
 `;
 
 export const Avatar = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
   width: 230px;
   height: 230px;
-  object-fit: cover;
+  object-fit: contain;
   overflow: hidden;
   > img {
     width: 100%;
-    height: 100%;
+    height: auto;
   }
   border-radius: 50%;
 `;
 
-export const EditAvatarContainer = styled.div`
+export const ChangeAvatarForm = styled.form`
   display: flex;
   align-items: center;
   justify-content: right;
   margin-left: auto;
 `;
 
-export const AvatarButton = styled.button`
+export const AvatarButton = styled.label`
   background: none;
   display: inline-flex;
   justify-content: center;
   align-items: center;
+  :hover {
+    cursor: pointer;
+  }
 `;
 
 export const EditAvatarText = styled.span`
@@ -90,6 +97,10 @@ export const LogOutButton = styled.button`
   display: inline-flex;
   justify-content: center;
   align-items: center;
+
+  :hover {
+    cursor: pointer;
+  }
 `;
 
 export const UserDataContainer = styled.div`
@@ -181,4 +192,8 @@ export const DeletePetButton = styled.button`
   display: inline-flex;
   justify-content: center;
   align-items: center;
+
+  :hover {
+    cursor: pointer;
+  }
 `;
