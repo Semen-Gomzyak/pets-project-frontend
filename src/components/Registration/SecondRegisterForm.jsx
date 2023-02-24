@@ -1,10 +1,23 @@
 import { Formik } from 'formik';
 import { useDispatch } from 'react-redux';
-import { register } from 'redux/Auth/operations';
+import { register, login } from 'redux/Auth/operations';
 import { SecondRegisterFormSchema } from 'validations/SecondRegisterValidation';
-import { Button, Error, InfoForm, Input, InputsList, Link, RegisterTitle, Text } from './RegisterForm.styled';
+import {
+  Button,
+  Error,
+  InfoForm,
+  Input,
+  InputsList,
+  Link,
+  RegisterTitle,
+  Text,
+  ButtonContainer,
+} from './RegisterForm.styled';
+import {  useNavigate } from 'react-router';
+
 
 export const SecondRegisterForm = ({ data, onClick }) => {
+  const navigate = useNavigate();
   const initialValues = {
     name: '',
     cityRegion: '',
@@ -13,17 +26,32 @@ export const SecondRegisterForm = ({ data, onClick }) => {
 
   const dispatch = useDispatch();
 
-  const handleSubmit = (values, {resetForm}) => {
-      dispatch(
-        register({
-          email: data.email,
-          password: data.password,
-          name: values.name,
-          cityRegion: values.cityRegion,
-          mobilePhone: values.mobilePhone,
-        })
+  const handleSubmit = async (values, { resetForm }) => {
+    const response = await dispatch(
+      register({
+        email: data.email,
+        password: data.password,
+        name: values.name,
+        cityRegion: values.cityRegion,
+        mobilePhone: values.mobilePhone,
+      })
+    );
+
+    if (response.payload.status === 201) {
+      const loginResponse = await dispatch(
+        login({ email: data.email, password: data.password })
       );
-      resetForm();
+
+      if (loginResponse.payload.status === 200) {
+        navigate('/profile', { replace: true });
+      } else {
+        console.log('Something went wrong with login');
+      }
+    } else {
+      console.log('Something went wrong with registration, please try again');
+    }
+
+    resetForm();
   };
 
   return (
@@ -36,6 +64,7 @@ export const SecondRegisterForm = ({ data, onClick }) => {
         <InfoForm autoComplete="off" onSubmit={props.handleSubmit}>
           <RegisterTitle>Registration</RegisterTitle>
           <InputsList>
+            <Error name="name" component="div" />
             <Input
               type="text"
               name="name"
@@ -43,7 +72,7 @@ export const SecondRegisterForm = ({ data, onClick }) => {
               value={props.values.name}
               onChange={props.handleChange}
             />
-            <Error name="name" component="div" />
+            <Error name="cityRegion" component="div" />
             <Input
               type="text"
               name="cityRegion"
@@ -51,7 +80,7 @@ export const SecondRegisterForm = ({ data, onClick }) => {
               value={props.values.city}
               onChange={props.handleChange}
             />
-            <Error name="cityRegion" component="div" />
+            <Error name="mobilePhone" component="div" />
             <Input
               type="text"
               name="mobilePhone"
@@ -59,13 +88,13 @@ export const SecondRegisterForm = ({ data, onClick }) => {
               value={props.values.mobilePhone}
               onChange={props.handleChange}
             />
-            <Error name="mobilePhone" component="div" />
           </InputsList>
-
-          <Button type="submit">Register</Button>
-          <Button type="button" onClick={() => onClick()}>
-            Back
-          </Button>
+          <ButtonContainer>
+            <Button type="submit">Register</Button>
+            <Button type="button" onClick={() => onClick()}>
+              Back
+            </Button>
+          </ButtonContainer>
           <Text>
             Already have an account?
             <Link href="/login">Login</Link>
@@ -75,4 +104,3 @@ export const SecondRegisterForm = ({ data, onClick }) => {
     </Formik>
   );
 };
-

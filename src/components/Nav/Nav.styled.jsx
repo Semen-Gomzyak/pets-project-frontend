@@ -14,7 +14,7 @@ export const NaviList = styled.ul`
   @media (min-width: 1280px) {
     flex-direction: row;
     gap: 80px;
-    margin-bottom: 0;
+    align-items: center;
   }
 `;
 
@@ -25,7 +25,7 @@ export const NaviLink = styled(NavLink)`
   font-size: 32px;
   line-height: 1.38;
   letter-spacing: 0.04em;
-
+  font-family: ${p => p.theme.fonts.manrope};
   color: ${p => p.theme.colors.black};
 
   :hover,

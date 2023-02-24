@@ -1,6 +1,6 @@
 import { Formik } from "formik";
 import { RegisterFormSchema } from "validations/RegisterFormValidation";
-import { Button, Error, InfoForm, Input, InputsList, Link, RegisterTitle, Text } from "./RegisterForm.styled";
+import { Button, Error, InfoForm, Input, InputsList, Link, RegisterTitle, Text, ButtonContainer } from "./RegisterForm.styled";
 
 export const FirstRegisterForm = ({data, onSubmit, onClick}) => {
     const initialValues = {
@@ -24,6 +24,7 @@ export const FirstRegisterForm = ({data, onSubmit, onClick}) => {
           <InfoForm autoComplete="off" onSubmit={props.handleSubmit}>
             <RegisterTitle>Registration</RegisterTitle>
             <InputsList>
+              <Error name="email" component="div" />
               <Input
                 type="email"
                 name="email"
@@ -31,7 +32,7 @@ export const FirstRegisterForm = ({data, onSubmit, onClick}) => {
                 value={props.values.email}
                 onChange={props.handleChange}
               />
-              <Error name="email" component="div" />
+              <Error name="password" component="div" />
               <Input
                 type="password"
                 name="password"
@@ -39,7 +40,7 @@ export const FirstRegisterForm = ({data, onSubmit, onClick}) => {
                 value={props.values.password}
                 onChange={props.handleChange}
               />
-              <Error name="password" component="div" />
+              <Error name="confirmPassword" component="div" />
               <Input
                 type="password"
                 name="confirmPassword"
@@ -47,15 +48,12 @@ export const FirstRegisterForm = ({data, onSubmit, onClick}) => {
                 value={props.values.confirmPassword}
                 onChange={props.handleChange}
               />
-              <Error name="confirmPassword" component="div" />
             </InputsList>
-
-            <Button
-              type="submit"
-              disabled={!onClick ? false : true}
-            >
+            <ButtonContainer>
+            <Button type="submit" disabled={!onClick ? false : true}>
               Next
             </Button>
+          </ButtonContainer>
             <Text>
               Already have an account?
               <Link href="/login">Login</Link>
