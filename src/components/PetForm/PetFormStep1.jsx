@@ -20,7 +20,7 @@ const validationSchema = Yup.object({
     .max(12, 'Name should be 12 characters or less')
     .matches(inputReGeX, `Please enter a valid value using English characters`)
     .required(`Please enter your pet's name`),
-  date: Yup.date()
+  birthdate: Yup.date()
     .typeError('Please choose the date')
     .required(`Please enter your pet's date of birth`),
   breed: Yup.string()

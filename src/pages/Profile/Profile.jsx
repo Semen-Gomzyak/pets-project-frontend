@@ -29,11 +29,16 @@ import { UserUpdateForm } from 'components/Profile/UserUpdateForm/UserUdateForm'
 
 import { useDispatch, useSelector } from 'react-redux';
 
+
+import { getUser } from 'redux/Auth/selectors';
+
+
 // import { getUser } from 'redux/Auth/selectors';
 
 // import { getUserInfo } from 'services/api/user';
 
 import PetForm from '../../components/PetForm/PetForm';
+
 
 import { selectToken } from 'redux/Auth/selectors';
 import {
@@ -154,6 +159,9 @@ export const Profile = () => {
               <AddPetText>Add Pet</AddPetText>
 
 
+              <AddPetButton type="button" />
+
+
               <AddPetButton type="button" onClick={PetForm}>
                 {/* <AddPetButton type="button" onClick={toggleModal}> */}
 
@@ -200,7 +208,7 @@ export const Profile = () => {
       </Section>
       {showModal && (
         <Modal closeModal={toggleModal}>
-          <div>MODAL</div>
+            <PetForm/>
         </Modal>
       )}
     </>
