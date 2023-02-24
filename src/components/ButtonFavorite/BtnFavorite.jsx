@@ -3,7 +3,11 @@ import { Button } from './BtnFavorite.styled';
 
 export const FavoriteBtn = ({ favorite, onClick }) => {
   return (
-    <Button type="button" isFavorite={favorite} onClick={onClick}>
+    <Button
+      type="button"
+      ClassName={favorite === true ? 'active' : ' '}
+      onClick={onClick}
+    >
       <span>
         <CiHeart />
       </span>

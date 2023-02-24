@@ -36,6 +36,7 @@ export const NoticeCategoryItem = ({ data, route }) => {
     birthdate,
     breed,
     location,
+    favorite,
     imgURL,
     price,
   } = data;
@@ -52,15 +53,15 @@ export const NoticeCategoryItem = ({ data, route }) => {
 
   const favorites = useSelector(selectFavoriteNotices);
   console.log('favorites---->', favorites);
-  // const isFavorite = favorites.includes(_id);
-  const isFavorite = true;
+  const isFavorite = favorites.includes(_id);
+  // const isFavorite = true;
 
   const toggleModal = () => {
     setShowModal(prevState => !prevState);
   };
 
   const onChangeFavorite = () => {
-    console.log('favorite', isFavorite);
+    console.log('Isfavorite', isFavorite);
     if (isAuth) {
       dispatch(
         updateFavoriteNotice({
@@ -69,7 +70,8 @@ export const NoticeCategoryItem = ({ data, route }) => {
           noticeId: _id,
         })
       );
-      toast.success('favorite change ');
+      console.log('favorite change', favorite);
+      toast.success('favorite change  success');
 
       if (route === 'favorite') {
         dispatch(changeFavotitesNotices(_id));
