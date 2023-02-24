@@ -28,7 +28,7 @@ const addNoticeSuccessReducer = (state, { payload }) => {
 };
 
 const removeNoticeSuccessReducer = (state, { payload }) => {
-  const index = state.notices.findIndex(notice => notice.id === payload.id);
+  const index = state.notices.findIndex(notice => notice._id === payload.id);
   state.notices.splice(index, 1);
 };
 

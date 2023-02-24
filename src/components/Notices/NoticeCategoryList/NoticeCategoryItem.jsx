@@ -1,9 +1,12 @@
 import { useState } from 'react';
-import { useSelector } from 'react-redux';
-import { getIsLoggedIn } from '../../../redux/Auth/selectors';
+import { useSelector, useDispatch } from 'react-redux';
+import { getIsLoggedIn, getUser } from '../../../redux/Auth/selectors';
 import { Modal } from 'components/Modal/Modal';
 import { NoticeModal } from 'components/Notices/NoticeModal/NoticeModal';
 import { FavoriteBtn } from 'components/ButtonFavorite/BtnFavorite';
+import { changeFavotitesNotices } from '../../../redux/Notices/NoticesSlice';
+import { selectFavoriteNotices } from '../../../redux/Auth/selectors';
+import { updateFavoriteNotice } from '../../../redux/Auth/operations';
 import 'react-toastify/dist/ReactToastify.css';
 import { toast } from 'react-toastify';
 
@@ -37,17 +40,30 @@ export const NoticeCategoryItem = ({ data, route }) => {
     price,
   } = data;
 
+  const dispatch = useDispatch();
   const isAuth = useSelector(getIsLoggedIn);
   const [showModal, setShowModal] = useState(false);
+  //TODO!!!!!!!!!!!!!!
+  const currentUser = useSelector(getUser);
+  console.log('user---->', currentUser);
+
+  const favorites = useSelector(selectFavoriteNotices);
+
+  const isFavorite = favorites.includes(_id);
+
   const toggleModal = () => {
     setShowModal(prevState => !prevState);
   };
 
-  // const favorites = useSelector(selectFavoriteNotices);
-  //
   const onChangeFavorite = () => {
+    console.log('favorite', isFavorite);
     if (isAuth) {
-      alert('favorit change');
+      dispatch(updateFavoriteNotice({ userId: currentUser.id, noticeId: _id }));
+      toast.success('favorite change ');
+
+      if (route === 'favorite') {
+        dispatch(changeFavotitesNotices(_id));
+      }
     } else {
       toast.error(`You must be authorized to use this functionality!.`);
 
@@ -90,7 +106,7 @@ export const NoticeCategoryItem = ({ data, route }) => {
         <Category>{getTitleCategory(category)}</Category>
         <Img src={imgURL} alt={name} />
 
-        <FavoriteBtn favorite={true} onClick={onChangeFavorite} />
+        <FavoriteBtn favorite={isFavorite} onClick={onChangeFavorite} />
       </ImgWrap>
       <Wrap>
         <Title>{title}</Title>

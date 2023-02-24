@@ -147,7 +147,6 @@ export const Profile = () => {
             <AddPetContainer>
               <AddPetText>Add Pet</AddPetText>
 
-
               <AddPetButton type="button" onClick={PetForm}>
                 {/* <AddPetButton type="button" onClick={toggleModal}> */}
 
