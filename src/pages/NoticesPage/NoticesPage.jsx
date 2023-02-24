@@ -22,7 +22,7 @@ import { NoticesCategoriesList } from 'components/Notices/NoticeCategoryList/Not
 import { Loader } from 'components/Loader/Loader';
 import { Modal } from 'components/Modal/Modal';
 
-import AddNoticeForm from 'components/AddNoticeForm/AddNoticeForm';
+// import AddNoticeForm from 'components/AddNoticeForm/AddNoticeForm';
 import { NoticeModal } from 'components/Notices/NoticeModal/NoticeModal';
 import { MenuWrap } from './NoticesPage.styled';
 import 'react-toastify/dist/ReactToastify.css';
