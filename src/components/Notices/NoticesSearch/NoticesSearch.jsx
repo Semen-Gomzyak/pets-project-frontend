@@ -4,15 +4,15 @@ import { SearchInput } from '../../SearchInput/SearchInput';
 
 import {
   // ButtonContainer,
-  // Input,
+  Input,
   Label,
   // SearchButton,
 } from './NoticesSearch.styled';
 
-export const NoticesSearch = ({ onSearch }) => {
+export const NoticesSearch = ({ onSearch, ...allProps }) => {
   return (
     <Label>
-      <SearchInput functionSearch={onSearch} />
+      <Input onChange={onSearch} {...allProps} />
     </Label>
   );
 };

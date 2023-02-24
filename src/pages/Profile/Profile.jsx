@@ -1,23 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
-// import { SharedLayout } from 'components/SharedLayout/SaredLayout';
-import { HiCamera, HiTrash } from 'react-icons/hi2';
+import { HiTrash } from 'react-icons/hi2';
 import { HiOutlineLogout } from 'react-icons/hi';
 import { BsPlusCircleFill } from 'react-icons/bs';
 import {
   Section,
-  H2,
+  UserPartTitle,
   UserInfo,
-  AvatarContainer,
-  Avatar,
-  EditAvatarContainer,
-  AvatarButton,
-  EditAvatarText,
-  UserDataContainer,
+  UserData,
   LogOutContainer,
   LogOutButton,
   LogOutText,
   PetsHeader,
+  PetsPartTitle,
   AddPetContainer,
   AddPetButton,
   AddPetText,
@@ -28,10 +23,15 @@ import {
   Span,
   P,
 } from './Profile.styled';
-import { UserUpdateForm } from 'components/UserUpdateForm/UserUdateForm';
+import { Modal } from 'components/Modal/Modal';
+import { Avatar } from 'components/Profile/Avatar/Avatar';
+import { UserUpdateForm } from 'components/Profile/UserUpdateForm/UserUdateForm';
 
-import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+
+
+import { getUser } from 'redux/Auth/selectors';
+
 
 // import { getUser } from 'redux/Auth/selectors';
 
@@ -39,12 +39,17 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import PetForm from '../../components/PetForm/PetForm';
 
+
 import { selectToken } from 'redux/Auth/selectors';
-import { getUserData, updateUserData } from 'services/api/user';
+import {
+  deleteUserPet,
+  getUserData,
+  updateUserData,
+  uploadAvatar,
+} from 'services/api/user';
 
 import { logout } from 'redux/Auth/operations';
 import { useNavigate } from 'react-router';
-import { Modal } from 'components/Modal/Modal';
 
 const convertDate = date => {
   const dateOptions = { day: 'numeric', month: 'numeric', year: 'numeric' };
@@ -58,7 +63,11 @@ export const Profile = () => {
 
   const [userData, setUserData] = useState({});
   const [userPets, setUserPets] = useState([]);
+
   const [showModal, setShowModal] = useState(false);
+  const toggleModal = () => {
+    setShowModal(prevState => !prevState);
+  };
 
   const navigate = useNavigate();
 
@@ -79,13 +88,14 @@ export const Profile = () => {
     });
   }, [token]);
 
-  const toggleModal = () => {
-    setShowModal(prevState => !prevState);
-  };
-
   const updateUser = (data, token) => {
     updateUserData(data, token);
     setUserData(prevState => ({ ...prevState, ...data }));
+  };
+
+  const changeAvatar = (avatar, avatarUrl) => {
+    uploadAvatar(avatar, token);
+    setUserData(prevState => ({ ...prevState, avatarURL: avatarUrl }));
   };
 
   const logoutUser = event => {
@@ -94,31 +104,32 @@ export const Profile = () => {
     navigate('/', { replace: true });
   };
 
+  const deletePet = event => {
+    const index = Number(event.currentTarget.dataset.index);
+
+    const petId = userPets[index]._id;
+    deleteUserPet(petId, token);
+
+    const newUserPets = [...userPets];
+    newUserPets.splice(index, 1);
+    setUserPets(newUserPets);
+  };
+
   return (
     <>
       <Section>
-        {/* ------------------------ USER ------------------------ */}
-
+        {/* ------------------------ USER PART ------------------------ */}
         <section>
-          <H2>My information:</H2>
+          <UserPartTitle>My information:</UserPartTitle>
           <UserInfo>
-            {/* -------------------- AVATAR ---------------------- */}
+            {userData.avatarURL && (
+              <Avatar
+                avatarURL={userData.avatarURL}
+                changeAvatar={changeAvatar}
+              />
+            )}
 
-            <AvatarContainer>
-              <Avatar>
-                <img src={userData.avatarURL} alt="avatar" />
-              </Avatar>
-              <EditAvatarContainer>
-                <AvatarButton type="button">
-                  <HiCamera size={20} color={'#F59256'} />
-                </AvatarButton>
-                <EditAvatarText>Edit photo</EditAvatarText>
-              </EditAvatarContainer>
-            </AvatarContainer>
-
-            {/* ------------------- USER INFO --------------------- */}
-
-            <UserDataContainer>
+            <UserData>
               {Object.keys(userData).length !== 0 && (
                 <UserUpdateForm
                   data={userData}
@@ -126,9 +137,7 @@ export const Profile = () => {
                   token={token}
                 />
               )}
-            </UserDataContainer>
-
-            {/* ------------------ LOG OUT BTN --------------------- */}
+            </UserData>
 
             <LogOutContainer>
               <LogOutButton type="button" onClick={logoutUser}>
@@ -139,13 +148,16 @@ export const Profile = () => {
           </UserInfo>
         </section>
 
-        {/* ------------------------ PETS ------------------------ */}
+        {/* ------------------------ PETS PART ------------------------ */}
 
         <section>
           <PetsHeader>
-            <H2 style={{ marginBottom: '0px' }}>My pets:</H2>
+            <PetsPartTitle style={{ marginBottom: '0px' }}>
+              My pets:
+            </PetsPartTitle>
             <AddPetContainer>
               <AddPetText>Add Pet</AddPetText>
+
 
               <AddPetButton type="button" onClick={PetForm}>
                 {/* <AddPetButton type="button" onClick={toggleModal}> */}
@@ -155,10 +167,8 @@ export const Profile = () => {
             </AddPetContainer>
           </PetsHeader>
 
-          {/* -------------------- PET AVATAR --------------------- */}
-
           <ul>
-            {userPets.map(pet => (
+            {userPets.map((pet, index) => (
               <PetInfo key={pet._id}>
                 <PetImgContainer>
                   <img src={pet.avatarURL} alt="avatar" />
@@ -180,10 +190,12 @@ export const Profile = () => {
                     <Span>Comments: </Span> {pet.comments}
                   </P>
 
-                  {/* -------------DELETE PET BTN */}
-
-                  <DeletePetButton type="button">
-                    <HiTrash size={20} color={'#111111a0'} />
+                  <DeletePetButton
+                    type="button"
+                    onClick={deletePet}
+                    data-index={index}
+                  >
+                    <HiTrash size={20} color={'#111111A0'} />
                   </DeletePetButton>
                 </PetData>
               </PetInfo>
@@ -193,7 +205,7 @@ export const Profile = () => {
       </Section>
       {showModal && (
         <Modal closeModal={toggleModal}>
-          <div>MODAL</div>
+            <PetForm/>
         </Modal>
       )}
     </>

@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 
 import { HiPencil } from 'react-icons/hi2';
 import { BsCheckLg } from 'react-icons/bs';
+import { IconContext } from 'react-icons';
 import { theme } from 'services/theme';
 import {
   Form,
@@ -12,6 +13,8 @@ import {
   BtnIcon,
   BtnContainer,
 } from './UserUpdateForm.styled';
+import { UpdateUserFormSchema } from 'validations/UpdateUserFormValidation';
+import Notiflix from 'notiflix';
 import PropTypes from 'prop-types';
 
 export const UserUpdateForm = ({ data, updateData, token }) => {
@@ -40,10 +43,14 @@ export const UserUpdateForm = ({ data, updateData, token }) => {
     const key = document.activeElement.name;
     document.querySelector(`#${key}`).focus();
 
-    // console.log(key);
-
     if (userInfo[key] === data[key]) return;
-    updateData({ [key]: userInfo[key] }, token);
+
+    UpdateUserFormSchema.validate({ [key]: userInfo[key] })
+      .then(value => {
+        updateData(value, token);
+        Notiflix.Notify.success('Updated successfuly');
+      })
+      .catch(error => Notiflix.Notify.failure(error.message));
   };
 
   return (
@@ -63,11 +70,13 @@ export const UserUpdateForm = ({ data, updateData, token }) => {
           <BtnContainer>
             <Button type="submit" name={inputName}></Button>
             <BtnIcon>
+              {/* <IconContext.Provider> */}
               {document.activeElement.name === inputName ? (
                 <BsCheckLg size={10} color={theme.colors.accent} />
               ) : (
                 <HiPencil size={10} color={penColor} />
               )}
+              {/* </IconContext.Provider> */}
             </BtnIcon>
           </BtnContainer>
         </ItemContainer>
