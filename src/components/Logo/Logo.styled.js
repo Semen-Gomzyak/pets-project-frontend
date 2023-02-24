@@ -3,15 +3,6 @@ import { NavLink } from 'react-router-dom';
 
 export const LogoLink = styled(NavLink)`
   text-decoration: none;
-  margin-right: auto;
-  margin-top: 16px;
-  margin-left: 20px;
-  margin-bottom: 20px;
-
-  @media (min-width: 768px) {
-    margin-top: 24px;
-    margin-left: 32px;
-  }
 
   @media (min-width: 1280px) {
     margin-right: 80px;
