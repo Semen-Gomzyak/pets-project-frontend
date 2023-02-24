@@ -24,8 +24,7 @@ import { Modal } from 'components/Modal/Modal';
 
 // import { NoticeModal } from 'components/Notices/NoticeModal/NoticeModal';
 
-
-import AddNoticeForm from 'components/AddNoticeForm/AddNoticeForm';
+// import AddNoticeForm from 'components/AddNoticeForm/AddNoticeForm';
 
 import { MenuWrap } from './NoticesPage.styled';
 import 'react-toastify/dist/ReactToastify.css';
@@ -66,9 +65,9 @@ export const NoticesPage = () => {
     return () => dispatch(clearNotices([]));
   }, [dispatch, route, searchQweryTitle]);
 
-  const onSearch = searchQuery => {
-    setSearchQweryTitle(searchQuery);
-  };
+  // const onSearch = searchQuery => {
+  //   setSearchQweryTitle(searchQuery);
+  // };
 
   //      return (
   //     <ContainerPage>
@@ -169,7 +168,6 @@ export const NoticesPage = () => {
           Notices not found
         </p>
       )}
-     
     </ContainerPage>
   );
 };
