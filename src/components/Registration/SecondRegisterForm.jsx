@@ -1,6 +1,6 @@
 import { Formik } from 'formik';
 import { useDispatch } from 'react-redux';
-import { register } from 'redux/Auth/operations';
+import { register, login } from 'redux/Auth/operations';
 import { SecondRegisterFormSchema } from 'validations/SecondRegisterValidation';
 import {
   Button,
@@ -13,8 +13,11 @@ import {
   Text,
   ButtonContainer,
 } from './RegisterForm.styled';
+import {  useNavigate } from 'react-router';
+
 
 export const SecondRegisterForm = ({ data, onClick }) => {
+  const navigate = useNavigate();
   const initialValues = {
     name: '',
     cityRegion: '',
@@ -23,18 +26,32 @@ export const SecondRegisterForm = ({ data, onClick }) => {
 
   const dispatch = useDispatch();
 
-  const handleSubmit = (values, {resetForm}) => {
-     dispatch(
-        register({
-          email: data.email,
-          password: data.password,
-          name: values.name,
-          cityRegion: values.cityRegion,
-          mobilePhone: values.mobilePhone,
-        })
+  const handleSubmit = async (values, { resetForm }) => {
+    const response = await dispatch(
+      register({
+        email: data.email,
+        password: data.password,
+        name: values.name,
+        cityRegion: values.cityRegion,
+        mobilePhone: values.mobilePhone,
+      })
     );
-    
-      resetForm();
+
+    if (response.payload.status === 201) {
+      const loginResponse = await dispatch(
+        login({ email: data.email, password: data.password })
+      );
+
+      if (loginResponse.payload.status === 200) {
+        navigate('/profile', { replace: true });
+      } else {
+        console.log('Something went wrong with login');
+      }
+    } else {
+      console.log('Something went wrong with registration, please try again');
+    }
+
+    resetForm();
   };
 
   return (
@@ -87,4 +104,3 @@ export const SecondRegisterForm = ({ data, onClick }) => {
     </Formik>
   );
 };
-

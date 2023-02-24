@@ -4,30 +4,15 @@ import { SearchInput } from '../../SearchInput/SearchInput';
 
 import {
   // ButtonContainer,
-  // Input,
+  Input,
   Label,
   // SearchButton,
 } from './NoticesSearch.styled';
 
-export const NoticesSearch = () => {
-  // const [searchValue, setSearchValue] = useState();
-  // const dispatch = useDispatch();
-
-  // const onSearch = () => {
-  //   // console.log(searchValue);
-  //   console.log(searchValue);
-  // };
-
-  // const onPressEnter = e => {
-  //   if (e.key === 'Enter') {
-  //     onSearch();
-  //   }
-  //   return;
-  // };
-
+export const NoticesSearch = ({ onSearch, ...allProps }) => {
   return (
     <Label>
-      <SearchInput />
+      <Input onChange={onSearch} {...allProps} />
     </Label>
   );
 };

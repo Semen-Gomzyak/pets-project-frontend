@@ -1,7 +1,8 @@
-// import { useState } from 'react';
+import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { getIsLoggedIn } from '../../../redux/Auth/selectors';
-
+import { Modal } from 'components/Modal/Modal';
+import { NoticeModal } from 'components/Notices/NoticeModal/NoticeModal';
 import { FavoriteBtn } from 'components/ButtonFavorite/BtnFavorite';
 import 'react-toastify/dist/ReactToastify.css';
 import { toast } from 'react-toastify';
@@ -19,14 +20,28 @@ import {
   Wrap,
   ThumbBtn,
 } from './NoticeCategoryItem.styled';
-import { Button } from 'components/Button/Button';
+
+import { NoticeBtn } from 'components/ButtonNotice/BtnNotice';
 
 export const NoticeCategoryItem = ({ data, route }) => {
   // console.log('notices in Item', data);
-  const { _id, title, category, name, birthdate, breed, location, imgURL } =
-    data;
+  const {
+    _id,
+    title,
+    category,
+    name,
+    birthdate,
+    breed,
+    location,
+    imgURL,
+    price,
+  } = data;
 
   const isAuth = useSelector(getIsLoggedIn);
+  const [showModal, setShowModal] = useState(false);
+  const toggleModal = () => {
+    setShowModal(prevState => !prevState);
+  };
 
   // const favorites = useSelector(selectFavoriteNotices);
   //
@@ -61,6 +76,14 @@ export const NoticeCategoryItem = ({ data, route }) => {
     return result;
   };
 
+  const onOpenModal = () => {
+    setShowModal(true);
+  };
+
+  const parseDate = time => {
+    return new Date(Date.parse(time)).toLocaleDateString();
+  };
+
   return (
     <ListItem>
       <ImgWrap>
@@ -83,19 +106,28 @@ export const NoticeCategoryItem = ({ data, route }) => {
           <LiInfo key={`${_id}+age`}>
             <Lable>Age:</Lable>
             <Text>
-              {birthdate
-                ?.split('-')
-                .reverse()
-                .join('/')
-                .split('T23:00:00.000Z')}
+              {birthdate ? parseDate(birthdate).split('.').join('/') : ''}
             </Text>
           </LiInfo>
+          {price ? (
+            <LiInfo key={`${_id}+price`}>
+              <Lable>Price:</Lable>
+              <Text>{price}$</Text>
+            </LiInfo>
+          ) : (
+            ''
+          )}
         </ListInfo>
 
         <ThumbBtn>
-          <Button onClick={console.log('openModal')} text={'Learn More'} />
-
-          <Button onClick={console.log('delete')} text={'Delete'} />
+          <NoticeBtn onClick={onOpenModal} text={'Learn More'} />
+          {showModal && (
+            <Modal
+              closeModal={toggleModal}
+              children={<NoticeModal notice={data} />}
+            ></Modal>
+          )}
+          {isAuth && <NoticeBtn text={'Delete'} />}
         </ThumbBtn>
       </Wrap>
     </ListItem>

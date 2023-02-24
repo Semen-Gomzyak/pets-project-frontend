@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useEffect } from 'react';
 import { Loader } from 'components/Loader/Loader';
 import { FriendsItem } from './FriendsItem';
@@ -20,13 +21,15 @@ export default function FriendsList() {
 
     const fetchFriends = async () => {
       try {
-        const result = await getFriends(page);
+        const limit = 6;
+        const result = await getFriends(page, limit);
         const data = result.data.data;
-        // console.log('total', result.total);
 
         setFriends(prevFriends => [...prevFriends, ...data]);
-        setDisable(false);
-        // checkTotalFriends(result.total);
+        //
+        friends.length === result.data.total
+          ? setDisable(true)
+          : setDisable(false);
       } catch (error) {
         setError(error);
       } finally {
@@ -38,14 +41,7 @@ export default function FriendsList() {
 
   function loadMore() {
     setPage(prevPage => prevPage + 1);
-    setDisable(true);
   }
-
-  // function checkTotalFriends(totalFriends) {
-  //   if (totalFriends === friends.length) {
-  //     setDisable(true);
-  //   }
-  // }
 
   return (
     <>

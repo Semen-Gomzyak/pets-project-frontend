@@ -2,7 +2,6 @@ import { useEffect } from 'react';
 import shortid from 'shortid';
 import Notiflix from 'notiflix';
 import { useDispatch, useSelector } from 'react-redux';
-
 import { fetchPets, addPets } from '../../redux/pets/petsOperations';
 import { getPets, selectIsLoading, selectError } from '../../redux/pets/petsReduser';
 import { Loader } from '../../components/Loader/Loader';
