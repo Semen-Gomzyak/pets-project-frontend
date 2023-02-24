@@ -32,6 +32,7 @@ import { getFavoriteNoticesByUser } from 'services/getFaforites';
 
 export const NoticeCategoryItem = ({ data, route }) => {
   // console.log('notices in Item', data);
+  console.log('route--->', route);
   const {
     _id,
     title,
@@ -118,7 +119,7 @@ export const NoticeCategoryItem = ({ data, route }) => {
       case 'lost_found':
         result = 'lost/found';
         break;
-      case 'for_free':
+      case 'in_good_hands':
         result = 'in good hands';
         break;
       case 'favorite':
