@@ -28,6 +28,8 @@ import {
 
 import { NoticeBtn } from 'components/ButtonNotice/BtnNotice';
 import { removeNotice } from 'redux/Notices/NoticesOperations';
+import defaultImage from '../../../images/services/notAvailable.png';
+import { renameAgeDate } from 'helpers/renameAge';
 
 export const NoticeCategoryItem = ({ data, route }) => {
   // console.log('notices in Item', data);
@@ -124,15 +126,11 @@ export const NoticeCategoryItem = ({ data, route }) => {
     setShowModal(true);
   };
 
-  const parseDate = time => {
-    return new Date(Date.parse(time)).toLocaleDateString();
-  };
-
   return (
     <ListItem>
       <ImgWrap>
         <Category>{getTitleCategory(category)}</Category>
-        <Img src={imgURL} alt={name} />
+        <Img src={imgURL ? imgURL : defaultImage} alt={name} />
 
         <FavoriteBtn
           favorite={isFavorite}
@@ -153,9 +151,7 @@ export const NoticeCategoryItem = ({ data, route }) => {
           </LiInfo>
           <LiInfo key={`${_id}+age`}>
             <Lable>Age:</Lable>
-            <Text>
-              {birthdate ? parseDate(birthdate).split('.').join('/') : ''}
-            </Text>
+            <Text>{birthdate ? renameAgeDate(birthdate) : ' '}</Text>
           </LiInfo>
           {price ? (
             <LiInfo key={`${_id}+price`}>
