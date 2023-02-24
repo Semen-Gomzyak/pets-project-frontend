@@ -11,16 +11,29 @@ export const Button = styled.button`
   backdrop-filter: blur(2px);
   transition: transform ${p => p.theme.transition.first};
 
-  :hover {
+  :hover,
+  :focus {
     transform: scale(1.2);
+    svg {
+      fill: ${p => p.theme.colors.accent};
+    }
   }
   span {
     display: flex;
     justify-content: center;
     align-items: center;
-
     svg {
-      fill: ${p => (p.isFavorite ? p.theme.colors.accent : 'none')};
+      fill: ${p =>
+        p.isFavorite ? p.theme.colors.buttonAccent : p.theme.colors.accent};
+    }
+  }
+  &.active {
+    span {
+      svg {
+        fill: ${p =>
+          p.isFavorite ? p.theme.colors.buttonAccent : p.theme.colors.accent};
+      }
+      background-color: ${p => (p.isFavorite ? p.theme.colors.accent : 'none')};
     }
   }
 `;

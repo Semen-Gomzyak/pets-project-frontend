@@ -1,10 +1,24 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { register, login, logout, refreshUser } from './operations';
+import {
+  register,
+  login,
+  logout,
+  refreshUser,
+  updateFavoriteNotice,
+} from './operations';
 
 const authSlise = createSlice({
   name: 'auth',
   initialState: {
-    user: { name: null, email: null, password: null, city: null, phone: null },
+    user: {
+      name: null,
+      email: null,
+      password: null,
+      city: null,
+      phone: null,
+      pets: [],
+      favoriteNotices: [],
+    },
     _id: null,
     token: null,
     isLoggedIn: false,
@@ -39,6 +53,18 @@ const authSlise = createSlice({
       })
       .addCase(refreshUser.rejected, state => {
         state.isRefreshing = false;
+      })
+      .addCase(updateFavoriteNotice.rejected, (state, { payload }) => {
+        state.isLoading = false;
+        state.error = payload;
+      })
+      .addCase(updateFavoriteNotice.pending, state => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(updateFavoriteNotice.fulfilled, (state, { payload }) => {
+        state.user.favoriteNotices = [...state.user.favoriteNotices, payload];
+        state.isLoading = false;
       });
   },
 });

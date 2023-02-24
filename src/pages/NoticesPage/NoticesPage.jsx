@@ -22,8 +22,11 @@ import { NoticesCategoriesList } from 'components/Notices/NoticeCategoryList/Not
 import { Loader } from 'components/Loader/Loader';
 import { Modal } from 'components/Modal/Modal';
 
+// import { NoticeModal } from 'components/Notices/NoticeModal/NoticeModal';
+
+
 import AddNoticeForm from 'components/AddNoticeForm/AddNoticeForm';
-import { NoticeModal } from 'components/Notices/NoticeModal/NoticeModal';
+
 import { MenuWrap } from './NoticesPage.styled';
 import 'react-toastify/dist/ReactToastify.css';
 import { toast } from 'react-toastify';
@@ -150,11 +153,7 @@ export const NoticesPage = () => {
       <MenuWrap>
         <NoticesCategoryNav />
         <AddPetBtn onClick={onOpenModal} text={'Add pet'} />
-        {showModal && (
-          <Modal closeModal={toggleModal}>
-            <NoticeModal />
-          </Modal>
-        )}
+        {showModal && <Modal closeModal={toggleModal}>AddNoticeModal</Modal>}
       </MenuWrap>
       {isLoading && !error && <Loader />}
       {notices?.length > 0 ? (
@@ -170,18 +169,7 @@ export const NoticesPage = () => {
           Notices not found
         </p>
       )}
-      {showModal && isAuth && (
-        <Modal closeModal={toggleModal}>
-          <div>
-            <NoticeModal />
-          </div>
-        </Modal>
-      )}
-      {showModal &&
-        !isAuth &&
-        toast.error(
-          `You must be authorized to use this functionality - to add notice!.`
-        )}
+     
     </ContainerPage>
   );
 };
