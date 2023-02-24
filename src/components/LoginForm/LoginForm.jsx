@@ -4,6 +4,7 @@ import { LoginSchema } from 'validations/LoginFormValidation';
 // import { getIsLoggedIn } from '../../redux/Auth/selectors';
 import { useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router';
+import ContainerPage from '../../components/Container/ContainerPage';
 
 import {
   InfoForm,
@@ -15,6 +16,7 @@ import {
   Text,
   Link,
   ButtonContainer,
+  LoginSection,
 } from './LoginForm.styled';
 import { login } from 'redux/Auth/operations';
 
@@ -43,30 +45,34 @@ export const LoginForm = () => {
 
   return (
     <>
-      <Formik
-        initialValues={initialValues}
-        onSubmit={handleSubmit}
-        validationSchema={LoginSchema}
-      >
-        <InfoForm autoComplete="off">
-          <LoginTitle>Login</LoginTitle>
-          <InputsList>
-            <Error name="email" component="div" />
-            <Input placeholder="Email" type="email" name="email" />
-            <Error name="password" component="div" />
-            <Input placeholder="Password" type="password" name="password" />
-          </InputsList>
-          <ButtonContainer>
-            <Button type="submit">Login</Button>
-          </ButtonContainer>
-          <Text>
-            Don't have an account?
-            <Link to={'/register'} state={{ from: location }}>
-              Register
-            </Link>
-          </Text>
-        </InfoForm>
-      </Formik>
+      <LoginSection>
+        <ContainerPage>
+          <Formik
+            initialValues={initialValues}
+            onSubmit={handleSubmit}
+            validationSchema={LoginSchema}
+          >
+            <InfoForm autoComplete="off">
+              <LoginTitle>Login</LoginTitle>
+              <InputsList>
+                <Error name="email" component="div" />
+                <Input placeholder="Email" type="email" name="email" />
+                <Error name="password" component="div" />
+                <Input placeholder="Password" type="password" name="password" />
+              </InputsList>
+              <ButtonContainer>
+                <Button type="submit">Login</Button>
+              </ButtonContainer>
+              <Text>
+                Don't have an account?
+                <Link to={'/register'} state={{ from: location }}>
+                  Register
+                </Link>
+              </Text>
+            </InfoForm>
+          </Formik>
+        </ContainerPage>
+      </LoginSection>
     </>
   );
 };
