@@ -1,6 +1,50 @@
 import styled from 'styled-components';
 import { Form, Field, ErrorMessage } from 'formik';
 
+import BgLoginMob from '../../images/LoginPage/BgLoginMob.png';
+import BgLoginMob2x from '../../images/LoginPage/BgLoginMob2x.png';
+import BgLoginTab from '../../images/LoginPage/BgLoginTab.png';
+import BgLoginTab2x from '../../images/LoginPage/BgLoginTab2x.png';
+import BgLoginForm from '../../images/LoginPage/BgLoginForm.png';
+import BgLoginForm2x from '../../images/LoginPage/BgLoginForm2x.png';
+
+export const RegisterSection = styled.section`
+  padding-top: 60px;
+  height: 100vh;
+  background-repeat: no-repeat;
+  background-position: bottom;
+  background-image: url(${BgLoginMob});
+  background-size: contain;
+  background-position: bottom;
+  @media (min-device-pixel-ratio: 2),
+    (min-resolution: 192dpi),
+    (min-resolution: 2dppx) {
+    background-image: url(${BgLoginMob2x});
+  }
+
+  @media screen and (min-width: 768px) {
+    // min-height: auto;
+    background-image: url(${BgLoginTab});
+    background-size: contain;
+    background-position: bottom;
+    @media (min-device-pixel-ratio: 2),
+      (min-resolution: 192dpi),
+      (min-resolution: 2dppx) {
+      background-image: url(${BgLoginTab2x});
+    }
+  }
+  @media screen and (min-width: 1280px) {
+    background-image: url(${BgLoginForm});
+    background-size: contain;
+    background-position: bottom;
+    @media (min-device-pixel-ratio: 2),
+      (min-resolution: 192dpi),
+      (min-resolution: 2dppx) {
+      background-image: url(${BgLoginForm2x});
+    }
+  }
+`;
+
 export const InfoForm = styled(Form)`
   display: flex;
   flex-direction: column;
