@@ -31,7 +31,7 @@ export const fetchOneNotice = createAsyncThunk(
 
   async ({ noticeId }, { rejectWithValue }) => {
     try {
-      const response = await axios(`/notices/notice/${noticeId}`);
+      const response = await axios(`/notices/${noticeId}`);
       return response.data;
     } catch (error) {
       toast.error('something went wrong in  addContact, please, try again');

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { getIsLoggedIn, getUser } from '../../../redux/Auth/selectors';
+import { getIsLoggedIn, getUserById } from '../../../redux/Auth/selectors';
 import { Modal } from 'components/Modal/Modal';
 import { NoticeModal } from 'components/Notices/NoticeModal/NoticeModal';
 import { FavoriteBtn } from 'components/ButtonFavorite/BtnFavorite';
@@ -41,15 +41,19 @@ export const NoticeCategoryItem = ({ data, route }) => {
   } = data;
 
   const dispatch = useDispatch();
-  const isAuth = useSelector(getIsLoggedIn);
   const [showModal, setShowModal] = useState(false);
-  //TODO!!!!!!!!!!!!!!
-  const currentUser = useSelector(getUser);
+  // const [isShownConfirmationDelete, setIsShownConfirmationDelete] =
+  //   useState(false);
+
+  const isAuth = useSelector(getIsLoggedIn);
+  console.log('isAuth', isAuth);
+  const currentUser = useSelector(getUserById);
   console.log('user---->', currentUser);
 
   const favorites = useSelector(selectFavoriteNotices);
-
-  const isFavorite = favorites.includes(_id);
+  console.log('favorites---->', favorites);
+  // const isFavorite = favorites.includes(_id);
+  const isFavorite = true;
 
   const toggleModal = () => {
     setShowModal(prevState => !prevState);
@@ -58,7 +62,13 @@ export const NoticeCategoryItem = ({ data, route }) => {
   const onChangeFavorite = () => {
     console.log('favorite', isFavorite);
     if (isAuth) {
-      dispatch(updateFavoriteNotice({ userId: currentUser.id, noticeId: _id }));
+      dispatch(
+        updateFavoriteNotice({
+          // userId: '63f21c7c7b3475992d694d48',
+          userId: currentUser,
+          noticeId: _id,
+        })
+      );
       toast.success('favorite change ');
 
       if (route === 'favorite') {
