@@ -201,7 +201,7 @@ export const Profile = () => {
       </Section>
       {showModal && (
         <Modal closeModal={toggleModal}>
-          <div>MODAL</div>
+          <PetForm />
         </Modal>
       )}
     </>

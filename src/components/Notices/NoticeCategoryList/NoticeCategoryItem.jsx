@@ -1,9 +1,14 @@
 import { useState } from 'react';
-import { useSelector } from 'react-redux';
-import { getIsLoggedIn } from '../../../redux/Auth/selectors';
+import { useSelector, useDispatch } from 'react-redux';
+import { getIsLoggedIn, getUserById } from '../../../redux/Auth/selectors';
 import { Modal } from 'components/Modal/Modal';
 import { NoticeModal } from 'components/Notices/NoticeModal/NoticeModal';
 import { FavoriteBtn } from 'components/ButtonFavorite/BtnFavorite';
+import { changeFavoritesNotices } from '../../../redux/Notices/NoticesSlice';
+import { selectFavoriteNotices } from '../../../redux/Auth/selectors';
+import {
+  updateFavoriteNotice /*, getFavoriteNotices */,
+} from '../../../redux/Auth/operations';
 import 'react-toastify/dist/ReactToastify.css';
 import { toast } from 'react-toastify';
 
@@ -22,6 +27,7 @@ import {
 } from './NoticeCategoryItem.styled';
 
 import { NoticeBtn } from 'components/ButtonNotice/BtnNotice';
+import { removeNotice } from 'redux/Notices/NoticesOperations';
 
 export const NoticeCategoryItem = ({ data, route }) => {
   // console.log('notices in Item', data);
@@ -33,26 +39,64 @@ export const NoticeCategoryItem = ({ data, route }) => {
     birthdate,
     breed,
     location,
+    favorite,
     imgURL,
+    owner,
     price,
   } = data;
 
-  const isAuth = useSelector(getIsLoggedIn);
+  const dispatch = useDispatch();
   const [showModal, setShowModal] = useState(false);
+
+  const isAuth = useSelector(getIsLoggedIn);
+
+  const currentUser = useSelector(getUserById);
+
+  const favorites = useSelector(selectFavoriteNotices);
+  // const getFavoriteArray = getFavoriteNotices({ userId: currentUser });
+  // const favorites = useSelector(getFavoriteArray);
+  // console.log('favorites in Item---->', favorites);
+  // console.log('_id---->', _id);
+  const isFavorite = favorites.includes(_id);
+  console.log('isFavorite in Item---->', isFavorite);
+  const [isFavoritedNotice, setFavoritedNotice] = useState(favorite);
+
   const toggleModal = () => {
     setShowModal(prevState => !prevState);
   };
 
-  // const favorites = useSelector(selectFavoriteNotices);
-  //
   const onChangeFavorite = () => {
+    console.log('Isfavorite до update', isFavorite);
     if (isAuth) {
-      alert('favorit change');
+      dispatch(
+        updateFavoriteNotice({
+          // userId: '63f21c7c7b3475992d694d48',
+          userId: currentUser,
+          noticeId: _id,
+        })
+      );
+
+      console.log('isFavorite change', isFavorite);
+      setFavoritedNotice(isFavorite);
+      console.log('isFavoritedNotice change', isFavoritedNotice);
+      console.log('favorite change', favorite);
+      toast.success('favorite change  success');
+
+      if (route === 'favorite') {
+        dispatch(changeFavoritesNotices({ noticeId: _id }));
+      }
     } else {
       toast.error(`You must be authorized to use this functionality!.`);
 
       return;
     }
+  };
+
+  const deletePet = () => {
+    alert('You really want to delete this Notice ?');
+    alert(`You really want to delete this Notice ?${_id}`);
+    dispatch(removeNotice({ noticeId: _id }));
+    toast.success('Notice is deleted.');
   };
 
   const getTitleCategory = category => {
@@ -90,7 +134,11 @@ export const NoticeCategoryItem = ({ data, route }) => {
         <Category>{getTitleCategory(category)}</Category>
         <Img src={imgURL} alt={name} />
 
-        <FavoriteBtn favorite={true} onClick={onChangeFavorite} />
+        <FavoriteBtn
+          favorite={isFavorite}
+          // favorite={favorite}
+          onClick={onChangeFavorite}
+        />
       </ImgWrap>
       <Wrap>
         <Title>{title}</Title>
@@ -124,10 +172,18 @@ export const NoticeCategoryItem = ({ data, route }) => {
           {showModal && (
             <Modal
               closeModal={toggleModal}
-              children={<NoticeModal notice={data} />}
+              children={
+                <NoticeModal
+                  notice={data}
+                  isFavorite={isFavorite}
+                  onClickFavorite={onChangeFavorite}
+                />
+              }
             ></Modal>
           )}
-          {isAuth && <NoticeBtn text={'Delete'} />}
+          {isAuth && currentUser === owner && (
+            <NoticeBtn text={'Delete'} onClick={deletePet} />
+          )}
         </ThumbBtn>
       </Wrap>
     </ListItem>

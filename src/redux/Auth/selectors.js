@@ -4,5 +4,5 @@ export const getIsRefreshing = state => state.auth.isRefreshing;
 export const selectError = state => state.auth.error;
 export const selectToken = state => state.auth.token;
 
-//export const selectFavoriteNotices = state => state.auth.user.favoriteNotices;
-
+export const selectFavoriteNotices = state => state.auth.user.favoriteNotices;
+export const getUserById = state => state.auth._id;

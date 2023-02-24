@@ -83,9 +83,10 @@ export const removeNotice = createAsyncThunk(
   async (noticeId, thunkAPI) => {
     try {
       const response = await axios.delete(`/notices/${noticeId}`);
-      return response.data.noticeId;
+      console.log('resp removeNotice---->', response);
+      return response;
     } catch (error) {
-      toast.error('something went wrong, please, try again');
+      toast.error('something went wrong in removeNotice, please, try again');
       return thunkAPI.rejectWithValue(error.message);
     }
   }

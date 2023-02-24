@@ -1,4 +1,4 @@
-// import { useState } from 'react';
+import { useState } from 'react';
 import { useSelector /*, useDispatch*/ } from 'react-redux';
 
 import { selectOneNotice } from 'redux/Notices/NoticesSelector';
@@ -18,30 +18,28 @@ import {
 } from './NoticeModal.styled';
 import { CiHeart } from 'react-icons/ci';
 
-export const NoticeModal = ({ notice }) => {
+export const NoticeModal = ({ notice, isFavorite, onClickFavorite }) => {
   const isAuth = useSelector(getIsLoggedIn);
   const isLoading = useSelector(selectOneNotice);
 
-  console.log('notice', notice);
-  // const dispatch = useDispatch();
-  // const isFavorite = useSelector();
-  // const [isFavorited, setFavorited] = useState(isFavorite);
+  // const [isFavorite, setFavorite] = useState(notice.favorite);
+  console.log('favorite', isFavorite);
+  const [isFavorited, setFavorited] = useState(isFavorite);
+
+  const parseDate = time => {
+    return new Date(Date.parse(time)).toLocaleDateString();
+  };
 
   const hadleClickAddFavorite = () => {
     if (!isAuth) {
       return toast.error(`You must be authorized to use this functionality!.`);
     }
-
-    // if (isFavorited) {
-    //   return toast.warn('Notice already added to favorite');
-    // }
-    // addFavoriteNotice(notice.id);
-    // dispatch(userActions.addFavorite(notice.id));
-    toast.success(' Notice add to favorite');
-    // return setFavorited(true);
-  };
-  const parseDate = time => {
-    return new Date(Date.parse(time)).toLocaleDateString();
+    if (isFavorited) {
+      return toast.warn('Notice already added to favorite');
+    }
+    onClickFavorite();
+    toast.success('😹 Notice add to favorite');
+    return setFavorited(true);
   };
 
   return (
@@ -112,13 +110,21 @@ export const NoticeModal = ({ notice }) => {
                 <MyBtn active={'active'}>Contact</MyBtn>
               </a>
             }
-
-            <MyBtn onClick={hadleClickAddFavorite}>
-              Add to
-              <span>
-                <CiHeart />
-              </span>
-            </MyBtn>
+            {!isFavorite ? (
+              <MyBtn onClick={onClickFavorite}>
+                Add to
+                <span>
+                  <CiHeart />
+                </span>
+              </MyBtn>
+            ) : (
+              <MyBtn onClick={hadleClickAddFavorite}>
+                Remove from
+                <span>
+                  <CiHeart />
+                </span>
+              </MyBtn>
+            )}
           </BtnContainer>
         </>
       )}

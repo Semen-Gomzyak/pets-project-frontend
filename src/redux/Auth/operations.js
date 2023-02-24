@@ -17,10 +17,12 @@ export const register = createAsyncThunk(
     try {
       const response = await axios.post('/users/register', credentials);
       setAuthHeader(response.data.token);
+
       return {
         user: response.data,
         status: response.status,
       };
+
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
     }
@@ -70,6 +72,38 @@ export const refreshUser = createAsyncThunk(
       return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
+
+// додавання та видалення оголошення з обраних
+export const updateFavoriteNotice = createAsyncThunk(
+  'notices/updateFavoriteNotice',
+
+  async ({ userId, noticeId }, { rejectWithValue }) => {
+    try {
+      const response = await axios.patch(
+        `/notices/${userId}/favorites/${noticeId}`
+      );
+
+      return response.data.favoriteNotices;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+//  отримання масиву обраних нотісів
+export const getFavoriteNotices = createAsyncThunk(
+  'notices/getFavoriteNotices',
+
+  async ({ userId }, { rejectWithValue }) => {
+    try {
+      const response = await axios.get(`/notices/${userId}/favorites}`);
+      console.log('notice array  favoriteNotices---->', response.data);
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.message);
     }
   }
 );
