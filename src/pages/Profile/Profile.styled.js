@@ -10,9 +10,17 @@ export const Section = styled.section`
 `;
 
 export const UserPartTitle = styled.h2`
-  font-size: 20px;
   font-weight: 500;
+  font-size: 20px;
   margin-bottom: 18px;
+  @media screen and (min-width: 320px) {
+    font-size: calc(100vw / 16);
+    margin-bottom: calc(100vw / 17.77);
+  }
+  @media screen and (min-width: 480px) {
+    font-size: 30px;
+    margin-bottom: 27px;
+  }
 `;
 
 export const UserInfo = styled.div`
@@ -26,9 +34,11 @@ export const UserInfo = styled.div`
   width: 280px;
   @media screen and (min-width: 320px) {
     width: calc(100vw - 40px);
+    margin-bottom: calc(100vw / 16);
   }
   @media screen and (min-width: 480px) {
     width: 440px;
+    margin-bottom: 30px;
   }
 
   background: #ffffff;
@@ -55,7 +65,13 @@ export const LogOutText = styled.span`
 
   font-weight: 500;
   font-size: 16px;
-  line-height: 22px;
+  /* line-height: 22px; */
+  @media screen and (min-width: 320px) {
+    font-size: calc(100vw / 20);
+  }
+  @media screen and (min-width: 480px) {
+    font-size: 24px;
+  }
   color: rgba(17, 17, 17, 0.6);
 `;
 
@@ -76,13 +92,29 @@ export const PetsHeader = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+
   width: 280px;
   margin-bottom: 18px;
+  @media screen and (min-width: 320px) {
+    width: calc(100vw - 40px);
+    margin-bottom: calc(100vw / 17.77);
+  }
+  @media screen and (min-width: 480px) {
+    width: 440px;
+    margin-bottom: 27px;
+  }
 `;
 
 export const PetsPartTitle = styled.h2`
-  font-size: 20px;
   font-weight: 500;
+  font-size: 20px;
+  @media screen and (min-width: 320px) {
+    font-size: calc(100vw / 16);
+  }
+  @media screen and (min-width: 480px) {
+    font-size: 30px;
+  }
+
   margin-bottom: 18px;
 `;
 
@@ -108,10 +140,27 @@ export const AddPetButton = styled.button`
 export const AddPetText = styled.span`
   font-weight: 500;
   font-size: 20px;
-  line-height: 27px;
+  /* line-height: 27px; */
+  @media screen and (min-width: 320px) {
+    font-size: calc(100vw / 16);
+  }
+  @media screen and (min-width: 480px) {
+    font-size: 30px;
+  }
 `;
 
 export const PetInfo = styled.li`
+  /* display: flex;
+  flex-direction: column;
+  align-items: center; */
+  width: 280px;
+  @media screen and (min-width: 320px) {
+    width: calc(100vw / 1.14);
+  }
+  @media screen and (min-width: 480px) {
+    width: 440px;
+  }
+
   padding: 16px 20px;
   margin-bottom: 20px;
 
@@ -135,18 +184,34 @@ export const PetImgContainer = styled.div`
 
 export const PetData = styled.div`
   position: relative;
-  width: 240px;
 `;
 
 export const Span = styled.span`
-  font-weight: 600;
+  font-weight: 500;
   font-size: 14px;
   line-height: 22px;
+  @media screen and (min-width: 320px) {
+    font-size: calc(100vw / 22.86);
+    line-height: calc(100vw / 14.5);
+  }
+  @media screen and (min-width: 480px) {
+    font-size: 21px;
+    line-height: 33px;
+  }
 `;
 
 export const P = styled.p`
   font-size: 14px;
   line-height: 22px;
+  margin-bottom: 12px;
+  @media screen and (min-width: 320px) {
+    font-size: calc(100vw / 22.86);
+    line-height: calc(100vw / 14.5);
+  }
+  @media screen and (min-width: 480px) {
+    font-size: 21px;
+    line-height: 33px;
+  }
 `;
 
 export const DeletePetButton = styled.button`
