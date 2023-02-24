@@ -11,7 +11,7 @@ import {
   selectError,
   selectNoticesIsLoading,
 } from '../../redux/Notices/NoticesSelector';
-import { getIsLoggedIn } from '../../redux/Auth/selectors';
+import { getIsLoggedIn, getUserById } from '../../redux/Auth/selectors';
 import { clearNotices } from '../../redux/Notices/NoticesSlice';
 
 import { NoticesSearch } from 'components/Notices/NoticesSearch/NoticesSearch';
@@ -21,6 +21,7 @@ import ContainerPage from 'components/Container/ContainerPage';
 import { NoticesCategoriesList } from 'components/Notices/NoticeCategoryList/NoticesCategoriesList';
 import { Loader } from 'components/Loader/Loader';
 import { Modal } from 'components/Modal/Modal';
+import { getFavoriteNoticesByUser } from 'services/getFaforites';
 
 // import { NoticeModal } from 'components/Notices/NoticeModal/NoticeModal';
 
@@ -34,13 +35,14 @@ import { AddPetBtn } from 'components/ButtonAddPet/AddPetBtn';
 
 export const NoticesPage = () => {
   const { route } = useParams();
+  const currentUser = useSelector(getUserById);
 
   const [showModal, setShowModal] = useState(false);
   const toggleModal = () => {
     setShowModal(prevState => !prevState);
   };
   const [searchQweryTitle, setSearchQweryTitle] = useState('');
-
+  const [noticeFavorite, setNoticeFavorite] = useState([]);
   const dispatch = useDispatch();
 
   const notices = useSelector(selectNotices);
@@ -50,9 +52,28 @@ export const NoticesPage = () => {
 
   // console.log('notices-->', notices);
   // console.log('route in Page', route);
+  const fetchFavorite = async currentUserId => {
+    console.log('currentUserId', currentUserId);
+    try {
+      const result =
+        // const result = await getFavoriteNoticesByUser({ userId: currentUserId });
+        console.log('RRRRR', result);
+      if (result?.length === 0) {
+        throw new Error();
+      }
+      setNoticeFavorite(result);
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
 
   useEffect(() => {
     if (searchQweryTitle.length >= 2) {
+      if (route === 'favorite') {
+        dispatch(fetchFavorite(currentUser));
+        console.log('noticeFavorite====>', noticeFavorite);
+        return noticeFavorite;
+      }
       dispatch(
         fetchNoticesByCategoryAndTitle({
           category: route,
@@ -60,10 +81,16 @@ export const NoticesPage = () => {
         })
       );
     } else {
-      dispatch(fetchAllNotices({ category: route }));
+      if (route === 'favorite') {
+        dispatch(fetchFavorite(currentUser));
+        console.log('noticeFavorite====>', noticeFavorite);
+        return noticeFavorite;
+      } else {
+        dispatch(fetchAllNotices({ category: route }));
+      }
     }
     return () => dispatch(clearNotices([]));
-  }, [dispatch, route, searchQweryTitle]);
+  }, [dispatch, route, searchQweryTitle, currentUser, noticeFavorite]);
 
   // const onSearch = searchQuery => {
   //   setSearchQweryTitle(searchQuery);
@@ -139,7 +166,7 @@ export const NoticesPage = () => {
     // setIsLoading(false);
   };
   */
-
+  console.log('noticeFavorite.', noticeFavorite);
   return (
     <ContainerPage>
       <SectionTitle text={'Find your favorite pet'} />
@@ -155,7 +182,10 @@ export const NoticesPage = () => {
         {showModal && <Modal closeModal={toggleModal}>AddNoticeModal</Modal>}
       </MenuWrap>
       {isLoading && !error && <Loader />}
-      {notices?.length > 0 ? (
+      {console.log('noticeFavorite====>', noticeFavorite)}
+      {route === 'favorite' && noticeFavorite?.length > 0 ? (
+        <NoticesCategoriesList data={noticeFavorite} route={route} />
+      ) : notices?.length > 0 ? (
         <NoticesCategoriesList data={notices} route={route} />
       ) : (
         <p

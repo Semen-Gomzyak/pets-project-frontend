@@ -28,11 +28,10 @@ import { NoticeBtn } from 'components/ButtonNotice/BtnNotice';
 import { removeNotice } from 'redux/Notices/NoticesOperations';
 import defaultImage from '../../../images/services/notAvailable.png';
 import { renameAgeDate } from 'helpers/renameAge';
-import { getFavoriteNoticesByUser } from 'services/getFaforites';
 
 export const NoticeCategoryItem = ({ data, route }) => {
-  // console.log('notices in Item', data);
-  console.log('route--->', route);
+  console.log('notices in Item+++++', data);
+  console.log('route', route);
   const {
     _id,
     title,
@@ -67,18 +66,6 @@ export const NoticeCategoryItem = ({ data, route }) => {
     setShowModal(prevState => !prevState);
   };
 
-  const fetchFavorite = async currentUserId => {
-    try {
-      const result = await getFavoriteNoticesByUser({ userId: currentUserId });
-      console.log('RRRRR', result);
-      if (result.length === 0) {
-        throw new Error();
-      }
-    } catch (error) {
-      console.log(error.message);
-    }
-  };
-
   const onChangeFavorite = () => {
     console.log('Isfavorite до update', isFavorite);
     if (isAuth) {
@@ -95,10 +82,6 @@ export const NoticeCategoryItem = ({ data, route }) => {
       console.log('isFavoritedNotice change', isFavoritedNotice);
       console.log('favorite change', favorite);
       toast.success('favorite change  success');
-
-      if (route === 'favorite') {
-        dispatch(fetchFavorite({ userId: currentUser }));
-      }
     } else {
       toast.error(`You must be authorized to use this functionality!.`);
 
