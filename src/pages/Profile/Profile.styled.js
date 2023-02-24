@@ -9,7 +9,7 @@ export const Section = styled.section`
   align-items: center;
 `;
 
-export const H2 = styled.h2`
+export const UserPartTitle = styled.h2`
   font-size: 20px;
   font-weight: 500;
   margin-bottom: 18px;
@@ -22,58 +22,25 @@ export const UserInfo = styled.div`
 
   padding: 20px 14px;
   margin-bottom: 20px;
+
   width: 280px;
+  @media screen and (min-width: 320px) {
+    width: calc(100vw - 40px);
+  }
+  @media screen and (min-width: 480px) {
+    width: 440px;
+  }
 
   background: #ffffff;
   box-shadow: 7px 4px 14px rgba(0, 0, 0, 0.11);
   border-radius: 20px;
 `;
 
-export const AvatarContainer = styled.div`
+export const UserData = styled.div`
   display: flex;
   flex-direction: column;
-
-  margin-bottom: 35px;
-  filter: drop-shadow(0px 4px 14px rgba(0, 0, 0, 0.11));
-`;
-
-export const Avatar = styled.div`
-  display: flex;
   align-items: center;
-  justify-content: center;
-
-  width: 230px;
-  height: 230px;
-  object-fit: contain;
-  overflow: hidden;
-  > img {
-    width: 100%;
-    height: auto;
-  }
-  border-radius: 50%;
-`;
-
-export const ChangeAvatarForm = styled.form`
-  display: flex;
-  align-items: center;
-  justify-content: right;
-  margin-left: auto;
-`;
-
-export const AvatarButton = styled.label`
-  background: none;
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  :hover {
-    cursor: pointer;
-  }
-`;
-
-export const EditAvatarText = styled.span`
-  margin-left: 5px;
-  font-size: 12px;
-  line-height: 22px;
+  margin-bottom: 44px;
 `;
 
 export const LogOutContainer = styled.div`
@@ -103,13 +70,6 @@ export const LogOutButton = styled.button`
   }
 `;
 
-export const UserDataContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-bottom: 44px;
-`;
-
 // ------------------------ PETS ------------------------
 
 export const PetsHeader = styled.div`
@@ -117,6 +77,12 @@ export const PetsHeader = styled.div`
   justify-content: space-between;
   align-items: center;
   width: 280px;
+  margin-bottom: 18px;
+`;
+
+export const PetsPartTitle = styled.h2`
+  font-size: 20px;
+  font-weight: 500;
   margin-bottom: 18px;
 `;
 

@@ -4,7 +4,6 @@ import { useEffect, useState } from 'react';
 
 import {
   fetchAllNotices,
-
   fetchNoticesByCategoryAndTitle,
 } from '../../redux/Notices/NoticesOperations';
 import {
@@ -31,9 +30,7 @@ import { toast } from 'react-toastify';
 
 import { AddPetBtn } from 'components/ButtonAddPet/AddPetBtn';
 
-
 export const NoticesPage = () => {
-
   const { route } = useParams();
 
   const [showModal, setShowModal] = useState(false);
@@ -42,16 +39,13 @@ export const NoticesPage = () => {
   };
   const [searchQweryTitle, setSearchQweryTitle] = useState('');
 
-  const [showModal, setShowModal] = useState(false);
-
-
   const dispatch = useDispatch();
 
   const notices = useSelector(selectNotices);
   const isLoading = useSelector(selectNoticesIsLoading);
   const error = useSelector(selectError);
   const isAuth = useSelector(getIsLoggedIn);
-  
+
   // console.log('notices-->', notices);
   // console.log('route in Page', route);
 
@@ -69,42 +63,37 @@ export const NoticesPage = () => {
     return () => dispatch(clearNotices([]));
   }, [dispatch, route, searchQweryTitle]);
 
-
-   const onSearch = searchQuery => {
-     setSearchQweryTitle(searchQuery);
-   };
-
-    const toggleModal = () => {
-      setShowModal(prevState => !prevState);
-    };
-     
-       return (
-      <ContainerPage>
-        <SectionTitle text={'Find your favorite pet'} />
-        <NoticesSearch onSearch={onSearch} />
-        <NoticesCategoryNav />
-        {showModal && (
-          <Modal closeModal={toggleModal}>
-            <div><AddNoticeForm/></div>
-          </Modal>
-        )}
-        {isLoading && !error && <Loader />}
-        {notices?.length > 0 ? (
-          <NoticesCategoriesList data={notices} route={route} />
-        ) : (
-          <p
-            style={{
-              padding: '15px 25px',
-              fontSize: 20,
-              textAlign: 'center',
-            }}
-          >
-            Notices not found
-          </p>
-        )}
-      </ContainerPage>
-    );
+  const onSearch = searchQuery => {
+    setSearchQweryTitle(searchQuery);
   };
+
+  //      return (
+  //     <ContainerPage>
+  //       <SectionTitle text={'Find your favorite pet'} />
+  //       <NoticesSearch onSearch={onSearch} />
+  //       <NoticesCategoryNav />
+  //       {showModal && (
+  //         <Modal closeModal={toggleModal}>
+  //           <div><AddNoticeForm/></div>
+  //         </Modal>
+  //       )}
+  //       {isLoading && !error && <Loader />}
+  //       {notices?.length > 0 ? (
+  //         <NoticesCategoriesList data={notices} route={route} />
+  //       ) : (
+  //         <p
+  //           style={{
+  //             padding: '15px 25px',
+  //             fontSize: 20,
+  //             textAlign: 'center',
+  //           }}
+  //         >
+  //           Notices not found
+  //         </p>
+  //       )}
+  //     </ContainerPage>
+  //   );
+  // };
 
   const onOpenModal = () => {
     if (!isAuth) {
@@ -118,10 +107,10 @@ export const NoticesPage = () => {
   };
 
   // const searchQuery = query.toLowerCase();
-  const handleSearch = (event) => {
+  const handleSearch = event => {
     setSearchQweryTitle(event.target.value);
   };
-  
+
   // const searchNotice = async query => {
   //   console.log(query);
   //   const searchQuery = query.toLowerCase();
@@ -131,7 +120,7 @@ export const NoticesPage = () => {
   //   );
   //   // sortNoticesByDate(foundNotices); //2020-02-22T22:00:00.000Z
   // };
-/*
+  /*
   const sortNoticesByDate = array => {
     const addDateForSort = array.map(notices => {
       return { ...notices, dateForSort: Date.parse(new Date(notices.date)) };
@@ -193,9 +182,6 @@ export const NoticesPage = () => {
         toast.error(
           `You must be authorized to use this functionality - to add notice!.`
         )}
-
     </ContainerPage>
   );
 };
-
-

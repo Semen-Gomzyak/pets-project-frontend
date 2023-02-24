@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 
 import { HiPencil } from 'react-icons/hi2';
 import { BsCheckLg } from 'react-icons/bs';
+import { IconContext } from 'react-icons';
 import { theme } from 'services/theme';
 import {
   Form,
@@ -69,11 +70,13 @@ export const UserUpdateForm = ({ data, updateData, token }) => {
           <BtnContainer>
             <Button type="submit" name={inputName}></Button>
             <BtnIcon>
+              {/* <IconContext.Provider> */}
               {document.activeElement.name === inputName ? (
                 <BsCheckLg size={10} color={theme.colors.accent} />
               ) : (
                 <HiPencil size={10} color={penColor} />
               )}
+              {/* </IconContext.Provider> */}
             </BtnIcon>
           </BtnContainer>
         </ItemContainer>
