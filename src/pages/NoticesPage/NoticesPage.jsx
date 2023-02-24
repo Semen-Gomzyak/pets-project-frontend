@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 
 import {
   fetchAllNotices,
+
   fetchNoticesByCategoryAndTitle,
 } from '../../redux/Notices/NoticesOperations';
 import {
@@ -18,10 +19,11 @@ import { NoticesSearch } from 'components/Notices/NoticesSearch/NoticesSearch';
 import { NoticesCategoryNav } from 'components/Notices/NoticesCategoriesNav/NoticesCategoryNav';
 import { SectionTitle } from 'components/SectionTitle/SectionTitle';
 import ContainerPage from 'components/Container/ContainerPage';
-
 import { NoticesCategoriesList } from 'components/Notices/NoticeCategoryList/NoticesCategoriesList';
 import { Loader } from 'components/Loader/Loader';
 import { Modal } from 'components/Modal/Modal';
+
+import AddNoticeForm from 'components/AddNoticeForm/AddNoticeForm';
 import { NoticeModal } from 'components/Notices/NoticeModal/NoticeModal';
 import { MenuWrap } from './NoticesPage.styled';
 import 'react-toastify/dist/ReactToastify.css';
@@ -29,7 +31,9 @@ import { toast } from 'react-toastify';
 
 import { AddPetBtn } from 'components/ButtonAddPet/AddPetBtn';
 
+
 export const NoticesPage = () => {
+
   const { route } = useParams();
 
   const [showModal, setShowModal] = useState(false);
@@ -37,7 +41,12 @@ export const NoticesPage = () => {
     setShowModal(prevState => !prevState);
   };
   const [searchQweryTitle, setSearchQweryTitle] = useState('');
+
+  const [showModal, setShowModal] = useState(false);
+
+
   const dispatch = useDispatch();
+
   const notices = useSelector(selectNotices);
   const isLoading = useSelector(selectNoticesIsLoading);
   const error = useSelector(selectError);
@@ -59,6 +68,43 @@ export const NoticesPage = () => {
     }
     return () => dispatch(clearNotices([]));
   }, [dispatch, route, searchQweryTitle]);
+
+
+   const onSearch = searchQuery => {
+     setSearchQweryTitle(searchQuery);
+   };
+
+    const toggleModal = () => {
+      setShowModal(prevState => !prevState);
+    };
+     
+       return (
+      <ContainerPage>
+        <SectionTitle text={'Find your favorite pet'} />
+        <NoticesSearch onSearch={onSearch} />
+        <NoticesCategoryNav />
+        {showModal && (
+          <Modal closeModal={toggleModal}>
+            <div><AddNoticeForm/></div>
+          </Modal>
+        )}
+        {isLoading && !error && <Loader />}
+        {notices?.length > 0 ? (
+          <NoticesCategoriesList data={notices} route={route} />
+        ) : (
+          <p
+            style={{
+              padding: '15px 25px',
+              fontSize: 20,
+              textAlign: 'center',
+            }}
+          >
+            Notices not found
+          </p>
+        )}
+      </ContainerPage>
+    );
+  };
 
   const onOpenModal = () => {
     if (!isAuth) {
@@ -151,4 +197,5 @@ export const NoticesPage = () => {
     </ContainerPage>
   );
 };
+
 
