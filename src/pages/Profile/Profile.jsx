@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { SharedLayout } from 'components/SharedLayout/SaredLayout';
+// import { SharedLayout } from 'components/SharedLayout/SaredLayout';
 import { HiCamera, HiTrash } from 'react-icons/hi2';
 import { HiOutlineLogout } from 'react-icons/hi';
 import { BsPlusCircleFill } from 'react-icons/bs';
@@ -117,7 +117,6 @@ export const Profile = () => {
 
   return (
     <>
-      <SharedLayout />
       <Section>
         {/* ------------------------ USER ------------------------ */}
 

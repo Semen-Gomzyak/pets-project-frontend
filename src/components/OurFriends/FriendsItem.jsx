@@ -14,9 +14,10 @@ import {
 
 const daysOfWeek = ['MN', 'TU', 'WE', 'TH', 'FR', 'SA', 'SU'];
 
-export default function FriendsItem({ data }) {
+export function FriendsItem({ data }) {
   const { title, url, addressUrl, imageUrl, address, workDays, phone, email } =
     data;
+
   return (
     <Card>
       <WrapperTitle>
