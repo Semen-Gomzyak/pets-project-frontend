@@ -5,7 +5,7 @@ export const FavoriteBtn = ({ favorite, onClick }) => {
   return (
     <Button
       type="button"
-      ClassName={favorite === true ? 'active' : ' '}
+      className={favorite === true ? 'active' : ' '}
       onClick={onClick}
     >
       <span>

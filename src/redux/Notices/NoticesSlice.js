@@ -39,7 +39,7 @@ const rejectedReducer = (state, { payload }) => {
   state.isLoading = false;
   state.error = payload;
 };
-const fulfilledreducer = state => {
+const fulfilledReducer = state => {
   state.isLoading = false;
   state.error = null;
 };
@@ -56,12 +56,12 @@ const noticesSlice = createSlice({
       .addCase(fetchOneNotice.fulfilled, fetchOneNoticeSuccessReducer)
       .addMatcher(isAnyOf(...getActions('pending')), pendingReducer)
       .addMatcher(isAnyOf(...getActions('rejected')), rejectedReducer)
-      .addMatcher(isAnyOf(...getActions('fulfilled')), fulfilledreducer),
+      .addMatcher(isAnyOf(...getActions('fulfilled')), fulfilledReducer),
   reducers: {
     clearNotices(state, { payload }) {
       state.notices = payload;
     },
-    changeFavotitesNotices(state, { payload }) {
+    changeFavoritesNotices(state, { payload }) {
       state.notices = state.notices.filter(notice => notice._id !== payload);
     },
   },
@@ -70,4 +70,4 @@ const noticesSlice = createSlice({
 // Редюсер слайса
 const noticesReducer = noticesSlice.reducer;
 export default noticesReducer;
-export const { clearNotices, changeFavotitesNotices } = noticesSlice.actions;
+export const { clearNotices, changeFavoritesNotices } = noticesSlice.actions;

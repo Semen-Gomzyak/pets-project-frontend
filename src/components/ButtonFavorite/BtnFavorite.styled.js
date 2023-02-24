@@ -14,21 +14,26 @@ export const Button = styled.button`
   :hover,
   :focus {
     transform: scale(1.2);
+    svg {
+      fill: ${p => p.theme.colors.accent};
+    }
   }
   span {
     display: flex;
     justify-content: center;
     align-items: center;
     svg {
-      fill: ${p => p.theme.colors.accent};
+      fill: ${p =>
+        p.isFavorite ? p.theme.colors.buttonAccent : p.theme.colors.accent};
     }
   }
-  :active {
+  &.active {
     span {
       svg {
-        fill: ${p => p.theme.colors.accent};
-        color: ${p => p.theme.colors.accent};
+        fill: ${p =>
+          p.isFavorite ? p.theme.colors.buttonAccent : p.theme.colors.accent};
       }
+      background-color: ${p => (p.isFavorite ? p.theme.colors.accent : 'none')};
     }
   }
 `;

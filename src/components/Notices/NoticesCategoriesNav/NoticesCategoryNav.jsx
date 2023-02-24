@@ -30,7 +30,7 @@ export const NoticesCategoryNav = () => {
                 <ButtonElement key={filteredItem.title}>
                   <FilterButton
                     to={`/notices/` + filteredItem.to}
-                    ClassName={
+                    className={
                       route === 'sell' ||
                       route === 'lost_found' ||
                       route === 'for_free' ||

@@ -4,9 +4,11 @@ import { getIsLoggedIn, getUserById } from '../../../redux/Auth/selectors';
 import { Modal } from 'components/Modal/Modal';
 import { NoticeModal } from 'components/Notices/NoticeModal/NoticeModal';
 import { FavoriteBtn } from 'components/ButtonFavorite/BtnFavorite';
-import { changeFavotitesNotices } from '../../../redux/Notices/NoticesSlice';
+import { changeFavoritesNotices } from '../../../redux/Notices/NoticesSlice';
 import { selectFavoriteNotices } from '../../../redux/Auth/selectors';
-import { updateFavoriteNotice } from '../../../redux/Auth/operations';
+import {
+  updateFavoriteNotice /*, getFavoriteNotices */,
+} from '../../../redux/Auth/operations';
 import 'react-toastify/dist/ReactToastify.css';
 import { toast } from 'react-toastify';
 
@@ -36,7 +38,7 @@ export const NoticeCategoryItem = ({ data, route }) => {
     birthdate,
     breed,
     location,
-    favorite,
+
     imgURL,
     price,
   } = data;
@@ -47,21 +49,23 @@ export const NoticeCategoryItem = ({ data, route }) => {
   //   useState(false);
 
   const isAuth = useSelector(getIsLoggedIn);
-  console.log('isAuth', isAuth);
+
   const currentUser = useSelector(getUserById);
-  console.log('user---->', currentUser);
 
   const favorites = useSelector(selectFavoriteNotices);
-  console.log('favorites---->', favorites);
+  // const getFavoriteArray = getFavoriteNotices({ userId: currentUser });
+  // const favorites = useSelector(getFavoriteArray);
+  // console.log('favorites in Item---->', favorites);
+  // console.log('_id---->', _id);
   const isFavorite = favorites.includes(_id);
-  // const isFavorite = true;
+  // console.log('isFavorite in Item---->', isFavorite);
 
   const toggleModal = () => {
     setShowModal(prevState => !prevState);
   };
 
   const onChangeFavorite = () => {
-    console.log('Isfavorite', isFavorite);
+    // console.log('Isfavorite', isFavorite);
     if (isAuth) {
       dispatch(
         updateFavoriteNotice({
@@ -70,11 +74,11 @@ export const NoticeCategoryItem = ({ data, route }) => {
           noticeId: _id,
         })
       );
-      console.log('favorite change', favorite);
+      // console.log('favorite change', favorite);
       toast.success('favorite change  success');
 
       if (route === 'favorite') {
-        dispatch(changeFavotitesNotices(_id));
+        dispatch(changeFavoritesNotices(_id));
       }
     } else {
       toast.error(`You must be authorized to use this functionality!.`);
@@ -118,7 +122,11 @@ export const NoticeCategoryItem = ({ data, route }) => {
         <Category>{getTitleCategory(category)}</Category>
         <Img src={imgURL} alt={name} />
 
-        <FavoriteBtn favorite={isFavorite} onClick={onChangeFavorite} />
+        <FavoriteBtn
+          favorite={isFavorite}
+          // favorite={favorite}
+          onClick={onChangeFavorite}
+        />
       </ImgWrap>
       <Wrap>
         <Title>{title}</Title>
