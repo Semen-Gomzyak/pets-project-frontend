@@ -19,6 +19,13 @@ export const ModalContainer = styled.div`
   /* max-width: 90vw; */
   /* max-height: 90vh; */
   width: 280px;
+  @media screen and (min-width: 320px) {
+    width: calc(100vw - 40px);
+  }
+  @media screen and (min-width: 480px) {
+    width: 440px;
+  }
+
   height: fit-content;
   margin-top: 160px;
   padding: 20px;

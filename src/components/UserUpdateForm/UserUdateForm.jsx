@@ -12,6 +12,8 @@ import {
   BtnIcon,
   BtnContainer,
 } from './UserUpdateForm.styled';
+import { UpdateUserFormSchema } from 'validations/UpdateUserFormValidation';
+import Notiflix from 'notiflix';
 import PropTypes from 'prop-types';
 
 export const UserUpdateForm = ({ data, updateData, token }) => {
@@ -40,10 +42,14 @@ export const UserUpdateForm = ({ data, updateData, token }) => {
     const key = document.activeElement.name;
     document.querySelector(`#${key}`).focus();
 
-    // console.log(key);
-
     if (userInfo[key] === data[key]) return;
-    updateData({ [key]: userInfo[key] }, token);
+
+    UpdateUserFormSchema.validate({ [key]: userInfo[key] })
+      .then(value => {
+        updateData(value, token);
+        Notiflix.Notify.success('Updated successfuly');
+      })
+      .catch(error => Notiflix.Notify.failure(error.message));
   };
 
   return (
