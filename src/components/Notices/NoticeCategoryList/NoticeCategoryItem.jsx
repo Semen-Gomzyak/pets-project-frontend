@@ -4,11 +4,9 @@ import { getIsLoggedIn, getUserById } from '../../../redux/Auth/selectors';
 import { Modal } from 'components/Modal/Modal';
 import { NoticeModal } from 'components/Notices/NoticeModal/NoticeModal';
 import { FavoriteBtn } from 'components/ButtonFavorite/BtnFavorite';
-import { changeFavoritesNotices } from '../../../redux/Notices/NoticesSlice';
+// import { changeFavoritesNotices } from '../../../redux/Notices/NoticesSlice';
 import { selectFavoriteNotices } from '../../../redux/Auth/selectors';
-import {
-  updateFavoriteNotice /*, getFavoriteNotices */,
-} from '../../../redux/Auth/operations';
+import { updateFavoriteNotice } from '../../../redux/Auth/operations';
 import 'react-toastify/dist/ReactToastify.css';
 import { toast } from 'react-toastify';
 
@@ -30,6 +28,7 @@ import { NoticeBtn } from 'components/ButtonNotice/BtnNotice';
 import { removeNotice } from 'redux/Notices/NoticesOperations';
 import defaultImage from '../../../images/services/notAvailable.png';
 import { renameAgeDate } from 'helpers/renameAge';
+import { getFavoriteNoticesByUser } from 'services/getFaforites';
 
 export const NoticeCategoryItem = ({ data, route }) => {
   // console.log('notices in Item', data);
@@ -67,6 +66,18 @@ export const NoticeCategoryItem = ({ data, route }) => {
     setShowModal(prevState => !prevState);
   };
 
+  const fetchFavorite = async currentUserId => {
+    try {
+      const result = await getFavoriteNoticesByUser({ userId: currentUserId });
+      console.log('RRRRR', result);
+      if (result.length === 0) {
+        throw new Error();
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
   const onChangeFavorite = () => {
     console.log('Isfavorite до update', isFavorite);
     if (isAuth) {
@@ -85,7 +96,7 @@ export const NoticeCategoryItem = ({ data, route }) => {
       toast.success('favorite change  success');
 
       if (route === 'favorite') {
-        dispatch(changeFavoritesNotices({ noticeId: _id }));
+        dispatch(fetchFavorite({ userId: currentUser }));
       }
     } else {
       toast.error(`You must be authorized to use this functionality!.`);
