@@ -27,6 +27,7 @@ import {
 } from './NoticeCategoryItem.styled';
 
 import { NoticeBtn } from 'components/ButtonNotice/BtnNotice';
+import { removeNotice } from 'redux/Notices/NoticesOperations';
 
 export const NoticeCategoryItem = ({ data, route }) => {
   // console.log('notices in Item', data);
@@ -38,15 +39,14 @@ export const NoticeCategoryItem = ({ data, route }) => {
     birthdate,
     breed,
     location,
-
+    favorite,
     imgURL,
+    owner,
     price,
   } = data;
 
   const dispatch = useDispatch();
   const [showModal, setShowModal] = useState(false);
-  // const [isShownConfirmationDelete, setIsShownConfirmationDelete] =
-  //   useState(false);
 
   const isAuth = useSelector(getIsLoggedIn);
 
@@ -59,13 +59,14 @@ export const NoticeCategoryItem = ({ data, route }) => {
   // console.log('_id---->', _id);
   const isFavorite = favorites.includes(_id);
   console.log('isFavorite in Item---->', isFavorite);
+  const [isFavoritedNotice, setFavoritedNotice] = useState(favorite);
 
   const toggleModal = () => {
     setShowModal(prevState => !prevState);
   };
 
   const onChangeFavorite = () => {
-    // console.log('Isfavorite', isFavorite);
+    console.log('Isfavorite до update', isFavorite);
     if (isAuth) {
       dispatch(
         updateFavoriteNotice({
@@ -74,17 +75,28 @@ export const NoticeCategoryItem = ({ data, route }) => {
           noticeId: _id,
         })
       );
-      // console.log('favorite change', favorite);
+
+      console.log('isFavorite change', isFavorite);
+      setFavoritedNotice(isFavorite);
+      console.log('isFavoritedNotice change', isFavoritedNotice);
+      console.log('favorite change', favorite);
       toast.success('favorite change  success');
 
       if (route === 'favorite') {
-        dispatch(changeFavoritesNotices(_id));
+        dispatch(changeFavoritesNotices({ noticeId: _id }));
       }
     } else {
       toast.error(`You must be authorized to use this functionality!.`);
 
       return;
     }
+  };
+
+  const deletePet = () => {
+    alert('You really want to delete this Notice ?');
+    alert(`You really want to delete this Notice ?${_id}`);
+    dispatch(removeNotice({ noticeId: _id }));
+    toast.success('Notice is deleted.');
   };
 
   const getTitleCategory = category => {
@@ -169,7 +181,9 @@ export const NoticeCategoryItem = ({ data, route }) => {
               }
             ></Modal>
           )}
-          {isAuth && <NoticeBtn text={'Delete'} />}
+          {isAuth && currentUser === owner && (
+            <NoticeBtn text={'Delete'} onClick={deletePet} />
+          )}
         </ThumbBtn>
       </Wrap>
     </ListItem>

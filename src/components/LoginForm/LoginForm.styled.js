@@ -9,23 +9,26 @@ import BgLoginTab2x from '../../images/LoginPage/BgLoginTab2x.png';
 import BgLoginForm from '../../images/LoginPage/BgLoginForm.png';
 import BgLoginForm2x from '../../images/LoginPage/BgLoginForm2x.png';
 
+
 export const LoginSection = styled.section`
   padding-top: 60px;
-  min-height: 543px;
+  height: 100vh;
   background-repeat: no-repeat;
   background-position: bottom;
   background-image: url(${BgLoginMob});
-  background-size: 100vw 470px;
+  background-size: contain;
+  background-position: bottom;
   @media (min-device-pixel-ratio: 2),
     (min-resolution: 192dpi),
     (min-resolution: 2dppx) {
     background-image: url(${BgLoginMob2x});
   }
-  @media screen and (min-width: 768px) {
-    min-height: 538px;
 
+  @media screen and (min-width: 768px) {
+    // min-height: auto;
     background-image: url(${BgLoginTab});
-    background-size: 1396px 538px;
+    background-size: contain;
+    background-position: bottom;
     @media (min-device-pixel-ratio: 2),
       (min-resolution: 192dpi),
       (min-resolution: 2dppx) {
@@ -34,8 +37,8 @@ export const LoginSection = styled.section`
   }
   @media screen and (min-width: 1280px) {
     background-image: url(${BgLoginForm});
-    background-size: 1396px 538px;
-
+    background-size: contain;
+    background-position: bottom;
     @media (min-device-pixel-ratio: 2),
       (min-resolution: 192dpi),
       (min-resolution: 2dppx) {
@@ -89,7 +92,7 @@ export const Input = styled(Field)`
   font-family: 'Manrope';
   font-style: normal;
   font-weight: 400;
-  font-size: 18px;
+  font-size: 14px;
   line-height: 1, 39;
   cursor: pointer;
   display: flex;
@@ -105,6 +108,7 @@ export const Input = styled(Field)`
   @media screen and (min-width: 768px) {
     width: 448px;
     height: 52px;
+    font-size: 18px;
   }
   @media (min-width: 1280px) {
     width: 458px;
