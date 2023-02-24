@@ -58,7 +58,7 @@ export const NoticeCategoryItem = ({ data, route }) => {
   // console.log('favorites in Item---->', favorites);
   // console.log('_id---->', _id);
   const isFavorite = favorites.includes(_id);
-  // console.log('isFavorite in Item---->', isFavorite);
+  console.log('isFavorite in Item---->', isFavorite);
 
   const toggleModal = () => {
     setShowModal(prevState => !prevState);
@@ -160,7 +160,13 @@ export const NoticeCategoryItem = ({ data, route }) => {
           {showModal && (
             <Modal
               closeModal={toggleModal}
-              children={<NoticeModal notice={data} />}
+              children={
+                <NoticeModal
+                  notice={data}
+                  isFavorite={isFavorite}
+                  onClickFavorite={onChangeFavorite}
+                />
+              }
             ></Modal>
           )}
           {isAuth && <NoticeBtn text={'Delete'} />}

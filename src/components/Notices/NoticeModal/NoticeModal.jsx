@@ -1,4 +1,4 @@
-import { useState } from 'react';
+// import { useState } from 'react';
 import { useSelector /*, useDispatch*/ } from 'react-redux';
 
 import { selectOneNotice } from 'redux/Notices/NoticesSelector';
@@ -18,30 +18,14 @@ import {
 } from './NoticeModal.styled';
 import { CiHeart } from 'react-icons/ci';
 
-export const NoticeModal = ({ notice }) => {
+export const NoticeModal = ({ notice, isFavorite, onClickFavorite }) => {
   const isAuth = useSelector(getIsLoggedIn);
   const isLoading = useSelector(selectOneNotice);
 
-  // console.log('notice', notice);
-  // const dispatch = useDispatch();
-  // const isFavorite = useSelector(notice.favorite);
-  const [isFavorite, setFavorite] = useState(notice.favorite);
+  // const [isFavorite, setFavorite] = useState(notice.favorite);
   console.log('favorite', isFavorite);
   // const [isFavorited, setFavorited] = useState(isFavorite);
 
-  const hadleClickAddFavorite = () => {
-    if (!isAuth) {
-      return toast.error(`You must be authorized to use this functionality!.`);
-    }
-
-    if (isFavorite) {
-      return toast.warn('Notice already added to favorite');
-    }
-    // addFavoriteNotice(notice.id);
-    // dispatch(userActions.addFavorite(notice.id));
-    toast.success(' Notice add to favorite');
-    return setFavorite(true);
-  };
   const parseDate = time => {
     return new Date(Date.parse(time)).toLocaleDateString();
   };
@@ -115,14 +99,14 @@ export const NoticeModal = ({ notice }) => {
               </a>
             }
             {!isFavorite ? (
-              <MyBtn onClick={hadleClickAddFavorite}>
+              <MyBtn onClick={onClickFavorite}>
                 Add to
                 <span>
                   <CiHeart />
                 </span>
               </MyBtn>
             ) : (
-              <MyBtn onClick={hadleClickAddFavorite}>
+              <MyBtn onClick={onClickFavorite}>
                 Remove from
                 <span>
                   <CiHeart />
