@@ -30,9 +30,7 @@ import { UserUpdateForm } from 'components/Profile/UserUpdateForm/UserUdateForm'
 import { useDispatch, useSelector } from 'react-redux';
 
 // import { getUser } from 'redux/Auth/selectors';
-
 // import { getUserInfo } from 'services/api/user';
-
 // import PetForm from '../../components/PetForm/PetForm';
 
 import { selectToken } from 'redux/Auth/selectors';
@@ -109,6 +107,11 @@ export const Profile = () => {
     newUserPets.splice(index, 1);
     setUserPets(newUserPets);
   };
+
+  // const deletePet = (petId, newPetsList) => {
+  //   deleteUserPet(petId, token);
+  //   setUserPets(newPetsList);
+  // };
 
   return (
     <>
