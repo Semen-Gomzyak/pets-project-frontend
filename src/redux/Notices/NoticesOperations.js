@@ -83,10 +83,28 @@ export const removeNotice = createAsyncThunk(
   async (noticeId, thunkAPI) => {
     try {
       const response = await axios.delete(`/notices/${noticeId}`);
-      console.log('resp removeNotice---->', response);
+      // console.log('resp removeNotice---->', response);
       return response;
     } catch (error) {
       toast.error('something went wrong in removeNotice, please, try again');
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
+
+// GET @ /notices   отримання оголошень
+export const getAllNotices = createAsyncThunk(
+  'notices/fetchAllNotices',
+  //деструктуруємо перший параметр
+  async (_, thunkAPI) => {
+    try {
+      const response = await axios.get(`/notices`);
+      console.log('getAllNotices notices.data', response.data);
+      // При успешном запросе возвращаем промис с данными
+      return response.data;
+    } catch (error) {
+      // При ошибке запроса возвращаем промис
+      // который будет отклонен с текстом ошибки
       return thunkAPI.rejectWithValue(error.message);
     }
   }

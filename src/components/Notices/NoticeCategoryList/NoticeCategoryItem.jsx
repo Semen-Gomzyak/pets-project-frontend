@@ -32,6 +32,7 @@ import defaultImage from '../../../images/services/notAvailable.png';
 import { renameAgeDate } from 'helpers/renameAge';
 
 export const NoticeCategoryItem = ({ data, route }) => {
+  // console.log('data in Item', data);
   const {
     _id,
     title,
@@ -51,7 +52,6 @@ export const NoticeCategoryItem = ({ data, route }) => {
 
   const currentUser = useSelector(getUserById);
   const favorites = useSelector(selectFavoriteNotices);
-
 
   function isIdInData(data) {
     return isAuth && data.some(item => item._id === _id);

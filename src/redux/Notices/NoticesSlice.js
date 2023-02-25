@@ -4,6 +4,7 @@ import {
   removeNotice,
   addNotice,
   fetchOneNotice,
+  getAllNotices,
 } from './NoticesOperations';
 
 const initialState = {
@@ -11,10 +12,16 @@ const initialState = {
   oneNotice: {},
   isLoading: false,
   error: null,
-  owner: [],
+  ownerNotices: [],
 };
 
-const extraActions = [fetchAllNotices, addNotice, removeNotice, fetchOneNotice];
+const extraActions = [
+  fetchAllNotices,
+  addNotice,
+  removeNotice,
+  fetchOneNotice,
+  getAllNotices,
+];
 const getActions = type => extraActions.map(action => action[type]);
 
 // Case reducers
@@ -65,19 +72,17 @@ const noticesSlice = createSlice({
     changeFavoritesNotices(state, { payload }) {
       state.notices = state.notices.filter(notice => notice._id !== payload);
     },
-    getOwnerNotices(state, { payload }) {
-      console.log('getOwnerNotice state', state.notices);
-      console.log('getOwnerNotice payload', payload);
-      state.notices.owner = state.notices.filter(
-        notice => notice._id === payload
-      );
-      // console.log('getOwnerNotice state.notices.owner', state.notices.owner);
-    },
+    // getAllNoticesForOwner(state, { payload }) {
+    // console.log('getOwnerNotice state', state.notices);
+    // console.log('getOwnerNotice payload', payload.userId);
+    // state.notices = state.notices.filter(
+    //   notice => notice.owner._id === payload.userId
+    // );
+    // },
   },
 });
 
 // Редюсер слайса
 const noticesReducer = noticesSlice.reducer;
 export default noticesReducer;
-export const { clearNotices, changeFavoritesNotices, getOwnerNotices } =
-  noticesSlice.actions;
+export const { clearNotices, changeFavoritesNotices } = noticesSlice.actions;
