@@ -1,6 +1,8 @@
 import styled from 'styled-components';
+// import theme from 'services/theme';
 
 export const AvatarContainer = styled.div`
+  position: relative;
   display: flex;
   flex-direction: column;
 
@@ -69,4 +71,21 @@ export const EditAvatarText = styled.span`
   margin-left: 5px;
   font-size: 12px;
   line-height: 22px;
+`;
+
+export const Plug = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 233px;
+  height: 233px;
+  background: none;
+  background-color: ${p => p.theme.colors.background};
+  border-radius: 50%;
+
+  /* @media screen and (min-width: 768px) {
+    position: absolute;
+    right: 40;
+  } */
 `;

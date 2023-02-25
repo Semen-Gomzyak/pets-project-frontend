@@ -23,8 +23,8 @@ export const ModalContainer = styled.div`
     width: 440px;
   }
 
-
   height: fit-content;
+  overflow-y: scroll;
   margin-top: 160px;
   padding: 20px;
   border-radius: 20px;
