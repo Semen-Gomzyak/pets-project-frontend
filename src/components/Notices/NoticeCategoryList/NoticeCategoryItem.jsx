@@ -132,11 +132,7 @@ export const NoticeCategoryItem = ({ data, route }) => {
         )}
 
         {isFavorite && (
-          <FavoriteBtn
-            favorite={isFavorite}
-            // favorite={favorite}
-            onClick={onChangeFavorite}
-          />
+          <FavoriteBtn favorite={isFavorite} onClick={onChangeFavorite} />
         )}
         <FavoriteBtn
           favorite={isFavorite}
