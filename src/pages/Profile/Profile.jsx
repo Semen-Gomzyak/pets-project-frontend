@@ -129,26 +129,10 @@ export const Profile = () => {
         <UserPart style={{ alignSelf: 'flex-start' }}>
           <UserPartTitle>My information:</UserPartTitle>
           <UserInfo>
-            {userData.avatarURL ? (
-              <Avatar
-                avatarURL={userData.avatarURL}
-                changeAvatar={changeAvatar}
-              />
-            ) : (
-              <div
-                style={{
-                  width: '233px',
-                  height: '233px',
-                  backgroundColor: theme.colors.background,
-                  borderRadius: '50%',
-                }}
-              ></div>
-            )}
-            {/* <Avatar
-
+            <Avatar
               avatarURL={userData.avatarURL}
               changeAvatar={changeAvatar}
-            /> */}
+            />
 
             <UserData>
               {Object.keys(userData).length !== 0 && (
