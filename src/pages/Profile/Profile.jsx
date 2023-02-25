@@ -135,7 +135,7 @@ export const Profile = () => {
           <UserPartTitle>My information:</UserPartTitle>
           <UserInfo>
 
-            {/* {userData.avatarURL ? (
+            {userData.avatarURL ? (
               <Avatar
                 avatarURL={userData.avatarURL}
                 changeAvatar={changeAvatar}
@@ -149,11 +149,11 @@ export const Profile = () => {
                   borderRadius: '50%',
                 }}
               ></div>
-            )} */}
-            <Avatar
+            )}
+            {/* <Avatar
               avatarURL={userData.avatarURL}
               changeAvatar={changeAvatar}
-            />
+            /> */}
 
 
             <UserData>
