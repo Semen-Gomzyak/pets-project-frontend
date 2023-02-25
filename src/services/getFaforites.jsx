@@ -1,12 +1,11 @@
 import axios from 'axios';
 // axios.defaults.baseURL = 'https://pets-project-backend.onrender.com/api';
 
-export const getFavoriteNoticesByUser = async ({ userId }) => {
+export const getFavoriteNoticesByUser = async userId => {
   try {
-    console.log(' зайшли в гет');
-    const response = await axios.get(`/notices/${userId}/favorites}`);
-    console.log('favorites for page', response);
-    return response;
+    const response = await axios.get(`/notices/${userId}/favorites`);
+    console.log('favorites for page', response.data);
+    return response.data;
   } catch (error) {
     console.log(error.message);
   }

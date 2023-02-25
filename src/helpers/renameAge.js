@@ -40,12 +40,12 @@ export function renameAgeDate(data) {
     return ageStr === 'one' ? `${ageStr} month` : `${ageStr} months`;
   }
 
-  if (birthYear !== todayYear && month <= 12) {
+  if (birthYear === todayYear - 1 && month < 12) {
     const { ageStr } = ageArr.find(item => item.ageNum === month);
     return ageStr === 'one' ? `${ageStr} month` : `${ageStr} months`;
   }
 
-  if (durateYear > 0 && month > 12) {
+  if (birthYear !== todayYear) {
     const { ageStr } = ageArr.find(item => item.ageNum === durateYear);
     return ageStr === 'one' ? `${ageStr} year` : `${ageStr} years`;
   }
