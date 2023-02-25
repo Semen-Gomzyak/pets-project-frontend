@@ -1,13 +1,16 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getIsLoggedIn, getUserById } from '../../../redux/Auth/selectors';
 import { Modal } from 'components/Modal/Modal';
 import { NoticeModal } from 'components/Notices/NoticeModal/NoticeModal';
 import { FavoriteBtn } from 'components/ButtonFavorite/BtnFavorite';
-// import { changeFavoritesNotices } from '../../../redux/Notices/NoticesSlice';
+import { changeFavoritesNotices } from '../../../redux/Notices/NoticesSlice';
 import { selectFavoriteNotices } from '../../../redux/Auth/selectors';
 
-import { updateFavoriteNotice } from '../../../redux/Auth/operations';
+import {
+  getFavoriteNotices,
+  updateFavoriteNotice,
+} from '../../../redux/Auth/operations';
 
 import 'react-toastify/dist/ReactToastify.css';
 import { toast } from 'react-toastify';
@@ -81,6 +84,7 @@ export const NoticeCategoryItem = ({ data, route }) => {
         toast.success('Added to favorites!');
       }
       if (route === 'favorite') {
+        dispatch(changeFavoritesNotices(_id));
       }
     } else {
       toast.error(`You must be authorized to use this functionality!.`);
@@ -88,6 +92,10 @@ export const NoticeCategoryItem = ({ data, route }) => {
       return;
     }
   };
+
+  useEffect(() => {
+    isAuth && dispatch(getFavoriteNotices({ userId: currentUser }));
+  }, [isAuth, dispatch, currentUser]);
 
   const closeConfirmationDelete = () => {
     setIsShownConfirmationDelete(!isShownConfirmationDelete);
@@ -130,11 +138,12 @@ export const NoticeCategoryItem = ({ data, route }) => {
   const onOpenModal = () => {
     setShowModal(true);
   };
-  const getOwner = (route, owner) => {
-    if (route === 'own' || route === 'favorite') {
-      return owner._id;
+  const getOwner = route => {
+    if (route === 'own' /*|| route === 'favorite'*/) {
+      console.log('data owner', data.owner);
+      return data.owner._id;
     } else {
-      return owner ? owner : 1;
+      return data.owner ? data.owner : 1;
     }
   };
   return (
@@ -199,7 +208,7 @@ export const NoticeCategoryItem = ({ data, route }) => {
               }
             ></Modal>
           )}
-          {isAuth && currentUser === getOwner(route, data.owner) && (
+          {isAuth && currentUser === getOwner(route) && (
             <NoticeBtn text={'Delete'} onClick={closeConfirmationDelete} />
           )}
         </ThumbBtn>

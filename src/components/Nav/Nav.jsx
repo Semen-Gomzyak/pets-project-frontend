@@ -11,19 +11,7 @@ export const Nav = () => {
           <NaviLink to="/news">News</NaviLink>
         </li>
         <li>
-          <NaviLink
-            to="/notices/sell"
-            className={
-              categoryName === 'lost_found' ||
-              categoryName === 'for_free' ||
-              categoryName === 'favorite' ||
-              categoryName === 'own'
-                ? 'active'
-                : ''
-            }
-          >
-            Find pet
-          </NaviLink>
+          <NaviLink to="/notices/sell">Find pet</NaviLink>
         </li>
         <li>
           <NaviLink to="/friends">Our friends</NaviLink>

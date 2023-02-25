@@ -75,8 +75,8 @@ const authSlise = createSlice({
         state.isLoading = true;
         state.error = null;
       })
-      .addCase(updateFavoriteNotice.fulfilled, (state, {payload}) => {
-        state.user.favoriteNotices = payload.favoriteNotices;
+      .addCase(updateFavoriteNotice.fulfilled, (state, { payload }) => {
+        state.user.favoriteNotices = payload;
         state.isLoading = false;
       });
   },

@@ -19,7 +19,10 @@ import {
   getUserById,
 } from '../../redux/Auth/selectors';
 import { getFavoriteNotices } from '../../redux/Auth/operations';
-import { clearNotices } from '../../redux/Notices/NoticesSlice';
+import {
+  clearNotices,
+  changeFavoritesNotices,
+} from '../../redux/Notices/NoticesSlice';
 
 import { NoticesSearch } from 'components/Notices/NoticesSearch/NoticesSearch';
 import { NoticesCategoryNav } from 'components/Notices/NoticesCategoriesNav/NoticesCategoryNav';
@@ -57,7 +60,6 @@ export const NoticesPage = () => {
   const debounceDelay = 2000;
 
   let timeoutId;
-  // const ownerNotice = useSelector(selectNoticesOwner);
 
   const favorites = useSelector(selectFavoriteNotices);
   const noticeFavorite = favorites;
@@ -66,7 +68,7 @@ export const NoticesPage = () => {
     if (searchQweryTitle.length >= 2) {
       if (isAuth && route === 'favorite') {
         alert('написати функцію по пошуку');
-        // dispatch(getFavoriteNotices({ userId: currentUser }));
+        //dispatch(getFavoriteNotices({ userId: currentUser }));
       }
       dispatch(
         fetchNoticesByCategoryAndTitle({
@@ -76,6 +78,7 @@ export const NoticesPage = () => {
       );
     } else {
       dispatch(fetchAllNotices({ category: route }));
+      dispatch(changeFavoritesNotices({ userId: currentUser }));
     }
     return () => dispatch(clearNotices([]));
   }, [dispatch, route, searchQweryTitle, isAuth, currentUser]);
