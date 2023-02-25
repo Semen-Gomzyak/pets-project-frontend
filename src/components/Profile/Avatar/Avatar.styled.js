@@ -6,6 +6,17 @@ export const AvatarContainer = styled.div`
 
   margin-bottom: 35px;
   filter: drop-shadow(0px 4px 14px rgba(0, 0, 0, 0.11));
+
+  @media screen and (min-width: 768px) {
+    margin-bottom: 0;
+    margin-left: 52px;
+  }
+  @media screen and (min-width: 1280px) {
+    position: relative;
+    margin-left: 0;
+    margin-bottom: 32px;
+    flex-direction: row;
+  }
 `;
 
 export const UserAvatar = styled.div`
@@ -13,8 +24,8 @@ export const UserAvatar = styled.div`
   align-items: center;
   justify-content: center;
 
-  width: 230px;
-  height: 230px;
+  width: 233px;
+  height: 233px;
   object-fit: contain;
   overflow: hidden;
   > img {
@@ -29,6 +40,12 @@ export const ChangeAvatarForm = styled.form`
   align-items: center;
   justify-content: right;
   margin-left: auto;
+
+  @media screen and (min-width: 1280px) {
+    position: absolute;
+    bottom: 0;
+    right: -72px;
+  }
 `;
 
 export const AvatarInput = styled.input`

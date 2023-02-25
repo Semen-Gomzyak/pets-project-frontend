@@ -1,8 +1,5 @@
 import { useState, useEffect } from 'react';
 
-import { HiPencil } from 'react-icons/hi2';
-import { BsCheckLg } from 'react-icons/bs';
-import { IconContext } from 'react-icons';
 import { theme } from 'services/theme';
 import {
   Form,
@@ -11,6 +8,8 @@ import {
   Input,
   Button,
   BtnIcon,
+  Pen,
+  Check,
   BtnContainer,
 } from './UserUpdateForm.styled';
 import { UpdateUserFormSchema } from 'validations/UpdateUserFormValidation';
@@ -72,9 +71,9 @@ export const UserUpdateForm = ({ data, updateData, token }) => {
             <BtnIcon>
               {/* <IconContext.Provider> */}
               {document.activeElement.name === inputName ? (
-                <BsCheckLg size={10} color={theme.colors.accent} />
+                <Check color={theme.colors.accent} />
               ) : (
-                <HiPencil size={10} color={penColor} />
+                <Pen color={penColor} />
               )}
               {/* </IconContext.Provider> */}
             </BtnIcon>

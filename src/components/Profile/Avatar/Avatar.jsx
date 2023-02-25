@@ -8,6 +8,7 @@ import {
   EditAvatarText,
 } from './Avatar.styled';
 import { HiCamera } from 'react-icons/hi2';
+import PropTypes from 'prop-types';
 
 export const Avatar = ({ avatarURL, changeAvatar }) => {
   const [avatarUrl, setAvatarUrl] = useState(avatarURL);
@@ -39,4 +40,9 @@ export const Avatar = ({ avatarURL, changeAvatar }) => {
       </ChangeAvatarForm>
     </AvatarContainer>
   );
+};
+
+Avatar.propTypes = {
+  //   avatarURL: PropTypes.string(),
+  changeAvatar: PropTypes.func,
 };
