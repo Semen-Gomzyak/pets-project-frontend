@@ -19,6 +19,9 @@ export const Form = styled.form`
     width: 412px;
     padding-left: 32px;
   }
+  @media screen and (min-width: 1280px) {
+    padding-left: 16px;
+  }
 `;
 
 export const ItemContainer = styled.div`
@@ -96,14 +99,6 @@ export const Button = styled.button`
 
   width: 20px;
   height: 20px;
-  @media screen and (min-width: 320px) {
-    width: calc(100vw / 16);
-    height: calc(100vw / 16);
-  }
-  @media screen and (min-width: 480px) {
-    width: 32px;
-    height: 32px;
-  }
 
   border-radius: 50%;
   background: transparent;
@@ -113,6 +108,15 @@ export const Button = styled.button`
 
   :hover {
     cursor: pointer;
+  }
+
+  @media screen and (min-width: 320px) {
+    width: calc(100vw / 16);
+    height: calc(100vw / 16);
+  }
+  @media screen and (min-width: 480px) {
+    width: 32px;
+    height: 32px;
   }
 `;
 

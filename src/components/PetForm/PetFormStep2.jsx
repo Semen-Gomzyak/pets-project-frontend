@@ -1,4 +1,3 @@
-
 import { ErrorMessage, Formik, useField } from 'formik';
 import { useRef, useState } from 'react';
 import * as Yup from 'yup';
@@ -19,7 +18,7 @@ import {
 } from './PetForm.styled';
 
 const validationSchema = Yup.object({
-  imageURL: Yup.mixed().required(`Please upload your pet's photo`),
+  avatarURL: Yup.mixed().required(`Please upload your pet's photo`),
   comments: Yup.string()
     .min(8, 'Please enter at least 8 characters')
     .max(120, 'Comments should be 120 characters or less')
@@ -48,8 +47,8 @@ const PetFormStep2 = ({ data, next, back }) => {
               <PhotoPetText
                 ref={fileRef}
                 hidden
-                id="imageURL"
-                name="imageURL"
+                id="avatarURL"
+                name="avatarURL"
                 type="file"
                 accept=".png, .jpg, .jpeg"
                 value={undefined}
@@ -59,7 +58,7 @@ const PetFormStep2 = ({ data, next, back }) => {
                     return;
                   } else {
                     setImage(URL.createObjectURL(files[0]));
-                    formProps.setFieldValue('imageURL', files[0]);
+                    formProps.setFieldValue('avatarURL', files[0]);
                   }
                 }}
               />
@@ -69,13 +68,13 @@ const PetFormStep2 = ({ data, next, back }) => {
                   fileRef.current.click();
                 }}
               >
-                {formProps.values.imageURL ? (
+                {formProps.values.avatarURL ? (
                   <ImageExample>
                     <Image
                       alt="pet"
                       src={
                         image === null
-                          ? URL.createObjectURL(formProps.values.imageURL)
+                          ? URL.createObjectURL(formProps.values.avatarURL)
                           : image
                       }
                     />
@@ -87,7 +86,7 @@ const PetFormStep2 = ({ data, next, back }) => {
             </div>
           </ImageWrapper>
           <ErrorMessage
-            name="imageURL"
+            name="avatarURL"
             render={message => (
               <ErrorStyled style={{ color: 'red' }}>{message}</ErrorStyled>
             )}
@@ -135,16 +134,6 @@ export function MyFormikTextareaField({ fieldName }) {
 
 export default PetFormStep2;
 
-
-
-
-
-
-
-
-
-
-
 // import { useState } from 'react';
 // // import './ContactFormStyles.scss';
 // import shortid from 'shortid';
@@ -175,18 +164,14 @@ export default PetFormStep2;
 //   const pets = useSelector(getPets);
 //   const dispatch = useDispatch();
 
- 
 //   const avatarURLInputId = shortid.generate();
 //   const commentsInputId = shortid.generate();
-
-
 
 //   const handleChangeAvatarURL = e => {
 //     setState(prevState => {
 //       return { ...prevState, avatarURL: e.target.value };
 //     });
 //   };
-
 
 //   const handleChangeComments = e => {
 //     setState(prevState => {
@@ -234,7 +219,6 @@ export default PetFormStep2;
 //         <form class="PetsForm" onSubmit={handleSubmit}>
 //           <p class="GroupTitle">Add pet</p>
 
-
 //           <div class="FormField">
 //             <label htmlFor={avatarURLInputId}>
 //               Add photo and some comments
@@ -280,6 +264,5 @@ export default PetFormStep2;
 //       <script src="./js/modal.js"></script>
 //     </div>
 
- 
 //   );
 // }
