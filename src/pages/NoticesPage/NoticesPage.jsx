@@ -11,7 +11,15 @@ import {
   selectError,
   selectNoticesIsLoading,
 } from '../../redux/Notices/NoticesSelector';
-import { getIsLoggedIn } from '../../redux/Auth/selectors';
+
+import {
+  getIsLoggedIn,
+  selectFavoriteNotices,
+  getUserById,
+} from '../../redux/Auth/selectors';
+import {
+  getFavoriteNotices,
+} from '../../redux/Auth/operations';
 import { clearNotices } from '../../redux/Notices/NoticesSlice';
 
 import { NoticesSearch } from 'components/Notices/NoticesSearch/NoticesSearch';
@@ -21,6 +29,7 @@ import ContainerPage from 'components/Container/ContainerPage';
 import { NoticesCategoriesList } from 'components/Notices/NoticeCategoryList/NoticesCategoriesList';
 import { Loader } from 'components/Loader/Loader';
 import { Modal } from 'components/Modal/Modal';
+import { getFavoriteNoticesByUser } from 'services/getFaforites';
 
 // import { NoticeModal } from 'components/Notices/NoticeModal/NoticeModal';
 
@@ -36,25 +45,32 @@ import { AddPetBtn } from 'components/ButtonAddPet/AddPetBtn';
 
 export const NoticesPage = () => {
   const { route } = useParams();
+  const currentUser = useSelector(getUserById);
 
   const [showModal, setShowModal] = useState(false);
   const toggleModal = () => {
     setShowModal(prevState => !prevState);
   };
   const [searchQweryTitle, setSearchQweryTitle] = useState('');
-
+  const [noticeFavorite, setNoticeFavorite] = useState([]);
   const dispatch = useDispatch();
 
   const notices = useSelector(selectNotices);
   const isLoading = useSelector(selectNoticesIsLoading);
   const error = useSelector(selectError);
   const isAuth = useSelector(getIsLoggedIn);
+const debounceDelay = 2000;
 
-  // console.log('notices-->', notices);
-  // console.log('route in Page', route);
+let timeoutId;
+
+    const favorites = useSelector(selectFavoriteNotices);
+
 
   useEffect(() => {
     if (searchQweryTitle.length >= 2) {
+      if (route === 'favorite') {
+
+      }
       dispatch(
         fetchNoticesByCategoryAndTitle({
           category: route,
@@ -62,42 +78,29 @@ export const NoticesPage = () => {
         })
       );
     } else {
-      dispatch(fetchAllNotices({ category: route }));
+      if (route === 'favorite') {
+
+      } else {
+        dispatch(fetchAllNotices({ category: route }));
+      }
     }
     return () => dispatch(clearNotices([]));
-  }, [dispatch, route, searchQweryTitle]);
+  }, [dispatch, route, searchQweryTitle, currentUser, noticeFavorite]);
 
-  // const onSearch = searchQuery => {
-  //   setSearchQweryTitle(searchQuery);
-  // };
+    useEffect(() => {
+      isAuth && dispatch(getFavoriteNotices({ userId: currentUser }));
+    }, []);
 
-  //      return (
-  //     <ContainerPage>
-  //       <SectionTitle text={'Find your favorite pet'} />
-  //       <NoticesSearch onSearch={onSearch} />
-  //       <NoticesCategoryNav />
-  //       {showModal && (
-  //         <Modal closeModal={toggleModal}>
-  //           <div><AddNoticeForm/></div>
-  //         </Modal>
-  //       )}
-  //       {isLoading && !error && <Loader />}
-  //       {notices?.length > 0 ? (
-  //         <NoticesCategoriesList data={notices} route={route} />
-  //       ) : (
-  //         <p
-  //           style={{
-  //             padding: '15px 25px',
-  //             fontSize: 20,
-  //             textAlign: 'center',
-  //           }}
-  //         >
-  //           Notices not found
-  //         </p>
-  //       )}
-  //     </ContainerPage>
-  //   );
-  // };
+  const onSearch = searchQuery => {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(handleChanges(searchQuery), debounceDelay);
+  };
+
+  const handleChanges = searchQuery => {
+    setSearchQweryTitle(searchQuery);
+  };
+
+
 
   const onOpenModal = () => {
     if (!isAuth) {
@@ -110,37 +113,11 @@ export const NoticesPage = () => {
     }
   };
 
-  // const searchQuery = query.toLowerCase();
   const handleSearch = event => {
     setSearchQweryTitle(event.target.value);
   };
 
-  // const searchNotice = async query => {
-  //   console.log(query);
-  //   const searchQuery = query.toLowerCase();
-  //   setSearchQweryTitle(searchQuery);
-  //   const foundNotices = notices.filter(items =>
-  //     items.title.toLowerCase().includes(searchQuery)
-  //   );
-  //   // sortNoticesByDate(foundNotices); //2020-02-22T22:00:00.000Z
-  // };
-  /*
-  const sortNoticesByDate = array => {
-    const addDateForSort = array.map(notices => {
-      return { ...notices, dateForSort: Date.parse(new Date(notices.date)) };
-    });
-
-    const sortedNoticesByDate = addDateForSort.sort(
-      (a, b) => b.dateForSort - a.dateForSort
-    );
-
-    return sortedNoticesByDate;
-
-    
-    // setNews(sortedNoticesByDate);
-    // setIsLoading(false);
-  };
-  */
+  console.log('noticeFavorite.', noticeFavorite);
 
   return (
     <ContainerPage>
@@ -150,6 +127,7 @@ export const NoticesPage = () => {
         placeholder="Search"
         value={searchQweryTitle}
         onChange={handleSearch}
+        id="inputSearch"
       />
       <MenuWrap>
         <NoticesCategoryNav />
@@ -157,7 +135,10 @@ export const NoticesPage = () => {
         {showModal && <Modal closeModal={toggleModal}>AddNoticeModal</Modal>}
       </MenuWrap>
       {isLoading && !error && <Loader />}
-      {notices?.length > 0 ? (
+      {console.log('noticeFavorite====>', noticeFavorite)}
+      {route === 'favorite' && noticeFavorite?.length > 0 ? (
+        <NoticesCategoriesList data={noticeFavorite} route={route} />
+      ) : notices?.length > 0 ? (
         <NoticesCategoriesList data={notices} route={route} />
       ) : (
         <p

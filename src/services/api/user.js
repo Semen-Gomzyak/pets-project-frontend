@@ -44,7 +44,6 @@ export const deleteUserPet = async (id, token) => {
 
 export const uploadAvatar = async (file, token) => {
   try {
-    console.log(file);
     const response = await axios.post(
       'users/avatars',
       { avatarURL: file },
@@ -55,8 +54,7 @@ export const uploadAvatar = async (file, token) => {
         },
       }
     );
-    console.log('uploaded');
-    console.log(response);
+    return response.data
   } catch (error) {
     console.log(error.message);
     console.log(error.response.data.message);
@@ -71,8 +69,9 @@ export const addNewPet = async (newPet, token) => {
         Authorization: `Bearer ${token}`,
         'Content-Type': 'multipart/form-data',
       },
+ 
     });
-    console.log(response);
+    return response.data;
   } catch (error) {
     console.log(error.message);
     console.log(error.response.data.message);

@@ -1,5 +1,8 @@
-import { CiHeart } from 'react-icons/ci';
-import { Button } from './BtnFavorite.styled';
+import {
+  Button,
+  FavoriteIconFalse,
+  FavoriteIconTrue,
+} from './BtnFavorite.styled';
 
 export const FavoriteBtn = ({ favorite, onClick }) => {
   return (
@@ -8,9 +11,11 @@ export const FavoriteBtn = ({ favorite, onClick }) => {
       className={favorite === true ? 'active' : ' '}
       onClick={onClick}
     >
-      <span>
-        <CiHeart />
-      </span>
+      {favorite ? (
+        <FavoriteIconTrue size={24} />
+      ) : (
+        <FavoriteIconFalse size={24} />
+      )}
     </Button>
   );
 };
