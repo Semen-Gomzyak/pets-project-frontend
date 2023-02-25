@@ -21,7 +21,7 @@ export const Avatar = ({ avatarURL, changeAvatar }) => {
     const reader = new FileReader();
     reader.readAsDataURL(avatar);
     reader.onload = event => setAvatarUrl(event.target.result);
-    changeAvatar(avatar, avatarUrl);
+    changeAvatar(avatar);
   };
 
   return (

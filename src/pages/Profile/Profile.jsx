@@ -46,7 +46,6 @@ import {
 
 import { logout } from 'redux/Auth/operations';
 import { useNavigate } from 'react-router';
-import { backgroundColor } from 'styled-system';
 import { theme } from 'services/theme';
 
 const convertDate = date => {
@@ -92,7 +91,7 @@ export const Profile = () => {
 
   const changeAvatar = async (avatar, avatarUrl) => {
     const response = await uploadAvatar(avatar, token);
-    setUserData(prevState => ({ ...prevState, avatarURL: avatarUrl }));
+    setUserData(prevState => ({ ...prevState, avatarURL: response.avatarURL }));
   };
 
   const logoutUser = event => {
@@ -129,8 +128,6 @@ export const Profile = () => {
         <UserPart style={{ alignSelf: 'flex-start' }}>
           <UserPartTitle>My information:</UserPartTitle>
           <UserInfo>
-
-
             {userData.avatarURL ? (
               <Avatar
                 avatarURL={userData.avatarURL}
