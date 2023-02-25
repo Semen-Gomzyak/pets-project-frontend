@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getIsLoggedIn, getUserById } from '../../../redux/Auth/selectors';
 import { Modal } from 'components/Modal/Modal';
@@ -7,7 +7,10 @@ import { FavoriteBtn } from 'components/ButtonFavorite/BtnFavorite';
 import { changeFavoritesNotices } from '../../../redux/Notices/NoticesSlice';
 import { selectFavoriteNotices } from '../../../redux/Auth/selectors';
 
-import { updateFavoriteNotice } from '../../../redux/Auth/operations';
+import {
+  getFavoriteNotices,
+  updateFavoriteNotice,
+} from '../../../redux/Auth/operations';
 
 import 'react-toastify/dist/ReactToastify.css';
 import { toast } from 'react-toastify';
@@ -89,6 +92,10 @@ export const NoticeCategoryItem = ({ data, route }) => {
       return;
     }
   };
+
+  useEffect(() => {
+    isAuth && dispatch(getFavoriteNotices({ userId: currentUser }));
+  }, [isAuth, dispatch, currentUser]);
 
   const closeConfirmationDelete = () => {
     setIsShownConfirmationDelete(!isShownConfirmationDelete);

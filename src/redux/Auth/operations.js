@@ -84,7 +84,7 @@ export const updateFavoriteNotice = createAsyncThunk(
       const response = await axios.patch(
         `/notices/${userId}/favorites/${noticeId}`
       );
-      console.log('updateFavoriteNotice', response.data.favoriteNotices);
+      // console.log('updateFavoriteNotice', response.data.favoriteNotices);
       return response.data.favoriteNotices;
     } catch (error) {
       return rejectWithValue(error.message);

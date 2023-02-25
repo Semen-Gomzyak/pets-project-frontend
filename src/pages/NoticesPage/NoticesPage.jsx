@@ -19,7 +19,10 @@ import {
   getUserById,
 } from '../../redux/Auth/selectors';
 import { getFavoriteNotices } from '../../redux/Auth/operations';
-import { clearNotices } from '../../redux/Notices/NoticesSlice';
+import {
+  clearNotices,
+  changeFavoritesNotices,
+} from '../../redux/Notices/NoticesSlice';
 
 import { NoticesSearch } from 'components/Notices/NoticesSearch/NoticesSearch';
 import { NoticesCategoryNav } from 'components/Notices/NoticesCategoriesNav/NoticesCategoryNav';
@@ -75,6 +78,7 @@ export const NoticesPage = () => {
       );
     } else {
       dispatch(fetchAllNotices({ category: route }));
+      dispatch(changeFavoritesNotices({ userId: currentUser }));
     }
     return () => dispatch(clearNotices([]));
   }, [dispatch, route, searchQweryTitle, isAuth, currentUser]);
