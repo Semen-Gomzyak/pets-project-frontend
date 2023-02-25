@@ -83,9 +83,4 @@ export const Plug = styled.div`
   background: none;
   background-color: ${p => p.theme.colors.background};
   border-radius: 50%;
-
-  /* @media screen and (min-width: 768px) {
-    position: absolute;
-    right: 40;
-  } */
 `;
