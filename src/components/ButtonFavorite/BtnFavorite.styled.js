@@ -1,39 +1,27 @@
 import styled from 'styled-components';
+import { BsHeart, BsHeartFill } from 'react-icons/bs';
 
 export const Button = styled.button`
   position: absolute;
+      display: flex;
+    justify-content: center;
+    align-items: center;
   top: 12px;
   right: 12px;
   width: 44px;
   height: 44px;
   border-radius: 50%;
   background-color: rgba(255, 255, 255, 0.6);
+  border: 2px solid #f59256;
   backdrop-filter: blur(2px);
+  jus
   transition: transform ${p => p.theme.transition.first};
+`;
 
-  :hover,
-  :focus {
-    transform: scale(1.2);
-    svg {
-      fill: ${p => p.theme.colors.accent};
-    }
-  }
-  span {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    svg {
-      fill: ${p =>
-        p.isFavorite ? p.theme.colors.buttonAccent : p.theme.colors.accent};
-    }
-  }
-  &.active {
-    span {
-      svg {
-        fill: ${p =>
-          p.isFavorite ? p.theme.colors.buttonAccent : p.theme.colors.accent};
-      }
-      background-color: ${p => (p.isFavorite ? p.theme.colors.accent : 'none')};
-    }
-  }
+export const FavoriteIconFalse = styled(BsHeart)`
+  color: #f59256;
+`;
+
+export const FavoriteIconTrue = styled(BsHeartFill)`
+  color: #f59256;
 `;
