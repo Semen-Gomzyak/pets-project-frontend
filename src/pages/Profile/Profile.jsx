@@ -28,11 +28,8 @@ import {
 import { Modal } from 'components/Modal/Modal';
 import { Avatar } from 'components/Profile/Avatar/Avatar';
 import { UserUpdateForm } from 'components/Profile/UserUpdateForm/UserUdateForm';
-import notAvailable from 'images/services/notAvailable.png';
 import { useDispatch, useSelector } from 'react-redux';
 
-// import { getUser } from 'redux/Auth/selectors';
-// import { getUserInfo } from 'services/api/user';
 import PetForm from '../../components/PetForm/PetForm';
 
 import { selectToken } from 'redux/Auth/selectors';
