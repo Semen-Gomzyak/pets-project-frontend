@@ -21,7 +21,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
       <ThemeProvider theme={theme}>
         <Provider store={store}>
           <App />
-          <div id="modal-root"></div>
+          {/* <div id="modal-root"></div> */}
         </Provider>
       </ThemeProvider>
     </BrowserRouter>
