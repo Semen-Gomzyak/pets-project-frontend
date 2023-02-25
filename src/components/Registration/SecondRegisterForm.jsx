@@ -15,8 +15,7 @@ import {
   Text,
   ButtonContainer,
 } from './RegisterForm.styled';
-import {  useNavigate } from 'react-router';
-
+import { useNavigate } from 'react-router';
 
 export const SecondRegisterForm = ({ data, onClick }) => {
   const navigate = useNavigate();
@@ -42,12 +41,12 @@ export const SecondRegisterForm = ({ data, onClick }) => {
     if (response.payload.status === 201) {
       toast.success('success registration');
       const loginResponse = await dispatch(
-        login({ email: data.email, password: data.password }),
+        login({ email: data.email, password: data.password })
       );
 
       if (response.payload.status === 409) {
         toast.error(`${data.email} is use please login`);
-        navigate('/login', { replace: true })
+        navigate('/login', { replace: true });
       }
 
       if (loginResponse.payload.status === 200) {
@@ -56,7 +55,7 @@ export const SecondRegisterForm = ({ data, onClick }) => {
         toast.error('Something went wrong with login');
       }
     } else {
-       toast.error(`Something went wrong with registration, please try again`);
+      toast.error(`Something went wrong with registration, please try again`);
     }
 
     resetForm();
