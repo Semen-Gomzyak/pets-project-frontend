@@ -6,8 +6,11 @@ import {
   AvatarInput,
   AvatarButton,
   EditAvatarText,
+  Plug,
 } from './Avatar.styled';
 import { HiCamera } from 'react-icons/hi2';
+import { AiOutlinePlus } from 'react-icons/ai';
+import { HiPlus } from 'react-icons/hi2';
 import PropTypes from 'prop-types';
 
 export const Avatar = ({ avatarURL, changeAvatar }) => {
@@ -25,7 +28,13 @@ export const Avatar = ({ avatarURL, changeAvatar }) => {
   return (
     <AvatarContainer>
       <UserAvatar>
-        <img src={avatarUrl} alt="avatar" />
+        {avatarUrl ? (
+          <img src={avatarUrl} alt="avatar" />
+        ) : (
+          <Plug>
+            <HiPlus size={47} color="#11111150" />
+          </Plug>
+        )}
       </UserAvatar>
       <ChangeAvatarForm>
         <AvatarButton htmlFor="upload-avatar">
