@@ -9,7 +9,6 @@ import {
   Plug,
 } from './Avatar.styled';
 import { HiCamera } from 'react-icons/hi2';
-import { AiOutlinePlus } from 'react-icons/ai';
 import { HiPlus } from 'react-icons/hi2';
 import PropTypes from 'prop-types';
 
