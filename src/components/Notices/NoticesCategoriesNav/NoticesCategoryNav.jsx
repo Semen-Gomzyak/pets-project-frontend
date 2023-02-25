@@ -30,15 +30,7 @@ export const NoticesCategoryNav = () => {
                 <ButtonElement key={filteredItem.title}>
                   <FilterButton
                     to={`/notices/` + filteredItem.to}
-                    className={
-                      route === 'sell' ||
-                      route === 'lost_found' ||
-                      route === 'in_good_hands' ||
-                      route === 'favorite' ||
-                      route === 'own'
-                        ? 'active'
-                        : ' '
-                    }
+                    className={route === filteredItem.to ? 'active' : ' '}
                   >
                     {filteredItem.title}
                   </FilterButton>
@@ -46,7 +38,12 @@ export const NoticesCategoryNav = () => {
               ))
           : filterButtons.map(({ title, to }) => (
               <ButtonElement key={title}>
-                <FilterButton to={`/notices/` + to}>{title}</FilterButton>
+                <FilterButton
+                  to={`/notices/` + to}
+                  className={route === to ? 'active' : ' '}
+                >
+                  {title}
+                </FilterButton>
               </ButtonElement>
             ))}
       </ButtonList>
