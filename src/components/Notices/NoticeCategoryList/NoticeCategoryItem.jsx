@@ -13,7 +13,7 @@ import {
 
 import 'react-toastify/dist/ReactToastify.css';
 import { toast } from 'react-toastify';
-
+import notAvailable from 'images/services/notAvailable.png';
 import {
   ListItem,
   ImgWrap,
@@ -43,7 +43,7 @@ export const NoticeCategoryItem = ({ data, route }) => {
     birthdate,
     breed,
     location,
-    imgURL,
+    avatarURL,
     owner,
     price,
   } = data;
@@ -125,7 +125,13 @@ export const NoticeCategoryItem = ({ data, route }) => {
     <ListItem>
       <ImgWrap>
         <Category>{getTitleCategory(category)}</Category>
-        <Img src={imgURL ? imgURL : defaultImage} alt={name} />
+
+        {avatarURL ? (
+          <Img src={avatarURL} alt={name} />
+        ) : (
+          <Img src={notAvailable} alt="not found" />
+        )}
+
 
         {isFavorite && (
           <FavoriteBtn
