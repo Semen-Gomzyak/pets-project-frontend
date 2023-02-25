@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { CiCirclePlus } from 'react-icons/ci';
+import { AiOutlinePlus } from 'react-icons/ai';
 
 export const ButtonMob = styled.button`
   width: 40px;
@@ -19,10 +19,10 @@ export const ButtonMob = styled.button`
   }
 `;
 
-export const BtnCiCirclePlus = styled(CiCirclePlus)`
+export const BtnCiCirclePlus = styled(AiOutlinePlus)`
   aline-items: center;
-  width: 44px;
-  height: 44px;
+  width: 25px;
+  height: 25px;
 `;
 
 export const Button = styled.button`
@@ -52,8 +52,6 @@ export const Button = styled.button`
 
     svg {
       fill: ${p => p.theme.colors.white};
-      width: 16px;
-      height: 16px;
     }
   }
 `;

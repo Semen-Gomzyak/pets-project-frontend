@@ -4,11 +4,13 @@ import { getIsLoggedIn, getUserById } from '../../../redux/Auth/selectors';
 import { Modal } from 'components/Modal/Modal';
 import { NoticeModal } from 'components/Notices/NoticeModal/NoticeModal';
 import { FavoriteBtn } from 'components/ButtonFavorite/BtnFavorite';
-import { changeFavoritesNotices } from '../../../redux/Notices/NoticesSlice';
+// import { changeFavoritesNotices } from '../../../redux/Notices/NoticesSlice';
 import { selectFavoriteNotices } from '../../../redux/Auth/selectors';
+
 import {
   updateFavoriteNotice,
 } from '../../../redux/Auth/operations';
+
 import 'react-toastify/dist/ReactToastify.css';
 import { toast } from 'react-toastify';
 
@@ -28,6 +30,8 @@ import {
 
 import { NoticeBtn } from 'components/ButtonNotice/BtnNotice';
 import { removeNotice } from 'redux/Notices/NoticesOperations';
+import defaultImage from '../../../images/services/notAvailable.png';
+import { renameAgeDate } from 'helpers/renameAge';
 
 export const NoticeCategoryItem = ({ data, route }) => {
 
@@ -70,12 +74,14 @@ export const NoticeCategoryItem = ({ data, route }) => {
           noticeId: _id,
         })
       );
+
       if (response.payload.status === 200) {
         toast.success('Added to favorites!');
       }
       if (route === 'favorite') {
         dispatch(changeFavoritesNotices({ noticeId: _id }));
       }
+
     } else {
       toast.error(`You must be authorized to use this functionality!.`);
 
@@ -115,15 +121,11 @@ export const NoticeCategoryItem = ({ data, route }) => {
     setShowModal(true);
   };
 
-  const parseDate = time => {
-    return new Date(Date.parse(time)).toLocaleDateString();
-  };
-
   return (
     <ListItem>
       <ImgWrap>
         <Category>{getTitleCategory(category)}</Category>
-        <Img src={imgURL} alt={name} />
+        <Img src={imgURL ? imgURL : defaultImage} alt={name} />
 
         {isFavorite && (
           <FavoriteBtn
@@ -151,9 +153,7 @@ export const NoticeCategoryItem = ({ data, route }) => {
           </LiInfo>
           <LiInfo key={`${_id}+age`}>
             <Lable>Age:</Lable>
-            <Text>
-              {birthdate ? parseDate(birthdate).split('.').join('/') : ''}
-            </Text>
+            <Text>{birthdate ? renameAgeDate(birthdate) : ' '}</Text>
           </LiInfo>
           {price ? (
             <LiInfo key={`${_id}+price`}>

@@ -17,6 +17,7 @@ import {
   BtnContainer,
 } from './NoticeModal.styled';
 import { CiHeart } from 'react-icons/ci';
+import { renameAgeDate } from 'helpers/renameAge';
 
 export const NoticeModal = ({ notice, isFavorite, onClickFavorite }) => {
   const isAuth = useSelector(getIsLoggedIn);
@@ -26,9 +27,9 @@ export const NoticeModal = ({ notice, isFavorite, onClickFavorite }) => {
   console.log('favorite', isFavorite);
   const [isFavorited, setFavorited] = useState(isFavorite);
 
-  const parseDate = time => {
-    return new Date(Date.parse(time)).toLocaleDateString();
-  };
+  // const parseDate = time => {
+  //   return new Date(Date.parse(time)).toLocaleDateString();
+  // };
 
   const hadleClickAddFavorite = () => {
     if (!isAuth) {
@@ -64,9 +65,7 @@ export const NoticeModal = ({ notice, isFavorite, onClickFavorite }) => {
                 <MyLi>
                   <p>Birthday:</p>
                   <span>
-                    {notice.birthdate
-                      ? parseDate(notice.birthdate).split('.').join('/')
-                      : ''}
+                    {notice.birthdate ? renameAgeDate(notice.birthdate) : ''}
                   </span>
                 </MyLi>
                 <MyLi>
