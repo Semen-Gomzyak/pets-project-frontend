@@ -1,4 +1,11 @@
 import styled from 'styled-components';
+import { HiPencil } from 'react-icons/hi2';
+import { BsCheckLg } from 'react-icons/bs';
+
+export const Pen = styled.HiPencil`
+  width: 10px;
+  height: 10px;
+`;
 
 export const Form = styled.form`
   margin: auto;
