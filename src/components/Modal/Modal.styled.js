@@ -9,35 +9,37 @@ export const Backdrop = styled.div`
   height: 100vh;
   display: flex;
   justify-content: center;
+  align-items: center;
   background-color: rgba(0, 0, 0, 0.3);
   z-index: 1200;
 `;
 
 export const ModalContainer = styled.div`
-  width: 280px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 
-  @media screen and (min-width: 320px) {
+  width: 280px;
+  height: fit-content;
+  margin-top: 160px;
+  padding: 20px;
+  border-radius: 20px;
+  background-color: ${p => p.theme.colors.white};
+
+  @media ${p => p.theme.device.mobile} {
     width: calc(100vw - 40px);
   }
   @media screen and (min-width: 480px) {
     width: 440px;
   }
-
-  height: fit-content;
-  overflow-y: scroll;
-  margin-top: 160px;
-  padding: 20px;
-  border-radius: 20px;
-  background-color: #ffffff;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
   @media ${p => p.theme.device.tablet} {
     width: 704px;
+    margin-top: 270;
   }
   @media ${p => p.theme.device.desktop} {
     width: 704px;
+    margin-top: 0;
   }
 `;
 
