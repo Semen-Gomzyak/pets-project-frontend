@@ -112,14 +112,9 @@ export const Profile = () => {
     setUserPets(newUserPets);
   };
 
-  const addPet = newPet => {
-    setUserPets(prevState => [...prevState, newPet]);
-    addNewPet(newPet, token).then(response => {
-      console.log(response);
-      console.log(userPets);
-      console.log(userData);
-      // setUserPets(prevState => [...prevState, response.data]);
-    });
+  const addPet = async newPet => {
+    const pet = await addNewPet(newPet, token);
+    setUserPets(prevState => [...prevState, pet]);
   };
 
   // const deletePet = (petId, newPetsList) => {
@@ -134,6 +129,7 @@ export const Profile = () => {
         <UserPart style={{ alignSelf: 'flex-start' }}>
           <UserPartTitle>My information:</UserPartTitle>
           <UserInfo>
+
 
             {userData.avatarURL ? (
               <Avatar
@@ -151,10 +147,10 @@ export const Profile = () => {
               ></div>
             )}
             {/* <Avatar
+
               avatarURL={userData.avatarURL}
               changeAvatar={changeAvatar}
             /> */}
-
 
             <UserData>
               {Object.keys(userData).length !== 0 && (
