@@ -2,9 +2,12 @@ import * as Yup from 'yup';
 
 export const UpdateUserFormSchema = Yup.object().shape({
   name: Yup.string()
-    .min(3, 'Name must be at least 3 characters')
-    .matches(/^[a-zA-Zа-яА-ЯіІїЇєЄёЁ\s]*$/, 'Please enter a valid name'),
-
+    .min(2, 'Name must be at least 2 characters')
+    .max(16, 'Name must be at most 16 characters')
+    .matches(/^[a-zA-Zа-яА-ЯіІїЇєЄёЁ\s]*$/, 'Name can only contain letters and spaces')
+    .test('no-numbers', 'Name cannot contain numbers', function(value) {
+        return /^\D*$/.test(value);
+  }),
   email: Yup.string()
     .email('Please enter a valid email address')
     .matches(

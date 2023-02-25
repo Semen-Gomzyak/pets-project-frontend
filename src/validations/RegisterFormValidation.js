@@ -3,9 +3,11 @@ import * as Yup from 'yup';
 export const RegisterFormSchema = Yup.object().shape({
   email: Yup.string()
     .required('Email is required')
+    .min(10, 'Email must be at least 10 characters')
+    .max(63, 'Email must be at most 63 characters')
     .email('Please enter a valid email address')
     .matches(
-      /^[^.-][a-zA-Z0-9._-]{1,61}[^.]@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+      /^[a-zA-Z0-9_]+([.-]?[a-zA-Z0-9_]+)*@[a-zA-Z0-9]+([.-]?[a-zA-Z0-9]+)*\.[a-zA-Z]{2,}$/,
       'Please enter a valid email address'
     ),
   password: Yup.string()
