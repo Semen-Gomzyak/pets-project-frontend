@@ -27,11 +27,6 @@ import ContainerPage from 'components/Container/ContainerPage';
 import { NoticesCategoriesList } from 'components/Notices/NoticeCategoryList/NoticesCategoriesList';
 import { Loader } from 'components/Loader/Loader';
 import { Modal } from 'components/Modal/Modal';
-// import { getFavoriteNoticesByUser } from 'services/getFaforites';
-
-// import { NoticeModal } from 'components/Notices/NoticeModal/NoticeModal';
-
-// import AddNoticeForm from 'components/AddNoticeForm/AddNoticeForm';
 
 // import AddNoticeForm from 'components/AddNoticeForm/AddNoticeForm';
 import { NoticeModal } from 'components/Notices/NoticeModal/NoticeModal';
@@ -50,7 +45,7 @@ export const NoticesPage = () => {
     setShowModal(prevState => !prevState);
   };
   const [searchQweryTitle, setSearchQweryTitle] = useState('');
-  // const [noticeFavorite, setNoticeFavorite] = useState([]);
+
   const dispatch = useDispatch();
 
   const notices = useSelector(selectNotices);
@@ -60,7 +55,7 @@ export const NoticesPage = () => {
 
   const favorites = useSelector(selectFavoriteNotices);
   const noticeFavorite = favorites;
-  console.log('favorites', noticeFavorite);
+  // console.log('favorites', noticeFavorite);
 
   useEffect(() => {
     if (searchQweryTitle.length >= 2) {
