@@ -22,7 +22,6 @@ export const register = createAsyncThunk(
         user: response.data,
         status: response.status,
       };
-
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
     }
@@ -85,8 +84,8 @@ export const updateFavoriteNotice = createAsyncThunk(
       const response = await axios.patch(
         `/notices/${userId}/favorites/${noticeId}`
       );
+      return response.data;
 
-      return response.data.favoriteNotices;
     } catch (error) {
       return rejectWithValue(error.message);
     }
@@ -99,8 +98,7 @@ export const getFavoriteNotices = createAsyncThunk(
 
   async ({ userId }, { rejectWithValue }) => {
     try {
-      const response = await axios.get(`/notices/${userId}/favorites}`);
-      console.log('notice array  favoriteNotices---->', response.data);
+      const response = await axios.get(`/notices/${userId}/favorites`);
       return response.data;
     } catch (error) {
       return rejectWithValue(error.message);

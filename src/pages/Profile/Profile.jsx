@@ -28,7 +28,7 @@ import {
 import { Modal } from 'components/Modal/Modal';
 import { Avatar } from 'components/Profile/Avatar/Avatar';
 import { UserUpdateForm } from 'components/Profile/UserUpdateForm/UserUdateForm';
-
+import notAvailable from 'images/services/notAvailable.png';
 import { useDispatch, useSelector } from 'react-redux';
 
 // import { getUser } from 'redux/Auth/selectors';
@@ -58,7 +58,6 @@ const convertDate = date => {
 export const Profile = () => {
   const token = useSelector(selectToken);
   const dispatch = useDispatch();
-
   const [userData, setUserData] = useState({});
   const [userPets, setUserPets] = useState([]);
 
@@ -91,8 +90,8 @@ export const Profile = () => {
     setUserData(prevState => ({ ...prevState, ...data }));
   };
 
-  const changeAvatar = (avatar, avatarUrl) => {
-    uploadAvatar(avatar, token);
+  const changeAvatar = async (avatar, avatarUrl) => {
+    const response = await uploadAvatar(avatar, token);
     setUserData(prevState => ({ ...prevState, avatarURL: avatarUrl }));
   };
 

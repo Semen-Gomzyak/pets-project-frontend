@@ -4,6 +4,7 @@ export const AddPetSchema = Yup.object().shape({
   name: Yup.string()
     .min(2, 'Name must be at least 2 characters')
     .max(16, 'Name can have a maximum of 16 characters')
+    .matches(/^[a-zA-Zа-яА-ЯіІїЇєЄёЁ\s]*$/, 'Please enter a valid name')
     .required('Name is required'),
   date: Yup.date()
     .typeError('Date must be in the format DD.MM.YYYY')
