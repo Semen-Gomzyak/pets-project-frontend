@@ -71,8 +71,8 @@ export const addNewPet = async (newPet, token) => {
         'Content-Type': 'multipart/form-data',
       },
     });
+    console.log(response.data);
     return response.data;
-    // console.log(response);
   } catch (error) {
     console.log(error.message);
     console.log(error.response.data.message);
