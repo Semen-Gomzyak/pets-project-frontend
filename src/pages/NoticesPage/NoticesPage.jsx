@@ -94,6 +94,12 @@ export const NoticesPage = () => {
     setSearchQweryTitle(event.target.value);
   };
 
+  const getOwner = currentUser => {
+    const owner = notices.filter(item => (item.owner = currentUser));
+    console.log('owner', owner);
+    return owner;
+  };
+
   return (
     <ContainerPage>
       <SectionTitle text={'Find your favorite pet'} />
@@ -110,7 +116,9 @@ export const NoticesPage = () => {
       </MenuWrap>
       {isLoading && !error && <Loader />}
 
-      {route === 'favorite' && noticeFavorite?.length > 0 ? (
+      {route === 'own' && getOwner(currentUser)?.length > 0 ? (
+        <NoticesCategoriesList data={getOwner(currentUser)} route={route} />
+      ) : route === 'favorite' && noticeFavorite?.length > 0 ? (
         <NoticesCategoriesList data={noticeFavorite} route={route} />
       ) : notices?.length > 0 ? (
         <NoticesCategoriesList data={notices} route={route} />
