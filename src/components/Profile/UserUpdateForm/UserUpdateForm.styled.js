@@ -2,9 +2,32 @@ import styled from 'styled-components';
 import { HiPencil } from 'react-icons/hi2';
 import { BsCheckLg } from 'react-icons/bs';
 
-export const Pen = styled.HiPencil`
+export const Pen = styled(HiPencil)`
   width: 10px;
   height: 10px;
+
+  @media screen and (min-width: 320px) {
+    width: calc(100vw / 32);
+    height: calc(100vw / 32);
+  }
+  @media screen and (min-width: 480px) {
+    width: 15px;
+    height: 15px;
+  }
+`;
+
+export const Check = styled(BsCheckLg)`
+  width: 10px;
+  height: 10px;
+
+  @media screen and (min-width: 320px) {
+    width: calc(100vw / 32);
+    height: calc(100vw / 32);
+  }
+  @media screen and (min-width: 480px) {
+    width: 15px;
+    height: 15px;
+  }
 `;
 
 export const Form = styled.form`
@@ -131,6 +154,6 @@ export const BtnIcon = styled.div`
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -60%);
+  transform: translate(-50%, -50%);
   pointer-events: none;
 `;
