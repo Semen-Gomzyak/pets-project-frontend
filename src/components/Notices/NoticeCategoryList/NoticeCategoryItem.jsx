@@ -7,9 +7,7 @@ import { FavoriteBtn } from 'components/ButtonFavorite/BtnFavorite';
 // import { changeFavoritesNotices } from '../../../redux/Notices/NoticesSlice';
 import { selectFavoriteNotices } from '../../../redux/Auth/selectors';
 
-import {
-  updateFavoriteNotice,
-} from '../../../redux/Auth/operations';
+import { updateFavoriteNotice } from '../../../redux/Auth/operations';
 
 import 'react-toastify/dist/ReactToastify.css';
 import { toast } from 'react-toastify';
@@ -34,7 +32,6 @@ import defaultImage from '../../../images/services/notAvailable.png';
 import { renameAgeDate } from 'helpers/renameAge';
 
 export const NoticeCategoryItem = ({ data, route }) => {
-
   const {
     _id,
     title,
@@ -69,7 +66,7 @@ export const NoticeCategoryItem = ({ data, route }) => {
 
   const onChangeFavorite = async () => {
     if (isAuth) {
-      const response = await dispatch(
+      const response = dispatch(
         updateFavoriteNotice({
           userId: currentUser,
           noticeId: _id,
@@ -80,9 +77,7 @@ export const NoticeCategoryItem = ({ data, route }) => {
         toast.success('Added to favorites!');
       }
       if (route === 'favorite') {
-        
       }
-
     } else {
       toast.error(`You must be authorized to use this functionality!.`);
 
@@ -128,11 +123,13 @@ export const NoticeCategoryItem = ({ data, route }) => {
         <Category>{getTitleCategory(category)}</Category>
 
         {avatarURL ? (
-          <Img src={avatarURL} alt={name} />
+          <Img
+            src={avatarURL ? avatarURL : defaultImage}
+            alt={name ? name : 'Avatar'}
+          />
         ) : (
           <Img src={notAvailable} alt="not found" />
         )}
-
 
         {isFavorite && (
           <FavoriteBtn
@@ -148,7 +145,7 @@ export const NoticeCategoryItem = ({ data, route }) => {
         />
       </ImgWrap>
       <Wrap>
-        <Title>{title}</Title>
+        <Title>{title ? title : ''}</Title>
         <ListInfo>
           <LiInfo key={`${_id}+breed`}>
             <Lable>Breed:</Lable>

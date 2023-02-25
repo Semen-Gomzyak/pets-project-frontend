@@ -17,9 +17,7 @@ import {
   selectFavoriteNotices,
   getUserById,
 } from '../../redux/Auth/selectors';
-import {
-  getFavoriteNotices,
-} from '../../redux/Auth/operations';
+import { getFavoriteNotices } from '../../redux/Auth/operations';
 import { clearNotices } from '../../redux/Notices/NoticesSlice';
 
 import { NoticesSearch } from 'components/Notices/NoticesSearch/NoticesSearch';
@@ -29,11 +27,6 @@ import ContainerPage from 'components/Container/ContainerPage';
 import { NoticesCategoriesList } from 'components/Notices/NoticeCategoryList/NoticesCategoriesList';
 import { Loader } from 'components/Loader/Loader';
 import { Modal } from 'components/Modal/Modal';
-import { getFavoriteNoticesByUser } from 'services/getFaforites';
-
-// import { NoticeModal } from 'components/Notices/NoticeModal/NoticeModal';
-
-// import AddNoticeForm from 'components/AddNoticeForm/AddNoticeForm';
 
 // import AddNoticeForm from 'components/AddNoticeForm/AddNoticeForm';
 import { NoticeModal } from 'components/Notices/NoticeModal/NoticeModal';
@@ -52,7 +45,7 @@ export const NoticesPage = () => {
     setShowModal(prevState => !prevState);
   };
   const [searchQweryTitle, setSearchQweryTitle] = useState('');
-  const [noticeFavorite, setNoticeFavorite] = useState([]);
+
   const dispatch = useDispatch();
 
   const notices = useSelector(selectNotices);
@@ -63,13 +56,15 @@ const debounceDelay = 2000;
 
 let timeoutId;
 
-    const favorites = useSelector(selectFavoriteNotices);
-
+  const favorites = useSelector(selectFavoriteNotices);
+  const noticeFavorite = favorites;
+  // console.log('favorites', noticeFavorite);
 
   useEffect(() => {
     if (searchQweryTitle.length >= 2) {
-      if (route === 'favorite') {
-
+      if (isAuth && route === 'favorite') {
+        alert('написати функцію по пошуку');
+        // dispatch(getFavoriteNotices({ userId: currentUser }));
       }
       dispatch(
         fetchNoticesByCategoryAndTitle({
@@ -78,18 +73,14 @@ let timeoutId;
         })
       );
     } else {
-      if (route === 'favorite') {
-
-      } else {
-        dispatch(fetchAllNotices({ category: route }));
-      }
+      dispatch(fetchAllNotices({ category: route }));
     }
     return () => dispatch(clearNotices([]));
-  }, [dispatch, route, searchQweryTitle, currentUser, noticeFavorite]);
+  }, [dispatch, route, searchQweryTitle, isAuth, currentUser]);
 
-    useEffect(() => {
-      isAuth && dispatch(getFavoriteNotices({ userId: currentUser }));
-    }, []);
+  useEffect(() => {
+    isAuth && dispatch(getFavoriteNotices({ userId: currentUser }));
+  }, []);
 
   const onSearch = searchQuery => {
     clearTimeout(timeoutId);
@@ -117,7 +108,11 @@ let timeoutId;
     setSearchQweryTitle(event.target.value);
   };
 
-  console.log('noticeFavorite.', noticeFavorite);
+  const getOwner = currentUser => {
+    const owner = notices.filter(item => (item.owner = currentUser));
+    console.log('owner', owner);
+    return owner;
+  };
 
   return (
     <ContainerPage>
@@ -135,8 +130,10 @@ let timeoutId;
         {showModal && <Modal closeModal={toggleModal}>AddNoticeModal</Modal>}
       </MenuWrap>
       {isLoading && !error && <Loader />}
-      {console.log('noticeFavorite====>', noticeFavorite)}
-      {route === 'favorite' && noticeFavorite?.length > 0 ? (
+
+      {route === 'own' && getOwner(currentUser)?.length > 0 ? (
+        <NoticesCategoriesList data={getOwner(currentUser)} route={route} />
+      ) : route === 'favorite' && noticeFavorite?.length > 0 ? (
         <NoticesCategoriesList data={noticeFavorite} route={route} />
       ) : notices?.length > 0 ? (
         <NoticesCategoriesList data={notices} route={route} />
