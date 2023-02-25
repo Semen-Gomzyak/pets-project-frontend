@@ -44,7 +44,8 @@ export const deleteUserPet = async (id, token) => {
 
 export const uploadAvatar = async (file, token) => {
   try {
-    await axios.post(
+    console.log(file);
+    const response = await axios.post(
       'users/avatars',
       { avatar: file },
       {
@@ -55,8 +56,26 @@ export const uploadAvatar = async (file, token) => {
       }
     );
     console.log('uploaded');
+    console.log(response);
   } catch (error) {
     console.log(error.message);
     console.log(error.response.data.message);
+  }
+};
+
+export const addNewPet = async (newPet, token) => {
+  try {
+    console.log(newPet);
+    const response = await axios.post('/pets', newPet, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+    console.log(response);
+  } catch (error) {
+    console.log(error.message);
+    console.log(error.response.data.message);
+    console.log(error);
   }
 };

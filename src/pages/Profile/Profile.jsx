@@ -5,12 +5,14 @@ import { HiOutlineLogout } from 'react-icons/hi';
 import { BsPlusCircleFill } from 'react-icons/bs';
 import {
   Section,
+  UserPart,
   UserPartTitle,
   UserInfo,
   UserData,
   LogOutContainer,
   LogOutButton,
   LogOutText,
+  PetsPart,
   PetsHeader,
   PetsPartTitle,
   AddPetContainer,
@@ -29,10 +31,8 @@ import { UserUpdateForm } from 'components/Profile/UserUpdateForm/UserUdateForm'
 
 import { useDispatch, useSelector } from 'react-redux';
 
-import { getUser } from 'redux/Auth/selectors';
-
+// import { getUser } from 'redux/Auth/selectors';
 // import { getUserInfo } from 'services/api/user';
-
 import PetForm from '../../components/PetForm/PetForm';
 
 import { selectToken } from 'redux/Auth/selectors';
@@ -41,6 +41,7 @@ import {
   getUserData,
   updateUserData,
   uploadAvatar,
+  addNewPet,
 } from 'services/api/user';
 
 import { logout } from 'redux/Auth/operations';
@@ -110,11 +111,26 @@ export const Profile = () => {
     setUserPets(newUserPets);
   };
 
+  const addPet = newPet => {
+    setUserPets(prevState => [...prevState, newPet]);
+    addNewPet(newPet, token).then(response => {
+      console.log(response);
+      console.log(userPets);
+      console.log(userData);
+      // setUserPets(prevState => [...prevState, response.data]);
+    });
+  };
+
+  // const deletePet = (petId, newPetsList) => {
+  //   deleteUserPet(petId, token);
+  //   setUserPets(newPetsList);
+  // };
+
   return (
     <>
       <Section>
         {/* ------------------------ USER PART ------------------------ */}
-        <section>
+        <UserPart style={{ alignSelf: 'flex-start' }}>
           <UserPartTitle>My information:</UserPartTitle>
           <UserInfo>
             {userData.avatarURL && (
@@ -141,11 +157,11 @@ export const Profile = () => {
               <LogOutText>Log Out</LogOutText>
             </LogOutContainer>
           </UserInfo>
-        </section>
+        </UserPart>
 
         {/* ------------------------ PETS PART ------------------------ */}
 
-        <section>
+        <PetsPart>
           <PetsHeader>
             <PetsPartTitle style={{ marginBottom: '0px' }}>
               My pets:
@@ -153,9 +169,8 @@ export const Profile = () => {
             <AddPetContainer>
               <AddPetText>Add Pet</AddPetText>
 
-              <AddPetButton type="button" onClick={PetForm}>
-                {/* <AddPetButton type="button" onClick={toggleModal}> */}
-
+              {/* <AddPetButton type="button" onClick={PetForm}> */}
+              <AddPetButton type="button" onClick={toggleModal}>
                 <BsPlusCircleFill size={40} color={'#F59256'} />
               </AddPetButton>
             </AddPetContainer>
@@ -165,10 +180,8 @@ export const Profile = () => {
             {userPets.map((pet, index) => (
               <PetInfo key={pet._id}>
                 <PetImgContainer>
-                  <img src={pet.avatarURL} alt="avatar" />
+                  <img src={pet.avatarURL} alt="avatar" width={240} />
                 </PetImgContainer>
-
-                {/* -------------- PET INFO ----------------------- */}
 
                 <PetData>
                   <P>
@@ -195,11 +208,12 @@ export const Profile = () => {
               </PetInfo>
             ))}
           </ul>
-        </section>
+        </PetsPart>
       </Section>
       {showModal && (
         <Modal closeModal={toggleModal}>
-          <PetForm />
+          <PetForm onCancel={toggleModal} addPet={addPet} />
+          {/* <div>Test Content</div> */}
         </Modal>
       )}
     </>

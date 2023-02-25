@@ -7,12 +7,12 @@ export const ButtonNavMenu = styled.div`
   height: 100vh;
   top: 0;
   right: 0;
-  padding: 16px 0;
   background: #fdf7f2;
 `;
 
 export const LogoMenu = styled.div`
   display: flex;
+  margin-top: 16px;
   margin-bottom: 46px;
 
   @media (min-width: 768px) {
