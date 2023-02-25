@@ -11,6 +11,7 @@ const initialState = {
   oneNotice: {},
   isLoading: false,
   error: null,
+  owner: [],
 };
 
 const extraActions = [fetchAllNotices, addNotice, removeNotice, fetchOneNotice];
@@ -64,10 +65,19 @@ const noticesSlice = createSlice({
     changeFavoritesNotices(state, { payload }) {
       state.notices = state.notices.filter(notice => notice._id !== payload);
     },
+    getOwnerNotices(state, { payload }) {
+      console.log('getOwnerNotice state', state.notices);
+      console.log('getOwnerNotice payload', payload);
+      state.notices.owner = state.notices.filter(
+        notice => notice._id === payload
+      );
+      // console.log('getOwnerNotice state.notices.owner', state.notices.owner);
+    },
   },
 });
 
 // Редюсер слайса
 const noticesReducer = noticesSlice.reducer;
 export default noticesReducer;
-export const { clearNotices, changeFavoritesNotices } = noticesSlice.actions;
+export const { clearNotices, changeFavoritesNotices, getOwnerNotices } =
+  noticesSlice.actions;

@@ -10,8 +10,9 @@ import {
   selectNotices,
   selectError,
   selectNoticesIsLoading,
+  selectNoticesOwner,
 } from '../../redux/Notices/NoticesSelector';
-
+import { getOwnerNotices } from '../../redux/Notices/NoticesSlice';
 import {
   getIsLoggedIn,
   selectFavoriteNotices,
@@ -52,10 +53,10 @@ export const NoticesPage = () => {
   const isLoading = useSelector(selectNoticesIsLoading);
   const error = useSelector(selectError);
   const isAuth = useSelector(getIsLoggedIn);
-const debounceDelay = 2000;
+  const debounceDelay = 2000;
 
-let timeoutId;
-
+  let timeoutId;
+  const ownerNotice = useSelector(selectNoticesOwner);
   const favorites = useSelector(selectFavoriteNotices);
   const noticeFavorite = favorites;
   // console.log('favorites', noticeFavorite);
@@ -79,7 +80,9 @@ let timeoutId;
   }, [dispatch, route, searchQweryTitle, isAuth, currentUser]);
 
   useEffect(() => {
-    isAuth && dispatch(getFavoriteNotices({ userId: currentUser }));
+    isAuth &&
+      dispatch(getFavoriteNotices({ userId: currentUser })) &&
+      dispatch(getOwnerNotices({ userId: currentUser }));
   }, []);
 
   const onSearch = searchQuery => {
@@ -90,8 +93,6 @@ let timeoutId;
   const handleChanges = searchQuery => {
     setSearchQweryTitle(searchQuery);
   };
-
-
 
   const onOpenModal = () => {
     if (!isAuth) {
@@ -108,11 +109,15 @@ let timeoutId;
     setSearchQweryTitle(event.target.value);
   };
 
-  const getOwner = currentUser => {
-    const owner = notices.filter(item => (item.owner = currentUser));
+  const getOwner = (currentUser, notices) => {
+    console.log('notices', notices);
+    console.log('currentUser', currentUser);
+    const owner = notices.filter(item => item.owner === currentUser);
     console.log('owner', owner);
     return owner;
   };
+
+  // const ownerNotice = getOwner(currentUser, notices);
 
   return (
     <ContainerPage>
@@ -131,12 +136,13 @@ let timeoutId;
       </MenuWrap>
       {isLoading && !error && <Loader />}
 
-      {route === 'own' && getOwner(currentUser)?.length > 0 ? (
-        <NoticesCategoriesList data={getOwner(currentUser)} route={route} />
-      ) : route === 'favorite' && noticeFavorite?.length > 0 ? (
+      {route === 'favorite' && noticeFavorite?.length > 0 ? (
         <NoticesCategoriesList data={noticeFavorite} route={route} />
       ) : notices?.length > 0 ? (
-        <NoticesCategoriesList data={notices} route={route} />
+        <NoticesCategoriesList
+          data={route === 'own' ? ownerNotice : notices}
+          route={route}
+        />
       ) : (
         <p
           style={{
