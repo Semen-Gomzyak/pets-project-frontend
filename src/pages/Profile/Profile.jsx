@@ -5,12 +5,14 @@ import { HiOutlineLogout } from 'react-icons/hi';
 import { BsPlusCircleFill } from 'react-icons/bs';
 import {
   Section,
+  UserPart,
   UserPartTitle,
   UserInfo,
   UserData,
   LogOutContainer,
   LogOutButton,
   LogOutText,
+  PetsPart,
   PetsHeader,
   PetsPartTitle,
   AddPetContainer,
@@ -39,6 +41,7 @@ import {
   getUserData,
   updateUserData,
   uploadAvatar,
+  addNewPet,
 } from 'services/api/user';
 
 import { logout } from 'redux/Auth/operations';
@@ -108,8 +111,14 @@ export const Profile = () => {
     setUserPets(newUserPets);
   };
 
-  const addPet = pet => {
-    setUserPets(prevState => prevState.push(pet));
+  const addPet = newPet => {
+    setUserPets(prevState => [...prevState, newPet]);
+    addNewPet(newPet, token).then(response => {
+      console.log(response);
+      console.log(userPets);
+      console.log(userData);
+      // setUserPets(prevState => [...prevState, response.data]);
+    });
   };
 
   // const deletePet = (petId, newPetsList) => {
@@ -121,7 +130,7 @@ export const Profile = () => {
     <>
       <Section>
         {/* ------------------------ USER PART ------------------------ */}
-        <section>
+        <UserPart style={{ alignSelf: 'flex-start' }}>
           <UserPartTitle>My information:</UserPartTitle>
           <UserInfo>
             {userData.avatarURL && (
@@ -148,11 +157,11 @@ export const Profile = () => {
               <LogOutText>Log Out</LogOutText>
             </LogOutContainer>
           </UserInfo>
-        </section>
+        </UserPart>
 
         {/* ------------------------ PETS PART ------------------------ */}
 
-        <section>
+        <PetsPart>
           <PetsHeader>
             <PetsPartTitle style={{ marginBottom: '0px' }}>
               My pets:
@@ -199,11 +208,11 @@ export const Profile = () => {
               </PetInfo>
             ))}
           </ul>
-        </section>
+        </PetsPart>
       </Section>
       {showModal && (
         <Modal closeModal={toggleModal}>
-          <PetForm addPet={addPet} />
+          <PetForm onCancel={toggleModal} addPet={addPet} />
           {/* <div>Test Content</div> */}
         </Modal>
       )}

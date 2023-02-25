@@ -15,8 +15,21 @@ export const Section = styled.section`
   }
   @media screen and (min-width: 1280px) {
     flex-direction: row;
+    margin-left: auto;
+    margin-right: auto;
+    width: 1280px;
     padding-left: 16px;
     padding-right: 16px;
+    /* height: 100vh;
+    overflow: scroll; */
+  }
+`;
+
+export const UserPart = styled.section`
+  margin-left: auto;
+  margin-right: auto;
+  @media screen and (min-width: 1280px) {
+    align-self: start;
   }
 `;
 
@@ -39,6 +52,7 @@ export const UserPartTitle = styled.h2`
   }
   @media screen and (min-width: 1280px) {
     margin-bottom: 24px;
+    margin-top: 10px;
   }
 `;
 
@@ -77,6 +91,9 @@ export const UserInfo = styled.div`
     border-bottom-left-radius: 0;
   }
   @media screen and (min-width: 1280px) {
+    flex-direction: column;
+    width: 411px;
+    margin-left: -16px;
   }
 `;
 
@@ -88,6 +105,9 @@ export const UserData = styled.div`
 
   @media screen and (min-width: 768px) {
     justify-content: left;
+  }
+  @media screen and (min-width: 1280px) {
+    margin-bottom: 27px;
   }
 `;
 
@@ -101,6 +121,13 @@ export const LogOutContainer = styled.div`
     position: absolute;
     bottom: 25px;
     left: 30px;
+  }
+  @media screen and (min-width: 1280px) {
+    position: relative;
+    bottom: 0;
+    top: 0;
+    margin-left: -16px;
+    align-self: flex-start;
   }
 `;
 
@@ -135,6 +162,12 @@ export const LogOutButton = styled.button`
 
 // ------------------------ PETS ------------------------
 
+export const PetsPart = styled.section`
+  @media screen and (min-width: 1280px) {
+    margin-left: 32px;
+  }
+`;
+
 export const PetsHeader = styled.div`
   display: flex;
   justify-content: space-between;
@@ -152,9 +185,11 @@ export const PetsHeader = styled.div`
     margin-bottom: 27px;
   }
   @media screen and (min-width: 768px) {
-    /* padding-left: 32px; */
     width: 706px;
     margin-bottom: 24px;
+  }
+  @media screen and (min-width: 1280px) {
+    width: 821px;
   }
 `;
 
@@ -197,7 +232,6 @@ export const AddPetButton = styled.button`
 export const AddPetText = styled.span`
   font-weight: 500;
   font-size: 20px;
-  /* line-height: 27px; */
 
   @media screen and (min-width: 320px) {
     font-size: calc(100vw / 16);
@@ -213,7 +247,6 @@ export const AddPetText = styled.span`
 export const PetInfo = styled.li`
   display: flex;
   flex-direction: column;
-  /* align-items: center; */
   width: 280px;
   padding: 16px 20px;
   margin-bottom: 20px;
@@ -232,6 +265,9 @@ export const PetInfo = styled.li`
     width: 706px;
     flex-direction: row;
   }
+  @media screen and (min-width: 1280px) {
+    width: 821px;
+  }
 `;
 
 export const PetImgContainer = styled.div`
@@ -248,9 +284,14 @@ export const PetImgContainer = styled.div`
   margin-bottom: 20px;
 
   @media screen and (min-width: 768px) {
+    width: 161px;
+    height: 161px;
   }
-  width: 161px;
-  height: 161px;
+
+  @media screen and (min-width: 1280px) {
+    margin-bottom: 0;
+    border-radius: 40px;
+  }
 `;
 
 export const PetData = styled.div`
@@ -258,6 +299,9 @@ export const PetData = styled.div`
   @media screen and (min-width: 768px) {
     width: 470px;
     margin-left: 32px;
+  }
+  @media screen and (min-width: 1280px) {
+    width: 590px;
   }
 `;
 
