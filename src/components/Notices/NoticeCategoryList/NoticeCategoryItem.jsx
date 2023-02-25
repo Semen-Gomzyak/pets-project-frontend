@@ -31,6 +31,8 @@ import { removeNotice } from 'redux/Notices/NoticesOperations';
 import defaultImage from '../../../images/services/notAvailable.png';
 import { renameAgeDate } from 'helpers/renameAge';
 
+import { WarningMessage } from 'components/WarningMessage/WarningMessage';
+
 export const NoticeCategoryItem = ({ data, route }) => {
   // console.log('data in Item', data);
   const {
@@ -49,6 +51,8 @@ export const NoticeCategoryItem = ({ data, route }) => {
   const dispatch = useDispatch();
   const [showModal, setShowModal] = useState(false);
   const isAuth = useSelector(getIsLoggedIn);
+  const [isShownConfirmationDelete, setIsShownConfirmationDelete] =
+    useState(false);
 
   const currentUser = useSelector(getUserById);
   const favorites = useSelector(selectFavoriteNotices);
@@ -85,10 +89,23 @@ export const NoticeCategoryItem = ({ data, route }) => {
     }
   };
 
-  const deletePet = () => {
-    alert('You really want to delete this Notice ?');
-    alert(`You really want to delete this Notice ?${_id}`);
-    dispatch(removeNotice({ noticeId: _id }));
+  const closeConfirmationDelete = () => {
+    setIsShownConfirmationDelete(!isShownConfirmationDelete);
+  };
+  const deleteNotice = () => {
+    {
+      showModal && (
+        <Modal
+          closeModal={toggleModal}
+          children={<p>You really want to delete this Notice ?</p>}
+        ></Modal>
+      );
+    }
+
+    // alert('You really want to delete this Notice ?');
+    // alert(`You really want to delete this Notice ?${_id}`);
+    dispatch(removeNotice(data._id));
+
     toast.success('Notice is deleted.');
   };
 
@@ -116,7 +133,13 @@ export const NoticeCategoryItem = ({ data, route }) => {
   const onOpenModal = () => {
     setShowModal(true);
   };
-
+  const getOwner = (route, owner) => {
+    if (route === 'own' || route === 'favorite') {
+      return owner._id;
+    } else {
+      return owner ? owner : 1;
+    }
+  };
   return (
     <ListItem>
       <ImgWrap>
@@ -179,11 +202,20 @@ export const NoticeCategoryItem = ({ data, route }) => {
               }
             ></Modal>
           )}
-          {isAuth && currentUser === owner && (
-            <NoticeBtn text={'Delete'} onClick={deletePet} />
+          {isAuth && currentUser === getOwner(route, data.owner) && (
+            <NoticeBtn text={'Delete'} onClick={closeConfirmationDelete} />
           )}
         </ThumbBtn>
       </Wrap>
+      {isShownConfirmationDelete && (
+        <WarningMessage
+          onClose={closeConfirmationDelete}
+          type="approve"
+          text={'CONFIRMATION_DELETE'}
+          approveFunk={deleteNotice}
+          id={data._id}
+        />
+      )}
     </ListItem>
   );
 };
