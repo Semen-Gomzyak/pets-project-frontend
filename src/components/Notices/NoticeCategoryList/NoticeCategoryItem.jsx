@@ -122,7 +122,10 @@ export const NoticeCategoryItem = ({ data, route }) => {
         <Category>{getTitleCategory(category)}</Category>
 
         {avatarURL ? (
-          <Img src={avatarURL} alt={name ? name : 'Avatar'} />
+          <Img
+            src={avatarURL ? avatarURL : defaultImage}
+            alt={name ? name : 'Avatar'}
+          />
         ) : (
           <Img src={notAvailable} alt="not found" />
         )}
