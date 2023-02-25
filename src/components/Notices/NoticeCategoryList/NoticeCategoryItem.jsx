@@ -101,9 +101,6 @@ export const NoticeCategoryItem = ({ data, route }) => {
         ></Modal>
       );
     }
-
-    // alert('You really want to delete this Notice ?');
-    // alert(`You really want to delete this Notice ?${_id}`);
     dispatch(removeNotice(data._id));
 
     toast.success('Notice is deleted.');
