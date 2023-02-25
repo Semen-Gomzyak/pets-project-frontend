@@ -85,6 +85,7 @@ export const updateFavoriteNotice = createAsyncThunk(
         `/notices/${userId}/favorites/${noticeId}`
       );
       return response.data;
+
     } catch (error) {
       return rejectWithValue(error.message);
     }
@@ -98,9 +99,7 @@ export const getFavoriteNotices = createAsyncThunk(
   async ({ userId }, { rejectWithValue }) => {
     try {
       const response = await axios.get(`/notices/${userId}/favorites`);
-
       return response.data;
-
     } catch (error) {
       return rejectWithValue(error.message);
     }

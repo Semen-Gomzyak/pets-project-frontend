@@ -59,6 +59,9 @@ export const NoticesPage = () => {
   const isLoading = useSelector(selectNoticesIsLoading);
   const error = useSelector(selectError);
   const isAuth = useSelector(getIsLoggedIn);
+const debounceDelay = 2000;
+
+let timeoutId;
 
     const favorites = useSelector(selectFavoriteNotices);
 
@@ -88,6 +91,17 @@ export const NoticesPage = () => {
       isAuth && dispatch(getFavoriteNotices({ userId: currentUser }));
     }, []);
 
+  const onSearch = searchQuery => {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(handleChanges(searchQuery), debounceDelay);
+  };
+
+  const handleChanges = searchQuery => {
+    setSearchQweryTitle(searchQuery);
+  };
+
+
+
   const onOpenModal = () => {
     if (!isAuth) {
       setShowModal(false);
@@ -113,6 +127,7 @@ export const NoticesPage = () => {
         placeholder="Search"
         value={searchQweryTitle}
         onChange={handleSearch}
+        id="inputSearch"
       />
       <MenuWrap>
         <NoticesCategoryNav />

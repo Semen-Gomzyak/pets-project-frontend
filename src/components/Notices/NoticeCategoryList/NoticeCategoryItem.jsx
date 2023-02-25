@@ -55,6 +55,7 @@ export const NoticeCategoryItem = ({ data, route }) => {
   const currentUser = useSelector(getUserById);
   const favorites = useSelector(selectFavoriteNotices);
 
+
   function isIdInData(data) {
     return isAuth && data.some(item => item._id === _id);
   }
