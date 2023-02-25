@@ -17,6 +17,10 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.is-modal-open {
+  overflow: hidden;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;

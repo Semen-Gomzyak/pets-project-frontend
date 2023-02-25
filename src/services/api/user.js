@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { async } from 'q';
 
 axios.defaults.baseURL = 'https://pets-project-backend.onrender.com/api';
 
@@ -55,7 +54,8 @@ export const uploadAvatar = async (file, token) => {
       }
     );
     console.log('uploaded');
-    console.log(response);
+    console.log(response.data.avatarURL);
+    return response.data;
   } catch (error) {
     console.log(error.message);
     console.log(error.response.data.message);

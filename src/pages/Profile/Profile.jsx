@@ -28,11 +28,8 @@ import {
 import { Modal } from 'components/Modal/Modal';
 import { Avatar } from 'components/Profile/Avatar/Avatar';
 import { UserUpdateForm } from 'components/Profile/UserUpdateForm/UserUdateForm';
-import notAvailable from 'images/services/notAvailable.png';
 import { useDispatch, useSelector } from 'react-redux';
 
-// import { getUser } from 'redux/Auth/selectors';
-// import { getUserInfo } from 'services/api/user';
 import PetForm from '../../components/PetForm/PetForm';
 
 import { selectToken } from 'redux/Auth/selectors';
@@ -46,7 +43,6 @@ import {
 
 import { logout } from 'redux/Auth/operations';
 import { useNavigate } from 'react-router';
-import { backgroundColor } from 'styled-system';
 import { theme } from 'services/theme';
 
 const convertDate = date => {
@@ -64,6 +60,7 @@ export const Profile = () => {
   const [showModal, setShowModal] = useState(false);
   const toggleModal = () => {
     setShowModal(prevState => !prevState);
+    document.body.classList.toggle('is-modal-open');
   };
 
   const navigate = useNavigate();
@@ -92,7 +89,7 @@ export const Profile = () => {
 
   const changeAvatar = async (avatar, avatarUrl) => {
     const response = await uploadAvatar(avatar, token);
-    setUserData(prevState => ({ ...prevState, avatarURL: avatarUrl }));
+    setUserData(prevState => ({ ...prevState, avatarURL: response.avatarURL }));
   };
 
   const logoutUser = event => {
@@ -129,28 +126,10 @@ export const Profile = () => {
         <UserPart style={{ alignSelf: 'flex-start' }}>
           <UserPartTitle>My information:</UserPartTitle>
           <UserInfo>
-
-
-            {userData.avatarURL ? (
-              <Avatar
-                avatarURL={userData.avatarURL}
-                changeAvatar={changeAvatar}
-              />
-            ) : (
-              <div
-                style={{
-                  width: '233px',
-                  height: '233px',
-                  backgroundColor: theme.colors.background,
-                  borderRadius: '50%',
-                }}
-              ></div>
-            )}
-            {/* <Avatar
-
+            <Avatar
               avatarURL={userData.avatarURL}
               changeAvatar={changeAvatar}
-            /> */}
+            />
 
             <UserData>
               {Object.keys(userData).length !== 0 && (
@@ -164,7 +143,7 @@ export const Profile = () => {
 
             <LogOutContainer>
               <LogOutButton type="button" onClick={logoutUser}>
-                <HiOutlineLogout size={25} color={'#F59256'} />
+                <HiOutlineLogout size={25} color={theme.colors.accent} />
               </LogOutButton>
               <LogOutText>Log Out</LogOutText>
             </LogOutContainer>
@@ -183,7 +162,7 @@ export const Profile = () => {
 
               {/* <AddPetButton type="button" onClick={PetForm}> */}
               <AddPetButton type="button" onClick={toggleModal}>
-                <BsPlusCircleFill size={40} color={'#F59256'} />
+                <BsPlusCircleFill size={40} color={theme.colors.accent} />
               </AddPetButton>
             </AddPetContainer>
           </PetsHeader>
@@ -225,7 +204,6 @@ export const Profile = () => {
       {showModal && (
         <Modal closeModal={toggleModal}>
           <PetForm onCancel={toggleModal} addPet={addPet} />
-          {/* <div>Test Content</div> */}
         </Modal>
       )}
     </>

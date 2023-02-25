@@ -13,22 +13,22 @@ import { HiPlus } from 'react-icons/hi2';
 import PropTypes from 'prop-types';
 
 export const Avatar = ({ avatarURL, changeAvatar }) => {
-  const [avatarUrl, setAvatarUrl] = useState(avatarURL);
+  // const [avatarUrl, setAvatarUrl] = useState(avatarURL);
 
   const onAvatarInputChange = async event => {
     const avatar = event.currentTarget.files[0];
 
     const reader = new FileReader();
     reader.readAsDataURL(avatar);
-    reader.onload = event => setAvatarUrl(event.target.result);
-    changeAvatar(avatar, avatarUrl);
+    // reader.onload = event => setAvatarUrl(event.target.result);
+    changeAvatar(avatar);
   };
 
   return (
     <AvatarContainer>
       <UserAvatar>
-        {avatarUrl ? (
-          <img src={avatarUrl} alt="avatar" />
+        {avatarURL ? (
+          <img src={avatarURL} alt="avatar" />
         ) : (
           <Plug>
             <HiPlus size={47} color="#11111150" />
