@@ -5,6 +5,7 @@ import {
   logout,
   refreshUser,
   updateFavoriteNotice,
+  getFavoriteNotices,
 } from './operations';
 
 const authSlise = createSlice({
@@ -54,6 +55,18 @@ const authSlise = createSlice({
       .addCase(refreshUser.rejected, state => {
         state.isRefreshing = false;
       })
+      .addCase(getFavoriteNotices.rejected, (state, { payload }) => {
+        state.isLoading = false;
+        state.error = payload;
+      })
+      .addCase(getFavoriteNotices.pending, state => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(getFavoriteNotices.fulfilled, (state, { payload }) => {
+        state.user.favoriteNotices = payload;
+        state.isLoading = false;
+      })
       .addCase(updateFavoriteNotice.rejected, (state, { payload }) => {
         state.isLoading = false;
         state.error = payload;
@@ -62,8 +75,8 @@ const authSlise = createSlice({
         state.isLoading = true;
         state.error = null;
       })
-      .addCase(updateFavoriteNotice.fulfilled, (state, { payload }) => {
-        state.user.favoriteNotices = [...state.user.favoriteNotices, payload];
+      .addCase(updateFavoriteNotice.fulfilled, (state, {payload}) => {
+        state.user.favoriteNotices = payload.favoriteNotices;
         state.isLoading = false;
       });
   },
