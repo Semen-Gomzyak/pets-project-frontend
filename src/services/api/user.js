@@ -46,7 +46,7 @@ export const uploadAvatar = async (file, token) => {
   try {
     const response = await axios.post(
       'users/avatars',
-      { avatarURL: file },
+      { avatar: file },
       {
         headers: {
           Authorization: `Bearer ${token}`,
