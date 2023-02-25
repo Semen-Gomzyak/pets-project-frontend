@@ -12,6 +12,7 @@ export const Backdrop = styled.div`
   align-items: center;
   background-color: rgba(0, 0, 0, 0.3);
   z-index: 1200;
+  overflow: auto;
 `;
 
 export const ModalContainer = styled.div`
@@ -22,6 +23,7 @@ export const ModalContainer = styled.div`
 
   width: 280px;
   height: fit-content;
+  margin-bottom: 60px;
   margin-top: 160px;
   padding: 20px;
   border-radius: 20px;
@@ -47,7 +49,7 @@ export const CloseBtn = styled.button`
   width: 34px;
   height: 34px;
   border-radius: 50%;
-  background-color: #fdf7f2;
+  background-color: ${p => p.theme.colors.background};
   display: flex;
   justify-content: center;
   align-items: center;

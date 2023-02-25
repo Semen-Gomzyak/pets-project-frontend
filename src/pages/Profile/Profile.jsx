@@ -63,6 +63,7 @@ export const Profile = () => {
   const [showModal, setShowModal] = useState(false);
   const toggleModal = () => {
     setShowModal(prevState => !prevState);
+    document.body.classList.toggle('is-modal-open');
   };
 
   const navigate = useNavigate();
