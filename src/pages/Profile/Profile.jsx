@@ -26,6 +26,7 @@ import {
   P,
 } from './Profile.styled';
 import { Modal } from 'components/Modal/Modal';
+import { ConfirmLogout } from 'components/Profile/ConfirmLogout/ConfirmLogout';
 import { Avatar } from 'components/Profile/Avatar/Avatar';
 import { UserUpdateForm } from 'components/Profile/UserUpdateForm/UserUdateForm';
 import { useDispatch, useSelector } from 'react-redux';
@@ -63,6 +64,11 @@ export const Profile = () => {
     document.body.classList.toggle('is-modal-open');
   };
 
+  const [showConfirm, setShowConfirm] = useState(false);
+  const toggleConfirm = () => {
+    setShowConfirm(prevState => !prevState);
+  };
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -92,8 +98,8 @@ export const Profile = () => {
     setUserData(prevState => ({ ...prevState, avatarURL: response.avatarURL }));
   };
 
-  const logoutUser = event => {
-    event.preventDefault();
+  const logoutUser = () => {
+    // event.preventDefault();
     dispatch(logout());
     navigate('/', { replace: true });
   };
@@ -142,7 +148,7 @@ export const Profile = () => {
             </UserData>
 
             <LogOutContainer>
-              <LogOutButton type="button" onClick={logoutUser}>
+              <LogOutButton type="button" onClick={toggleConfirm}>
                 <HiOutlineLogout size={25} color={theme.colors.accent} />
               </LogOutButton>
               <LogOutText>Log Out</LogOutText>
@@ -204,6 +210,11 @@ export const Profile = () => {
       {showModal && (
         <Modal closeModal={toggleModal}>
           <PetForm onCancel={toggleModal} addPet={addPet} />
+        </Modal>
+      )}
+      {showConfirm && (
+        <Modal closeModal={toggleConfirm}>
+          <ConfirmLogout cancel={toggleConfirm} accept={logoutUser} />
         </Modal>
       )}
     </>
