@@ -5,7 +5,6 @@ import { useEffect, useState } from 'react';
 import {
   fetchAllNotices,
   fetchNoticesByCategoryAndTitle,
-  // getAllNotices,
 } from '../../redux/Notices/NoticesOperations';
 import {
   selectNotices,
