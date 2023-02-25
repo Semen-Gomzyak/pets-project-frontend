@@ -60,16 +60,13 @@ export const NoticesPage = () => {
   const error = useSelector(selectError);
   const isAuth = useSelector(getIsLoggedIn);
 
-    const currentUser = useSelector(getUserById);
     const favorites = useSelector(selectFavoriteNotices);
 
 
   useEffect(() => {
     if (searchQweryTitle.length >= 2) {
       if (route === 'favorite') {
-        dispatch(fetchFavorite(currentUser));
-        console.log('noticeFavorite====>', noticeFavorite);
-        return noticeFavorite;
+
       }
       dispatch(
         fetchNoticesByCategoryAndTitle({
@@ -79,9 +76,7 @@ export const NoticesPage = () => {
       );
     } else {
       if (route === 'favorite') {
-        dispatch(fetchFavorite(currentUser));
-        console.log('noticeFavorite====>', noticeFavorite);
-        return noticeFavorite;
+
       } else {
         dispatch(fetchAllNotices({ category: route }));
       }

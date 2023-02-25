@@ -79,7 +79,7 @@ export const NoticeCategoryItem = ({ data, route }) => {
         toast.success('Added to favorites!');
       }
       if (route === 'favorite') {
-        dispatch(changeFavoritesNotices({ noticeId: _id }));
+        
       }
 
     } else {
