@@ -146,7 +146,7 @@ export const Profile = () => {
 
             <LogOutContainer>
               <LogOutButton type="button" onClick={logoutUser}>
-                <HiOutlineLogout size={25} color={'#F59256'} />
+                <HiOutlineLogout size={25} color={theme.colors.accent} />
               </LogOutButton>
               <LogOutText>Log Out</LogOutText>
             </LogOutContainer>
@@ -165,7 +165,7 @@ export const Profile = () => {
 
               {/* <AddPetButton type="button" onClick={PetForm}> */}
               <AddPetButton type="button" onClick={toggleModal}>
-                <BsPlusCircleFill size={40} color={'#F59256'} />
+                <BsPlusCircleFill size={40} color={theme.colors.accent} />
               </AddPetButton>
             </AddPetContainer>
           </PetsHeader>
@@ -207,7 +207,6 @@ export const Profile = () => {
       {showModal && (
         <Modal closeModal={toggleModal}>
           <PetForm onCancel={toggleModal} addPet={addPet} />
-          {/* <div>Test Content</div> */}
         </Modal>
       )}
     </>
