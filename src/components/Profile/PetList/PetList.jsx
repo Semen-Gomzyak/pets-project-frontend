@@ -5,10 +5,11 @@ import {
   P,
   Span,
   DeletePetButton,
+  ConfirmBtn,
 } from './PetList.styled';
 import { HiTrash } from 'react-icons/hi2';
 
-// import { theme } from 'services/theme';
+import { СonfirmPopup } from '../../ConfirmPopup/ConfirmPopup';
 
 const convertDate = date => {
   const dateOptions = { day: 'numeric', month: 'numeric', year: 'numeric' };
@@ -57,13 +58,18 @@ export const PetList = ({ petsList, deletePet }) => {
               <Span>Comments: </Span> {pet.comments}
             </P>
 
-            <DeletePetButton
-              type="button"
-              onClick={onDeleteClick}
-              data-index={index}
+            <СonfirmPopup
+              trigger={
+                <DeletePetButton type="button" data-index={index}>
+                  <HiTrash size={20} color={'#111111A0'} />
+                </DeletePetButton>
+              }
             >
-              <HiTrash size={20} color={'#111111A0'} />
-            </DeletePetButton>
+              <p>Are you sure?</p>
+              <ConfirmBtn onCLick={onDeleteClick} data-index={index}>
+                Yes
+              </ConfirmBtn>
+            </СonfirmPopup>
           </PetData>
         </PetInfo>
       ))}

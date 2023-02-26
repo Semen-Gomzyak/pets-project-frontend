@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Button } from 'components/Button/Button';
 // import { theme } from 'services/theme';
 
 export const PetInfo = styled.li`
@@ -109,5 +110,28 @@ export const DeletePetButton = styled.button`
     width: 44px;
     height: 44px;
     background-color: ${p => p.theme.colors.background};
+  }
+`;
+
+export const ConfirmBtn = styled(Button)`
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 1.33;
+  display: flex;
+  align-items: center;
+  letter-spacing: 0.04em;
+  flex-direction: row;
+  align-items: flex-start;
+  padding: 2px 12px;
+  border-radius: 30px;
+  border: 1px solid ${p => p.theme.colors.accent};
+  opacity: 1;
+  background-color: ${p => p.theme.colors.white};
+  transition: background-color 250 ms cubic-bezier(0.4, 0, 0.2, 1),
+    color 250 ms cubic-bezier(0.4, 0, 0.2, 1);
+
+  :hover {
+    background-color: ${p => p.theme.colors.accent};
+    color: ${p => p.theme.colors.white};
   }
 `;
