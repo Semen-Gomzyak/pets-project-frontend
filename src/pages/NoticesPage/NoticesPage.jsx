@@ -42,9 +42,9 @@ import { getAllNoticesForOwners } from 'services/getFaforites';
 
 export const NoticesPage = () => {
   const { route } = useParams();
-  const currentUser = useSelector(getUserById);
+  let currentUser = useSelector(getUserById);
+  const [userData, setUserData] = useState({});
 
-  
   const [showModal, setShowModal] = useState(false);
   const [userNotices, setUserNotices] = useState([]);
   const toggleModal = () => {
@@ -59,33 +59,41 @@ export const NoticesPage = () => {
   const error = useSelector(selectError);
   const isAuth = useSelector(getIsLoggedIn);
   const debounceDelay = 2000;
-
+const token = useSelector(selectToken);
   let timeoutId;
 
   const favorites = useSelector(selectFavoriteNotices);
   const noticeFavorite = favorites;
 
   useEffect(() => {
+
     if (searchQweryTitle.length >= 2) {
-      if (isAuth && route === 'favorite') {
-        alert('написати функцію по пошуку');
-        //dispatch(getFavoriteNotices({ userId: currentUser }));
-      }
+      // if (isAuth && route === 'favorite') {
+
+      //dispatch(getFavoriteNotices({ userId: currentUser }));
+      // }
       dispatch(
         fetchNoticesByCategoryAndTitle({
           category: route,
           title: searchQweryTitle,
         })
       );
-    } else {
+    }
+
+    if (isAuth && currentUser !== null) {
       dispatch(fetchAllNotices({ category: route }));
       dispatch(changeFavoritesNotices({ userId: currentUser }));
+    } else {
+      dispatch(fetchAllNotices({ category: route }));
     }
+
     return () => dispatch(clearNotices([]));
   }, [dispatch, route, searchQweryTitle, isAuth, currentUser]);
 
   useEffect(() => {
-    isAuth && dispatch(getFavoriteNotices({ userId: currentUser }));
+    if (isAuth && currentUser !== null) {
+      dispatch(getFavoriteNotices({ userId: currentUser }));
+    }
     //&&dispatch(getOwnerNotices({ userId: currentUser }));
   }, [isAuth, dispatch, currentUser]);
 
@@ -112,14 +120,11 @@ export const NoticesPage = () => {
   const handleSearch = event => {
     setSearchQweryTitle(event.target.value);
   };
-const token = useSelector(selectToken);
+
   const addNewNotice = async newPet => {
-    // const token = useSelector(selectToken);
-    console.log(newPet);
-    console.log(token);
-     const pet = await dispatch(addNotice(newPet));
-     setUserNotices(prevState => [...prevState, pet]);
-   };
+    const pet = await dispatch(addNotice({ newNotice: newPet, token }));
+    setUserNotices(prevState => [...prevState, pet]);
+  };
 
   const [ownerNotices, setOwnerNotices] = useState([]);
   useEffect(() => {

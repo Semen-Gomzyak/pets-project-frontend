@@ -66,18 +66,30 @@ export const fetchOneNotice = createAsyncThunk(
 // POST @ /notices/addNotice відповідно до категорії
 export const addNotice = createAsyncThunk(
   'notices/addNotice',
-  async (newNotice, { rejectWithValue }) => {
+
+  async ( data, { rejectWithValue }) => {
     try {
-      const response = await axios.post('/notices/', newNotice);
-      console.log('response: ', response);
+      const response = await axios.post(
+        '/notices/',
+        data.newNotice,
+        {
+          headers: {
+            Authorization: `Bearer ${data.token}`,
+            'Content-Type': 'multipart/form-data',
+          },
+        }
+      );
+
+
       return response.data;
     } catch (error) {
       console.log(error.message);
       console.log(error.response.data.message);
       toast.error('something went wrong in  addContact, please, try again');
+      toast.error('something went wrong in  addContact, please, try again');
       return rejectWithValue(error.message);
     }
-  }
+    }
 );
 
 // DELETE @ /notices/:id

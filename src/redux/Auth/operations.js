@@ -64,6 +64,7 @@ export const refreshUser = createAsyncThunk(
   async (_, thunkAPI) => {
     const state = thunkAPI.getState();
     const persistedToken = state.auth.token;
+    const persistedId = state.auth.id;
 
     if (persistedToken === null) {
       return thunkAPI.rejectWithValue('Unable to fetch user');
@@ -89,7 +90,7 @@ export const updateFavoriteNotice = createAsyncThunk(
       const response = await axios.patch(
         `/notices/${userId}/favorites/${noticeId}`
       );
-      // console.log('updateFavoriteNotice', response.data.favoriteNotices);
+
       return response.data.favoriteNotices;
     } catch (error) {
       return rejectWithValue(error.message);
@@ -104,6 +105,7 @@ export const getFavoriteNotices = createAsyncThunk(
   async ({ userId }, { rejectWithValue }) => {
     try {
       const response = await axios.get(`/notices/${userId}/favorites`);
+
       return response.data;
     } catch (error) {
       return rejectWithValue(error.message);

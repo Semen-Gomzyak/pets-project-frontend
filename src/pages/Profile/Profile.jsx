@@ -60,6 +60,7 @@ export const Profile = () => {
   };
 
   useEffect(() => {
+    
     getUserData(token).then(response => {
       setUserData(response.data);
 
