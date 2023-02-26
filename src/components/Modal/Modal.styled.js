@@ -23,7 +23,7 @@ export const ModalContainer = styled.div`
 
   width: 280px;
   height: fit-content;
-  margin-bottom: 160px;
+  margin-bottom: 30px;
   margin-top: 160px;
   padding: 20px;
   border-radius: 20px;
@@ -38,7 +38,7 @@ export const ModalContainer = styled.div`
   @media ${p => p.theme.device.tablet} {
     width: 704px;
     margin-top: 270;
-    margin-bottom: 270px;
+    margin-bottom: 60px;
   }
   @media ${p => p.theme.device.desktop} {
     margin-top: 0;

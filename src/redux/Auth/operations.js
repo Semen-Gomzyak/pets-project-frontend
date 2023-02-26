@@ -23,6 +23,8 @@ export const register = createAsyncThunk(
         status: response.status,
       };
     } catch (error) {
+      console.log(error.message);
+      console.log(error.response.data.message);
       return thunkAPI.rejectWithValue(error.message);
     }
   }
@@ -41,6 +43,8 @@ export const login = createAsyncThunk(
         status: response.status,
       };
     } catch (error) {
+      console.log(error.message);
+      console.log(error.response.data.message);
       return thunkAPI.rejectWithValue(error.message);
     }
   }
@@ -68,6 +72,7 @@ export const refreshUser = createAsyncThunk(
     try {
       setAuthHeader(persistedToken);
       const res = await axios.get('/users/current');
+      console.log(res);
       return res.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);

@@ -8,7 +8,7 @@ import { SharedLayout } from '../SharedLayout/SaredLayout';
 import { Profile } from 'pages/Profile/Profile';
 import { Loader } from 'components/Loader/Loader';
 
-import { LoginForm } from 'components/LoginForm/LoginForm'; 
+import { LoginForm } from 'components/LoginForm/LoginForm';
 
 import { NotFound } from 'pages/NotFound/NotFound';
 
@@ -44,12 +44,14 @@ export const App = () => {
   const dispatch = useDispatch();
 
   const { isRefreshing } = useAuth();
-  
+
   useEffect(() => {
     dispatch(refreshUser());
   }, [dispatch]);
 
-  return  isRefreshing ? <Loader/> : (
+  return isRefreshing ? (
+    <Loader />
+  ) : (
     <Routes>
       <Route path="/" element={<SharedLayout />}>
         <Route
@@ -79,9 +81,7 @@ export const App = () => {
 
         <Route
           path="/pets"
-          element={
-            <PrivateRoute component={PetsPage} redirectTo={'/login'} />
-          }
+          element={<PrivateRoute component={PetsPage} redirectTo={'/login'} />}
         />
         <Route
           path="news"
@@ -94,6 +94,5 @@ export const App = () => {
         <Route path="*" element={<NotFound />}></Route>
       </Route>
     </Routes>
-        
   );
 };
