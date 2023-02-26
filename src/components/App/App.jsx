@@ -2,11 +2,12 @@ import React, { lazy, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { refreshUser } from 'redux/Auth/operations';
+import { useAuth } from 'hooks';
 
 import { SharedLayout } from '../SharedLayout/SaredLayout';
 import { Profile } from 'pages/Profile/Profile';
 
-import { LoginForm } from 'components/LoginForm/LoginForm';
+import { LoginForm } from 'components/LoginForm/LoginForm'; 
 
 import { NotFound } from 'pages/NotFound/NotFound';
 
@@ -40,11 +41,14 @@ const PetsPage = lazy(() => import('../../pages/PetsPage/PetsPage'));
 
 export const App = () => {
   const dispatch = useDispatch();
+
+  const { isRefreshing } = useAuth();
+  
   useEffect(() => {
     dispatch(refreshUser());
   }, [dispatch]);
 
-  return (
+  return  isRefreshing ? (<b>Refreshing user...</b>) : (
     <Routes>
       <Route path="/" element={<SharedLayout />}>
         <Route
@@ -74,7 +78,9 @@ export const App = () => {
 
         <Route
           path="/pets"
-          element={<PrivateRoute component={PetsPage} redirectTo={'/login'} />}
+          element={
+            <PrivateRoute component={PetsPage} redirectTo={'/login'} />
+          }
         />
         <Route
           path="news"
@@ -87,5 +93,6 @@ export const App = () => {
         <Route path="*" element={<NotFound />}></Route>
       </Route>
     </Routes>
+        
   );
 };
