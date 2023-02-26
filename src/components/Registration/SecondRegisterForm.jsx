@@ -57,7 +57,7 @@ export const SecondRegisterForm = ({ data, onClick }) => {
     } else {
       toast.error(`Something went wrong with registration, please try again`);
     }
-
+    localStorage.clear();
     resetForm();
   };
 
