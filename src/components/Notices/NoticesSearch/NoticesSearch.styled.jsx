@@ -4,7 +4,10 @@ import styled from 'styled-components';
 export const Label = styled.label`
   display: block;
   position: relative;
-  margin: 0 auto 28px;
+  margin: 0 auto 28px; 
+  @media (min-width: 768px) {
+    width: 608px;
+  }
   `;
 
 
@@ -27,7 +30,10 @@ export const Input = styled.input`
     letter-spacing: 0.04em;
 
     color: #535353;
+    
   }
+    
+
 `;
 
 export const ButtonContainer = styled.div`
