@@ -12,21 +12,33 @@ import {
   ButtonContainer,
 } from './RegisterForm.styled';
 
+import React from 'react';
+
 export const FirstRegisterForm = ({ data, onSubmit, onClick }) => {
   const initialValues = {
     email: data.email || '',
     password: data.password || '',
     confirmPassword: data.confirmPassword || '',
   };
+
+  const saveFormValuesToLocalStorage = values => {
+    localStorage.setItem('register1FormValues', JSON.stringify(values));
+  };
+
+  const getFormValuesFromLocalStorage = () => {
+    const savedValues = localStorage.getItem('register1FormValues');
+    return savedValues ? JSON.parse(savedValues) : initialValues;
+  };
+
   const handleSubmit = values => {
-    localStorage.setItem('myValue', JSON.stringify(initialValues));
+    saveFormValuesToLocalStorage(values);
     console.log(values);
     onSubmit(values);
   };
 
   return (
     <Formik
-      initialValues={initialValues}
+      initialValues={getFormValuesFromLocalStorage()}
       validationSchema={RegisterFormSchema}
       onSubmit={handleSubmit}
     >
