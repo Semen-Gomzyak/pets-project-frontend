@@ -204,6 +204,7 @@ export const NoticeCategoryItem = ({ data, route }) => {
               children={
                 <NoticeModal
                   id={data._id}
+                  category={route}
                   notice={data}
                   isFavorite={isFavorite}
                   onClickFavorite={onChangeFavorite}
