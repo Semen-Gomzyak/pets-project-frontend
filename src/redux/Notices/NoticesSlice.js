@@ -26,13 +26,14 @@ const getActions = type => extraActions.map(action => action[type]);
 
 // Case reducers
 const fetchNoticesSuccessReducer = (state, { payload }) => {
-  state.notices = payload;
+  state.notices = payload.notices;
+  state.total = payload.total;
 };
 const fetchOneNoticeSuccessReducer = (state, { payload }) => {
   state.oneNotice = payload;
 };
 const addNoticeSuccessReducer = (state, { payload }) => {
-  state.notices.push(payload);
+  state.notices = payload;
 };
 
 const removeNoticeSuccessReducer = (state, { payload }) => {
