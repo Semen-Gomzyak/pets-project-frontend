@@ -3,6 +3,7 @@ import styled from 'styled-components';
 export const LabelSearch = styled.label`
   position: relative;
   display: block;
+  margin: 0 auto;
   svg {
     position: absolute;
     right: 10px;
@@ -19,7 +20,6 @@ export const LabelSearch = styled.label`
 export const InputSearch = styled.input`
   width: 100%;
   display: block;
-
   padding: 10px 40px 10px 20px;
   box-sizing: border-box;
   background-color: ${p => p.theme.colors.white};
