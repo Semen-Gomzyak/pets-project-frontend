@@ -119,3 +119,21 @@ export const getAllNotices = createAsyncThunk(
     }
   }
 );
+
+// GET @ /notices/category   отримання оголошень по категоріям
+export const fetchAllNoticesForPagination = createAsyncThunk(
+  'notices/fetchAllNotices',
+  //деструктуруємо перший параметр
+  async ({ category = 'sell', page = 1, limit }, thunkAPI) => {
+    try {
+      const response = await axios.get(
+        `/notices/category/${category}?page=${page}&limit=${limit}`
+      );
+      // console.log('notices.data', response.data);
+
+      return response.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);

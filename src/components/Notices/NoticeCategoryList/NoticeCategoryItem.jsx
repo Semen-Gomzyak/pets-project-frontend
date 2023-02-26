@@ -61,7 +61,6 @@ export const NoticeCategoryItem = ({ data, route }) => {
   // console.log('favorites: ', favorites);
 
   function isIdInData(data) {
-
     if (Array.isArray(data)) {
       return isAuth && data.some(item => item._id === _id);
     } else {
@@ -69,11 +68,9 @@ export const NoticeCategoryItem = ({ data, route }) => {
     }
 
     return isAuth && data !== undefined && data.some(item => item._id === _id);
-
   }
 
   const isGetFavorites = isIdInData(favorites);
-
 
   // const isFavorite = favorites.includes(_id) || isGetFavorites;
   let isFavorite = false;
@@ -118,16 +115,6 @@ export const NoticeCategoryItem = ({ data, route }) => {
     setIsShownConfirmationDelete(!isShownConfirmationDelete);
   };
   const deleteNotice = () => {
-    // {
-    //   showModal && (
-    //     <Modal
-    //       closeModal={toggleModal}
-    //       // children={<p>You really want to delete this Notice ?</p>}
-    //     >
-    //       <p>You really want to delete this Notice ?</p>
-    //     </Modal>
-    //   );
-    // }
     dispatch(removeNotice(data._id));
 
     toast.success('Notice is deleted.');
@@ -181,11 +168,7 @@ export const NoticeCategoryItem = ({ data, route }) => {
         {isFavorite && (
           <FavoriteBtn favorite={isFavorite} onClick={onChangeFavorite} />
         )}
-        <FavoriteBtn
-          favorite={isFavorite}
-          // favorite={favorite}
-          onClick={onChangeFavorite}
-        />
+        <FavoriteBtn favorite={isFavorite} onClick={onChangeFavorite} />
       </ImgWrap>
       <Wrap>
         <Title>{title ? title : ''}</Title>
@@ -200,7 +183,7 @@ export const NoticeCategoryItem = ({ data, route }) => {
           </LiInfo>
           <LiInfo key={`${_id}+age`}>
             <Lable>Age:</Lable>
-            {/* <Text>{birthdate ? renameAgeDate(birthdate) : ' '}</Text> */}
+
             <Text>{birthdate ? getAge(birthdate) : ' '}</Text>
           </LiInfo>
           {price ? (
