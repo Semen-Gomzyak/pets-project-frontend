@@ -1,14 +1,14 @@
 import styled from 'styled-components';
+// import { theme } from 'services/theme';
 
 export const PetInfo = styled.li`
   display: flex;
   flex-direction: column;
-  /* align-items: center; */
   width: 280px;
   padding: 16px 20px;
   margin-bottom: 20px;
 
-  background: #ffffff;
+  background: ${p => p.theme.colors.white};
   box-shadow: 7px 4px 14px rgba(0, 0, 0, 0.11);
   border-radius: 20px;
 
@@ -108,6 +108,6 @@ export const DeletePetButton = styled.button`
   @media screen and (min-width: 768px) {
     width: 44px;
     height: 44px;
-    background-color: #fdf7f2;
+    background-color: ${p => p.theme.colors.background};
   }
 `;

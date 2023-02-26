@@ -1,5 +1,3 @@
-import { useState } from 'react';
-
 import {
   PetInfo,
   PetImgContainer,
@@ -10,6 +8,8 @@ import {
 } from './PetList.styled';
 import { HiTrash } from 'react-icons/hi2';
 
+// import { theme } from 'services/theme';
+
 const convertDate = date => {
   const dateOptions = { day: 'numeric', month: 'numeric', year: 'numeric' };
   const dateString = new Date(date).toLocaleDateString('en-GB', dateOptions);
@@ -17,24 +17,30 @@ const convertDate = date => {
 };
 
 export const PetList = ({ petsList, deletePet }) => {
-  const [userPets, setUserPets] = useState(petsList);
-
   const onDeleteClick = event => {
     const index = Number(event.currentTarget.dataset.index);
 
-    const petId = userPets[index]._id;
-    const newUserPets = [...userPets];
+    const petId = petsList[index]._id;
+    const newUserPets = [...petsList];
     newUserPets.splice(index, 1);
+
     deletePet(petId, newUserPets);
-    setUserPets(newUserPets);
   };
 
   return (
     <ul>
-      {userPets.map((pet, index) => (
+      {petsList.map((pet, index) => (
         <PetInfo key={pet._id}>
           <PetImgContainer>
-            <img src={pet.avatarURL} alt="avatar" width={240} />
+            {pet.avatarURL ? (
+              <img src={pet.avatarURL} alt="avatar" width={240} />
+            ) : (
+              <img
+                src="images/services/notAvailable.png"
+                alt="avatar"
+                width={240}
+              />
+            )}
           </PetImgContainer>
 
           <PetData>

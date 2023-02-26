@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import {
   AvatarContainer,
   UserAvatar,
@@ -11,16 +10,15 @@ import {
 import { HiCamera } from 'react-icons/hi2';
 import { HiPlus } from 'react-icons/hi2';
 import PropTypes from 'prop-types';
+import { theme } from 'services/theme';
 
 export const Avatar = ({ avatarURL, changeAvatar }) => {
-  // const [avatarUrl, setAvatarUrl] = useState(avatarURL);
-
   const onAvatarInputChange = async event => {
     const avatar = event.currentTarget.files[0];
 
     const reader = new FileReader();
     reader.readAsDataURL(avatar);
-    // reader.onload = event => setAvatarUrl(event.target.result);
+
     changeAvatar(avatar);
   };
 
@@ -37,7 +35,7 @@ export const Avatar = ({ avatarURL, changeAvatar }) => {
       </UserAvatar>
       <ChangeAvatarForm>
         <AvatarButton htmlFor="upload-avatar">
-          <HiCamera size={20} color={'#F59256'} />
+          <HiCamera size={20} color={theme.colors.accent} />
         </AvatarButton>
         <AvatarInput
           type="file"
