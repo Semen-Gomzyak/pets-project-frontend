@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
+import { UpdateUserFormSchema } from 'validations/UpdateUserFormValidation';
 
-import { theme } from 'services/theme';
 import {
   Form,
   ItemContainer,
@@ -12,21 +12,22 @@ import {
   Check,
   BtnContainer,
 } from './UserUpdateForm.styled';
-import { UpdateUserFormSchema } from 'validations/UpdateUserFormValidation';
+
 import Notiflix from 'notiflix';
 import PropTypes from 'prop-types';
+import { theme } from 'services/theme';
 
-export const UserUpdateForm = ({ data, updateData, token }) => {
+export const UserUpdateForm = ({ data, updateData }) => {
   const inputNames = ['name', 'email', 'birthday', 'phone', 'city'];
-  const inputTypes = ['text', 'text', 'texy', 'text', 'text'];
+  const dataNames = ['name', 'email', 'birthday', 'mobilePhone', 'cityRegion'];
 
-  const [userInfo, setUserInfo] = useState(data);
+  const [userData, setUserData] = useState(data);
   const [penColor, setPenColor] = useState(theme.colors.accent);
 
   useEffect(() => {
-    setUserInfo(prevState => ({
+    setUserData(prevState => ({
       ...prevState,
-      city: prevState.city.split(',')[0],
+      cityRegion: prevState.cityRegion.split(',')[0],
     }));
   }, []);
 
@@ -35,12 +36,7 @@ export const UserUpdateForm = ({ data, updateData, token }) => {
 
   const onInputChange = event => {
     const key = event.target.name;
-    setUserInfo(prevState => ({ ...prevState, [key]: event.target.value }));
-  };
-
-  const onInputBlur = event => {
-    const key = event.target.name;
-    // setUserInfo(prevState => ({ ...prevState, [key]: data[key] }));
+    setUserData(prevState => ({ ...prevState, [key]: event.target.value }));
   };
 
   const onFormSubmit = event => {
@@ -48,20 +44,21 @@ export const UserUpdateForm = ({ data, updateData, token }) => {
     const key = document.activeElement.name;
     document.querySelector(`#${key}`).focus();
 
-    if (userInfo[key] === data[key]) return;
+    // if (userData[key] === data[key]) return;
 
-    UpdateUserFormSchema.validate({ [key]: userInfo[key] })
+    UpdateUserFormSchema.validate({ [key]: userData[key] })
       .then(value => {
-        let payload = {};
-        if (Object.keys(value)[0] === 'city') {
-          payload.cityRegion = Object.values(value)[0];
-        } else if (Object.keys(value)[0] === 'phone') {
-          payload.mobilePhone = Object.values(value)[0];
-        } else {
-          payload = { ...value };
-        }
+        // let payload = {};
+        // if (Object.keys(value)[0] === 'city') {
+        //   payload.cityRegion = Object.values(value)[0];
+        // } else if (Object.keys(value)[0] === 'phone') {
+        //   payload.mobilePhone = Object.values(value)[0];
+        // } else {
+        //   payload = { ...value };
+        // }
 
-        updateData(payload, token);
+        // updateData(payload, token);
+        updateData(value);
         Notiflix.Notify.success('Updated successfuly');
       })
       .catch(error => Notiflix.Notify.failure(error.message));
@@ -69,23 +66,24 @@ export const UserUpdateForm = ({ data, updateData, token }) => {
 
   return (
     <Form onFocus={onFormFocus} onBlur={onFormBlur} onSubmit={onFormSubmit}>
-      {inputNames.map((inputName, index) => (
-        <ItemContainer key={inputName}>
-          <Label htmlFor="">
-            {inputName.charAt(0).toUpperCase() + inputName.slice(1) + ': '}
+      {dataNames.map((dataName, index) => (
+        <ItemContainer key={dataName}>
+          <Label>
+            {inputNames[index].charAt(0).toUpperCase() +
+              inputNames[index].slice(1) +
+              ': '}
           </Label>
           <Input
-            type={inputTypes[index]}
-            name={inputName}
-            id={inputName}
-            value={userInfo[inputName]}
+            type="text"
+            name={dataName}
+            id={dataName}
+            value={userData[dataName]}
             onChange={onInputChange}
-            onBlur={onInputBlur}
           />
           <BtnContainer>
-            <Button type="submit" name={inputName}></Button>
+            <Button type="submit" name={dataName}></Button>
             <BtnIcon>
-              {document.activeElement.name === inputName ? (
+              {document.activeElement.name === dataName ? (
                 <Check color={theme.colors.accent} />
               ) : (
                 <Pen color={penColor} />

@@ -67,7 +67,7 @@ export const Label = styled.label`
   width: 62px;
   font-weight: 500;
   font-size: 12px;
-  /* line-height: 16px; */
+
   @media screen and (min-width: 320px) {
     width: calc(100vw / 5.16);
     font-size: calc(100vw / 27);
@@ -84,7 +84,6 @@ export const Label = styled.label`
 export const Input = styled.input`
   width: 160px;
   font-size: 12px;
-  /* line-height: 16px; */
 
   border: none;
   padding: 4px 18px;
