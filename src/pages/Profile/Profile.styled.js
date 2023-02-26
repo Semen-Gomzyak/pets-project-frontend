@@ -165,6 +165,7 @@ export const PetsPart = styled.section`
   @media screen and (min-width: 1280px) {
     margin-left: 32px;
     margin-bottom: 0;
+    align-self: start;
   }
 `;
 
