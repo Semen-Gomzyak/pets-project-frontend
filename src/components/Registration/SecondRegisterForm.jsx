@@ -2,6 +2,8 @@ import { Formik } from 'formik';
 import { useDispatch } from 'react-redux';
 import { register, login } from 'redux/Auth/operations';
 import { SecondRegisterFormSchema } from 'validations/SecondRegisterValidation';
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from 'react-toastify';
 import {
   Button,
   Error,
@@ -13,8 +15,7 @@ import {
   Text,
   ButtonContainer,
 } from './RegisterForm.styled';
-import {  useNavigate } from 'react-router';
-
+import { useNavigate } from 'react-router';
 
 export const SecondRegisterForm = ({ data, onClick }) => {
   const navigate = useNavigate();
@@ -38,17 +39,23 @@ export const SecondRegisterForm = ({ data, onClick }) => {
     );
 
     if (response.payload.status === 201) {
+      toast.success('success registration');
       const loginResponse = await dispatch(
         login({ email: data.email, password: data.password })
       );
 
+      if (response.payload.status === 409) {
+        toast.error(`${data.email} is use please login`);
+        navigate('/login', { replace: true });
+      }
+
       if (loginResponse.payload.status === 200) {
         navigate('/profile', { replace: true });
       } else {
-        console.log('Something went wrong with login');
+        toast.error('Something went wrong with login');
       }
     } else {
-      console.log('Something went wrong with registration, please try again');
+      toast.error(`Something went wrong with registration, please try again`);
     }
 
     resetForm();

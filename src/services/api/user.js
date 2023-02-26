@@ -48,7 +48,7 @@ export const deleteUserPet = async (id, token) => {
 export const uploadAvatar = async (file, token) => {
   try {
     const response = await axios.post(
-      'users/avatars',
+      '/users/avatars',
       { avatar: file },
       {
         headers: {

@@ -10,6 +10,7 @@ import {
   selectNotices,
   selectError,
   selectNoticesIsLoading,
+  // selectNoticesOwner,
 } from '../../redux/Notices/NoticesSelector';
 
 import {
@@ -18,7 +19,10 @@ import {
   getUserById,
 } from '../../redux/Auth/selectors';
 import { getFavoriteNotices } from '../../redux/Auth/operations';
-import { clearNotices } from '../../redux/Notices/NoticesSlice';
+import {
+  clearNotices,
+  changeFavoritesNotices,
+} from '../../redux/Notices/NoticesSlice';
 
 import { NoticesSearch } from 'components/Notices/NoticesSearch/NoticesSearch';
 import { NoticesCategoryNav } from 'components/Notices/NoticesCategoriesNav/NoticesCategoryNav';
@@ -29,12 +33,13 @@ import { Loader } from 'components/Loader/Loader';
 import { Modal } from 'components/Modal/Modal';
 
 // import AddNoticeForm from 'components/AddNoticeForm/AddNoticeForm';
-import { NoticeModal } from 'components/Notices/NoticeModal/NoticeModal';
+// import { NoticeModal } from 'components/Notices/NoticeModal/NoticeModal';
 import { MenuWrap } from './NoticesPage.styled';
 import 'react-toastify/dist/ReactToastify.css';
 import { toast } from 'react-toastify';
 
 import { AddPetBtn } from 'components/ButtonAddPet/AddPetBtn';
+import { getAllNoticesForOwners } from 'services/getFaforites';
 
 export const NoticesPage = () => {
   const { route } = useParams();
@@ -52,19 +57,18 @@ export const NoticesPage = () => {
   const isLoading = useSelector(selectNoticesIsLoading);
   const error = useSelector(selectError);
   const isAuth = useSelector(getIsLoggedIn);
-const debounceDelay = 2000;
+  const debounceDelay = 2000;
 
-let timeoutId;
+  let timeoutId;
 
   const favorites = useSelector(selectFavoriteNotices);
   const noticeFavorite = favorites;
-  // console.log('favorites', noticeFavorite);
 
   useEffect(() => {
     if (searchQweryTitle.length >= 2) {
       if (isAuth && route === 'favorite') {
         alert('написати функцію по пошуку');
-        // dispatch(getFavoriteNotices({ userId: currentUser }));
+        //dispatch(getFavoriteNotices({ userId: currentUser }));
       }
       dispatch(
         fetchNoticesByCategoryAndTitle({
@@ -74,13 +78,15 @@ let timeoutId;
       );
     } else {
       dispatch(fetchAllNotices({ category: route }));
+      dispatch(changeFavoritesNotices({ userId: currentUser }));
     }
     return () => dispatch(clearNotices([]));
   }, [dispatch, route, searchQweryTitle, isAuth, currentUser]);
 
   useEffect(() => {
     isAuth && dispatch(getFavoriteNotices({ userId: currentUser }));
-  }, []);
+    //&&dispatch(getOwnerNotices({ userId: currentUser }));
+  }, [isAuth, dispatch, currentUser]);
 
   const onSearch = searchQuery => {
     clearTimeout(timeoutId);
@@ -90,8 +96,6 @@ let timeoutId;
   const handleChanges = searchQuery => {
     setSearchQweryTitle(searchQuery);
   };
-
-
 
   const onOpenModal = () => {
     if (!isAuth) {
@@ -108,11 +112,22 @@ let timeoutId;
     setSearchQweryTitle(event.target.value);
   };
 
-  const getOwner = currentUser => {
-    const owner = notices.filter(item => (item.owner = currentUser));
-    console.log('owner', owner);
-    return owner;
-  };
+  const [ownerNotices, setOwnerNotices] = useState([]);
+  useEffect(() => {
+    async function fetch() {
+      try {
+        const ownerNotice = await getAllNoticesForOwners();
+
+        // const array = res.filter(item => item.owner._id === currentUser);
+        // console.log('owner--->', array);
+        setOwnerNotices(ownerNotice);
+        return ownerNotice;
+      } catch (error) {
+        console.log(error.message);
+      }
+    }
+    fetch();
+  }, []);
 
   return (
     <ContainerPage>
@@ -131,8 +146,8 @@ let timeoutId;
       </MenuWrap>
       {isLoading && !error && <Loader />}
 
-      {route === 'own' && getOwner(currentUser)?.length > 0 ? (
-        <NoticesCategoriesList data={getOwner(currentUser)} route={route} />
+      {route === 'own' && ownerNotices?.length > 0 ? (
+        <NoticesCategoriesList data={ownerNotices} route={route} />
       ) : route === 'favorite' && noticeFavorite?.length > 0 ? (
         <NoticesCategoriesList data={noticeFavorite} route={route} />
       ) : notices?.length > 0 ? (
