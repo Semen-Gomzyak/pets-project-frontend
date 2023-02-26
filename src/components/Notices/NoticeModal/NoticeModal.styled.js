@@ -1,6 +1,15 @@
 import { Button } from '../../Button/Button';
 import styled from 'styled-components';
 
+export const Content = styled.div`
+  width: 280px;
+  height: auto;
+  @media ${p => p.theme.device.tablet} {
+    width: 700px;
+    height: 480px;
+  }
+`;
+
 export const ImageContainer = styled('div')`
   @media ${p => p.theme.device.tablet} {
     margin-right: 40px;

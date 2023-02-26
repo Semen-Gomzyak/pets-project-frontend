@@ -18,6 +18,7 @@ import {
   MyBtn,
   ImageContainer,
   BtnContainer,
+  Content,
 } from './NoticeModal.styled';
 import {
   FavoriteIconFalse,
@@ -26,18 +27,20 @@ import {
 
 import { renameAgeDate } from 'helpers/renameAge';
 import { getNoticeById } from 'services/api/notices';
+import { Loader } from 'components/Loader/Loader';
 
 export const NoticeModal = ({ data, favorite, onClickFavorite }) => {
   const isAuth = useSelector(getIsLoggedIn);
-  const isLoading = useSelector(selectOneNotice);
+  // const isLoading = useSelector(selectOneNotice);
 
   const { _id, category } = data;
-  const [notice, setNotice] = useState({});
+  const [notice, setNotice] = useState(null);
+  const [isDataReady, setIsDataReady] = useState(false);
   useEffect(() => {
-    getNoticeById(_id).then(response =>
-      setNotice({ ...response.data, category: category })
-    );
-    // setNotice(prevState => ({ ...prevState, category: category }));
+    getNoticeById(_id).then(response => {
+      setNotice({ ...response.data, category: category });
+      setIsDataReady(true);
+    });
   }, [_id, category]);
 
   // const favorites = useSelector(selectFavoriteNotices);
@@ -66,9 +69,9 @@ export const NoticeModal = ({ data, favorite, onClickFavorite }) => {
   };
 
   return (
-    <div>
-      {isLoading && (
-        <>
+    <Content>
+      {isDataReady ? (
+        <div>
           <ImageContainer>
             <PictureData>
               <img
@@ -150,8 +153,10 @@ export const NoticeModal = ({ data, favorite, onClickFavorite }) => {
               )}
             </MyBtn>
           </BtnContainer>
-        </>
+        </div>
+      ) : (
+        <Loader />
       )}
-    </div>
+    </Content>
   );
 };
