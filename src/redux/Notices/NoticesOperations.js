@@ -3,7 +3,7 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
 
-const DEFAULT_LIMIT = 8;
+const DEFAULT_LIMIT = '';
 
 // GET @ /notices/category   отримання оголошень по категоріям
 export const fetchAllNotices = createAsyncThunk(
@@ -14,7 +14,7 @@ export const fetchAllNotices = createAsyncThunk(
       const response = await axios.get(
         `/notices/category/${category}?page=${page}&limit=${limit}`
       );
-      // console.log('notices.data', response.data);
+      console.log('notices.data', response.data);
       // При успешном запросе возвращаем промис с данными
       return response.data;
     } catch (error) {
@@ -67,19 +67,14 @@ export const fetchOneNotice = createAsyncThunk(
 export const addNotice = createAsyncThunk(
   'notices/addNotice',
 
-  async ( data, { rejectWithValue }) => {
+  async (data, { rejectWithValue }) => {
     try {
-      const response = await axios.post(
-        '/notices/',
-        data.newNotice,
-        {
-          headers: {
-            Authorization: `Bearer ${data.token}`,
-            'Content-Type': 'multipart/form-data',
-          },
-        }
-      );
-
+      const response = await axios.post('/notices/', data.newNotice, {
+        headers: {
+          Authorization: `Bearer ${data.token}`,
+          'Content-Type': 'multipart/form-data',
+        },
+      });
 
       return response.data;
     } catch (error) {
@@ -89,7 +84,7 @@ export const addNotice = createAsyncThunk(
       toast.error('something went wrong in  addContact, please, try again');
       return rejectWithValue(error.message);
     }
-    }
+  }
 );
 
 // DELETE @ /notices/:id
