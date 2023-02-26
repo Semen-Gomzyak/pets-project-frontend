@@ -48,7 +48,7 @@ export const login = createAsyncThunk(
 
 export const logout = createAsyncThunk('auth/logout', async (_, thunkAPI) => {
   try {
-   await axios.post('/users/logout', { token: '' });
+    await axios.post('/users/logout', { token: '' });
     clearAuthHeader();
   } catch (error) {
     return thunkAPI.rejectWithValue(error.message);
@@ -84,7 +84,7 @@ export const updateFavoriteNotice = createAsyncThunk(
       const response = await axios.patch(
         `/notices/${userId}/favorites/${noticeId}`
       );
-      // console.log('updateFavoriteNotice', response.data.favoriteNotices);
+
       return response.data.favoriteNotices;
     } catch (error) {
       return rejectWithValue(error.message);
@@ -99,6 +99,7 @@ export const getFavoriteNotices = createAsyncThunk(
   async ({ userId }, { rejectWithValue }) => {
     try {
       const response = await axios.get(`/notices/${userId}/favorites`);
+
       return response.data;
     } catch (error) {
       return rejectWithValue(error.message);
