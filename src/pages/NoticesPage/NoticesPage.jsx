@@ -113,10 +113,7 @@ export const NoticesPage = () => {
   };
   const token = useSelector(selectToken);
   const addNewNotice = async newPet => {
-    // const token = useSelector(selectToken);
-    console.log(newPet);
-    console.log(token);
-    const pet = await dispatch(addNotice(newPet));
+    const pet = await dispatch(addNotice({ newNotice: newPet, token }));
     setUserNotices(prevState => [...prevState, pet]);
   };
 
