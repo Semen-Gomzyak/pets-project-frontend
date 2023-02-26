@@ -42,7 +42,8 @@ import { getAllNoticesForOwners } from 'services/getFaforites';
 
 export const NoticesPage = () => {
   const { route } = useParams();
-  const currentUser = useSelector(getUserById);
+  let currentUser = useSelector(getUserById);
+  const [userData, setUserData] = useState({});
 
   const [showModal, setShowModal] = useState(false);
   const [userNotices, setUserNotices] = useState([]);
@@ -58,13 +59,14 @@ export const NoticesPage = () => {
   const error = useSelector(selectError);
   const isAuth = useSelector(getIsLoggedIn);
   const debounceDelay = 2000;
-
+const token = useSelector(selectToken);
   let timeoutId;
 
   const favorites = useSelector(selectFavoriteNotices);
   const noticeFavorite = favorites;
 
   useEffect(() => {
+
     if (searchQweryTitle.length >= 2) {
       // if (isAuth && route === 'favorite') {
 
@@ -76,15 +78,22 @@ export const NoticesPage = () => {
           title: searchQweryTitle,
         })
       );
+    }
+
+    if (isAuth && currentUser !== null) {
+      dispatch(fetchAllNotices({ category: route }));
+      dispatch(changeFavoritesNotices({ userId: currentUser }));
     } else {
       dispatch(fetchAllNotices({ category: route }));
-      isAuth && dispatch(changeFavoritesNotices({ userId: currentUser }));
     }
+
     return () => dispatch(clearNotices([]));
   }, [dispatch, route, searchQweryTitle, isAuth, currentUser]);
 
   useEffect(() => {
-    isAuth && dispatch(getFavoriteNotices({ userId: currentUser }));
+    if (isAuth && currentUser !== null) {
+      dispatch(getFavoriteNotices({ userId: currentUser }));
+    }
     //&&dispatch(getOwnerNotices({ userId: currentUser }));
   }, [isAuth, dispatch, currentUser]);
 
@@ -111,7 +120,7 @@ export const NoticesPage = () => {
   const handleSearch = event => {
     setSearchQweryTitle(event.target.value);
   };
-  const token = useSelector(selectToken);
+
   const addNewNotice = async newPet => {
     const pet = await dispatch(addNotice({ newNotice: newPet, token }));
     setUserNotices(prevState => [...prevState, pet]);
