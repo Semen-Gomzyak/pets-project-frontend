@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import {
   fetchAllNotices,
   fetchNoticesByCategoryAndTitle,
+  addNotice,
 } from '../../redux/Notices/NoticesOperations';
 import {
   selectNotices,
@@ -19,11 +20,11 @@ import {
   getUserById,
 } from '../../redux/Auth/selectors';
 import { getFavoriteNotices } from '../../redux/Auth/operations';
+import { selectToken } from 'redux/Auth/selectors';
 import {
   clearNotices,
   changeFavoritesNotices,
 } from '../../redux/Notices/NoticesSlice';
-
 import { NoticesSearch } from 'components/Notices/NoticesSearch/NoticesSearch';
 import { NoticesCategoryNav } from 'components/Notices/NoticesCategoriesNav/NoticesCategoryNav';
 import { SectionTitle } from 'components/SectionTitle/SectionTitle';
@@ -31,9 +32,7 @@ import ContainerPage from 'components/Container/ContainerPage';
 import { NoticesCategoriesList } from 'components/Notices/NoticeCategoryList/NoticesCategoriesList';
 import { Loader } from 'components/Loader/Loader';
 import { Modal } from 'components/Modal/Modal';
-
-// import AddNoticeForm from 'components/AddNoticeForm/AddNoticeForm';
-// import { NoticeModal } from 'components/Notices/NoticeModal/NoticeModal';
+import { NoticeForm } from 'components/Notices/NoticeForm/NoticeForm';
 import { MenuWrap } from './NoticesPage.styled';
 import 'react-toastify/dist/ReactToastify.css';
 import { toast } from 'react-toastify';
@@ -45,7 +44,9 @@ export const NoticesPage = () => {
   const { route } = useParams();
   const currentUser = useSelector(getUserById);
 
+  
   const [showModal, setShowModal] = useState(false);
+  const [userNotices, setUserNotices] = useState([]);
   const toggleModal = () => {
     setShowModal(prevState => !prevState);
   };
@@ -111,6 +112,14 @@ export const NoticesPage = () => {
   const handleSearch = event => {
     setSearchQweryTitle(event.target.value);
   };
+const token = useSelector(selectToken);
+  const addNewNotice = async newPet => {
+    // const token = useSelector(selectToken);
+    console.log(newPet);
+    console.log(token);
+     const pet = await dispatch(addNotice(newPet));
+     setUserNotices(prevState => [...prevState, pet]);
+   };
 
   const [ownerNotices, setOwnerNotices] = useState([]);
   useEffect(() => {
@@ -142,7 +151,11 @@ export const NoticesPage = () => {
       <MenuWrap>
         <NoticesCategoryNav />
         <AddPetBtn onClick={onOpenModal} text={'Add pet'} />
-        {showModal && <Modal closeModal={toggleModal}>AddNoticeModal</Modal>}
+        {showModal && (
+          <Modal closeModal={toggleModal}>
+            <NoticeForm onCancel={toggleModal} addNewNotice={addNewNotice} />
+          </Modal>
+        )}
       </MenuWrap>
       {isLoading && !error && <Loader />}
 
