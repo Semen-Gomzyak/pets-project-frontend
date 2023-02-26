@@ -1,19 +1,23 @@
 import { Button } from '../../Button/Button';
 import styled from 'styled-components';
 
+export const Box = styled.div`
+  margin: 32px 20px;
+  @media ${p => p.theme.device.tablet} {
+  }
+`;
 export const ImageContainer = styled('div')`
   @media ${p => p.theme.device.tablet} {
-    margin-right: 40px;
     display: flex;
   }
 `;
 
 export const PictureData = styled.div`
   position: relative;
-  width: 100%;
+  width: 240px;
   height: 240px;
-  padding-top: 20px;
-
+  margin-bottom: 16px;
+  overflow: hidden;
   background-repeat: no-repeat;
   background-size: contain;
   border-radius: 0px 0px 40px 40px;
@@ -23,6 +27,12 @@ export const PictureData = styled.div`
     padding-top: 0px;
     margin-right: 20px;
   }
+`;
+export const Img = styled.img`
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 `;
 
 export const Category = styled.p`
