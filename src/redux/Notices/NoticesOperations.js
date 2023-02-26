@@ -66,9 +66,14 @@ export const fetchOneNotice = createAsyncThunk(
 // POST @ /notices/addNotice відповідно до категорії
 export const addNotice = createAsyncThunk(
   'notices/addNotice',
-  async (newNotice, { rejectWithValue }) => {
+  async ( newNotice, { rejectWithValue }) => {
     try {
-      const response = await axios.post('/notices', newNotice);
+
+      const response = await axios.post(
+        'http://localhost:3000/api/notices/',
+        newNotice
+      );
+      console.log(response);
       return response.data;
     } catch (error) {
       toast.error('something went wrong in  addContact, please, try again');

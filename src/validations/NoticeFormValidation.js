@@ -1,6 +1,6 @@
 import * as Yup from 'yup';
 
-export const NoticeSchema = Yup.object().shape({
+export const NoticeSchemaFirst = Yup.object().shape({
   title: Yup.string()
     .required('Title is a required field')
     .min(2, 'Title must be at least 2 characters')
@@ -18,6 +18,12 @@ export const NoticeSchema = Yup.object().shape({
     .min(2, 'Breed must be at least 2 characters')
     .max(24, 'Breed must not exceed 24 characters')
     .matches(/^[a-zA-Zа-яА-ЯіІїЇєЄёЁ\s]*$/, 'Please enter a valid breed'),
+});
+
+export const NoticeSchemaSecond = Yup.object().shape({
+  theSex: Yup.string()
+    .oneOf(['male', 'female'], 'Please select your gender')
+    .required('Please select your gender'),
   location: Yup.string().matches(/^[a-zA-Zа-яА-ЯЁё]+,\s*[a-zA-Zа-яА-ЯЁё]+$/, {
     message: 'Enter the city and region in the format "City, Region"',
     excludeEmptyString: true,
