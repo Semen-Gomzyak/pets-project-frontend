@@ -1,8 +1,11 @@
-// import { useState } from 'react';
-import { useSelector /*, useDispatch*/ } from 'react-redux';
+import { useState, useEffect } from 'react';
 
+import { useSelector /*, useDispatch*/ } from 'react-redux';
 import { selectOneNotice } from 'redux/Notices/NoticesSelector';
-import { getIsLoggedIn } from '../../../redux/Auth/selectors';
+import { getIsLoggedIn, selectToken } from '../../../redux/Auth/selectors';
+
+import { getUserData } from 'services/api/user';
+
 import { toast } from 'react-toastify';
 import defaultImage from '../../../images/userAndPets/Rectangle 58.png';
 
@@ -30,6 +33,14 @@ export const NoticeModal = ({ notice, favorite, onClickFavorite }) => {
   // const [isFavorite, setFavorite] = useState(notice.favorite);
   // console.log('favorite', favorite);
   // const [isFavorited, setFavorited] = useState(isFavorite);
+
+  // --------   add email and phone to notice ---------------------
+  const token = useSelector(selectToken);
+  const [user, setUser] = useState({});
+  useEffect(() => {
+    getUserData(token).then(response => setUser(response.data));
+  }, [token]);
+  // --------   add email and phone to notice ---------------------
 
   const handleClickAddFavorite = () => {
     if (!isAuth) {
@@ -80,11 +91,11 @@ export const NoticeModal = ({ notice, favorite, onClickFavorite }) => {
                 </MyLi>
                 <MyLi>
                   <p>Email:</p>
-                  <span>{notice?.owner?.email}</span>
+                  <span>{user.email}</span>
                 </MyLi>
                 <MyLi>
                   <p>Phone:</p>
-                  <span>{notice?.owner?.phone}</span>
+                  <span>{user.mobilePhone}</span>
                 </MyLi>
 
                 {notice.category === 'sell' && (
