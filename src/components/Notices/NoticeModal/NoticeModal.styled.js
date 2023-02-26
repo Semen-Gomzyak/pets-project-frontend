@@ -48,8 +48,8 @@ export const Category = styled.p`
   padding: 6px;
   width: 158px;
   text-align: center;
-  background-color: #ffffff99;
-  backdrop-filter: blur(50px);
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(1px);
   border-radius: 0px 15px 15px 0px;
   overflow: hidden;
 `;
