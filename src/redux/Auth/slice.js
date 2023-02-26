@@ -48,7 +48,7 @@ const authSlise = createSlice({
         state.isRefreshing = true;
       })
       .addCase(refreshUser.fulfilled, (state, action) => {
-        state._id = action.payload._id;
+        state.user = action.payload;
         state.isLoggedIn = true;
         state.isRefreshing = false;
       })
@@ -75,8 +75,8 @@ const authSlise = createSlice({
         state.isLoading = true;
         state.error = null;
       })
-      .addCase(updateFavoriteNotice.fulfilled, (state, {payload}) => {
-        state.user.favoriteNotices = payload.favoriteNotices;
+      .addCase(updateFavoriteNotice.fulfilled, (state, { payload }) => {
+        state.user.favoriteNotices = payload;
         state.isLoading = false;
       });
   },

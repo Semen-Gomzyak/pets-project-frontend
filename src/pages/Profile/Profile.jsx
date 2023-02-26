@@ -1,6 +1,18 @@
 import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectToken } from 'redux/Auth/selectors';
+import { logout } from 'redux/Auth/operations';
 
-import { HiTrash } from 'react-icons/hi2';
+import {
+  deleteUserPet,
+  getUserData,
+  updateUserData,
+  uploadAvatar,
+  addNewPet,
+} from 'services/api/user';
+
+import { useNavigate } from 'react-router';
+
 import { HiOutlineLogout } from 'react-icons/hi';
 import { BsPlusCircleFill } from 'react-icons/bs';
 import {
@@ -18,42 +30,20 @@ import {
   AddPetContainer,
   AddPetButton,
   AddPetText,
-  PetInfo,
-  PetData,
-  PetImgContainer,
-  DeletePetButton,
-  Span,
-  P,
 } from './Profile.styled';
 import { Modal } from 'components/Modal/Modal';
+import { ConfirmLogout } from 'components/Profile/ConfirmLogout/ConfirmLogout';
 import { Avatar } from 'components/Profile/Avatar/Avatar';
 import { UserUpdateForm } from 'components/Profile/UserUpdateForm/UserUdateForm';
-import { useDispatch, useSelector } from 'react-redux';
-
 import PetForm from '../../components/PetForm/PetForm';
+import { PetList } from 'components/Profile/PetList/PetList';
 
-import { selectToken } from 'redux/Auth/selectors';
-import {
-  deleteUserPet,
-  getUserData,
-  updateUserData,
-  uploadAvatar,
-  addNewPet,
-} from 'services/api/user';
-
-import { logout } from 'redux/Auth/operations';
-import { useNavigate } from 'react-router';
 import { theme } from 'services/theme';
-
-const convertDate = date => {
-  const dateOptions = { day: 'numeric', month: 'numeric', year: 'numeric' };
-  const dateString = new Date(date).toLocaleDateString('en-GB', dateOptions);
-  return dateString.replaceAll('/', '.');
-};
 
 export const Profile = () => {
   const token = useSelector(selectToken);
   const dispatch = useDispatch();
+
   const [userData, setUserData] = useState({});
   const [userPets, setUserPets] = useState([]);
 
@@ -63,18 +53,15 @@ export const Profile = () => {
     document.body.classList.toggle('is-modal-open');
   };
 
-  const navigate = useNavigate();
+  const [showConfirm, setShowConfirm] = useState(false);
+  const toggleConfirm = () => {
+    setShowConfirm(prevState => !prevState);
+    document.body.classList.toggle('is-modal-open');
+  };
 
   useEffect(() => {
     getUserData(token).then(response => {
-      setUserData({
-        email: response.data.email,
-        name: response.data.name,
-        city: response.data.cityRegion,
-        phone: response.data.mobilePhone,
-        birthday: response.data.birthday,
-        avatarURL: response.data.avatarURL,
-      });
+      setUserData(response.data);
 
       if (response.data.pets) {
         setUserPets(response.data.pets);
@@ -82,31 +69,24 @@ export const Profile = () => {
     });
   }, [token]);
 
-  const updateUser = (data, token) => {
-    updateUserData(data, token);
-    setUserData(prevState => ({ ...prevState, ...data }));
+  const updateUser = async data => {
+    const response = await updateUserData(data, token);
+
+    const key = Object.keys(data)[0];
+    const updatedData = { [key]: response[key] };
+
+    setUserData(prevState => ({ ...prevState, ...updatedData }));
   };
 
-  const changeAvatar = async (avatar, avatarUrl) => {
+  const changeAvatar = async avatar => {
     const response = await uploadAvatar(avatar, token);
     setUserData(prevState => ({ ...prevState, avatarURL: response.avatarURL }));
   };
 
-  const logoutUser = event => {
-    event.preventDefault();
+  const navigate = useNavigate();
+  const logoutUser = () => {
     dispatch(logout());
     navigate('/', { replace: true });
-  };
-
-  const deletePet = event => {
-    const index = Number(event.currentTarget.dataset.index);
-
-    const petId = userPets[index]._id;
-    deleteUserPet(petId, token);
-
-    const newUserPets = [...userPets];
-    newUserPets.splice(index, 1);
-    setUserPets(newUserPets);
   };
 
   const addPet = async newPet => {
@@ -114,16 +94,16 @@ export const Profile = () => {
     setUserPets(prevState => [...prevState, pet]);
   };
 
-  // const deletePet = (petId, newPetsList) => {
-  //   deleteUserPet(petId, token);
-  //   setUserPets(newPetsList);
-  // };
+  const deletePet = (petId, newPetsList) => {
+    deleteUserPet(petId, token);
+    setUserPets(newPetsList);
+  };
 
   return (
     <>
       <Section>
         {/* ------------------------ USER PART ------------------------ */}
-        <UserPart style={{ alignSelf: 'flex-start' }}>
+        <UserPart>
           <UserPartTitle>My information:</UserPartTitle>
           <UserInfo>
             <Avatar
@@ -142,7 +122,7 @@ export const Profile = () => {
             </UserData>
 
             <LogOutContainer>
-              <LogOutButton type="button" onClick={logoutUser}>
+              <LogOutButton type="button" onClick={toggleConfirm}>
                 <HiOutlineLogout size={25} color={theme.colors.accent} />
               </LogOutButton>
               <LogOutText>Log Out</LogOutText>
@@ -151,59 +131,30 @@ export const Profile = () => {
         </UserPart>
 
         {/* ------------------------ PETS PART ------------------------ */}
-
         <PetsPart>
           <PetsHeader>
-            <PetsPartTitle style={{ marginBottom: '0px' }}>
-              My pets:
-            </PetsPartTitle>
+            <PetsPartTitle>My pets:</PetsPartTitle>
             <AddPetContainer>
               <AddPetText>Add Pet</AddPetText>
-
-              {/* <AddPetButton type="button" onClick={PetForm}> */}
               <AddPetButton type="button" onClick={toggleModal}>
                 <BsPlusCircleFill size={40} color={theme.colors.accent} />
               </AddPetButton>
             </AddPetContainer>
           </PetsHeader>
 
-          <ul>
-            {userPets.map((pet, index) => (
-              <PetInfo key={pet._id}>
-                <PetImgContainer>
-                  <img src={pet.avatarURL} alt="avatar" width={240} />
-                </PetImgContainer>
-
-                <PetData>
-                  <P>
-                    <Span>Name: </Span> {pet.name}
-                  </P>
-                  <P>
-                    <Span>Date of birth: </Span> {convertDate(pet.date)}
-                  </P>
-                  <P>
-                    <Span>Breed: </Span> {pet.breed}
-                  </P>
-                  <P>
-                    <Span>Comments: </Span> {pet.comments}
-                  </P>
-
-                  <DeletePetButton
-                    type="button"
-                    onClick={deletePet}
-                    data-index={index}
-                  >
-                    <HiTrash size={20} color={'#111111A0'} />
-                  </DeletePetButton>
-                </PetData>
-              </PetInfo>
-            ))}
-          </ul>
+          <PetList petsList={userPets} deletePet={deletePet} />
         </PetsPart>
       </Section>
+
       {showModal && (
         <Modal closeModal={toggleModal}>
           <PetForm onCancel={toggleModal} addPet={addPet} />
+        </Modal>
+      )}
+
+      {showConfirm && (
+        <Modal closeModal={toggleConfirm}>
+          <ConfirmLogout cancel={toggleConfirm} accept={logoutUser} />
         </Modal>
       )}
     </>

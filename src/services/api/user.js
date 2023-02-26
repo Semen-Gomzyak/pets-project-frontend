@@ -17,11 +17,13 @@ export const getUserData = async token => {
 
 export const updateUserData = async (data, token) => {
   try {
-    await axios.put(`/users/update`, data, {
+    const response = await axios.put(`/users/update`, data, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     });
+    // console.log(response);
+    return response.data;
   } catch (error) {
     console.log(error.message);
     console.log(error.response.data.message);
@@ -30,11 +32,13 @@ export const updateUserData = async (data, token) => {
 
 export const deleteUserPet = async (id, token) => {
   try {
-    await axios.delete(`/pets/${id}`, {
+    const response = await axios.delete(`/pets/${id}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     });
+    // console.log(response);
+    return response;
   } catch (error) {
     console.log(error.message);
     console.log(error.response.data.message);
@@ -53,8 +57,7 @@ export const uploadAvatar = async (file, token) => {
         },
       }
     );
-    console.log('uploaded');
-    console.log(response.data.avatarURL);
+    // console.log(response);
     return response.data;
   } catch (error) {
     console.log(error.message);
@@ -64,18 +67,16 @@ export const uploadAvatar = async (file, token) => {
 
 export const addNewPet = async (newPet, token) => {
   try {
-    // console.log(newPet);
     const response = await axios.post('/pets', newPet, {
       headers: {
         Authorization: `Bearer ${token}`,
         'Content-Type': 'multipart/form-data',
       },
     });
-    console.log(response.data);
+    // console.log(response);
     return response.data;
   } catch (error) {
     console.log(error.message);
     console.log(error.response.data.message);
-    console.log(error);
   }
 };
