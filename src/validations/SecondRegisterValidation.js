@@ -3,7 +3,9 @@ import * as Yup from 'yup';
 export const SecondRegisterFormSchema = Yup.object().shape({
   name: Yup.string()
     .required('Name is required')
-    .matches(/^[a-zA-Zа-яА-ЯіІїЇєЄёЁ\s]*$/, 'Please enter a valid name'),
+    .matches(/^[a-zA-Zа-яА-ЯіІїЇєЄёЁ\s]*$/, 'Please enter a valid name')
+    .min(2, 'Name must be at least 2 characters')
+    .max(16, 'Name must be at most 16 characters'),
   cityRegion: Yup.string()
     .required('City is required')
     .matches(

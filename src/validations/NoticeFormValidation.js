@@ -9,7 +9,7 @@ export const NoticeSchemaFirst = Yup.object().shape({
   name: Yup.string()
     .min(2, 'Name must be at least 2 characters')
     .max(16, 'Name must not exceed 16 characters')
-    .matches(/^[a-zA-Zа-яА-ЯіІїЇєЄёЁ\s]*$/, 'Please enter a valid name'),
+    .matches(/^[a-zA-Zа-яА-ЯіІїЇєЄёЁ\s']*$/, 'Please enter a valid name'),
   birthdate: Yup.date()
     .nullable()
     .transform((curr, orig) => (orig === '' ? null : curr))
