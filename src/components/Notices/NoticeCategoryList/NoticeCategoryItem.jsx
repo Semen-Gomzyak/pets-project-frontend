@@ -203,6 +203,7 @@ export const NoticeCategoryItem = ({ data, route }) => {
               closeModal={toggleModal}
               children={
                 <NoticeModal
+                  id={data._id}
                   notice={data}
                   isFavorite={isFavorite}
                   onClickFavorite={onChangeFavorite}
