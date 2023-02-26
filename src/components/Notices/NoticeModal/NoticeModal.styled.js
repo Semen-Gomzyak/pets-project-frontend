@@ -17,6 +17,13 @@ export const PictureData = styled.div`
   background-repeat: no-repeat;
   background-size: contain;
   border-radius: 0px 0px 40px 40px;
+  overflow: hidden;
+
+  > img {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+  }
 
   @media ${p => p.theme.device.tablet} {
     width: 288px;

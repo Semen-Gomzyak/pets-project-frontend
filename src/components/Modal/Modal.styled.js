@@ -21,7 +21,7 @@ export const ModalContainer = styled.div`
   align-items: center;
   justify-content: center;
 
-  width: 280px;
+  width: fit-content;
   height: fit-content;
   margin-bottom: 30px;
   margin-top: 160px;
@@ -29,14 +29,14 @@ export const ModalContainer = styled.div`
   border-radius: 20px;
   background-color: ${p => p.theme.colors.white};
 
-  @media ${p => p.theme.device.mobile} {
+  /* @media ${p => p.theme.device.mobile} {
     width: calc(100vw - 40px);
   }
   @media screen and (min-width: 480px) {
     width: 440px;
-  }
+  } */
   @media ${p => p.theme.device.tablet} {
-    width: 704px;
+    /* width: 704px; */
     margin-top: 270;
     margin-bottom: 60px;
   }

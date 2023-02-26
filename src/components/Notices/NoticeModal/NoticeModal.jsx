@@ -31,12 +31,14 @@ export const NoticeModal = ({ data, favorite, onClickFavorite }) => {
   const isAuth = useSelector(getIsLoggedIn);
   const isLoading = useSelector(selectOneNotice);
 
-  console.log(data);
-  const { _id } = data;
+  const { _id, category } = data;
   const [notice, setNotice] = useState({});
   useEffect(() => {
-    getNoticeById(_id).then(response => setNotice(response.data));
-  }, [_id]);
+    getNoticeById(_id).then(response =>
+      setNotice({ ...response.data, category: category })
+    );
+    // setNotice(prevState => ({ ...prevState, category: category }));
+  }, [_id, category]);
 
   // const favorites = useSelector(selectFavoriteNotices);
   // const [isFavorite, setFavorite] = useState(notice.favorite);
