@@ -2,6 +2,7 @@ import { NoticeCategoryItem } from './NoticeCategoryItem';
 import { ListNotices } from './NoticesCategoriesList.styled';
 
 export const NoticesCategoriesList = ({ data, route }) => {
+  console.log('data in list', data);
   return (
     <>
       <ListNotices>

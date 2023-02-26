@@ -70,6 +70,8 @@ const noticesSlice = createSlice({
       state.notices = payload;
     },
     changeFavoritesNotices(state, { payload }) {
+      console.log('changeFavoritesNotice state', state);
+      console.log('changeFavoritesNotice payload', payload);
       state.notices = state.notices.filter(notice => notice._id !== payload);
     },
     // getAllNoticesForOwner(state, { payload }) {

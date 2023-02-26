@@ -32,12 +32,12 @@ import {
 import { NoticeBtn } from 'components/ButtonNotice/BtnNotice';
 import { removeNotice } from 'redux/Notices/NoticesOperations';
 import defaultImage from '../../../images/services/notAvailable.png';
-import { renameAgeDate } from 'helpers/renameAge';
+// import { renameAgeDate } from 'helpers/renameAge';
 
 import { WarningMessage } from 'components/WarningMessage/WarningMessage';
+import { getAge } from 'helpers/dataFormat';
 
 export const NoticeCategoryItem = ({ data, route }) => {
-  // console.log('data in Item', data);
   const {
     _id,
     title,
@@ -47,7 +47,7 @@ export const NoticeCategoryItem = ({ data, route }) => {
     breed,
     location,
     avatarURL,
-    owner,
+    // owner,
     price,
   } = data;
 
@@ -61,12 +61,15 @@ export const NoticeCategoryItem = ({ data, route }) => {
   const favorites = useSelector(selectFavoriteNotices);
 
   function isIdInData(data) {
-    return isAuth && data.some(item => item._id === _id);
+    // console.log('data in some', data);
+    return isAuth && data !== undefined && data.some(item => item._id === _id);
   }
 
   const isGetFavorites = isIdInData(favorites);
 
-  const isFavorite = favorites.includes(_id) || isGetFavorites;
+  console.log('favorites,', favorites);
+  const isFavorite =
+    (favorites !== undefined && favorites.includes(_id)) || isGetFavorites;
   const toggleModal = () => {
     setShowModal(prevState => !prevState);
   };
@@ -94,7 +97,9 @@ export const NoticeCategoryItem = ({ data, route }) => {
   };
 
   useEffect(() => {
-    isAuth && dispatch(getFavoriteNotices({ userId: currentUser }));
+    if (isAuth) {
+      dispatch(getFavoriteNotices({ userId: currentUser }));
+    }
   }, [isAuth, dispatch, currentUser]);
 
   const closeConfirmationDelete = () => {
@@ -140,7 +145,7 @@ export const NoticeCategoryItem = ({ data, route }) => {
   };
   const getOwner = route => {
     if (route === 'own' /*|| route === 'favorite'*/) {
-      console.log('data owner', data.owner);
+      // console.log('data owner', data.owner);
       return data.owner._id;
     } else {
       return data.owner ? data.owner : 1;
@@ -182,7 +187,8 @@ export const NoticeCategoryItem = ({ data, route }) => {
           </LiInfo>
           <LiInfo key={`${_id}+age`}>
             <Lable>Age:</Lable>
-            <Text>{birthdate ? renameAgeDate(birthdate) : ' '}</Text>
+            {/* <Text>{birthdate ? renameAgeDate(birthdate) : ' '}</Text> */}
+            <Text>{birthdate ? getAge(birthdate) : ' '}</Text>
           </LiInfo>
           {price ? (
             <LiInfo key={`${_id}+price`}>

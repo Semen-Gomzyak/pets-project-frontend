@@ -44,7 +44,6 @@ export const NoticesPage = () => {
   const { route } = useParams();
   const currentUser = useSelector(getUserById);
 
-  
   const [showModal, setShowModal] = useState(false);
   const [userNotices, setUserNotices] = useState([]);
   const toggleModal = () => {
@@ -65,6 +64,8 @@ export const NoticesPage = () => {
   const favorites = useSelector(selectFavoriteNotices);
   const noticeFavorite = favorites;
 
+  console.log(' favorite in NoticePage', noticeFavorite);
+
   useEffect(() => {
     if (searchQweryTitle.length >= 2) {
       if (isAuth && route === 'favorite') {
@@ -79,7 +80,7 @@ export const NoticesPage = () => {
       );
     } else {
       dispatch(fetchAllNotices({ category: route }));
-      dispatch(changeFavoritesNotices({ userId: currentUser }));
+      isAuth && dispatch(changeFavoritesNotices({ userId: currentUser }));
     }
     return () => dispatch(clearNotices([]));
   }, [dispatch, route, searchQweryTitle, isAuth, currentUser]);
@@ -112,14 +113,14 @@ export const NoticesPage = () => {
   const handleSearch = event => {
     setSearchQweryTitle(event.target.value);
   };
-const token = useSelector(selectToken);
+  const token = useSelector(selectToken);
   const addNewNotice = async newPet => {
     // const token = useSelector(selectToken);
     console.log(newPet);
     console.log(token);
-     const pet = await dispatch(addNotice(newPet));
-     setUserNotices(prevState => [...prevState, pet]);
-   };
+    const pet = await dispatch(addNotice(newPet));
+    setUserNotices(prevState => [...prevState, pet]);
+  };
 
   const [ownerNotices, setOwnerNotices] = useState([]);
   useEffect(() => {
