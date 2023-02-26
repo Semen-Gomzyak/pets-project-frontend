@@ -35,6 +35,10 @@ export function renameAgeDate(data) {
 
   const durateMonth = todayMonth - birthMonth;
 
+  if (durateMonth < 1) {
+    return 'Less than 1 month old';
+  }
+
   if (birthYear === todayYear) {
     const { ageStr } = ageArr.find(item => item.ageNum === durateMonth);
     return ageStr === 'one' ? `${ageStr} month` : `${ageStr} months`;

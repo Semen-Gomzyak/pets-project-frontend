@@ -3,7 +3,7 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
 
-const DEFAULT_LIMIT = 8;
+const DEFAULT_LIMIT = 30;
 
 // GET @ /notices/category   отримання оголошень по категоріям
 export const fetchAllNotices = createAsyncThunk(

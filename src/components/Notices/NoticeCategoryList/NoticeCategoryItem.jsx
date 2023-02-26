@@ -58,31 +58,16 @@ export const NoticeCategoryItem = ({ data, route }) => {
 
   const currentUser = useSelector(getUserById);
   const favorites = useSelector(selectFavoriteNotices);
-  // console.log('favorites: ', favorites);
 
   function isIdInData(data) {
-
-    if (Array.isArray(data)) {
-      return isAuth && data.some(item => item._id === _id);
-    } else {
-      return false;
-    }
-
     return isAuth && data !== undefined && data.some(item => item._id === _id);
-
   }
 
   const isGetFavorites = isIdInData(favorites);
 
-
-  // const isFavorite = favorites.includes(_id) || isGetFavorites;
-  let isFavorite = false;
-  if (Array.isArray(favorites)) {
-    isFavorite = favorites.includes(_id) || isGetFavorites;
-  } else {
-    isFavorite = isGetFavorites;
-  }
-
+  // console.log('favorites,', favorites);
+  const isFavorite =
+    (favorites !== undefined && favorites.includes(_id)) || isGetFavorites;
   const toggleModal = () => {
     setShowModal(prevState => !prevState);
   };
@@ -118,16 +103,14 @@ export const NoticeCategoryItem = ({ data, route }) => {
     setIsShownConfirmationDelete(!isShownConfirmationDelete);
   };
   const deleteNotice = () => {
-    // {
-    //   showModal && (
-    //     <Modal
-    //       closeModal={toggleModal}
-    //       // children={<p>You really want to delete this Notice ?</p>}
-    //     >
-    //       <p>You really want to delete this Notice ?</p>
-    //     </Modal>
-    //   );
-    // }
+    {
+      showModal && (
+        <Modal
+          closeModal={toggleModal}
+          children={<p>You really want to delete this Notice ?</p>}
+        ></Modal>
+      );
+    }
     dispatch(removeNotice(data._id));
 
     toast.success('Notice is deleted.');
