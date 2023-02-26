@@ -10,13 +10,14 @@ export const ImageContainer = styled('div')`
 
 export const PictureData = styled.div`
   position: relative;
-  width: 100%;
+  width: 240px;
   height: 240px;
   padding-top: 20px;
 
   background-repeat: no-repeat;
   background-size: contain;
   border-radius: 0px 0px 40px 40px;
+
   @media ${p => p.theme.device.tablet} {
     width: 288px;
     height: 328px;
