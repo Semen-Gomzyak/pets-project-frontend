@@ -16,14 +16,28 @@ import {
   ButtonContainer,
 } from './RegisterForm.styled';
 import {  useNavigate } from 'react-router';
+import { useState } from 'react';
 
 
-export const SecondRegisterForm = ({ data, onClick }) => {
+export const SecondRegisterForm = ({ data, secondData, onClick }) => {
+  // const [name, setName] = useState('');
+  // const [cityRegion, setCityRegion] = useState('');
+  // const [mobilePhone, setMobilePhone] = useState('');
+
+  // switch (name) {
+  //   case name:
+  //     setName(Formik.values.name)
+  //     break;
+  
+  //   default:
+  //     break;
+  // }
+
   const navigate = useNavigate();
   const initialValues = {
-    name: '',
-    cityRegion: '',
-    mobilePhone: '',
+    name: secondData.name || '',
+    cityRegion: secondData.cityRegion || '',
+    mobilePhone: secondData.mobilePhone || '',
   };
 
   const dispatch = useDispatch();
@@ -38,6 +52,7 @@ export const SecondRegisterForm = ({ data, onClick }) => {
         mobilePhone: values.mobilePhone,
       })
     );
+
 
     if (response.payload.status === 201) {
       toast.success('success registration');
@@ -62,11 +77,18 @@ export const SecondRegisterForm = ({ data, onClick }) => {
     resetForm();
   };
 
+  const dataForInputs = values => {
+    return {
+      
+    }
+  }
+
   return (
     <Formik
       initialValues={initialValues}
       validationSchema={SecondRegisterFormSchema}
       onSubmit={handleSubmit}
+      onClick={dataForInputs}
     >
       {props => (
         <InfoForm autoComplete="off" onSubmit={props.handleSubmit}>
@@ -85,7 +107,7 @@ export const SecondRegisterForm = ({ data, onClick }) => {
               type="text"
               name="cityRegion"
               placeholder="City, region"
-              value={props.values.city}
+              value={props.values.cityRegion}
               onChange={props.handleChange}
             />
             <Error name="mobilePhone" component="div" />
@@ -99,7 +121,10 @@ export const SecondRegisterForm = ({ data, onClick }) => {
           </InputsList>
           <ButtonContainer>
             <Button type="submit">Register</Button>
-            <Button type="button" onClick={() => onClick()}>
+            <Button
+              type="submit"
+              onClick={() => onClick(dataForInputs)}
+            >
               Back
             </Button>
           </ButtonContainer>
