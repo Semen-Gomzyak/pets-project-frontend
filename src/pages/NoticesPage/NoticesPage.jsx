@@ -64,14 +64,12 @@ export const NoticesPage = () => {
   const favorites = useSelector(selectFavoriteNotices);
   const noticeFavorite = favorites;
 
-  console.log(' favorite in NoticePage', noticeFavorite);
-
   useEffect(() => {
     if (searchQweryTitle.length >= 2) {
-      if (isAuth && route === 'favorite') {
-        alert('написати функцію по пошуку');
-        //dispatch(getFavoriteNotices({ userId: currentUser }));
-      }
+      // if (isAuth && route === 'favorite') {
+
+      //dispatch(getFavoriteNotices({ userId: currentUser }));
+      // }
       dispatch(
         fetchNoticesByCategoryAndTitle({
           category: route,

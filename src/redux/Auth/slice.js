@@ -76,8 +76,6 @@ const authSlise = createSlice({
         state.error = null;
       })
       .addCase(updateFavoriteNotice.fulfilled, (state, { payload }) => {
-        console.log('state.user.favoriteNotices', state);
-        console.log('favoriteNotices payload', payload);
         state.user.favoriteNotices = payload;
         state.isLoading = false;
       });

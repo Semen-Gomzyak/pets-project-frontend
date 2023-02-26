@@ -32,7 +32,6 @@ import {
 import { NoticeBtn } from 'components/ButtonNotice/BtnNotice';
 import { removeNotice } from 'redux/Notices/NoticesOperations';
 import defaultImage from '../../../images/services/notAvailable.png';
-// import { renameAgeDate } from 'helpers/renameAge';
 
 import { WarningMessage } from 'components/WarningMessage/WarningMessage';
 import { getAge } from 'helpers/dataFormat';
@@ -47,7 +46,7 @@ export const NoticeCategoryItem = ({ data, route }) => {
     breed,
     location,
     avatarURL,
-    // owner,
+
     price,
   } = data;
 
@@ -61,13 +60,12 @@ export const NoticeCategoryItem = ({ data, route }) => {
   const favorites = useSelector(selectFavoriteNotices);
 
   function isIdInData(data) {
-    // console.log('data in some', data);
     return isAuth && data !== undefined && data.some(item => item._id === _id);
   }
 
   const isGetFavorites = isIdInData(favorites);
 
-  console.log('favorites,', favorites);
+  // console.log('favorites,', favorites);
   const isFavorite =
     (favorites !== undefined && favorites.includes(_id)) || isGetFavorites;
   const toggleModal = () => {
@@ -76,16 +74,15 @@ export const NoticeCategoryItem = ({ data, route }) => {
 
   const onChangeFavorite = async () => {
     if (isAuth) {
-      const response = dispatch(
+      dispatch(
         updateFavoriteNotice({
           userId: currentUser,
           noticeId: _id,
         })
       );
 
-      if (response.payload.status === 200) {
-        toast.success('Added to favorites!');
-      }
+      // toast.success('Added to favorites!');
+
       if (route === 'favorite') {
         dispatch(changeFavoritesNotices(_id));
       }
@@ -144,8 +141,7 @@ export const NoticeCategoryItem = ({ data, route }) => {
     setShowModal(true);
   };
   const getOwner = route => {
-    if (route === 'own' /*|| route === 'favorite'*/) {
-      // console.log('data owner', data.owner);
+    if (route === 'own') {
       return data.owner._id;
     } else {
       return data.owner ? data.owner : 1;
