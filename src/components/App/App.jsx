@@ -6,6 +6,7 @@ import { useAuth } from 'hooks';
 
 import { SharedLayout } from '../SharedLayout/SaredLayout';
 import { Profile } from 'pages/Profile/Profile';
+import { Loader } from 'components/Loader/Loader';
 
 import { LoginForm } from 'components/LoginForm/LoginForm'; 
 
@@ -48,7 +49,7 @@ export const App = () => {
     dispatch(refreshUser());
   }, [dispatch]);
 
-  return  isRefreshing ? (<b>Refreshing user...</b>) : (
+  return  isRefreshing ? <Loader/> : (
     <Routes>
       <Route path="/" element={<SharedLayout />}>
         <Route
