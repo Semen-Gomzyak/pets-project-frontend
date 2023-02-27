@@ -1,5 +1,7 @@
 import { ButtonMob, Button, BtnCiCirclePlus } from './AddPetBtn.styled';
 import { useMedia } from 'react-use';
+import { BsPlusCircleFill } from 'react-icons/bs';
+import { theme } from 'services/theme';
 
 export const AddPetBtn = ({ text, onClick }) => {
   const isMobile = useMedia('(max-width: 767px)');
@@ -11,18 +13,14 @@ export const AddPetBtn = ({ text, onClick }) => {
   return (
     <>
       {isMobile ? (
-        <ButtonMob type="button" onClick={handleButtonClick}>
-          <span>
-            <BtnCiCirclePlus />
-          </span>
+        <Button type="button" onClick={handleButtonClick}>
           {text}
-        </ButtonMob>
+          <BsPlusCircleFill size={40} color={theme.colors.accent} />
+        </Button>
       ) : (
         <Button type="button" onClick={handleButtonClick}>
           {text}
-          <span>
-            <BtnCiCirclePlus />
-          </span>
+          <BsPlusCircleFill size={40} color={theme.colors.accent} />
         </Button>
       )}
     </>
