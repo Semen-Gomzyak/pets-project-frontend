@@ -41,11 +41,11 @@ export const SecondRegisterForm = ({ firstData, data, onClick }) => {
     if (response.payload.status === 201) {
       toast.success('success registration');
       const loginResponse = await dispatch(
-        login({ email: data.email, password: data.password })
+        login({ email: firstData.email, password: firstData.password })
       );
 
       if (response.payload.status === 409) {
-        toast.error(`${data.email} is use please login`);
+        toast.error(`${firstData.email} is use please login`);
         navigate('/login', { replace: true });
       }
 
