@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { CiCircleRemove } from 'react-icons/ci';
 
 export const LabelSearch = styled.label`
   position: relative;
@@ -8,8 +9,8 @@ export const LabelSearch = styled.label`
     position: absolute;
     right: 10px;
     top: 50%;
-    width: 18px;
-    height: 18px;
+    width: 25px;
+    height: 25px;
     transform: translateY(-50%);
   }
   @media (min-width: 768px) {
@@ -47,8 +48,10 @@ export const RemoveBtn = styled.button`
   svg {
     right: 0px;
   }
+`;
+export const CiCircleDel = styled(CiCircleRemove)`
   :hover,
   :focus {
-    background-color: ${p => p.theme.colors.accent};
+    color: ${p => p.theme.colors.accent};
   }
 `;
