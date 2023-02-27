@@ -48,7 +48,6 @@ export const FirstRegisterForm = ({ data, onSubmit, onClick }) => {
         <InfoForm autoComplete="off" onSubmit={props.handleSubmit}>
           <RegisterTitle>Registration</RegisterTitle>
           <InputsList>
-
             <InputDiv>
               <Error name="email" component="div" />
               <Input
@@ -69,6 +68,9 @@ export const FirstRegisterForm = ({ data, onSubmit, onClick }) => {
                 onChange={props.handleChange}
               />
             </InputDiv>
+            <ShowPass onClick={showPass}>
+              {showPassword ? <FiEyeOff /> : <FiEye />}
+            </ShowPass>
             <InputDiv>
               <Error name="confirmPassword" component="div" />
               <Input
@@ -79,40 +81,9 @@ export const FirstRegisterForm = ({ data, onSubmit, onClick }) => {
                 onChange={props.handleChange}
               />
             </InputDiv>
-
-/*
-            <Error name="email" component="div" />
-            <Input
-              type="email"
-              name="email"
-              placeholder="Email"
-              value={props.values.email}
-              onChange={props.handleChange}
-            />
-            <Error name="password" component="div" />
-            <Input
-              type={showPassword ? 'text' : 'password'}
-              name="password"
-              placeholder="Password"
-              value={props.values.password}
-              onChange={props.handleChange}
-            />
-            <ShowPass onClick={showPass}>
-              {showPassword ? <FiEyeOff /> : <FiEye />}
-            </ShowPass>
-            <Error name="confirmPassword" component="div" />
-            <Input
-              type={showConfirmPassword ? 'text' : 'password'}
-              name="confirmPassword"
-              placeholder="Confirm Password"
-              value={props.values.confirmPassword}
-              onChange={props.handleChange}
-            />
             <ShowConfirmPass onClick={showConfirmPass}>
               {showConfirmPassword ? <FiEyeOff /> : <FiEye />}
             </ShowConfirmPass>
-            */
-
           </InputsList>
           <ButtonContainer>
             <Button type="submit" disabled={!onClick ? false : true}>
