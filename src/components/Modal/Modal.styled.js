@@ -55,4 +55,8 @@ export const CloseBtn = styled.button`
   justify-content: center;
   align-items: center;
   margin-left: auto;
+
+  :hover {
+    cursor: pointer;
+  }
 `;

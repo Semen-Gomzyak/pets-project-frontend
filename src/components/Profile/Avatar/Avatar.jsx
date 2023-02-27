@@ -3,6 +3,7 @@ import {
   UserAvatar,
   ChangeAvatarForm,
   AvatarInput,
+  BtnContainer,
   AvatarButton,
   EditAvatarText,
   Plug,
@@ -34,15 +35,17 @@ export const Avatar = ({ avatarURL, changeAvatar }) => {
         )}
       </UserAvatar>
       <ChangeAvatarForm>
-        <AvatarButton htmlFor="upload-avatar">
-          <HiCamera size={20} color={theme.colors.accent} />
-        </AvatarButton>
+        <BtnContainer htmlFor="upload-avatar">
+          <AvatarButton>
+            <HiCamera size={20} color={theme.colors.accent} />
+          </AvatarButton>
+          <EditAvatarText>Edit photo</EditAvatarText>
+        </BtnContainer>
         <AvatarInput
           type="file"
           id="upload-avatar"
           onChange={onAvatarInputChange}
         />
-        <EditAvatarText>Edit photo</EditAvatarText>
       </ChangeAvatarForm>
     </AvatarContainer>
   );
