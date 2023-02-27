@@ -47,4 +47,8 @@ export const RemoveBtn = styled.button`
   svg {
     right: 0px;
   }
+  :hover,
+  :focus {
+    background-color: ${p => p.theme.colors.accent};
+  }
 `;
