@@ -19,11 +19,10 @@ import {
   ImageContainer,
   BtnContainer,
   Box,
-} from './NoticeModal.styled';
-import {
   FavoriteIconFalse,
   FavoriteIconTrue,
-} from '../../ButtonFavorite/BtnFavorite.styled';
+  LinkTel,
+} from './NoticeModal.styled';
 
 import { renameAgeDate } from 'helpers/renameAge';
 
@@ -118,9 +117,9 @@ export const NoticeModal = ({
 
         <BtnContainer>
           {
-            <a href="tel:{notice?.phone}">
-              <MyBtn active={'active'}>Contact</MyBtn>
-            </a>
+            <MyBtn active={'active'}>
+              <LinkTel href="tel:{notice?.phone}">Contact</LinkTel>
+            </MyBtn>
           }
 
           <MyBtn
@@ -128,15 +127,15 @@ export const NoticeModal = ({
             className={fav === true ? 'active' : ' '}
           >
             {!fav ? (
-              <span>
-                Add to
-                <FavoriteIconFalse size={16} />{' '}
-              </span>
+              <div>
+                <span>Add to</span>
+                <FavoriteIconFalse size={14} />{' '}
+              </div>
             ) : (
-              <span>
-                Remove to
-                <FavoriteIconTrue size={16} />{' '}
-              </span>
+              <div>
+                <span>Remove to</span>
+                <FavoriteIconTrue size={14} />{' '}
+              </div>
             )}
           </MyBtn>
         </BtnContainer>
