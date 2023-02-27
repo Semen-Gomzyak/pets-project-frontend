@@ -1,8 +1,8 @@
-import { useDispatch, useSelector } from 'react-redux';
+import { /*useDispatch,*/ useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
-import { selectOneNotice } from 'redux/Notices/NoticesSelector';
+// import { selectOneNotice } from 'redux/Notices/NoticesSelector';
 
-// import { getIsLoggedIn /*, selectToken*/ } from '../../../redux/Auth/selectors';
+import { getIsLoggedIn /*, selectToken*/ } from '../../../redux/Auth/selectors';
 
 // import { getUserData } from 'services/api/user';
 
@@ -11,7 +11,7 @@ import defaultImage from '../../../images/userAndPets/Rectangle 58.png';
 
 import {
   Category,
-  Img,
+  // Img,
   Header,
   PictureData,
   MyLi,
@@ -30,9 +30,12 @@ import { renameAgeDate } from 'helpers/renameAge';
 import { getNoticeById } from 'services/api/notices';
 import { Loader } from 'components/Loader/Loader';
 
-export const NoticeModal = ({ data, favorite, onClickFavorite }) => {
-  // const isAuth = useSelector(getIsLoggedIn);
+export const NoticeModal = ({ data, isFavorite, onClickFavorite }) => {
+  const isAuth = useSelector(getIsLoggedIn);
   // const isLoading = useSelector(selectOneNotice);
+
+  // const [isFavorite, setIsFavorite] = useState(favorite);
+  // console.log(favorite);
 
   const { _id, category } = data;
   const [notice, setNotice] = useState(null);
@@ -49,24 +52,14 @@ export const NoticeModal = ({ data, favorite, onClickFavorite }) => {
   // console.log('favorite', favorite);
   // const [isFavorited, setFavorited] = useState(isFavorite);
 
-  // --------   add email and phone to notice ---------------------
-
-  // const token = useSelector(selectToken);
-  // const [user, setUser] = useState({});
-  // useLayoutEffect(() => {
-  //   getUserData(token).then(response => setUser(response.data));
-  // }, [token]);
-
-  // --------   add email and phone to notice ---------------------
-
   const handleClickAddFavorite = () => {
-    // if (!isAuth) {
-    //   return toast.error(`You must be authorized to use this functionality!.`);
-    // }
-    if (favorite) {
+    if (!isAuth) {
+      return toast.error(`You must be authorized to use this functionality!.`);
+    }
+    if (isFavorite) {
       return toast.warn('Notice already added to favorite');
     }
-    // onClickFavorite();
+    onClickFavorite();
     // if (fav) {
     //   setFav(false);
     // } else {
@@ -146,17 +139,17 @@ export const NoticeModal = ({ data, favorite, onClickFavorite }) => {
 
             <MyBtn
               onClick={handleClickAddFavorite}
-              className={favorite === true ? 'active' : ' '}
-              textBtn={favorite === true ? 'Remove to' : 'Add to'}
+              className={isFavorite === true ? 'active' : ' '}
+              textBtn={isFavorite === true ? 'Remove to' : 'Add to'}
             >
-              {!favorite ? (
+              {!isFavorite ? (
                 <span style={{ display: 'flex', alignItems: 'center' }}>
                   Add to <span> </span>
                   <FavoriteIconFalse size={16} />{' '}
                 </span>
               ) : (
-                <span>
-                  Remove to
+                <span style={{ display: 'flex', alignItems: 'center' }}>
+                  Remove <span> </span>
                   <FavoriteIconTrue size={16} />{' '}
                 </span>
               )}
