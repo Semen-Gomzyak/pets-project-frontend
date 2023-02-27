@@ -39,6 +39,7 @@ import PetForm from '../../components/PetForm/PetForm';
 import { PetList } from 'components/Profile/PetList/PetList';
 
 import { theme } from 'services/theme';
+import { Loader } from 'components/Loader/Loader';
 
 export const Profile = () => {
   const token = useSelector(selectToken);
@@ -46,6 +47,7 @@ export const Profile = () => {
 
   const [userData, setUserData] = useState({});
   const [userPets, setUserPets] = useState([]);
+  const [isDataReady, setIsDataReady] = useState(false);
 
   const [showModal, setShowModal] = useState(false);
   const toggleModal = () => {
@@ -66,6 +68,8 @@ export const Profile = () => {
       if (response.data.pets) {
         setUserPets(response.data.pets);
       }
+
+      setIsDataReady(true);
     });
   }, [token]);
 
@@ -101,50 +105,54 @@ export const Profile = () => {
 
   return (
     <>
-      <Section>
-        {/* ------------------------ USER PART ------------------------ */}
-        <UserPart>
-          <UserPartTitle>My information:</UserPartTitle>
-          <UserInfo>
-            <Avatar
-              avatarURL={userData.avatarURL}
-              changeAvatar={changeAvatar}
-            />
+      {!isDataReady ? (
+        <Loader />
+      ) : (
+        <Section>
+          {/* ------------------------ USER PART ------------------------ */}
+          <UserPart>
+            <UserPartTitle>My information:</UserPartTitle>
+            <UserInfo>
+              <Avatar
+                avatarURL={userData.avatarURL}
+                changeAvatar={changeAvatar}
+              />
 
-            <UserData>
-              {Object.keys(userData).length !== 0 && (
-                <UserUpdateForm
-                  data={userData}
-                  updateData={updateUser}
-                  token={token}
-                />
-              )}
-            </UserData>
+              <UserData>
+                {Object.keys(userData).length !== 0 && (
+                  <UserUpdateForm
+                    data={userData}
+                    updateData={updateUser}
+                    token={token}
+                  />
+                )}
+              </UserData>
 
-            <LogOutContainer>
-              <LogOutButton type="button" onClick={toggleConfirm}>
-                <HiOutlineLogout size={25} color={theme.colors.accent} />
-              </LogOutButton>
-              <LogOutText>Log Out</LogOutText>
-            </LogOutContainer>
-          </UserInfo>
-        </UserPart>
+              <LogOutContainer>
+                <LogOutButton type="button" onClick={toggleConfirm}>
+                  <HiOutlineLogout size={25} color={theme.colors.accent} />
+                </LogOutButton>
+                <LogOutText>Log Out</LogOutText>
+              </LogOutContainer>
+            </UserInfo>
+          </UserPart>
 
-        {/* ------------------------ PETS PART ------------------------ */}
-        <PetsPart>
-          <PetsHeader>
-            <PetsPartTitle>My pets:</PetsPartTitle>
-            <AddPetContainer>
-              <AddPetText>Add Pet</AddPetText>
-              <AddPetButton type="button" onClick={toggleModal}>
-                <BsPlusCircleFill size={40} color={theme.colors.accent} />
-              </AddPetButton>
-            </AddPetContainer>
-          </PetsHeader>
+          {/* ------------------------ PETS PART ------------------------ */}
+          <PetsPart>
+            <PetsHeader>
+              <PetsPartTitle>My pets:</PetsPartTitle>
+              <AddPetContainer>
+                <AddPetText>Add Pet</AddPetText>
+                <AddPetButton type="button" onClick={toggleModal}>
+                  <BsPlusCircleFill size={40} color={theme.colors.accent} />
+                </AddPetButton>
+              </AddPetContainer>
+            </PetsHeader>
 
-          <PetList petsList={userPets} deletePet={deletePet} />
-        </PetsPart>
-      </Section>
+            <PetList petsList={userPets} deletePet={deletePet} />
+          </PetsPart>
+        </Section>
+      )}
 
       {showModal && (
         <Modal closeModal={toggleModal}>
