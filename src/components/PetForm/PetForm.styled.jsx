@@ -284,10 +284,7 @@ export const ImageBtn = styled.button`
   transition: ${p => p.theme.transition};
   &:hover,
   &:focus {
-    width: 210px;
-    height: 210px;
-    background-color: ${p => p.theme.colors.gradient};
-    transition: ${p => p.theme.transition};
+    border: 1px solid #f59256;
   }
   @media ${p => p.theme.device.tablet} {
     width: 182px;
