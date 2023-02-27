@@ -10,12 +10,12 @@ export const SecondRegisterFormSchema = Yup.object().shape({
     .required('City is required')
     .matches(
       /^[a-zA-Zа-яА-ЯіІїЇєЄёЁ\s]*,\s*[a-zA-Zа-яА-ЯіІїЇєЄёЁ\s]*$/,
-      'Enter the city and region in the format "City, State"'
+      'Enter in the format "City, State"'
     ),
   mobilePhone: Yup.string()
     .required('Phone is required')
     .matches(
       /^\+380\d{9}$/,
-      'Enter your mobile number in the format "+380*********"'
+      'Enter in the format "+380*********"'
     ),
 });

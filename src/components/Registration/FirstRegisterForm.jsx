@@ -10,6 +10,7 @@ import {
   RegisterTitle,
   Text,
   ButtonContainer,
+  InputDiv,
   ShowPass,
   ShowConfirmPass,
 } from './RegisterForm.styled';
@@ -47,6 +48,39 @@ export const FirstRegisterForm = ({ data, onSubmit, onClick }) => {
         <InfoForm autoComplete="off" onSubmit={props.handleSubmit}>
           <RegisterTitle>Registration</RegisterTitle>
           <InputsList>
+
+            <InputDiv>
+              <Error name="email" component="div" />
+              <Input
+                type="email"
+                name="email"
+                placeholder="Email"
+                value={props.values.email}
+                onChange={props.handleChange}
+              />
+            </InputDiv>
+            <InputDiv>
+              <Error name="password" component="div" />
+              <Input
+                type="password"
+                name="password"
+                placeholder="Password"
+                value={props.values.password}
+                onChange={props.handleChange}
+              />
+            </InputDiv>
+            <InputDiv>
+              <Error name="confirmPassword" component="div" />
+              <Input
+                type="password"
+                name="confirmPassword"
+                placeholder="Confirm Password"
+                value={props.values.confirmPassword}
+                onChange={props.handleChange}
+              />
+            </InputDiv>
+
+/*
             <Error name="email" component="div" />
             <Input
               type="email"
@@ -77,6 +111,8 @@ export const FirstRegisterForm = ({ data, onSubmit, onClick }) => {
             <ShowConfirmPass onClick={showConfirmPass}>
               {showConfirmPassword ? <FiEyeOff /> : <FiEye />}
             </ShowConfirmPass>
+            */
+
           </InputsList>
           <ButtonContainer>
             <Button type="submit" disabled={!onClick ? false : true}>
