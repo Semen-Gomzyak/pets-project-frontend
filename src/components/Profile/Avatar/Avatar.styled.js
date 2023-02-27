@@ -37,6 +37,18 @@ export const UserAvatar = styled.div`
   border-radius: 50%;
 `;
 
+export const Plug = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 233px;
+  height: 233px;
+  background: none;
+  background-color: ${p => p.theme.colors.background};
+  border-radius: 50%;
+`;
+
 export const ChangeAvatarForm = styled.form`
   display: flex;
   align-items: center;
@@ -50,6 +62,14 @@ export const ChangeAvatarForm = styled.form`
   }
 `;
 
+export const BtnContainer = styled.label`
+  display: flex;
+  align-items: center;
+  :hover {
+    cursor: pointer;
+  }
+`;
+
 export const AvatarInput = styled.input`
   opacity: 0;
   position: absolute;
@@ -57,7 +77,7 @@ export const AvatarInput = styled.input`
   pointer-events: none;
 `;
 
-export const AvatarButton = styled.label`
+export const AvatarButton = styled.div`
   background: none;
   display: inline-flex;
   justify-content: center;
@@ -71,16 +91,4 @@ export const EditAvatarText = styled.span`
   margin-left: 5px;
   font-size: 12px;
   line-height: 22px;
-`;
-
-export const Plug = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  width: 233px;
-  height: 233px;
-  background: none;
-  background-color: ${p => p.theme.colors.background};
-  border-radius: 50%;
 `;

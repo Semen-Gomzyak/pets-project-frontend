@@ -6,12 +6,6 @@ import { selectOneNotice } from 'redux/Notices/NoticesSelector';
 
 // import { getUserData } from 'services/api/user';
 
-
-import {
-  getIsLoggedIn,
-  selectFavoriteNotices,
-} from '../../../redux/Auth/selectors';
-
 import { toast } from 'react-toastify';
 import defaultImage from '../../../images/userAndPets/Rectangle 58.png';
 
@@ -25,11 +19,7 @@ import {
   MyBtn,
   ImageContainer,
   BtnContainer,
-
- Content,
-
-  Box,
-
+  Content,
 } from './NoticeModal.styled';
 import {
   FavoriteIconFalse,
@@ -40,20 +30,19 @@ import { renameAgeDate } from 'helpers/renameAge';
 import { getNoticeById } from 'services/api/notices';
 import { Loader } from 'components/Loader/Loader';
 
-
-// export const NoticeModal = ({ data, favorite, onClickFavorite }) => {
- //  const isAuth = useSelector(getIsLoggedIn);
+export const NoticeModal = ({ data, favorite, onClickFavorite }) => {
+  // const isAuth = useSelector(getIsLoggedIn);
   // const isLoading = useSelector(selectOneNotice);
 
-  // const { _id, category } = data;
- //  const [notice, setNotice] = useState(null);
-  // const [isDataReady, setIsDataReady] = useState(false);
- //  useEffect(() => {
-  //   getNoticeById(_id).then(response => {
-  //     setNotice({ ...response.data, category: category });
-   //    setIsDataReady(true);
-  //   });
-  // }, [_id, category]);
+  const { _id, category } = data;
+  const [notice, setNotice] = useState(null);
+  const [isDataReady, setIsDataReady] = useState(false);
+  useEffect(() => {
+    getNoticeById(_id).then(response => {
+      setNotice({ ...response.data, category: category });
+      setIsDataReady(true);
+    });
+  }, [_id, category]);
 
   // const favorites = useSelector(selectFavoriteNotices);
   // const [isFavorite, setFavorite] = useState(notice.favorite);
@@ -70,47 +59,22 @@ import { Loader } from 'components/Loader/Loader';
 
   // --------   add email and phone to notice ---------------------
 
-import { fetchOneNotice } from 'redux/Notices/NoticesOperations';
-
-export const NoticeModal = ({
-  id,
-  data,
-  category,
-  favorite,
-  onClickFavorite,
-}) => {
-  const dispatch = useDispatch();
-  const isAuth = useSelector(getIsLoggedIn);
-  const [fav, setFav] = useState(favorite);
-  console.log('favorite', favorite);
-
-  const favorites = useSelector(selectFavoriteNotices);
-  const notice = useSelector(selectOneNotice);
-  console.log('favorites', favorites);
-
-  useEffect(() => {
-    dispatch(fetchOneNotice({ noticeId: id }));
-  }, [id, dispatch]);
-
-
   const handleClickAddFavorite = () => {
-    if (!isAuth) {
-      return toast.error(`You must be authorized to use this functionality!.`);
-    }
+    // if (!isAuth) {
+    //   return toast.error(`You must be authorized to use this functionality!.`);
+    // }
     if (favorite) {
       return toast.warn('Notice already added to favorite');
     }
-    onClickFavorite();
-    if (fav) {
-      setFav(false);
-    } else {
-      setFav(true);
-    }
+    // onClickFavorite();
+    // if (fav) {
+    //   setFav(false);
+    // } else {
+    //   setFav(true);
+    // }
   };
 
   return (
-
-/*
     <Content>
       {isDataReady ? (
         <div>
@@ -153,74 +117,35 @@ export const NoticeModal = ({
                 </MyLi>
                 <MyLi>
                   <p>Phone:</p>
-                <span>{notice.phone}</span>
-                */
-
-    <>
-      <Box>
-        <ImageContainer>
-          <PictureData>
-            <Img
-              src={notice.avatarURL ? notice.avatarURL : defaultImage}
-              alt={notice.title}
-            ></Img>
-            <Category>{category}</Category>
-          </PictureData>
-          <div>
-            <Header>Cute dog looking for a home</Header>
-            <ul>
-              <MyLi>
-                <p>Name:</p>
-                <span>{notice.name}</span>
-              </MyLi>
-              <MyLi>
-                <p>Birthday:</p>
-                <span>
-                  {notice.birthdate ? renameAgeDate(notice.birthdate) : ''}
-                </span>
-              </MyLi>
-              <MyLi>
-                <p>Breed:</p>
-                <span>{notice.breed}</span>
-              </MyLi>
-              <MyLi>
-                <p>Place:</p>
-                <span>{notice.location}</span>
-              </MyLi>
-              <MyLi>
-                <p>The sex:</p>
-                <span>{notice?.theSex}</span>
-              </MyLi>
-              <MyLi>
-                <p>Email:</p>
-                <span>{notice?.email}</span>
-              </MyLi>
-              <MyLi>
-                <p>Phone:</p>
-                <span>{notice?.phone}</span>
-              </MyLi>
-
-              {notice.category === 'sell' && (
-                <MyLi>
-                  <p>Sell:</p>
-                  <span>{notice?.price}$</span>
-
+                  <span>{notice.phone}</span>
                 </MyLi>
-              )}
-            </ul>
-          </div>
-        </ImageContainer>
 
-        <Comments>
-          Comments: <span>{notice.comments}</span>
-        </Comments>
 
-        <BtnContainer>
-          {
-            <a href="tel:{notice?.phone}">
-              <MyBtn active={'active'}>Contact</MyBtn>
-            </a>
-          }
+/*
+                {notice.category === 'sell' && (
+                  <MyLi>
+                    <p>Sell:</p>
+                    <span>{notice.price}$</span>
+                  </MyLi>
+                )}
+              </ul>
+            </div>
+          </ImageContainer>
+
+          <Comments>
+            Comments: <span>{notice.comments}</span>
+          </Comments>
+
+          <BtnContainer>
+            {
+              <a
+                href="tel:{notice?.owner?.phone}"
+                style={{ textDecoration: 'none' }}
+              >
+                <MyBtn active={'active'}>Contact</MyBtn>
+              </a>
+            }
+*/
 
           <MyBtn
             onClick={handleClickAddFavorite}
@@ -248,14 +173,15 @@ export const NoticeModal = ({
 
 
 /* 
+
             <MyBtn
               onClick={handleClickAddFavorite}
               className={favorite === true ? 'active' : ' '}
               textBtn={favorite === true ? 'Remove to' : 'Add to'}
             >
               {!favorite ? (
-                <span>
-                  Add to
+                <span style={{ display: 'flex', alignItems: 'center' }}>
+                  Add to <span> </span>
                   <FavoriteIconFalse size={16} />{' '}
                 </span>
               ) : (
@@ -271,4 +197,6 @@ export const NoticeModal = ({
         <Loader />
       )}
     </Content>
+
     */
+

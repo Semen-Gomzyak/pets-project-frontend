@@ -23,6 +23,9 @@ export const PetInfo = styled.li`
     width: 706px;
     flex-direction: row;
   }
+  @media screen and (min-width: 1280px) {
+    width: 821px;
+  }
 `;
 
 export const PetImgContainer = styled.div`
@@ -49,6 +52,9 @@ export const PetData = styled.div`
   @media screen and (min-width: 768px) {
     width: 470px;
     margin-left: 32px;
+  }
+  @media screen and (min-width: 1280px) {
+    width: 590px;
   }
 `;
 

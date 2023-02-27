@@ -2,25 +2,29 @@ import styled from 'styled-components';
 import { AiOutlinePlus } from 'react-icons/ai';
 
 export const ButtonMob = styled.button`
-  width: 40px;
-  height: 40px;
+  width: 80px;
+  height: 80px;
   background-color: ${p => p.theme.colors.accent};
-  position: relative;
-  justify-content: center;
+  /* position: relative; */
+
   border-radius: 50%;
   padding: 0;
+  display: flex;
+  flex-direction: column;
   align-items: center;
+  justify-content: center;
   font-size: 16px;
   :hover,
   :focus {
     color: ${p => p.theme.colors.buttonAccent};
     transition: ${p => p.theme.transition.first};
     transform: scale(1.1);
+    cursor: pointer;
   }
 `;
 
 export const BtnCiCirclePlus = styled(AiOutlinePlus)`
-  aline-items: center;
+  align-items: center;
   width: 25px;
   height: 25px;
 `;
@@ -48,6 +52,7 @@ export const Button = styled.button`
     :focus {
       transform: scale(1.1);
       background: ${p => p.theme.colors.buttonAccent};
+      cursor: pointer;
     }
 
     svg {
