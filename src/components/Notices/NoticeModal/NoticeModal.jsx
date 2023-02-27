@@ -130,7 +130,10 @@ export const NoticeModal = ({ data, favorite, onClickFavorite }) => {
 
           <BtnContainer>
             {
-              <a href="tel:{notice?.owner?.phone}">
+              <a
+                href="tel:{notice?.owner?.phone}"
+                style={{ textDecoration: 'none' }}
+              >
                 <MyBtn active={'active'}>Contact</MyBtn>
               </a>
             }
@@ -141,8 +144,8 @@ export const NoticeModal = ({ data, favorite, onClickFavorite }) => {
               textBtn={favorite === true ? 'Remove to' : 'Add to'}
             >
               {!favorite ? (
-                <span>
-                  Add to
+                <span style={{ display: 'flex', alignItems: 'center' }}>
+                  Add to <span> </span>
                   <FavoriteIconFalse size={16} />{' '}
                 </span>
               ) : (

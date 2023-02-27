@@ -119,10 +119,15 @@ export const BtnContainer = styled.div`
 `;
 
 export const MyBtn = styled(Button)`
+  display: flex;
   justify-content: center;
+  align-items: center;
   width: 100%;
   & span {
     margin-left: 9px;
+  }
+  :hover {
+    cursor: pointer;
   }
   &:last-child {
     margin-top: 12px;
