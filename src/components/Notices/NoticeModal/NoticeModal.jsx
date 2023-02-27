@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { selectOneNotice } from 'redux/Notices/NoticesSelector';
 import {
   getIsLoggedIn,
@@ -38,12 +38,10 @@ export const NoticeModal = ({
 }) => {
   const dispatch = useDispatch();
   const isAuth = useSelector(getIsLoggedIn);
-  const [fav, setFav] = useState(favorite);
-  console.log('favorite', favorite);
 
   const favorites = useSelector(selectFavoriteNotices);
+  const fav = favorites.includes(id);
   const notice = useSelector(selectOneNotice);
-  console.log('favorites', favorites);
 
   useEffect(() => {
     dispatch(fetchOneNotice({ noticeId: id }));
@@ -57,11 +55,13 @@ export const NoticeModal = ({
       return toast.warn('Notice already added to favorite');
     }
     onClickFavorite();
-    if (fav) {
-      setFav(false);
-    } else {
-      setFav(true);
-    }
+    // if (fav) {
+    //   setFav(true);
+    //   console.log('setfav', fav);
+    // } else {
+    //   setFav(false);
+    //   console.log('setfav', fav);
+    // }
   };
 
   return (
@@ -133,9 +133,9 @@ export const NoticeModal = ({
           <MyBtn
             onClick={handleClickAddFavorite}
             className={fav === true ? 'active' : ' '}
-            textBtn={fav === true ? 'Remove to' : 'Add to'}
+            // textBtn={fav === true ? 'Remove to' : 'Add to'}
           >
-            {!favorite ? (
+            {!fav ? (
               <span>
                 Add to
                 <FavoriteIconFalse size={16} />{' '}
