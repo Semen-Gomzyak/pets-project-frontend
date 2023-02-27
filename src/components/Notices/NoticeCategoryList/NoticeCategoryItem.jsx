@@ -30,7 +30,7 @@ import {
 } from './NoticeCategoryItem.styled';
 
 import { NoticeBtn } from 'components/ButtonNotice/BtnNotice';
-import { fetchOneNotice, removeNotice } from 'redux/Notices/NoticesOperations';
+import { removeNotice } from 'redux/Notices/NoticesOperations';
 import defaultImage from '../../../images/services/notAvailable.png';
 
 import { WarningMessage } from 'components/WarningMessage/WarningMessage';
@@ -51,7 +51,6 @@ export const NoticeCategoryItem = ({ data, route }) => {
   } = data;
 
   const dispatch = useDispatch();
-
   const [showModal, setShowModal] = useState(false);
   const isAuth = useSelector(getIsLoggedIn);
   const [isShownConfirmationDelete, setIsShownConfirmationDelete] =
@@ -204,13 +203,9 @@ export const NoticeCategoryItem = ({ data, route }) => {
               closeModal={toggleModal}
               children={
                 <NoticeModal
-
-                  data={data}
-
                   id={data._id}
                   category={route}
                   notice={data}
-
                   isFavorite={isFavorite}
                   onClickFavorite={onChangeFavorite}
                 />

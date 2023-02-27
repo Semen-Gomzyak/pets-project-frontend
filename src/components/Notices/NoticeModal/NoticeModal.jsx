@@ -1,12 +1,16 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { selectOneNotice } from 'redux/Notices/NoticesSelector';
-import { getIsLoggedIn } from '../../../redux/Auth/selectors';
+import {
+  getIsLoggedIn,
+  selectFavoriteNotices,
+} from '../../../redux/Auth/selectors';
 import { toast } from 'react-toastify';
 import defaultImage from '../../../images/userAndPets/Rectangle 58.png';
 
 import {
   Category,
+  Img,
   Header,
   PictureData,
   MyLi,
@@ -14,6 +18,7 @@ import {
   MyBtn,
   ImageContainer,
   BtnContainer,
+  Box,
 } from './NoticeModal.styled';
 import {
   FavoriteIconFalse,
@@ -24,16 +29,25 @@ import { renameAgeDate } from 'helpers/renameAge';
 
 import { fetchOneNotice } from 'redux/Notices/NoticesOperations';
 
-export const NoticeModal = ({ id, data, favorite, onClickFavorite }) => {
+export const NoticeModal = ({
+  id,
+  data,
+  category,
+  favorite,
+  onClickFavorite,
+}) => {
   const dispatch = useDispatch();
   const isAuth = useSelector(getIsLoggedIn);
-  //const favorites = useSelector(selectFavoriteNotices);
+  const [fav, setFav] = useState(favorite);
+  console.log('favorite', favorite);
+
+  const favorites = useSelector(selectFavoriteNotices);
   const notice = useSelector(selectOneNotice);
+  console.log('favorites', favorites);
 
   useEffect(() => {
     dispatch(fetchOneNotice({ noticeId: id }));
   }, [id, dispatch]);
-
 
   const handleClickAddFavorite = () => {
     if (!isAuth) {
@@ -43,18 +57,23 @@ export const NoticeModal = ({ id, data, favorite, onClickFavorite }) => {
       return toast.warn('Notice already added to favorite');
     }
     onClickFavorite();
+    if (fav) {
+      setFav(false);
+    } else {
+      setFav(true);
+    }
   };
 
   return (
-    <div>
-      <>
+    <>
+      <Box>
         <ImageContainer>
           <PictureData>
-            <img
+            <Img
               src={notice.avatarURL ? notice.avatarURL : defaultImage}
               alt={notice.title}
-            ></img>
-            <Category>{notice.category}</Category>
+            ></Img>
+            <Category>{category}</Category>
           </PictureData>
           <div>
             <Header>Cute dog looking for a home</Header>
@@ -79,7 +98,7 @@ export const NoticeModal = ({ id, data, favorite, onClickFavorite }) => {
               </MyLi>
               <MyLi>
                 <p>The sex:</p>
-                <span>{notice.theSex}</span>
+                <span>{notice?.theSex}</span>
               </MyLi>
               <MyLi>
                 <p>Email:</p>
@@ -93,7 +112,7 @@ export const NoticeModal = ({ id, data, favorite, onClickFavorite }) => {
               {notice.category === 'sell' && (
                 <MyLi>
                   <p>Sell:</p>
-                  <span>{notice.price}$</span>
+                  <span>{notice?.price}$</span>
                 </MyLi>
               )}
             </ul>
@@ -106,15 +125,15 @@ export const NoticeModal = ({ id, data, favorite, onClickFavorite }) => {
 
         <BtnContainer>
           {
-            <a href="tel:{notice?.owner?.phone}">
+            <a href="tel:{notice?.phone}">
               <MyBtn active={'active'}>Contact</MyBtn>
             </a>
           }
 
           <MyBtn
             onClick={handleClickAddFavorite}
-            className={favorite === true ? 'active' : ' '}
-            textBtn={favorite === true ? 'Remove to' : 'Add to'}
+            className={fav === true ? 'active' : ' '}
+            textBtn={fav === true ? 'Remove to' : 'Add to'}
           >
             {!favorite ? (
               <span>
@@ -129,7 +148,7 @@ export const NoticeModal = ({ id, data, favorite, onClickFavorite }) => {
             )}
           </MyBtn>
         </BtnContainer>
-      </>
-    </div>
+      </Box>
+    </>
   );
 };
