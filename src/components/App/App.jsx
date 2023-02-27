@@ -14,12 +14,9 @@ import { NotFound } from 'pages/NotFound/NotFound';
 
 import { Routes, Route } from 'react-router-dom';
 
-import { NoticesPage } from 'pages/NoticesPage/NoticesPage';
-
 import { UserNav } from 'components/UserNav/UserNav';
 
 import { RegisterForm } from 'components/Registration/RegisterForm';
-// import { NoticeCategoryItem } from 'components/Notices/NoticeCategoryList/NoticeCategoryItem';
 import { PublicRoute } from 'services/PublicRoute';
 import { PrivateRoute } from 'services/PrivateRoute';
 
@@ -35,6 +32,12 @@ const NewsPage = lazy(() =>
   import('../../pages/NewsPage/NewsPage').then(module => ({
     ...module,
     default: module.NewsPage,
+  }))
+);
+const NoticesPage = lazy(() =>
+  import('../../pages/NoticesPage/NoticesPage').then(module => ({
+    ...module,
+    default: module.NoticesPage,
   }))
 );
 
