@@ -126,10 +126,6 @@ export const MyBtn = styled(Button)`
 
   margin-bottom: 12px;
   margin-left: 0px;
-  :hover,
-  :focus {
-    background-color: ${p => p.theme.colors.accent};
-  }
 
   @media ${p => p.theme.device.tablet} {
     width: 160px;
@@ -137,12 +133,18 @@ export const MyBtn = styled(Button)`
     margin-bottom: 0px;
     margin-left: 12px;
   }
+
+  :contact {
+    background-color: ${p => p.theme.colors.accent};
+  }
 `;
 
 export const LinkTel = styled.a`
   text-decoration: none;
-   color: ${p => p.theme.colors.text.primary};
- 
+  color: ${p => p.theme.colors.text.primary};
+  :hover,
+  :focus {
+    color: ${p => p.theme.colors.accent};
   }
 `;
 

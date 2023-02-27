@@ -117,7 +117,7 @@ export const NoticeModal = ({
 
         <BtnContainer>
           {
-            <MyBtn active={'active'}>
+            <MyBtn active={'active'} className={'contact'}>
               <LinkTel href="tel:{notice?.phone}">Contact</LinkTel>
             </MyBtn>
           }
