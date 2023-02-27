@@ -1,5 +1,6 @@
 import { Button } from '../../Button/Button';
 import styled from 'styled-components';
+import { BsHeart, BsHeartFill } from 'react-icons/bs';
 
 export const Box = styled.div`
   margin: 32px 20px;
@@ -81,6 +82,10 @@ export const MyLi = styled.li`
   }
   & span {
     font-size: inherit;
+    :focus,
+    :hover {
+      color: ${p => p.theme.colors.accent};
+    }
     @media ${p => p.theme.device.tablet} {
       font-weight: ${p => p.theme.fontWeights.heading};
     }
@@ -113,19 +118,45 @@ export const BtnContainer = styled.div`
 `;
 
 export const MyBtn = styled(Button)`
+  display: flex;
+  align-items: center;
+  justify-content: center;
   justify-content: center;
   width: 100%;
-  & span {
-    margin-left: 9px;
-  }
-  &:last-child {
-    margin-top: 12px;
-  }
+  padding: 8px 10px;
+
+  margin-bottom: 12px;
+  margin-left: 0px;
+
   @media ${p => p.theme.device.tablet} {
     width: 160px;
-    &:last-child {
-      margin-top: 0px;
-      margin-right: 12px;
-    }
+
+    margin-bottom: 0px;
+    margin-left: 12px;
   }
+
+  :contact {
+    background-color: ${p => p.theme.colors.accent};
+  }
+`;
+
+export const LinkTel = styled.a`
+  text-decoration: none;
+  color: ${p => p.theme.colors.text.primary};
+  :hover,
+  :focus {
+    color: ${p => p.theme.colors.accent};
+  }
+`;
+
+export const FavoriteIconFalse = styled(BsHeart)`
+  color: ${p => p.theme.colors.accent};
+  margin-bottom: -3px;
+  margin-left: 10px;
+`;
+
+export const FavoriteIconTrue = styled(BsHeartFill)`
+  color: ${p => p.theme.colors.accent};
+  margin-bottom: -3px;
+  margin-left: 10px;
 `;

@@ -16,7 +16,8 @@ export const Button = styled.button`
   backdrop-filter: blur(2px);
   transition: transform ${p => p.theme.transition.first};
 
-  :hover {
+  :hover,
+  :focus {
     cursor: pointer;
   }
 `;
