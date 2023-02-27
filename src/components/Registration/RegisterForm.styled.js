@@ -105,7 +105,7 @@ export const Input = styled(Field)`
   width: 280px;
   height: 40px;
 
-  margin-bottom: 16px;
+  
   padding: 8px;
   border: 1px solid;
   border-radius: 40px;
@@ -124,9 +124,7 @@ export const Input = styled(Field)`
   color: rgba(17, 17, 17, 0.6);
   padding-left: 32px;
 
-  &:last-child {
-    margin-bottom: 0;
-  }
+  
   @media screen and (min-width: 768px) {
     width: 448px;
     height: 52px;
@@ -137,6 +135,16 @@ export const Input = styled(Field)`
     height: 52px;
   }
 `;
+
+export const InputDiv = styled.div`
+  position: relative;
+
+  margin-bottom: 16px;
+  &:last-child {
+    margin-bottom: 0;
+  }
+`;
+
 export const RegisterTitle = styled.h2`
   font-family: 'Manrope';
   font-style: normal;
@@ -237,6 +245,11 @@ export const Link = styled.a`
 `;
 
 export const Error = styled(ErrorMessage)`
+position: absolute;
+bottom: 101%;
+left: 5%;
+font-size: 14px;
+flex-wrap: nowrap;
   color: red;
   font-style: italic;
   text-align: center;

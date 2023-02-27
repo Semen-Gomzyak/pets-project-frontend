@@ -14,6 +14,7 @@ import {
   RegisterTitle,
   Text,
   ButtonContainer,
+  InputDiv,
 } from './RegisterForm.styled';
 import { useNavigate } from 'react-router';
 
@@ -71,30 +72,36 @@ export const SecondRegisterForm = ({ data, onClick }) => {
         <InfoForm autoComplete="off" onSubmit={props.handleSubmit}>
           <RegisterTitle>Registration</RegisterTitle>
           <InputsList>
-            <Error name="name" component="div" />
-            <Input
-              type="text"
-              name="name"
-              placeholder="Name"
-              value={props.values.name}
-              onChange={props.handleChange}
-            />
-            <Error name="cityRegion" component="div" />
-            <Input
-              type="text"
-              name="cityRegion"
-              placeholder="City, region"
-              value={props.values.city}
-              onChange={props.handleChange}
-            />
-            <Error name="mobilePhone" component="div" />
-            <Input
-              type="text"
-              name="mobilePhone"
-              placeholder="Mobile phone"
-              value={props.values.mobilePhone}
-              onChange={props.handleChange}
-            />
+            <InputDiv>
+              <Error name="name" component="div" />
+              <Input
+                type="text"
+                name="name"
+                placeholder="Name"
+                value={props.values.name}
+                onChange={props.handleChange}
+              />
+            </InputDiv>
+            <InputDiv>
+              <Error name="cityRegion" component="div" />
+              <Input
+                type="text"
+                name="cityRegion"
+                placeholder="City, region"
+                value={props.values.city}
+                onChange={props.handleChange}
+              />
+            </InputDiv>
+            <InputDiv>
+              <Error name="mobilePhone" component="div" />
+              <Input
+                type="text"
+                name="mobilePhone"
+                placeholder="Mobile phone"
+                value={props.values.mobilePhone}
+                onChange={props.handleChange}
+              />
+            </InputDiv>
           </InputsList>
           <ButtonContainer>
             <Button type="submit">Register</Button>
