@@ -1,4 +1,4 @@
-import { /*useDispatch,*/ useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 
 import { selectOneNotice } from 'redux/Notices/NoticesSelector';
@@ -12,7 +12,7 @@ import defaultImage from '../../../images/userAndPets/Rectangle 58.png';
 
 import {
   Category,
-  // Img,
+  Img,
   Header,
   PictureData,
   MyLi,
@@ -28,7 +28,6 @@ import {
 } from '../../ButtonFavorite/BtnFavorite.styled';
 
 import { renameAgeDate } from 'helpers/renameAge';
-
 
 import { fetchOneNotice } from 'redux/Notices/NoticesOperations';
 
@@ -51,7 +50,6 @@ export const NoticeModal = ({
   useEffect(() => {
     dispatch(fetchOneNotice({ noticeId: id }));
   }, [id, dispatch]);
-
 
   const handleClickAddFavorite = () => {
     if (!isAuth) {
@@ -91,7 +89,6 @@ export const NoticeModal = ({
                 <p>Birthday:</p>
                 <span>
                   {notice.birthdate ? renameAgeDate(notice.birthdate) : ''}
-
                 </span>
               </MyLi>
               <MyLi>
