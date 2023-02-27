@@ -4,9 +4,20 @@ import {
   login,
   logout,
   refreshUser,
+  updUser,
   updateFavoriteNotice,
   getFavoriteNotices,
 } from './operations';
+
+const userInitialState = {
+  name: null,
+  email: null,
+  password: null,
+  city: null,
+  phone: null,
+  pets: [],
+  favoriteNotices: [],
+};
 
 const authSlise = createSlice({
   name: 'auth',
@@ -17,6 +28,7 @@ const authSlise = createSlice({
       password: null,
       city: null,
       phone: null,
+      avatarURL: null,
       pets: [],
       favoriteNotices: [],
     },
@@ -35,11 +47,13 @@ const authSlise = createSlice({
         // state.isLoggedIn = true;
       })
       .addCase(login.fulfilled, (state, action) => {
+        state.user = action.payload.user;
         state._id = action.payload._id;
         state.token = action.payload.token;
         state.isLoggedIn = true;
       })
       .addCase(logout.fulfilled, state => {
+        state.user = userInitialState;
         state._id = null;
         state.token = null;
         state.isLoggedIn = false;
@@ -48,16 +62,19 @@ const authSlise = createSlice({
         state.isRefreshing = true;
       })
       .addCase(refreshUser.fulfilled, (state, action) => {
-        state.user = action.payload;
+        state.user = action.payload.user;
         state.token = action.payload.token;
-
-        state._id = action.payload.id;
+        state._id = action.payload._id;
         state.isLoggedIn = true;
         state.isRefreshing = false;
       })
       .addCase(refreshUser.rejected, state => {
         state.isRefreshing = false;
       })
+      .addCase(updUser.fulfilled, (state, action) => {
+        state.user = { ...state.user, ...action.payload };
+      })
+
       .addCase(getFavoriteNotices.rejected, (state, { payload }) => {
         state.isLoading = false;
         state.error = payload;

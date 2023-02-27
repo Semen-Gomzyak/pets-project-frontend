@@ -1,16 +1,18 @@
-import { useDispatch, useSelector } from 'react-redux';
+import { /*useDispatch,*/ useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
+
 import { selectOneNotice } from 'redux/Notices/NoticesSelector';
 import {
   getIsLoggedIn,
   selectFavoriteNotices,
 } from '../../../redux/Auth/selectors';
+
 import { toast } from 'react-toastify';
 import defaultImage from '../../../images/userAndPets/Rectangle 58.png';
 
 import {
   Category,
-  Img,
+  // Img,
   Header,
   PictureData,
   MyLi,
@@ -26,6 +28,7 @@ import {
 } from '../../ButtonFavorite/BtnFavorite.styled';
 
 import { renameAgeDate } from 'helpers/renameAge';
+
 
 import { fetchOneNotice } from 'redux/Notices/NoticesOperations';
 
@@ -49,10 +52,12 @@ export const NoticeModal = ({
     dispatch(fetchOneNotice({ noticeId: id }));
   }, [id, dispatch]);
 
+
   const handleClickAddFavorite = () => {
     if (!isAuth) {
       return toast.error(`You must be authorized to use this functionality!.`);
     }
+
     if (favorite) {
       return toast.warn('Notice already added to favorite');
     }
@@ -86,6 +91,7 @@ export const NoticeModal = ({
                 <p>Birthday:</p>
                 <span>
                   {notice.birthdate ? renameAgeDate(notice.birthdate) : ''}
+
                 </span>
               </MyLi>
               <MyLi>

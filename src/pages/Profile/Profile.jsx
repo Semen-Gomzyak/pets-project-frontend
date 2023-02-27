@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectToken } from 'redux/Auth/selectors';
-import { logout } from 'redux/Auth/operations';
+import { getUser, selectToken } from 'redux/Auth/selectors';
+import { logout, updUser } from 'redux/Auth/operations';
 
 import {
   deleteUserPet,
-  getUserData,
-  updateUserData,
+  // getUserData,
+  // updateUserData,
   uploadAvatar,
   addNewPet,
 } from 'services/api/user';
@@ -43,11 +43,13 @@ import { Loader } from 'components/Loader/Loader';
 
 export const Profile = () => {
   const token = useSelector(selectToken);
+  const user = useSelector(getUser);
   const dispatch = useDispatch();
 
   const [userData, setUserData] = useState({});
   const [userPets, setUserPets] = useState([]);
   const [isDataReady, setIsDataReady] = useState(false);
+  const [isAvatarChanging, setIsAvatarChangin] = useState(false);
 
   const [showModal, setShowModal] = useState(false);
   const toggleModal = () => {
@@ -62,29 +64,34 @@ export const Profile = () => {
   };
 
   useEffect(() => {
-    getUserData(token).then(response => {
-      setUserData(response.data);
+    // getUserData(token).then(response => {
+    //   setUserData(response.data);
 
-      if (response.data.pets) {
-        setUserPets(response.data.pets);
-      }
-
-      setIsDataReady(true);
-    });
-  }, [token]);
+    //   if (response.data.pets) {
+    //     setUserPets(response.data.pets);
+    //   }
+    setUserData(user);
+    if (user.pets) setUserPets(user.pets);
+    setIsDataReady(true);
+    // });
+  }, [/*token,*/ user]);
 
   const updateUser = async data => {
-    const response = await updateUserData(data, token);
+    // const response = await updateUserData(data, token);
+
+    dispatch(updUser(data));
 
     const key = Object.keys(data)[0];
-    const updatedData = { [key]: response[key] };
+    const updatedData = { [key]: user[key] };
 
     setUserData(prevState => ({ ...prevState, ...updatedData }));
   };
 
   const changeAvatar = async avatar => {
+    setIsAvatarChangin(true);
     const response = await uploadAvatar(avatar, token);
     setUserData(prevState => ({ ...prevState, avatarURL: response.avatarURL }));
+    setIsAvatarChangin(false);
   };
 
   const navigate = useNavigate();
@@ -116,6 +123,7 @@ export const Profile = () => {
               <Avatar
                 avatarURL={userData.avatarURL}
                 changeAvatar={changeAvatar}
+                isLoading={isAvatarChanging}
               />
 
               <UserData>

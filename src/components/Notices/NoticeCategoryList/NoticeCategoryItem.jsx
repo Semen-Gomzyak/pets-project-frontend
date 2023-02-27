@@ -57,6 +57,7 @@ export const NoticeCategoryItem = ({ data, route }) => {
     useState(false);
 
   const currentUser = useSelector(getUserById);
+  console.log(currentUser);
   const favorites = useSelector(selectFavoriteNotices);
 
   function isIdInData(data) {
@@ -81,14 +82,13 @@ export const NoticeCategoryItem = ({ data, route }) => {
         })
       );
 
-      // toast.success('Added to favorites!');
+      toast.success('Added to favorites!');
 
       if (route === 'favorite') {
         dispatch(changeFavoritesNotices(_id));
       }
     } else {
       toast.error(`You must be authorized to use this functionality!.`);
-
       return;
     }
   };

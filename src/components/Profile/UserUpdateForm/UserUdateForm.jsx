@@ -44,20 +44,10 @@ export const UserUpdateForm = ({ data, updateData }) => {
     const key = document.activeElement.name;
     document.querySelector(`#${key}`).focus();
 
-    // if (userData[key] === data[key]) return;
+    if (userData[key] === data[key]) return;
 
     UpdateUserFormSchema.validate({ [key]: userData[key] })
       .then(value => {
-        // let payload = {};
-        // if (Object.keys(value)[0] === 'city') {
-        //   payload.cityRegion = Object.values(value)[0];
-        // } else if (Object.keys(value)[0] === 'phone') {
-        //   payload.mobilePhone = Object.values(value)[0];
-        // } else {
-        //   payload = { ...value };
-        // }
-
-        // updateData(payload, token);
         updateData(value);
         Notiflix.Notify.success('Updated successfuly');
       })
