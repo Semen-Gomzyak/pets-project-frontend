@@ -104,14 +104,14 @@ export const NoticeCategoryItem = ({ data, route }) => {
     setIsShownConfirmationDelete(!isShownConfirmationDelete);
   };
   const deleteNotice = () => {
-    {
-      showModal && (
-        <Modal
-          closeModal={toggleModal}
-          children={<p>You really want to delete this Notice ?</p>}
-        ></Modal>
-      );
-    }
+    // {
+    //   showModal && (
+    //     <Modal
+    //       closeModal={toggleModal}
+    //       children={<p>You really want to delete this Notice ?</p>}
+    //     ></Modal>
+    //   );
+    // }
     dispatch(removeNotice(data._id));
 
     toast.success('Notice is deleted.');
@@ -204,7 +204,13 @@ export const NoticeCategoryItem = ({ data, route }) => {
               closeModal={toggleModal}
               children={
                 <NoticeModal
+
                   data={data}
+
+                  id={data._id}
+                  category={route}
+                  notice={data}
+
                   isFavorite={isFavorite}
                   onClickFavorite={onChangeFavorite}
                 />

@@ -1,8 +1,8 @@
-import { useState, useEffect } from 'react';
-
-import { useSelector /*, useDispatch*/ } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect, useState } from 'react';
 import { selectOneNotice } from 'redux/Notices/NoticesSelector';
-import { getIsLoggedIn /*, selectToken*/ } from '../../../redux/Auth/selectors';
+
+// import { getIsLoggedIn /*, selectToken*/ } from '../../../redux/Auth/selectors';
 
 // import { getUserData } from 'services/api/user';
 
@@ -11,6 +11,7 @@ import defaultImage from '../../../images/userAndPets/Rectangle 58.png';
 
 import {
   Category,
+  Img,
   Header,
   PictureData,
   MyLi,
@@ -30,7 +31,7 @@ import { getNoticeById } from 'services/api/notices';
 import { Loader } from 'components/Loader/Loader';
 
 export const NoticeModal = ({ data, favorite, onClickFavorite }) => {
-  const isAuth = useSelector(getIsLoggedIn);
+  // const isAuth = useSelector(getIsLoggedIn);
   // const isLoading = useSelector(selectOneNotice);
 
   const { _id, category } = data;
@@ -65,7 +66,12 @@ export const NoticeModal = ({ data, favorite, onClickFavorite }) => {
     if (favorite) {
       return toast.warn('Notice already added to favorite');
     }
-    onClickFavorite();
+    // onClickFavorite();
+    // if (fav) {
+    //   setFav(false);
+    // } else {
+    //   setFav(true);
+    // }
   };
 
   return (
