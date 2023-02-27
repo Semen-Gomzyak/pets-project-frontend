@@ -1,11 +1,11 @@
-import { GrClose } from 'react-icons/gr';
-import { BtnMenuClose } from './CloseBtn.styled';
+// import { GrClose } from 'react-icons/gr';
+import { BtnMenuClose, Icon } from './CloseBtn.styled';
 
 export const CloseBtn = ({ onClick }) => {
   return (
     <>
       <BtnMenuClose onClick={onClick}>
-        <GrClose />
+        <Icon />
       </BtnMenuClose>
     </>
   );

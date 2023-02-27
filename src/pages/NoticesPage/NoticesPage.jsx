@@ -39,6 +39,7 @@ import { toast } from 'react-toastify';
 
 import { AddPetBtn } from 'components/ButtonAddPet/AddPetBtn';
 import { getAllNoticesForOwners } from 'services/getFaforites';
+import { getNoticeByCategoryAndTitle } from 'services/api/notices';
 
 export const NoticesPage = () => {
   const { route } = useParams();
@@ -51,7 +52,7 @@ export const NoticesPage = () => {
     setShowModal(prevState => !prevState);
   };
   const [searchQweryTitle, setSearchQweryTitle] = useState('');
-
+  const [searchNotices, setSearchNotices] = useState({});
   const dispatch = useDispatch();
 
   const notices = useSelector(selectNotices);
@@ -59,33 +60,39 @@ export const NoticesPage = () => {
   const error = useSelector(selectError);
   const isAuth = useSelector(getIsLoggedIn);
   const debounceDelay = 2000;
-const token = useSelector(selectToken);
+  const token = useSelector(selectToken);
   let timeoutId;
 
   const favorites = useSelector(selectFavoriteNotices);
   const noticeFavorite = favorites;
 
   useEffect(() => {
+    const fetchData = async () => {
+      try {
+        if (searchQweryTitle.length >= 1) {
+          const response = await getNoticeByCategoryAndTitle({
+            category: route,
+            title: searchQweryTitle,
+          });
 
-    if (searchQweryTitle.length >= 2) {
-      // if (isAuth && route === 'favorite') {
+          setSearchNotices(response);
+        }
 
-      //dispatch(getFavoriteNotices({ userId: currentUser }));
-      // }
-      dispatch(
-        fetchNoticesByCategoryAndTitle({
-          category: route,
-          title: searchQweryTitle,
-        })
-      );
-    }
+        if (
+          (isAuth && currentUser !== null) ||
+          (isAuth && currentUser !== null && searchQweryTitle.length === 0)
+        ) {
+          dispatch(fetchAllNotices({ category: route }));
+          dispatch(changeFavoritesNotices({ userId: currentUser }));
+        } else {
+          dispatch(fetchAllNotices({ category: route }));
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    };
 
-    if (isAuth && currentUser !== null) {
-      dispatch(fetchAllNotices({ category: route }));
-      dispatch(changeFavoritesNotices({ userId: currentUser }));
-    } else {
-      dispatch(fetchAllNotices({ category: route }));
-    }
+    fetchData();
 
     return () => dispatch(clearNotices([]));
   }, [dispatch, route, searchQweryTitle, isAuth, currentUser]);
@@ -168,7 +175,9 @@ const token = useSelector(selectToken);
         <NoticesCategoriesList data={ownerNotices} route={route} />
       ) : route === 'favorite' && noticeFavorite?.length > 0 ? (
         <NoticesCategoriesList data={noticeFavorite} route={route} />
-      ) : notices?.length > 0 ? (
+      ) : searchQweryTitle.length >= 1 && searchNotices?.length > 0 ? (
+        <NoticesCategoriesList data={searchNotices} route={route} />
+      ) : searchQweryTitle.length === 0 && notices?.length > 0 ? (
         <NoticesCategoriesList data={notices} route={route} />
       ) : (
         <p

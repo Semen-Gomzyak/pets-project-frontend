@@ -40,4 +40,9 @@ export const NaviLink = styled(NavLink)`
     font-weight: 700;
     text-decoration-line: underline;
   }
+
+  @media ${p => p.theme.device.desktop} {
+    font-size: 20px;
+    line-height: 1.36;
+  }
 `;
