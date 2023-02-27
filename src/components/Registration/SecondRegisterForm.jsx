@@ -106,33 +106,6 @@ export const SecondRegisterForm = ({ firstData, data, onClick }) => {
               />
             </InputDiv>
 
-/*
-            <Error name="name" component="div" />
-            <Input
-              type="text"
-              name="name"
-              placeholder="Name"
-              value={props.values.name}
-              onChange={props.handleChange}
-            />
-            <Error name="cityRegion" component="div" />
-            <Input
-              type="text"
-              name="cityRegion"
-              placeholder="City, region"
-              value={props.values.cityRegion}
-              onChange={props.handleChange}
-            />
-            <Error name="mobilePhone" component="div" />
-            <Input
-              type="text"
-              name="mobilePhone"
-              placeholder="Mobile phone"
-              value={props.values.mobilePhone}
-              onChange={props.handleChange}
-            />
-            */
-
           </InputsList>
           <ButtonContainer>
             <Button type="submit" style = {{marginBottom:'16px'}}>Register</Button>
