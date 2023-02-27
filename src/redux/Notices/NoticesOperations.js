@@ -67,19 +67,14 @@ export const fetchOneNotice = createAsyncThunk(
 export const addNotice = createAsyncThunk(
   'notices/addNotice',
 
-  async ( data, { rejectWithValue }) => {
+  async (data, { rejectWithValue }) => {
     try {
-      const response = await axios.post(
-        '/notices/',
-        data.newNotice,
-        {
-          headers: {
-            Authorization: `Bearer ${data.token}`,
-            'Content-Type': 'multipart/form-data',
-          },
-        }
-      );
-
+      const response = await axios.post('/notices/', data.newNotice, {
+        headers: {
+          Authorization: `Bearer ${data.token}`,
+          'Content-Type': 'multipart/form-data',
+        },
+      });
 
       return response.data;
     } catch (error) {
@@ -89,7 +84,7 @@ export const addNotice = createAsyncThunk(
       toast.error('something went wrong in  addContact, please, try again');
       return rejectWithValue(error.message);
     }
-    }
+  }
 );
 
 // DELETE @ /notices/:id
