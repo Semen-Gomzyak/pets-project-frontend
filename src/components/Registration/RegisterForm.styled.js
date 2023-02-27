@@ -92,10 +92,8 @@ export const InfoForm = styled(Form)`
   }
 `;
 
-
-
-
 export const InputsList = styled.ul`
+  position: relative;
   list-style: none;
   padding: 0;
   margin-bottom: 40px;
@@ -243,5 +241,35 @@ export const Error = styled(ErrorMessage)`
 `;
 
 export const ButtonContainer = styled.div`
-display: block;
+  display: block;
+`;
+
+export const ShowPass = styled.span`
+  display: inline-block;
+  position: absolute;
+  width: 25px;
+  height: 25px;
+  right: 15px;
+  top: 40%;
+  color: grey;
+  cursor: pointer;
+  svg {
+    width: inherit;
+    height: inherit;
+  }
+`;
+
+export const ShowConfirmPass = styled.span`
+  display: inline-block;
+  position: absolute;
+  width: 25px;
+  height: 25px;
+  right: 15px;
+  top: 73%;
+  color: grey;
+  cursor: pointer;
+  svg {
+    width: inherit;
+    height: inherit;
+  }
 `;

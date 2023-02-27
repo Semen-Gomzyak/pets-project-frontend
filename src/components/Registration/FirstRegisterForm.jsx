@@ -10,15 +10,27 @@ import {
   RegisterTitle,
   Text,
   ButtonContainer,
+  ShowPass,
+  ShowConfirmPass,
 } from './RegisterForm.styled';
 
-import React from 'react';
+import React, { useState } from 'react';
+import { FiEye, FiEyeOff } from 'react-icons/fi';
 
 export const FirstRegisterForm = ({ data, onSubmit, onClick }) => {
   const initialValues = {
     email: data.email || '',
     password: data.password || '',
     confirmPassword: data.confirmPassword || '',
+  };
+
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const showPass = () => {
+    setShowPassword(prevShowPassword => !prevShowPassword);
+  };
+  const showConfirmPass = () => {
+    setShowConfirmPassword(prevShowConfirmPassword => !prevShowConfirmPassword);
   };
 
   const handleSubmit = values => {
@@ -46,20 +58,26 @@ export const FirstRegisterForm = ({ data, onSubmit, onClick }) => {
             />
             <Error name="password" component="div" />
             <Input
-              type="password"
+              type={showPassword ? 'text' : 'password'}
               name="password"
               placeholder="Password"
               value={props.values.password}
               onChange={props.handleChange}
             />
+            <ShowPass onClick={showPass}>
+              {showPassword ? <FiEyeOff /> : <FiEye />}
+            </ShowPass>
             <Error name="confirmPassword" component="div" />
             <Input
-              type="password"
+              type={showConfirmPassword ? 'text' : 'password'}
               name="confirmPassword"
               placeholder="Confirm Password"
               value={props.values.confirmPassword}
               onChange={props.handleChange}
             />
+            <ShowConfirmPass onClick={showConfirmPass}>
+              {showConfirmPassword ? <FiEyeOff /> : <FiEye />}
+            </ShowConfirmPass>
           </InputsList>
           <ButtonContainer>
             <Button type="submit" disabled={!onClick ? false : true}>
