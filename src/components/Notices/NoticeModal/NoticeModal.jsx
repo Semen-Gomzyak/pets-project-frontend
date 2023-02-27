@@ -82,11 +82,9 @@ export const NoticeModal = ({
   const dispatch = useDispatch();
   const isAuth = useSelector(getIsLoggedIn);
   const [fav, setFav] = useState(favorite);
-  console.log('favorite', favorite);
 
   const favorites = useSelector(selectFavoriteNotices);
   const notice = useSelector(selectOneNotice);
-  console.log('favorites', favorites);
 
   useEffect(() => {
     dispatch(fetchOneNotice({ noticeId: id }));
