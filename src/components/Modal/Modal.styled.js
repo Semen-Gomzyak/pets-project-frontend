@@ -3,6 +3,7 @@ import { MdClose } from 'react-icons/md';
 
 export const Backdrop = styled.div`
   position: fixed;
+  padding-top: 70px;
   top: 0;
   left: 0;
   width: 100vw;
@@ -20,6 +21,8 @@ export const ModalContainer = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  // overflow: auto;
+  z-index: 9999;
 
   width: fit-content;
   height: fit-content;
