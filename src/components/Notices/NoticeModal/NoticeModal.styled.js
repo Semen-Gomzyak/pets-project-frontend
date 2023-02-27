@@ -22,6 +22,7 @@ export const PictureData = styled.div`
   background-repeat: no-repeat;
   background-size: contain;
   border-radius: 0px 0px 40px 40px;
+
   @media ${p => p.theme.device.tablet} {
     width: 288px;
     height: 328px;

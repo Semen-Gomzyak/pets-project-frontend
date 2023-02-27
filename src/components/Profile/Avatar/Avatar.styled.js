@@ -28,13 +28,17 @@ export const UserAvatar = styled.div`
 
   width: 233px;
   height: 233px;
-  object-fit: contain;
+  border-radius: 50%;
+  /* object-fit: contain; */
   overflow: hidden;
+
   > img {
-    width: auto;
+    /* width: auto;
+    height: 100%; */
+    object-fit: cover;
+    width: 100%;
     height: 100%;
   }
-  border-radius: 50%;
 `;
 
 export const Plug = styled.div`

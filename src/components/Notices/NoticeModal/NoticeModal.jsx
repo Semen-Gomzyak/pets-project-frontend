@@ -1,10 +1,13 @@
 import { useDispatch, useSelector } from 'react-redux';
+
 import { useEffect } from 'react';
+
 import { selectOneNotice } from 'redux/Notices/NoticesSelector';
 import {
   getIsLoggedIn,
   selectFavoriteNotices,
 } from '../../../redux/Auth/selectors';
+
 import { toast } from 'react-toastify';
 import defaultImage from '../../../images/userAndPets/Rectangle 58.png';
 
@@ -27,7 +30,6 @@ import {
 import { renameAgeDate } from 'helpers/renameAge';
 
 import { fetchOneNotice } from 'redux/Notices/NoticesOperations';
-
 export const NoticeModal = ({
   id,
   data,
@@ -50,6 +52,7 @@ export const NoticeModal = ({
     if (!isAuth) {
       return toast.error(`You must be authorized to use this functionality!.`);
     }
+
     if (favorite) {
       return toast.warn('Notice already added to favorite');
     }

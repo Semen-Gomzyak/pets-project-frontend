@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import Notiflix from 'notiflix';
 
 axios.defaults.baseURL = 'https://pets-project-backend.onrender.com/api';
 
@@ -35,12 +36,15 @@ export const login = createAsyncThunk(
   async (credentials, thunkAPI) => {
     try {
       const response = await axios.post('/users/login', credentials);
-      await setAuthHeader(response.data.token);
+      setAuthHeader(response.data.token);
+      const user = await axios.get('/users/current');
+      console.log(user);
 
       return {
         _id: response.data._id,
         token: response.data.token,
         status: response.status,
+        user: user.data,
       };
     } catch (error) {
       console.log(error.message);
@@ -64,7 +68,6 @@ export const refreshUser = createAsyncThunk(
   async (_, thunkAPI) => {
     const state = thunkAPI.getState();
     const persistedToken = state.auth.token;
-    // const persistedId = state.auth.id;
 
     if (persistedToken === null) {
       return thunkAPI.rejectWithValue('Unable to fetch user');
@@ -72,9 +75,29 @@ export const refreshUser = createAsyncThunk(
 
     try {
       setAuthHeader(persistedToken);
-      const res = await axios.get('/users/current');
-      console.log(res);
-      return res.data;
+      const user = await axios.get('/users/current');
+      return {
+        user: user.data,
+        token: persistedToken,
+        isLoggedIn: true,
+        _id: user.data.id,
+      };
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
+
+export const updUser = createAsyncThunk(
+  'auth/update',
+  async (data, thunkAPI) => {
+    try {
+      const key = Object.keys(data)[0];
+      const response = await axios.put('/users/update', data);
+      Notiflix.Notify.success('Updated successfuly');
+      return {
+        [key]: response.data[key],
+      };
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
     }
@@ -84,7 +107,6 @@ export const refreshUser = createAsyncThunk(
 // додавання та видалення оголошення з обраних
 export const updateFavoriteNotice = createAsyncThunk(
   'notices/updateFavoriteNotice',
-
   async ({ userId, noticeId }, { rejectWithValue }) => {
     try {
       const response = await axios.patch(

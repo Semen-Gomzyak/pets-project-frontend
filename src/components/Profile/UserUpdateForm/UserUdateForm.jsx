@@ -44,22 +44,11 @@ export const UserUpdateForm = ({ data, updateData }) => {
     const key = document.activeElement.name;
     document.querySelector(`#${key}`).focus();
 
-    // if (userData[key] === data[key]) return;
+    if (userData[key] === data[key]) return;
 
     UpdateUserFormSchema.validate({ [key]: userData[key] })
       .then(value => {
-        // let payload = {};
-        // if (Object.keys(value)[0] === 'city') {
-        //   payload.cityRegion = Object.values(value)[0];
-        // } else if (Object.keys(value)[0] === 'phone') {
-        //   payload.mobilePhone = Object.values(value)[0];
-        // } else {
-        //   payload = { ...value };
-        // }
-
-        // updateData(payload, token);
         updateData(value);
-        Notiflix.Notify.success('Updated successfuly');
       })
       .catch(error => Notiflix.Notify.failure(error.message));
   };
@@ -83,7 +72,11 @@ export const UserUpdateForm = ({ data, updateData }) => {
           <BtnContainer>
             <Button type="submit" name={dataName}></Button>
             <BtnIcon>
-              {document.activeElement.name === dataName ? (
+              {document.activeElement.name === dataName &&
+              document.activeElement.value === data[dataName] ? (
+                <Pen color={theme.colors.accent} />
+              ) : document.activeElement.name === dataName &&
+                document.activeElement.value !== data[dataName] ? (
                 <Check color={theme.colors.accent} />
               ) : (
                 <Pen color={penColor} />
