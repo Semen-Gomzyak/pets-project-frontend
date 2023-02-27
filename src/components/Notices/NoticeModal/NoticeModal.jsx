@@ -55,13 +55,6 @@ export const NoticeModal = ({
       return toast.warn('Notice already added to favorite');
     }
     onClickFavorite();
-    // if (fav) {
-    //   setFav(true);
-    //   console.log('setfav', fav);
-    // } else {
-    //   setFav(false);
-    //   console.log('setfav', fav);
-    // }
   };
 
   return (
@@ -133,7 +126,6 @@ export const NoticeModal = ({
           <MyBtn
             onClick={handleClickAddFavorite}
             className={fav === true ? 'active' : ' '}
-            // textBtn={fav === true ? 'Remove to' : 'Add to'}
           >
             {!fav ? (
               <span>

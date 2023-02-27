@@ -80,6 +80,10 @@ export const MyLi = styled.li`
   }
   & span {
     font-size: inherit;
+    :focus,
+    :hover {
+      color: ${p => p.theme.colors.accent};
+    }
     @media ${p => p.theme.device.tablet} {
       font-weight: ${p => p.theme.fontWeights.heading};
     }
