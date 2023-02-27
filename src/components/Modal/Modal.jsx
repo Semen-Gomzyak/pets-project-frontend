@@ -1,8 +1,7 @@
 import { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { createPortal } from 'react-dom';
-import { Backdrop, ModalContainer, CloseBtn } from './Modal.styled';
-import { MdClose } from 'react-icons/md';
+import { Backdrop, ModalContainer, CloseBtn, MdCloseBtn } from './Modal.styled';
 
 export const Modal = ({ closeModal, children }) => {
   useEffect(() => {
@@ -31,7 +30,7 @@ export const Modal = ({ closeModal, children }) => {
       <ModalContainer>
         <>
           <CloseBtn type="button" onClick={closeModal}>
-            <MdClose size={25} color="#111111" />
+            <MdCloseBtn size={25} />
           </CloseBtn>
           {children}
         </>

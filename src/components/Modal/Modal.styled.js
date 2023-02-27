@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-// import theme from 'services/theme'
+import { MdClose } from 'react-icons/md';
 
 export const Backdrop = styled.div`
   position: fixed;
@@ -55,8 +55,17 @@ export const CloseBtn = styled.button`
   justify-content: center;
   align-items: center;
   margin-left: auto;
-
-  :hover {
+  :hover,
+  :focus {
+    background-color: ${p => p.theme.colors.accent};
     cursor: pointer;
+  }
+`;
+
+export const MdCloseBtn = styled(MdClose)`
+  color: ${p => p.theme.colors.black};
+  :hover,
+  :focus {
+    color: ${p => p.theme.colors.background};
   }
 `;

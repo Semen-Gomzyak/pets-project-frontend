@@ -6,6 +6,7 @@ import { NewsList } from '../../components/NewsList/NewsList';
 import ContainerPage from '../../components/Container/ContainerPage';
 import { SectionTitle } from '../../components/SectionTitle/SectionTitle';
 import { SearchInput } from '../../components/SearchInput/SearchInput';
+import { WrapNews } from './NewsPage.styled';
 
 export const NewsPage = () => {
   const [news, setNews] = useState([]);
@@ -55,21 +56,22 @@ export const NewsPage = () => {
   return (
     <>
       <ContainerPage>
-        <SectionTitle text="News" />
-        {isLoading ? (
-          <Loader />
-        ) : (
-          <>
-            <SearchInput functionSearch={searchNews} />
-            <NewsList news={news} />
-          </>
-        )}
-
-        {news.length === 0 && !isLoading && (
-          <div style={{ textAlign: 'center' }}>
-            No news were found for your request. Enter the search query again.
-          </div>
-        )}
+        <WrapNews>
+          <SectionTitle text="News" />
+          {isLoading ? (
+            <Loader />
+          ) : (
+            <>
+              <SearchInput functionSearch={searchNews} />
+              <NewsList news={news} />
+            </>
+          )}
+          {news.length === 0 && !isLoading && (
+            <div style={{ textAlign: 'center' }}>
+              No news were found for your request. Enter the search query again.
+            </div>
+          )}
+        </WrapNews>
       </ContainerPage>
     </>
   );
