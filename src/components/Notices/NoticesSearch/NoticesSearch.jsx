@@ -6,13 +6,14 @@ import {
   // ButtonContainer,
   Input,
   Label,
+  IconSearch,
   // SearchButton,
 } from './NoticesSearch.styled';
 
 export const NoticesSearch = ({ onSearch, ...allProps }) => {
   return (
     <Label>
-      <Input onChange={onSearch} {...allProps} />
+      <Input onChange={onSearch} {...allProps} /> <IconSearch />
     </Label>
   );
 };

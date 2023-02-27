@@ -59,6 +59,26 @@ export const NoticeModal = ({ data, favorite, onClickFavorite }) => {
 
   // --------   add email and phone to notice ---------------------
 
+import { fetchOneNotice } from 'redux/Notices/NoticesOperations';
+
+export const NoticeModal = ({
+  id,
+  data,
+  category,
+  favorite,
+  onClickFavorite,
+}) => {
+  const dispatch = useDispatch();
+  const isAuth = useSelector(getIsLoggedIn);
+  const [fav, setFav] = useState(favorite);
+
+  const favorites = useSelector(selectFavoriteNotices);
+  const notice = useSelector(selectOneNotice);
+
+  useEffect(() => {
+    dispatch(fetchOneNotice({ noticeId: id }));
+  }, [id, dispatch]);
+
   const handleClickAddFavorite = () => {
     // if (!isAuth) {
     //   return toast.error(`You must be authorized to use this functionality!.`);
