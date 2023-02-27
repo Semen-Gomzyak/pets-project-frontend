@@ -73,6 +73,9 @@ const noticesSlice = createSlice({
     changeFavoritesNotices(state, { payload }) {
       state.notices = state.notices.filter(notice => notice._id !== payload);
     },
+    clearOneNotice(state, { payload }) {
+      state.oneNotice = payload;
+    },
     // getAllNoticesForOwner(state, { payload }) {
     // console.log('getOwnerNotice state', state.notices);
     // console.log('getOwnerNotice payload', payload.userId);
@@ -86,4 +89,5 @@ const noticesSlice = createSlice({
 // Редюсер слайса
 const noticesReducer = noticesSlice.reducer;
 export default noticesReducer;
-export const { clearNotices, changeFavoritesNotices } = noticesSlice.actions;
+export const { clearNotices, changeFavoritesNotices, clearOneNotice } =
+  noticesSlice.actions;
