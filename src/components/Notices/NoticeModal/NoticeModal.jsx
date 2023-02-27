@@ -30,13 +30,10 @@ export const NoticeModal = ({ id, data, favorite, onClickFavorite }) => {
   //const favorites = useSelector(selectFavoriteNotices);
   const notice = useSelector(selectOneNotice);
 
-  console.log('selectOneNotice start', notice);
-  console.log('notice. ID', id);
   useEffect(() => {
     dispatch(fetchOneNotice({ noticeId: id }));
   }, [id, dispatch]);
 
-  console.log('selectOneNotice finish', notice);
 
   const handleClickAddFavorite = () => {
     if (!isAuth) {
