@@ -9,7 +9,7 @@ import {
 } from '../../../redux/Auth/selectors';
 
 import { toast } from 'react-toastify';
-import defaultImage from '../../../images/userAndPets/Rectangle 58.png';
+// import defaultImage from '../../../images/userAndPets/Rectangle 58.png';
 
 import {
   Category,
@@ -30,6 +30,8 @@ import {
 import { renameAgeDate } from 'helpers/renameAge';
 
 import { fetchOneNotice } from 'redux/Notices/NoticesOperations';
+import { clearOneNotice } from 'redux/Notices/NoticesSlice';
+
 export const NoticeModal = ({
   id,
   data,
@@ -46,6 +48,7 @@ export const NoticeModal = ({
 
   useEffect(() => {
     dispatch(fetchOneNotice({ noticeId: id }));
+    dispatch(clearOneNotice({}));
   }, [id, dispatch]);
 
   const handleClickAddFavorite = () => {
@@ -53,9 +56,6 @@ export const NoticeModal = ({
       return toast.error(`You must be authorized to use this functionality!.`);
     }
 
-    if (favorite) {
-      return toast.warn('Notice already added to favorite');
-    }
     onClickFavorite();
   };
 
@@ -65,7 +65,7 @@ export const NoticeModal = ({
         <ImageContainer>
           <PictureData>
             <Img
-              src={notice.avatarURL ? notice.avatarURL : defaultImage}
+              src={notice.avatarURL ? notice.avatarURL : '#'}
               alt={notice.title}
             ></Img>
             <Category>{category}</Category>
