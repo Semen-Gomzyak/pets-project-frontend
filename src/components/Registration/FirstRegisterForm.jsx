@@ -21,24 +21,14 @@ export const FirstRegisterForm = ({ data, onSubmit, onClick }) => {
     confirmPassword: data.confirmPassword || '',
   };
 
-  const saveFormValuesToLocalStorage = values => {
-    localStorage.setItem('register1FormValues', JSON.stringify(values));
-  };
-
-  const getFormValuesFromLocalStorage = () => {
-    const savedValues = localStorage.getItem('register1FormValues');
-    return savedValues ? JSON.parse(savedValues) : initialValues;
-  };
-
   const handleSubmit = values => {
-    saveFormValuesToLocalStorage(values);
     console.log(values);
     onSubmit(values);
   };
 
   return (
     <Formik
-      initialValues={getFormValuesFromLocalStorage()}
+      initialValues={initialValues}
       validationSchema={RegisterFormSchema}
       onSubmit={handleSubmit}
     >
