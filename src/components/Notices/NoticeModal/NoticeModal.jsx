@@ -120,6 +120,8 @@ export const NoticeModal = ({ data, favorite, onClickFavorite }) => {
                   <span>{notice.phone}</span>
                 </MyLi>
 
+
+/*
                 {notice.category === 'sell' && (
                   <MyLi>
                     <p>Sell:</p>
@@ -143,6 +145,34 @@ export const NoticeModal = ({ data, favorite, onClickFavorite }) => {
                 <MyBtn active={'active'}>Contact</MyBtn>
               </a>
             }
+*/
+
+          <MyBtn
+            onClick={handleClickAddFavorite}
+            className={fav === true ? 'active' : ' '}
+            textBtn={fav === true ? 'Remove to' : 'Add to'}
+          >
+            {!favorite ? (
+              <span>
+                Add to
+                <FavoriteIconFalse size={16} />{' '}
+              </span>
+            ) : (
+              <span>
+                Remove to
+                <FavoriteIconTrue size={16} />{' '}
+              </span>
+            )}
+          </MyBtn>
+        </BtnContainer>
+      </Box>
+    </>
+
+  );
+};
+
+
+/* 
 
             <MyBtn
               onClick={handleClickAddFavorite}
@@ -167,5 +197,6 @@ export const NoticeModal = ({ data, favorite, onClickFavorite }) => {
         <Loader />
       )}
     </Content>
-  );
-};
+
+    */
+
