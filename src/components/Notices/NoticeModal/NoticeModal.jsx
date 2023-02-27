@@ -60,9 +60,9 @@ export const NoticeModal = ({ data, favorite, onClickFavorite }) => {
   // --------   add email and phone to notice ---------------------
 
   const handleClickAddFavorite = () => {
-    if (!isAuth) {
-      return toast.error(`You must be authorized to use this functionality!.`);
-    }
+    // if (!isAuth) {
+    //   return toast.error(`You must be authorized to use this functionality!.`);
+    // }
     if (favorite) {
       return toast.warn('Notice already added to favorite');
     }
