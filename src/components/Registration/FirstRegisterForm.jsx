@@ -35,7 +35,6 @@ export const FirstRegisterForm = ({ data, onSubmit, onClick }) => {
   };
 
   const handleSubmit = values => {
-    console.log(values);
     onSubmit(values);
   };
 
