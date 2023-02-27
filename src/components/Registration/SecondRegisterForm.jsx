@@ -97,8 +97,8 @@ export const SecondRegisterForm = ({ data, onClick }) => {
             />
           </InputsList>
           <ButtonContainer>
-            <Button type="submit">Register</Button>
-            <Button type="button" onClick={() => onClick()}>
+            <Button type="submit" style = {{marginBottom:'16px'}}>Register</Button>
+            <Button type="button"  style = {{color:'#111111',borderColor:'#F59256',backgroundColor:'#FFFFFF'}} onClick={() => onClick()}>
               Back
             </Button>
           </ButtonContainer>
