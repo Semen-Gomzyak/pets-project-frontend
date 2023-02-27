@@ -59,6 +59,8 @@ export const Profile = () => {
   const [userPets, setUserPets] = useState([]);
 
   const [showModal, setShowModal] = useState(false);
+
+  
   const toggleModal = () => {
     setShowModal(prevState => !prevState);
     document.body.classList.toggle('is-modal-open');

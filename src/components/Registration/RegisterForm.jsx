@@ -27,7 +27,6 @@ export const RegisterForm = () => {
   return (
     <>
       <RegisterSection>
-        {/* <ContainerPage> */}
         {!showNext ? (
           <FirstRegisterForm data={firstData} onSubmit={onSubmit} />
         ) : (
@@ -37,29 +36,12 @@ export const RegisterForm = () => {
             back={handleBack}
           />
         )}
-        {/* </ContainerPage> */}
       </RegisterSection>
     </>
   );
 };
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // =================================
-
 
 // import { useState } from 'react';
 // import { FirstRegisterForm } from './FirstRegisterForm';
