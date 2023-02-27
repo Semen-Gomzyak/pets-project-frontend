@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import Notiflix from 'notiflix';
 
 axios.defaults.baseURL = 'https://pets-project-backend.onrender.com/api';
 
@@ -93,6 +94,7 @@ export const updUser = createAsyncThunk(
     try {
       const key = Object.keys(data)[0];
       const response = await axios.put('/users/update', data);
+      Notiflix.Notify.success('Updated successfuly');
       return {
         [key]: response.data[key],
       };

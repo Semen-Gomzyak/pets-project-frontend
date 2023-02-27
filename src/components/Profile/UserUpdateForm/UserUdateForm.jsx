@@ -49,7 +49,6 @@ export const UserUpdateForm = ({ data, updateData }) => {
     UpdateUserFormSchema.validate({ [key]: userData[key] })
       .then(value => {
         updateData(value);
-        Notiflix.Notify.success('Updated successfuly');
       })
       .catch(error => Notiflix.Notify.failure(error.message));
   };
@@ -73,7 +72,11 @@ export const UserUpdateForm = ({ data, updateData }) => {
           <BtnContainer>
             <Button type="submit" name={dataName}></Button>
             <BtnIcon>
-              {document.activeElement.name === dataName ? (
+              {document.activeElement.name === dataName &&
+              document.activeElement.value === data[dataName] ? (
+                <Pen color={theme.colors.accent} />
+              ) : document.activeElement.name === dataName &&
+                document.activeElement.value !== data[dataName] ? (
                 <Check color={theme.colors.accent} />
               ) : (
                 <Pen color={penColor} />
