@@ -7,6 +7,14 @@ export const ButtonMob = styled.button`
   background-color: ${p => p.theme.colors.accent};
   /* position: relative; */
 
+  position: fixed;
+  top: 420px;
+  right: calc(100vw / 2 - 140px);
+  z-index: 222;
+  svg {
+    fill: ${p => p.theme.colors.white};
+  }
+
   border-radius: 50%;
   padding: 0;
   display: flex;
