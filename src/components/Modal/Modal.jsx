@@ -28,12 +28,9 @@ export const Modal = ({ closeModal, children }) => {
   };
 
   return createPortal(
-    <Backdrop
-      onClick={onBackdropClick}
-      id="backdrop"
-      className="modal-backdrop"
-    >
-      <ModalContainer className="modal">
+    <Backdrop onClick={onBackdropClick} id="backdrop">
+      <ModalContainer className="is-open">
+
         <>
           <CloseBtn type="button" onClick={closeModal}>
             <MdCloseBtn size={25} />

@@ -21,7 +21,7 @@ export const UpdateUserFormSchema = Yup.object().shape({
     'Birthday must be in format DD.MM.YYYY'
   ),
 
-  phone: Yup.string().matches(
+  mobilePhone: Yup.string().matches(
     /^\+380\d{9}$/,
     'Enter your mobile number in the format "+380*********"'
   ),

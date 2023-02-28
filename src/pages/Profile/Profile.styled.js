@@ -110,11 +110,17 @@ export const UserData = styled.div`
   }
 `;
 
-export const LogOutContainer = styled.div`
+export const LogOutContainer = styled.button`
   display: flex;
   align-items: center;
   justify-content: right;
   margin-left: auto;
+
+  background: none;
+
+  :hover {
+    cursor: pointer;
+  }
 
   @media screen and (min-width: 768px) {
     position: absolute;
@@ -148,15 +154,11 @@ export const LogOutText = styled.span`
   }
 `;
 
-export const LogOutButton = styled.button`
+export const LogOutButton = styled.div`
   background: none;
   display: inline-flex;
   justify-content: center;
   align-items: center;
-
-  :hover {
-    cursor: pointer;
-  }
 `;
 
 // ------------------------ PETS ------------------------

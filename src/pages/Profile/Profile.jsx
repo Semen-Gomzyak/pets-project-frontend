@@ -41,6 +41,17 @@ import { PetList } from 'components/Profile/PetList/PetList';
 import { theme } from 'services/theme';
 import { Loader } from 'components/Loader/Loader';
 
+// const dateToString = date => {
+//   const dateOptions = { day: 'numeric', month: 'numeric', year: 'numeric' };
+//   const dateString = new Date(date).toLocaleDateString('en-GB', dateOptions);
+//   return dateString.replaceAll('/', '.');
+// };
+
+const convertDate = date => {
+  const [day, month, year] = date.split('.');
+  return year + '-' + month + '-' + day;
+};
+
 export const Profile = () => {
   const token = useSelector(selectToken);
   const user = useSelector(getUser);
@@ -70,7 +81,10 @@ export const Profile = () => {
     //   if (response.data.pets) {
     //     setUserPets(response.data.pets);
     //   }
-    setUserData(user);
+    let date = '';
+    if (user.birthday) date = convertDate(user.birthday);
+
+    setUserData({ ...user, birthday: date });
     if (user.pets) setUserPets(user.pets);
     setIsDataReady(true);
     // });
@@ -136,8 +150,8 @@ export const Profile = () => {
                 )}
               </UserData>
 
-              <LogOutContainer>
-                <LogOutButton type="button" onClick={toggleConfirm}>
+              <LogOutContainer type="button" onClick={toggleConfirm}>
+                <LogOutButton>
                   <HiOutlineLogout size={25} color={theme.colors.accent} />
                 </LogOutButton>
                 <LogOutText>Log Out</LogOutText>

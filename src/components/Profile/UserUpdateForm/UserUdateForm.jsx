@@ -17,9 +17,15 @@ import Notiflix from 'notiflix';
 import PropTypes from 'prop-types';
 import { theme } from 'services/theme';
 
+const convertDate = date => {
+  const [year, month, day] = date.split('-');
+  return day + '.' + month + '.' + year;
+};
+
 export const UserUpdateForm = ({ data, updateData }) => {
   const inputNames = ['name', 'email', 'birthday', 'phone', 'city'];
   const dataNames = ['name', 'email', 'birthday', 'mobilePhone', 'cityRegion'];
+  const inputType = ['text', 'text', 'date', 'text', 'text'];
 
   const [userData, setUserData] = useState(data);
   const [penColor, setPenColor] = useState(theme.colors.accent);
@@ -46,6 +52,17 @@ export const UserUpdateForm = ({ data, updateData }) => {
 
     if (userData[key] === data[key]) return;
 
+    let date = '';
+    if (key === 'birthday') {
+      date = convertDate(userData[key]);
+      UpdateUserFormSchema.validate({ [key]: date })
+        .then(value => {
+          updateData(value);
+        })
+        .catch(error => Notiflix.Notify.failure(error.message));
+      return;
+    }
+
     UpdateUserFormSchema.validate({ [key]: userData[key] })
       .then(value => {
         updateData(value);
@@ -62,13 +79,15 @@ export const UserUpdateForm = ({ data, updateData }) => {
               inputNames[index].slice(1) +
               ': '}
           </Label>
-          <Input
-            type="text"
-            name={dataName}
-            id={dataName}
-            value={userData[dataName]}
-            onChange={onInputChange}
-          />
+          <div style={{ position: 'relative', cursor: 'pointer' }}>
+            <Input
+              type={inputType[index]}
+              name={dataName}
+              id={dataName}
+              value={userData[dataName]}
+              onChange={onInputChange}
+            />
+          </div>
           <BtnContainer>
             <Button type="submit" name={dataName}></Button>
             <BtnIcon>
