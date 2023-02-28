@@ -13,7 +13,6 @@ export const SharedLayout = () => {
       <Suspense
         fallback={
           <div>
-            
             <Loader />
           </div>
         }

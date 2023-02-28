@@ -42,9 +42,6 @@ const authSlise = createSlice({
     builder
       .addCase(register.fulfilled, (state, action) => {
         state.user = action.payload;
-        // state._id = action.payload._id;
-        // state.token = action.payload.token;
-        // state.isLoggedIn = true;
       })
       .addCase(login.fulfilled, (state, action) => {
         state.user = action.payload.user;

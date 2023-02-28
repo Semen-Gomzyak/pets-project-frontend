@@ -4,7 +4,6 @@ import { Modal } from 'components/Modal/Modal';
 export const WarningMessage = ({
   onClose,
   text,
-  //title,
   type,
   approveFunk,
   id,

@@ -57,7 +57,6 @@ export const NoticeCategoryItem = ({ data, route }) => {
     useState(false);
 
   const currentUser = useSelector(getUserById);
-  console.log(currentUser);
   const favorites = useSelector(selectFavoriteNotices);
 
   function isIdInData(data) {
@@ -66,7 +65,6 @@ export const NoticeCategoryItem = ({ data, route }) => {
 
   const isGetFavorites = isIdInData(favorites);
 
-  // console.log('favorites,', favorites);
   const isFavorite =
     (favorites !== undefined && favorites.includes(_id)) || isGetFavorites;
   const toggleModal = () => {
@@ -173,7 +171,6 @@ export const NoticeCategoryItem = ({ data, route }) => {
           </LiInfo>
           <LiInfo key={`${_id}+age`}>
             <Lable>Age:</Lable>
-            {/* <Text>{birthdate ? renameAgeDate(birthdate) : ' '}</Text> */}
             <Text>{birthdate ? getAge(birthdate) : ' '}</Text>
           </LiInfo>
           {price ? (

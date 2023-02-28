@@ -38,7 +38,6 @@ export const login = createAsyncThunk(
       const response = await axios.post('/users/login', credentials);
       setAuthHeader(response.data.token);
       const user = await axios.get('/users/current');
-      console.log(user);
 
       return {
         _id: response.data._id,

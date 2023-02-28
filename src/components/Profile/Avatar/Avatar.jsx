@@ -68,6 +68,5 @@ export const Avatar = ({ avatarURL, changeAvatar, isLoading }) => {
 };
 
 Avatar.propTypes = {
-  //   avatarURL: PropTypes.string(),
   changeAvatar: PropTypes.func,
 };

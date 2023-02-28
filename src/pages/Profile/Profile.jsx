@@ -3,13 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getUser, selectToken } from 'redux/Auth/selectors';
 import { logout, updUser } from 'redux/Auth/operations';
 
-import {
-  deleteUserPet,
-  // getUserData,
-  // updateUserData,
-  uploadAvatar,
-  addNewPet,
-} from 'services/api/user';
+import { deleteUserPet, uploadAvatar, addNewPet } from 'services/api/user';
 
 import { useNavigate } from 'react-router';
 
@@ -41,12 +35,6 @@ import { PetList } from 'components/Profile/PetList/PetList';
 import { theme } from 'services/theme';
 import { Loader } from 'components/Loader/Loader';
 
-// const dateToString = date => {
-//   const dateOptions = { day: 'numeric', month: 'numeric', year: 'numeric' };
-//   const dateString = new Date(date).toLocaleDateString('en-GB', dateOptions);
-//   return dateString.replaceAll('/', '.');
-// };
-
 const convertDate = date => {
   const [day, month, year] = date.split('.');
   return year + '-' + month + '-' + day;
@@ -75,24 +63,15 @@ export const Profile = () => {
   };
 
   useEffect(() => {
-    // getUserData(token).then(response => {
-    //   setUserData(response.data);
-
-    //   if (response.data.pets) {
-    //     setUserPets(response.data.pets);
-    //   }
     let date = '';
     if (user.birthday) date = convertDate(user.birthday);
 
     setUserData({ ...user, birthday: date });
     if (user.pets) setUserPets(user.pets);
     setIsDataReady(true);
-    // });
-  }, [/*token,*/ user]);
+  }, [user]);
 
   const updateUser = async data => {
-    // const response = await updateUserData(data, token);
-
     dispatch(updUser(data));
 
     const key = Object.keys(data)[0];

@@ -22,7 +22,6 @@ export const updateUserData = async (data, token) => {
         Authorization: `Bearer ${token}`,
       },
     });
-    // console.log(response);
     return response.data;
   } catch (error) {
     console.log(error.message);
@@ -37,7 +36,6 @@ export const deleteUserPet = async (id, token) => {
         Authorization: `Bearer ${token}`,
       },
     });
-    // console.log(response);
     return response;
   } catch (error) {
     console.log(error.message);
@@ -57,7 +55,6 @@ export const uploadAvatar = async (file, token) => {
         },
       }
     );
-    // console.log(response);
     return response.data;
   } catch (error) {
     console.log(error.message);
@@ -73,7 +70,6 @@ export const addNewPet = async (newPet, token) => {
         'Content-Type': 'multipart/form-data',
       },
     });
-    // console.log(response);
     return response.data;
   } catch (error) {
     console.log(error.message);

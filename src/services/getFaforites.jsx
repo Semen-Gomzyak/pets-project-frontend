@@ -14,7 +14,6 @@ export const getFavoriteNoticesByUser = async userId => {
 export const getAllNoticesForOwners = async () => {
   try {
     const response = await axios.get(`/notices`);
-    // console.log('getAllNoticesForOwner', response.data);
     return response.data;
   } catch (error) {
     console.log(error.message);

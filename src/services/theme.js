@@ -5,7 +5,6 @@ export const theme = {
     white: '#FFFFFF',
     accent: '#F59256',
     buttonAccent: '#FF6101',
-    // background: '#FDF7F2',
     blue: '#3091EB',
     gradient: 'linear-gradient(90deg, #FF634E 0%, #FFDF48 105.44%)',
 

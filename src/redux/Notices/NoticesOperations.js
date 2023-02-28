@@ -14,7 +14,6 @@ export const fetchAllNotices = createAsyncThunk(
       const response = await axios.get(
         `/notices/category/${category}?page=${page}&limit=${limit}`
       );
-      // console.log('notices.data', response.data);
       // При успешном запросе возвращаем промис с данными
       return response.data;
     } catch (error) {
@@ -37,7 +36,6 @@ export const fetchNoticesByCategoryAndTitle = createAsyncThunk(
       const response = await axios.get(
         `/notices/category/${category}/${title}?page=${page}&limit=${limit}`
       );
-      console.log('dispatch notices.data', response.data.filteredNotices);
       // При успешном запросе возвращаем промис с данными
       return response.data.filteredNotices;
     } catch (error) {
@@ -93,7 +91,6 @@ export const removeNotice = createAsyncThunk(
   async (noticeId, thunkAPI) => {
     try {
       const response = await axios.delete(`/notices/${noticeId}`);
-      // console.log('resp removeNotice---->', response);
       return response;
     } catch (error) {
       toast.error('something went wrong in removeNotice, please, try again');
@@ -109,7 +106,6 @@ export const getAllNotices = createAsyncThunk(
   async (_, thunkAPI) => {
     try {
       const response = await axios.get(`/notices`);
-      console.log('getAllNotices notices.data', response.data);
       // При успешном запросе возвращаем промис с данными
       return response.data;
     } catch (error) {
