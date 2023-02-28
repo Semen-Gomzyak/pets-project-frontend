@@ -88,6 +88,7 @@ export const Input = styled.input`
   border: none;
   padding: 4px 18px;
 
+  cursor: pointer;
   :focus {
     background: #fdf7f2;
     outline: 1px solid rgba(245, 146, 86, 0.5);
@@ -104,6 +105,19 @@ export const Input = styled.input`
   }
   @media screen and (min-width: 768px) {
     width: 216px;
+  }
+
+  ::-webkit-calendar-picker-indicator {
+    background: transparent;
+    color: transparent;
+    cursor: pointer;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: auto;
+    height: auto;
   }
 `;
 

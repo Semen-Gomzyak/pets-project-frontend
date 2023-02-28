@@ -28,21 +28,28 @@ export const ModalContainer = styled.div`
   padding: 20px;
   border-radius: 20px;
   background-color: ${p => p.theme.colors.white};
+  transition: opacity 500ms cubic-bezier(0.4, 0, 0.2, 1);
+  /* transition-property: all; */
 
-  /* @media ${p => p.theme.device.mobile} {
-    width: calc(100vw - 40px);
-  }
-  @media screen and (min-width: 480px) {
-    width: 440px;
-  } */
   @media ${p => p.theme.device.tablet} {
-    /* width: 704px; */
     margin-top: 270;
     margin-bottom: 60px;
   }
   @media ${p => p.theme.device.desktop} {
     margin-top: 0;
     margin-bottom: 0;
+  }
+
+  animation-name: open;
+  animation-duration: 0.5s;
+  animation-timing-function: ease-out;
+  @keyframes open {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
   }
 `;
 
