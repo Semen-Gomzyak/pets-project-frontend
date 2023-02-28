@@ -6,6 +6,9 @@ import { NoticeModal } from 'components/Notices/NoticeModal/NoticeModal';
 import { FavoriteBtn } from 'components/ButtonFavorite/BtnFavorite';
 import { changeFavoritesNotices } from '../../../redux/Notices/NoticesSlice';
 import { selectFavoriteNotices } from '../../../redux/Auth/selectors';
+import {
+  fetchAllNotices,
+} from 'redux/Notices/NoticesOperations';
 
 import {
   getFavoriteNotices,
@@ -98,9 +101,9 @@ export const NoticeCategoryItem = ({ data, route }) => {
   const closeConfirmationDelete = () => {
     setIsShownConfirmationDelete(!isShownConfirmationDelete);
   };
-  const deleteNotice = () => {
-    dispatch(removeNotice(data._id));
-
+  const deleteNotice = async () => {
+   await dispatch(removeNotice(data._id));
+    dispatch(fetchAllNotices({ category: route }));
     toast.success('Notice is deleted.');
   };
 

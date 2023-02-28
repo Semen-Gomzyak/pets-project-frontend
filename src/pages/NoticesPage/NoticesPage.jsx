@@ -8,7 +8,6 @@ import {
 } from '../../redux/Notices/NoticesOperations';
 import {
   selectNotices,
-  selectError,
   selectNoticesIsLoading,
 } from '../../redux/Notices/NoticesSelector';
 
@@ -28,7 +27,6 @@ import { NoticesCategoryNav } from 'components/Notices/NoticesCategoriesNav/Noti
 import { SectionTitle } from 'components/SectionTitle/SectionTitle';
 import ContainerPage from 'components/Container/ContainerPage';
 import { NoticesCategoriesList } from 'components/Notices/NoticeCategoryList/NoticesCategoriesList';
-import { Loader } from 'components/Loader/Loader';
 import { Modal } from 'components/Modal/Modal';
 import { NoticeForm } from 'components/Notices/NoticeForm/NoticeForm';
 import { MenuWrap } from './NoticesPage.styled';
@@ -42,10 +40,8 @@ import { getNoticeByCategoryAndTitle } from 'services/api/notices';
 export const NoticesPage = () => {
   const { route } = useParams();
   let currentUser = useSelector(getUserById);
-  const [userData, setUserData] = useState({});
 
   const [showModal, setShowModal] = useState(false);
-  const [userNotices, setUserNotices] = useState([]);
   const toggleModal = () => {
     setShowModal(prevState => !prevState);
   };
@@ -55,12 +51,10 @@ export const NoticesPage = () => {
 
   const notices = useSelector(selectNotices);
   const isLoading = useSelector(selectNoticesIsLoading);
-  const error = useSelector(selectError);
   const isAuth = useSelector(getIsLoggedIn);
   const token = useSelector(selectToken);
 
-  const favorites = useSelector(selectFavoriteNotices);
-  const noticeFavorite = favorites;
+  const noticeFavorite = useSelector(selectFavoriteNotices);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -115,7 +109,11 @@ export const NoticesPage = () => {
   };
 
   const addNewNotice = async newPet => {
-   await dispatch(addNotice({ newNotice: newPet, token }));
+    toggleModal();
+    const response = await dispatch(addNotice({ newNotice: newPet, token }));
+  response
+    ? toast.success('Notice success added')
+    : toast.error('Something went wrong, please try again');
   return  dispatch(fetchAllNotices({ category: route }));
   };
 
@@ -147,13 +145,12 @@ export const NoticesPage = () => {
       <MenuWrap>
         <NoticesCategoryNav />
         <AddPetBtn onClick={onOpenModal} text={'Add pet'} />
-        {showModal && (
+        {showModal &&  (
           <Modal closeModal={toggleModal}>
-            <NoticeForm onCancel={toggleModal} addNewNotice={addNewNotice} />
+            <NoticeForm addNewNotice={addNewNotice} />
           </Modal>
         )}
       </MenuWrap>
-      {isLoading && !error && <Loader />}
 
       {route === 'own' && ownerNotices?.length > 0 && !isLoading ? (
         <NoticesCategoriesList data={ownerNotices} route={route} />
