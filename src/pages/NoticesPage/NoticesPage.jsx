@@ -171,9 +171,9 @@ export const NoticesPage = () => {
       </MenuWrap>
       {isLoading && !error && <Loader />}
 
-      {route === 'own' && ownerNotices?.length > 0 ? (
+      {route === 'own' && ownerNotices?.length > 0 && !isLoading ? (
         <NoticesCategoriesList data={ownerNotices} route={route} />
-      ) : route === 'favorite' && noticeFavorite?.length > 0 ? (
+      ) : route === 'favorite' && noticeFavorite?.length > 0 && !isLoading ? (
         <NoticesCategoriesList data={noticeFavorite} route={route} />
       ) : searchQweryTitle.length >= 1 && searchNotices?.length > 0 ? (
         <NoticesCategoriesList data={searchNotices} route={route} />
