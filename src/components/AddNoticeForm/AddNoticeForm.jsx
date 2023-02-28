@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { toast } from 'react-toastify';
 import { addNotice } from 'redux/Notices/NoticesOperations';
 import FirstPart from './FirstPartOfForm';
 import SecondPart from './SecondPartOfForm';
@@ -34,7 +35,7 @@ const AddNoticeForm = ({ closeModal }) => {
       await addNotice(data);
       closeModal();
     } catch (error) {
-      console.log(error.message);
+      toast.error('Something went wrong, please try again');
     }
   };
 

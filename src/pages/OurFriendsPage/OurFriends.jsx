@@ -1,4 +1,3 @@
-// import ContainerPage from 'components/Container/ContainerPage';
 import FriendsList from 'components/OurFriends/FriendsList';
 import PageTitle from 'components/PageTitle/PageTitle';
 

@@ -4,14 +4,12 @@ import { useEffect, useState } from 'react';
 
 import {
   fetchAllNotices,
-  fetchNoticesByCategoryAndTitle,
   addNotice,
 } from '../../redux/Notices/NoticesOperations';
 import {
   selectNotices,
   selectError,
   selectNoticesIsLoading,
-  // selectNoticesOwner,
 } from '../../redux/Notices/NoticesSelector';
 
 import {
@@ -59,9 +57,7 @@ export const NoticesPage = () => {
   const isLoading = useSelector(selectNoticesIsLoading);
   const error = useSelector(selectError);
   const isAuth = useSelector(getIsLoggedIn);
-  const debounceDelay = 2000;
   const token = useSelector(selectToken);
-  let timeoutId;
 
   const favorites = useSelector(selectFavoriteNotices);
   const noticeFavorite = favorites;
@@ -101,17 +97,7 @@ export const NoticesPage = () => {
     if (isAuth && currentUser !== null) {
       dispatch(getFavoriteNotices({ userId: currentUser }));
     }
-    //&&dispatch(getOwnerNotices({ userId: currentUser }));
   }, [isAuth, dispatch, currentUser]);
-
-  const onSearch = searchQuery => {
-    clearTimeout(timeoutId);
-    timeoutId = setTimeout(handleChanges(searchQuery), debounceDelay);
-  };
-
-  const handleChanges = searchQuery => {
-    setSearchQweryTitle(searchQuery);
-  };
 
   const onOpenModal = () => {
     if (!isAuth) {
@@ -139,12 +125,10 @@ export const NoticesPage = () => {
       try {
         const ownerNotice = await getAllNoticesForOwners();
 
-        // const array = res.filter(item => item.owner._id === currentUser);
-        // console.log('owner--->', array);
         setOwnerNotices(ownerNotice);
         return ownerNotice;
       } catch (error) {
-        console.log(error.message);
+        toast.error('Something went wrong, please try again');
       }
     }
     fetch();

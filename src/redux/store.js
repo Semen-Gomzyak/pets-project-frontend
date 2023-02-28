@@ -4,7 +4,6 @@ import { authReducer } from './Auth/slice';
 import { petsReducer } from './pets/petsReduser';
 import noticesReducer from './Notices/NoticesSlice';
 import { filterReducer } from './filterSlice';
-// import persistReducer from 'redux-persist/es/persistReducer';
 
 import {
   persistStore,
@@ -16,7 +15,6 @@ import {
   PURGE,
   REGISTER,
 } from 'redux-persist';
-
 
 const persistConfig = {
   key: 'auth',
@@ -41,5 +39,3 @@ export const store = configureStore({
 });
 
 export const persistor = persistStore(store);
-
-// export const persistor = persistStore(store);

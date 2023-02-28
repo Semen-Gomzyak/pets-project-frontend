@@ -81,7 +81,6 @@ export const NoticeFormStep1 = ({ data, next, onCancel }) => {
           <InputStyled
             id="title"
             name="title"
-            // autofocus={true}
             placeholder="Please, enter title"
           />
           <ErrorMessage

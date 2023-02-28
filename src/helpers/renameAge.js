@@ -54,11 +54,3 @@ export function renameAgeDate(data) {
     return ageStr === 'one' ? `${ageStr} year` : `${ageStr} years`;
   }
 }
-
-// console.log(renameAgeDate('2022-03-22T22:00:00.000Z')); // => eleven months
-// console.log(renameAgeDate('2022-07-22T22:00:00.000Z')); // => seven months
-// console.log(renameAgeDate('2023-01-22T22:00:00.000Z')); // => one month
-// console.log(renameAgeDate('2019-01-22T22:00:00.000Z')); // => four years
-// console.log(renameAgeDate('2022-01-22T22:00:00.000Z')); // => one year
-// console.log(renameAgeDate('2012-01-22T22:00:00.000Z')); // => eleven years
-// console.log(renameAgeDate('2007-01-22T22:00:00.000Z')); // => sixteen years

@@ -9,7 +9,6 @@ import {
 } from '../../../redux/Auth/selectors';
 
 import { toast } from 'react-toastify';
-// import defaultImage from '../../../images/userAndPets/Rectangle 58.png';
 
 import {
   Category,

@@ -1,5 +1,4 @@
 import React from 'react';
-// import './ContactListStyles.scss';
 import { deletePets } from '../../redux/pets/petsOperations';
 import { getPets } from '../../redux/pets/petsReduser';
 import { useDispatch, useSelector } from 'react-redux';
