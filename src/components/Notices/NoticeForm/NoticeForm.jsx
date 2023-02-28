@@ -12,7 +12,7 @@ export const NoticeForm = ({ onCancel, addNewNotice }) => {
     location: '',
     breed: '',
     theSex: '',
-    price: '',
+    price: 1,
     comments: '',
     avatarURL: null,
   });

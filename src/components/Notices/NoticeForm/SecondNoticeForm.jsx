@@ -98,21 +98,25 @@ export const NoticeFormStep2 = ({ data, next, back }) => {
             )}
           />
 
-          <LabelStyled htmlFor="price">
-            Price<span style={{ color: `#F59256` }}>*</span>:
-          </LabelStyled>
-          <InputStyled
-            id="price"
-            name="price"
-            // autofocus={true}
-            placeholder="Please, enter price"
-          />
-          <ErrorMessage
-            name="price"
-            render={message => (
-              <ErrorStyled style={{ color: 'red' }}>{message}</ErrorStyled>
-            )}
-          />
+          {data.category === 'sell' && (
+            <>
+              <LabelStyled htmlFor="price">
+                Price<span style={{ color: `#F59256` }}>*</span>:
+              </LabelStyled>
+              <InputStyled
+                id="price"
+                name="price"
+                // autofocus={true}
+                placeholder="Please, enter price"
+              />
+              <ErrorMessage
+                name="price"
+                render={message => (
+                  <ErrorStyled style={{ color: 'red' }}>{message}</ErrorStyled>
+                )}
+              />
+            </>
+          )}
 
           <ImageLabel>Load the pet’s image:</ImageLabel>
 
