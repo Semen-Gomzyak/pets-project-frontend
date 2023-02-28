@@ -35,7 +35,12 @@ export const BoxWrap = styled.div`
   align-items: center;
   flex-direction: column;
   padding: 20px 0;
+  @media ${p => p.theme.device.mobile} {
+    width: 240px;
+  }
+
   @media ${p => p.theme.device.tablet} {
+    width: 568px;
     padding: 20px 60px;
   }
 `;
@@ -219,9 +224,9 @@ export const ButtonContainer = styled.div`
   align-items: center;
   justify-content: center;
   margin-top: 40px;
-  gap: 20px;
   @media ${p => p.theme.device.tablet} {
     flex-direction: row;
+    gap: 20px;
   }
 `;
 
@@ -240,7 +245,14 @@ export const Button = styled.button`
   background-color: ${p => p.theme.colors.white};
   transition: color 0.25s cubic-bezier(0.4, 0, 0.2, 1);
   transition: background-color 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  margin-bottom: 12px;
+
+  :last-child {
+    margin-bottom: 0;
+  }
+
   @media ${props => props.theme.device.tablet} {
+    margin-bottom: 0;
     width: 180px;
     height: 44px;
   }
