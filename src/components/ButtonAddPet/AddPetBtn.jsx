@@ -2,7 +2,7 @@ import { ButtonMob, Button, BtnCiCirclePlus } from './AddPetBtn.styled';
 import { useMedia } from 'react-use';
 
 export const AddPetBtn = ({ text, onClick }) => {
-  const isMobile = useMedia('(max-width: 767px)');
+  const isMobile = useMedia('(max-width: 532px)');
 
   const handleButtonClick = () => {
     onClick();
@@ -15,7 +15,8 @@ export const AddPetBtn = ({ text, onClick }) => {
           <span>
             <BtnCiCirclePlus />
           </span>
-          {text}
+          {/* {text} */}
+          <span style={{ color: '#ffffff' }}>Add pet</span>
         </ButtonMob>
       ) : (
         <Button type="button" onClick={handleButtonClick}>

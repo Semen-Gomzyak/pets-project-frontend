@@ -107,6 +107,7 @@ export const Input = styled.input`
     width: 216px;
   }
 
+  ::-webkit-inner-spin-button,
   ::-webkit-calendar-picker-indicator {
     background: transparent;
     color: transparent;
