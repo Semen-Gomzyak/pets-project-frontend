@@ -115,8 +115,8 @@ export const NoticesPage = () => {
   };
 
   const addNewNotice = async newPet => {
-    const pet = await dispatch(addNotice({ newNotice: newPet, token }));
-    setUserNotices(prevState => [...prevState, pet]);
+   await dispatch(addNotice({ newNotice: newPet, token }));
+  return  dispatch(fetchAllNotices({ category: route }));
   };
 
   const [ownerNotices, setOwnerNotices] = useState([]);
