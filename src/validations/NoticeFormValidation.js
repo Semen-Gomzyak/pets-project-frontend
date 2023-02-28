@@ -34,9 +34,9 @@ export const NoticeSchemaSecond = Yup.object().shape({
     .max(120, 'Comments must not exceed 120 characters')
     .matches(/^[a-zA-Zа-яА-ЯіІїЇєЄёЁ\s]*$/, 'Please enter a valid comments'),
   price: Yup.number()
-    .required('Price is a required field')
+  .default(1)
     .typeError('Price must be a number')
-    .positive('Price must be a positive number')
-    .integer('Price must be an integer')
-    .min(1, 'Price must not start with zero'),
+    // .positive('Price must be a positive number')
+    // .integer('Price must be an integer')
+    // .min(0, 'Price must not start with zero'),
 });
