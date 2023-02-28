@@ -48,6 +48,12 @@ export const InputStyled = styled(Field)`
   margin-bottom: 16px;
   border: 1px solid rgba(245, 146, 86, 0.5);
   width: 240px;
+  @media ${p => p.theme.device.mobile} {
+    width: calc(100vw - 80px);
+  }
+  @media screen and (min-width: 480px) {
+    width: 400px;
+  }
   height: 40px;
   border-radius: ${p => p.theme.radii.bignormal};
   background-color: rgb(253, 247, 242);
@@ -317,8 +323,3 @@ export const Image = styled.img`
     border-radius: ${p => p.theme.radii.bignormal};
   }
 `;
-
-  
-
-
-
