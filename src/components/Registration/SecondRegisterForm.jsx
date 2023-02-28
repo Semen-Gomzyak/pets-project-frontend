@@ -14,15 +14,16 @@ import {
   RegisterTitle,
   Text,
   ButtonContainer,
+  InputDiv,
 } from './RegisterForm.styled';
 import { useNavigate } from 'react-router';
 
-export const SecondRegisterForm = ({ data, onClick }) => {
+export const SecondRegisterForm = ({ firstData, data, onClick }) => {
   const navigate = useNavigate();
   const initialValues = {
-    name: '',
-    cityRegion: '',
-    mobilePhone: '',
+    name: data.name || '',
+    cityRegion: data.cityRegion || '',
+    mobilePhone: data.mobilePhone || '',
   };
 
   const dispatch = useDispatch();
@@ -30,8 +31,8 @@ export const SecondRegisterForm = ({ data, onClick }) => {
   const handleSubmit = async (values, { resetForm }) => {
     const response = await dispatch(
       register({
-        email: data.email,
-        password: data.password,
+        email: firstData.email,
+        password: firstData.password,
         name: values.name,
         cityRegion: values.cityRegion,
         mobilePhone: values.mobilePhone,
@@ -41,11 +42,11 @@ export const SecondRegisterForm = ({ data, onClick }) => {
     if (response.payload.status === 201) {
       toast.success('success registration');
       const loginResponse = await dispatch(
-        login({ email: data.email, password: data.password })
+        login({ email: firstData.email, password: firstData.password })
       );
 
       if (response.payload.status === 409) {
-        toast.error(`${data.email} is use please login`);
+        toast.error(`${firstData.email} is use please login`);
         navigate('/login', { replace: true });
       }
 
@@ -61,6 +62,8 @@ export const SecondRegisterForm = ({ data, onClick }) => {
     resetForm();
   };
 
+  
+
   return (
     <Formik
       initialValues={initialValues}
@@ -71,34 +74,42 @@ export const SecondRegisterForm = ({ data, onClick }) => {
         <InfoForm autoComplete="off" onSubmit={props.handleSubmit}>
           <RegisterTitle>Registration</RegisterTitle>
           <InputsList>
-            <Error name="name" component="div" />
-            <Input
-              type="text"
-              name="name"
-              placeholder="Name"
-              value={props.values.name}
-              onChange={props.handleChange}
-            />
-            <Error name="cityRegion" component="div" />
-            <Input
-              type="text"
-              name="cityRegion"
-              placeholder="City, region"
-              value={props.values.city}
-              onChange={props.handleChange}
-            />
-            <Error name="mobilePhone" component="div" />
-            <Input
-              type="text"
-              name="mobilePhone"
-              placeholder="Mobile phone"
-              value={props.values.mobilePhone}
-              onChange={props.handleChange}
-            />
+
+            <InputDiv>
+              <Error name="name" component="div" />
+              <Input
+                type="text"
+                name="name"
+                placeholder="Name"
+                value={props.values.name}
+                onChange={props.handleChange}
+              />
+            </InputDiv>
+            <InputDiv>
+              <Error name="cityRegion" component="div" />
+              <Input
+                type="text"
+                name="cityRegion"
+                placeholder="City, region"
+                value={props.values.city}
+                onChange={props.handleChange}
+              />
+            </InputDiv>
+            <InputDiv>
+              <Error name="mobilePhone" component="div" />
+              <Input
+                type="text"
+                name="mobilePhone"
+                placeholder="Mobile phone"
+                value={props.values.mobilePhone}
+                onChange={props.handleChange}
+              />
+            </InputDiv>
+
           </InputsList>
           <ButtonContainer>
-            <Button type="submit">Register</Button>
-            <Button type="button" onClick={() => onClick()}>
+            <Button type="submit" style = {{marginBottom:'16px'}}>Register</Button>
+            <Button type="button"  style = {{color:'#111111',borderColor:'#F59256',backgroundColor:'#FFFFFF'}} onClick={() => onClick(props.values)}>
               Back
             </Button>
           </ButtonContainer>

@@ -1,16 +1,17 @@
 import { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { createPortal } from 'react-dom';
-import { Backdrop, ModalContainer, CloseBtn } from './Modal.styled';
-import { MdClose } from 'react-icons/md';
+import { Backdrop, ModalContainer, CloseBtn, MdCloseBtn } from './Modal.styled';
 
 export const Modal = ({ closeModal, children }) => {
   useEffect(() => {
     window.addEventListener('keydown', onEscapePress);
+    document.body.classList.add("is-modal-open")
     return () => {
       window.removeEventListener('keydown', onEscapePress);
+      document.body.classList.remove('is-modal-open');
     };
-  });
+  }, []);
 
   const modalRoot = document.querySelector('#modal-root');
 
@@ -29,9 +30,10 @@ export const Modal = ({ closeModal, children }) => {
   return createPortal(
     <Backdrop onClick={onBackdropClick} id="backdrop">
       <ModalContainer className="is-open">
+
         <>
           <CloseBtn type="button" onClick={closeModal}>
-            <MdClose size={25} color="#111111" />
+            <MdCloseBtn size={25} />
           </CloseBtn>
           {children}
         </>

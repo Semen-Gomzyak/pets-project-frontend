@@ -6,6 +6,7 @@ import { RegisterSection } from './RegisterForm.styled';
 
 export const RegisterForm = () => {
   const [firstData, setFirstData] = useState({});
+  const [secondData, setSecondData] = useState({});
   const [showNext, setShowNext] = useState(false);
 
   const onSubmit = values => {
@@ -15,8 +16,9 @@ export const RegisterForm = () => {
     }
   };
 
-  const handleBack = () => {
+  const handleBack = values => {
     setShowNext(false);
+    setSecondData(values);
   };
 
   return (
@@ -30,7 +32,7 @@ export const RegisterForm = () => {
               onClick={showNext}
             />
           ) : (
-            <SecondRegisterForm data={firstData} onClick={handleBack} />
+            <SecondRegisterForm firstData={firstData} data={secondData} onClick={handleBack} />
           )}
         {/* </ContainerPage> */}
       </RegisterSection>

@@ -82,8 +82,6 @@ export const NoticeCategoryItem = ({ data, route }) => {
         })
       );
 
-      toast.success('Added to favorites!');
-
       if (route === 'favorite') {
         dispatch(changeFavoritesNotices(_id));
       }
@@ -103,14 +101,6 @@ export const NoticeCategoryItem = ({ data, route }) => {
     setIsShownConfirmationDelete(!isShownConfirmationDelete);
   };
   const deleteNotice = () => {
-    // {
-    //   showModal && (
-    //     <Modal
-    //       closeModal={toggleModal}
-    //       children={<p>You really want to delete this Notice ?</p>}
-    //     ></Modal>
-    //   );
-    // }
     dispatch(removeNotice(data._id));
 
     toast.success('Notice is deleted.');
@@ -204,7 +194,7 @@ export const NoticeCategoryItem = ({ data, route }) => {
               children={
                 <NoticeModal
                   id={data._id}
-                  category={route}
+                  category={getTitleCategory(category)}
                   notice={data}
                   isFavorite={isFavorite}
                   onClickFavorite={onChangeFavorite}

@@ -10,9 +10,13 @@ import {
   RegisterTitle,
   Text,
   ButtonContainer,
+  InputDiv,
+  ShowPass,
+  ShowConfirmPass,
 } from './RegisterForm.styled';
 
-import React from 'react';
+import React, { useState } from 'react';
+import { FiEye, FiEyeOff } from 'react-icons/fi';
 
 export const FirstRegisterForm = ({ data, onSubmit, onClick }) => {
   const initialValues = {
@@ -21,8 +25,16 @@ export const FirstRegisterForm = ({ data, onSubmit, onClick }) => {
     confirmPassword: data.confirmPassword || '',
   };
 
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const showPass = () => {
+    setShowPassword(prevShowPassword => !prevShowPassword);
+  };
+  const showConfirmPass = () => {
+    setShowConfirmPassword(prevShowConfirmPassword => !prevShowConfirmPassword);
+  };
+
   const handleSubmit = values => {
-    console.log(values);
     onSubmit(values);
   };
 
@@ -36,30 +48,42 @@ export const FirstRegisterForm = ({ data, onSubmit, onClick }) => {
         <InfoForm autoComplete="off" onSubmit={props.handleSubmit}>
           <RegisterTitle>Registration</RegisterTitle>
           <InputsList>
-            <Error name="email" component="div" />
-            <Input
-              type="email"
-              name="email"
-              placeholder="Email"
-              value={props.values.email}
-              onChange={props.handleChange}
-            />
-            <Error name="password" component="div" />
-            <Input
-              type="password"
-              name="password"
-              placeholder="Password"
-              value={props.values.password}
-              onChange={props.handleChange}
-            />
-            <Error name="confirmPassword" component="div" />
-            <Input
-              type="password"
-              name="confirmPassword"
-              placeholder="Confirm Password"
-              value={props.values.confirmPassword}
-              onChange={props.handleChange}
-            />
+            <InputDiv>
+              <Error name="email" component="div" />
+              <Input
+                type="email"
+                name="email"
+                placeholder="Email"
+                value={props.values.email}
+                onChange={props.handleChange}
+              />
+            </InputDiv>
+            <InputDiv>
+              <Error name="password" component="div" />
+              <Input
+                type="password"
+                name="password"
+                placeholder="Password"
+                value={props.values.password}
+                onChange={props.handleChange}
+              />
+            </InputDiv>
+            <ShowPass onClick={showPass}>
+              {showPassword ? <FiEyeOff /> : <FiEye />}
+            </ShowPass>
+            <InputDiv>
+              <Error name="confirmPassword" component="div" />
+              <Input
+                type="password"
+                name="confirmPassword"
+                placeholder="Confirm Password"
+                value={props.values.confirmPassword}
+                onChange={props.handleChange}
+              />
+            </InputDiv>
+            <ShowConfirmPass onClick={showConfirmPass}>
+              {showConfirmPassword ? <FiEyeOff /> : <FiEye />}
+            </ShowConfirmPass>
           </InputsList>
           <ButtonContainer>
             <Button type="submit" disabled={!onClick ? false : true}>

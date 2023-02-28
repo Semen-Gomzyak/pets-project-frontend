@@ -1,5 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect, useState } from 'react';
+
+import { useEffect } from 'react';
 
 import { selectOneNotice } from 'redux/Notices/NoticesSelector';
 import {
@@ -8,7 +9,7 @@ import {
 } from '../../../redux/Auth/selectors';
 
 import { toast } from 'react-toastify';
-import defaultImage from '../../../images/userAndPets/Rectangle 58.png';
+// import defaultImage from '../../../images/userAndPets/Rectangle 58.png';
 
 import {
   Category,
@@ -21,15 +22,15 @@ import {
   ImageContainer,
   BtnContainer,
   Box,
-} from './NoticeModal.styled';
-import {
   FavoriteIconFalse,
   FavoriteIconTrue,
-} from '../../ButtonFavorite/BtnFavorite.styled';
+  LinkTel,
+} from './NoticeModal.styled';
 
 import { renameAgeDate } from 'helpers/renameAge';
 
 import { fetchOneNotice } from 'redux/Notices/NoticesOperations';
+import { clearOneNotice } from 'redux/Notices/NoticesSlice';
 
 export const NoticeModal = ({
   id,
@@ -40,15 +41,14 @@ export const NoticeModal = ({
 }) => {
   const dispatch = useDispatch();
   const isAuth = useSelector(getIsLoggedIn);
-  const [fav, setFav] = useState(favorite);
-  console.log('favorite', favorite);
 
   const favorites = useSelector(selectFavoriteNotices);
+  const fav = favorites.includes(id);
   const notice = useSelector(selectOneNotice);
-  console.log('favorites', favorites);
 
   useEffect(() => {
     dispatch(fetchOneNotice({ noticeId: id }));
+    dispatch(clearOneNotice({}));
   }, [id, dispatch]);
 
   const handleClickAddFavorite = () => {
@@ -56,15 +56,7 @@ export const NoticeModal = ({
       return toast.error(`You must be authorized to use this functionality!.`);
     }
 
-    if (favorite) {
-      return toast.warn('Notice already added to favorite');
-    }
     onClickFavorite();
-    if (fav) {
-      setFav(false);
-    } else {
-      setFav(true);
-    }
   };
 
   return (
@@ -73,7 +65,7 @@ export const NoticeModal = ({
         <ImageContainer>
           <PictureData>
             <Img
-              src={notice.avatarURL ? notice.avatarURL : defaultImage}
+              src={notice.avatarURL ? notice.avatarURL : '#'}
               alt={notice.title}
             ></Img>
             <Category>{category}</Category>
@@ -128,26 +120,25 @@ export const NoticeModal = ({
 
         <BtnContainer>
           {
-            <a href="tel:{notice?.phone}">
-              <MyBtn active={'active'}>Contact</MyBtn>
-            </a>
+            <MyBtn active={'active'} className={'contact'}>
+              <LinkTel href="tel:{notice?.phone}">Contact</LinkTel>
+            </MyBtn>
           }
 
           <MyBtn
             onClick={handleClickAddFavorite}
             className={fav === true ? 'active' : ' '}
-            textBtn={fav === true ? 'Remove to' : 'Add to'}
           >
-            {!favorite ? (
-              <span>
-                Add to
-                <FavoriteIconFalse size={16} />{' '}
-              </span>
+            {!fav ? (
+              <div>
+                <span>Add to</span>
+                <FavoriteIconFalse size={14} />{' '}
+              </div>
             ) : (
-              <span>
-                Remove to
-                <FavoriteIconTrue size={16} />{' '}
-              </span>
+              <div>
+                <span>Remove to</span>
+                <FavoriteIconTrue size={14} />{' '}
+              </div>
             )}
           </MyBtn>
         </BtnContainer>

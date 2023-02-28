@@ -73,17 +73,14 @@ const noticesSlice = createSlice({
     changeFavoritesNotices(state, { payload }) {
       state.notices = state.notices.filter(notice => notice._id !== payload);
     },
-    // getAllNoticesForOwner(state, { payload }) {
-    // console.log('getOwnerNotice state', state.notices);
-    // console.log('getOwnerNotice payload', payload.userId);
-    // state.notices = state.notices.filter(
-    //   notice => notice.owner._id === payload.userId
-    // );
-    // },
+    clearOneNotice(state, { payload }) {
+      state.oneNotice = payload;
+    },
   },
 });
 
 // Редюсер слайса
 const noticesReducer = noticesSlice.reducer;
 export default noticesReducer;
-export const { clearNotices, changeFavoritesNotices } = noticesSlice.actions;
+export const { clearNotices, changeFavoritesNotices, clearOneNotice } =
+  noticesSlice.actions;
