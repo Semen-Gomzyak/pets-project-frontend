@@ -33,7 +33,6 @@ export const NoticeForm = ({ onCancel, addNewNotice }) => {
     setData(prev => ({ ...prev, ...newData, category }));
     if (final) {
       await addNewNotice(newData);
-      onCancel();
       // const makeReq = async formData => {
       //   const newNotice = new FormData();
       //   newNotice.append('category', formData.category);
