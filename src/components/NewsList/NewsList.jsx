@@ -1,3 +1,8 @@
+// import { useState, useEffect } from 'react';
+import {  ButtonFriend } from '../OurFriends/FriendsList.styled'
+// import { Loader } from 'components/Loader/Loader';
+
+
 import {
   List,
   ListItem,
@@ -8,7 +13,9 @@ import {
   Link,
 } from './NewsList.styled';
 
-export const NewsList = ({ news }) => {
+export const NewsList = ({news}, loadMore, isNews, error, disable ) => {
+ 
+
   return (
     <>
       <List>
@@ -36,6 +43,14 @@ export const NewsList = ({ news }) => {
           </ListItem>
         ))}
       </List>
+      {isNews && (
+        <ButtonFriend onClick={loadMore} disabled={disable}>
+          Load more
+        </ButtonFriend>
+      )}
+      {error && <p>Something went wrong, try again later.</p>}
+      {/* {loading && <Loader />} */}
+
     </>
   );
 };
