@@ -8,35 +8,31 @@ import { SectionTitle } from '../../components/SectionTitle/SectionTitle';
 import { SearchInput } from '../../components/SearchInput/SearchInput';
 import { WrapNews } from './NewsPage.styled';
 
-
 export const NewsPage = () => {
   const [news, setNews] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const [page, setPage] = useState(1);
   const [disable, setDisable] = useState(true);
 
-  const isNews = Boolean(news.length);
+  
 
   useEffect(() => {
     setError(null);
     setIsLoading(true);
 
-
     async function fetchNews() {
       try {
+        const limit = 6;
 
-        
-        const result = await getNews({});
-        const data = result.data.data;
-        console.log(data);
+        const result = await getNews(page, limit);
+        const data = result.news;
 
         setNews(prevNews => [...prevNews, ...data]);
 
-        news.length === result.data.total
-
-        ? setDisable(true)
-        : setDisable(false);
+        news.length === result.total
+          ? setDisable(true)
+          : setDisable(false);
 
         if (result.length === 0) {
           throw new Error();
@@ -45,10 +41,11 @@ export const NewsPage = () => {
         sortNewsByDate(result);
       } catch (error) {
         console.log(error);
+        setIsLoading(false);
       }
     }
     fetchNews();
-  }, [news.length, page]);
+  }, [page]);
 
   const searchNews = async query => {
     const searchQuery = query.toLowerCase();
@@ -79,7 +76,6 @@ export const NewsPage = () => {
   }
 
 
-
   return (
     <>
       <ContainerPage>
@@ -90,7 +86,12 @@ export const NewsPage = () => {
           ) : (
             <>
               <SearchInput functionSearch={searchNews} />
-              <NewsList news={news} loadMore={loadMore} isNews={isNews} error={error} disabled={disable}  />
+              <NewsList
+                news={news}
+                loadMore={loadMore}
+                error={error}
+                disabled={disable}
+              />
             </>
           )}
           {news.length === 0 && !isLoading && (

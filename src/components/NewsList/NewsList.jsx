@@ -13,8 +13,8 @@ import {
   Link,
 } from './NewsList.styled';
 
-export const NewsList = ({news}, loadMore, isNews, error, disable ) => {
- 
+export const NewsList = ({ news, loadMore, error, disable }) => {
+  const isNews = Boolean(news.length);
 
   return (
     <>
@@ -50,7 +50,6 @@ export const NewsList = ({news}, loadMore, isNews, error, disable ) => {
       )}
       {error && <p>Something went wrong, try again later.</p>}
       {/* {loading && <Loader />} */}
-
     </>
   );
 };
