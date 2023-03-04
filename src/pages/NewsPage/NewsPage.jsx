@@ -45,6 +45,7 @@ export const NewsPage = () => {
       }
     }
     fetchNews();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page]);
 
   const searchNews = async query => {
